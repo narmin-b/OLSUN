@@ -18,8 +18,8 @@ class ReusableLabel: UILabel {
     init(
         labelText: String!,
         labelColor: UIColor = .black,
-        labelFont: FontKeys = .systemMedium,
-        labelSize: CGFloat = 12,
+        labelFont: FontKeys = .workSansMedium,
+        labelSize: CGFloat = 16,
         numOfLines: Int = 1,
         bgColor: UIColor = .clear
     ) {

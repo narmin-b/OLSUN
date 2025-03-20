@@ -49,11 +49,11 @@ class ReusableTextField: UITextField {
     
     init(placeholder: String!,
          placeholderSize: CGFloat = 16,
-         placeholderFont: FontKeys = .systemLight,
+         placeholderFont: FontKeys = .robotoRegular,
          placeholderColor: UIColor = .gray,
          cornerRadius: CGFloat = 12,
-         backgroundColor: UIColor = .white,
-         borderColor: UIColor = .gray,
+         backgroundColor: UIColor = .clear,
+         borderColor: UIColor = .black,
          borderWidth: CGFloat = 1) {
         self.placeholderTitle = placeholder
         self.placeholderFont = placeholderFont
@@ -86,21 +86,13 @@ class ReusableTextField: UITextField {
         leftViewMode = .always
     }
     
-//    fileprivate func iconUISetting(_ iconName: String, x: Int = 10) -> UIView {
-//        let icon = UIImageView(image: UIImage(systemName: iconName))
-//        icon.tintColor = iconTintColor
-//        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: icon.frame.height))
-//        icon.frame = CGRect(x: CGFloat(integerLiteral: x), y: 0, width: icon.frame.width, height: icon.frame.height)
-//        paddingView.addSubview(icon)
-//        return paddingView
-//    }
     fileprivate func iconUISetting(_ iconName: String, x: CGFloat = 10) -> UIView {
         let icon = UIImageView(image: UIImage(systemName: iconName))
         icon.tintColor = iconTintColor
         icon.contentMode = .scaleAspectFit
 
-        let paddingViewHeight: CGFloat = 44 // Adjust this to match your text field height
-        let iconSize: CGFloat = 20  // Adjust the icon size if needed
+        let paddingViewHeight: CGFloat = 44
+        let iconSize: CGFloat = 20
 
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: paddingViewHeight))
         icon.frame = CGRect(x: x, y: (paddingViewHeight - iconSize) / 2, width: iconSize, height: iconSize)

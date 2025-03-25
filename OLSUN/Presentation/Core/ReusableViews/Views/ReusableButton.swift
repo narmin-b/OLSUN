@@ -18,7 +18,17 @@ class ReusableButton: UIButton {
     private var borderColor: UIColor
     private var borderWidth: CGFloat
     
-    init(title: String!, onAction: (@escaping () -> Void), cornerRad: CGFloat = 12, bgColor: UIColor = .primaryHighlight, titleColor: UIColor = .backgroundMain, titleSize: CGFloat = 16, titleFont: FontKeys = .interRegular, borderColor: UIColor = .clear, borderWidth: CGFloat = 0) {
+    init(
+        title: String!,
+        onAction: (@escaping () -> Void),
+        cornerRad: CGFloat = 8,
+        bgColor: UIColor = .primaryHighlight,
+        titleColor: UIColor = .backgroundMain,
+        titleSize: CGFloat = 16,
+        titleFont: FontKeys = .interRegular,
+        borderColor: UIColor = .clear,
+        borderWidth: CGFloat = 0
+    ) {
         self.title = title
         self.onAction = onAction
         self.bgColor = bgColor

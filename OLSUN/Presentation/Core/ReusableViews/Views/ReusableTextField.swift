@@ -23,11 +23,11 @@ class ReusableTextField: UITextField {
     init(placeholder: String!,
          iconName: String?,
          placeholderSize: CGFloat = 16,
-         placeholderFont: FontKeys = .systemLight,
+         placeholderFont: FontKeys = .robotoRegular,
          placeholderColor: UIColor = .gray,
          iconSetting: Int = 10,
          iconTintColor: UIColor = .black,
-         cornerRadius: CGFloat = 12,
+         cornerRadius: CGFloat = 4,
          backgroundColor: UIColor = .white,
          borderColor: UIColor = .gray,
          borderWidth: CGFloat = 1) {
@@ -51,7 +51,7 @@ class ReusableTextField: UITextField {
          placeholderSize: CGFloat = 16,
          placeholderFont: FontKeys = .robotoRegular,
          placeholderColor: UIColor = .gray,
-         cornerRadius: CGFloat = 12,
+         cornerRadius: CGFloat = 4,
          backgroundColor: UIColor = .clear,
          borderColor: UIColor = .black,
          borderWidth: CGFloat = 1) {
@@ -99,5 +99,13 @@ class ReusableTextField: UITextField {
 
         paddingView.addSubview(icon)
         return paddingView
+    }
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 16, dy: 0)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 16, dy: 0)
     }
 }

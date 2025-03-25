@@ -31,6 +31,9 @@ final class AuthCoordinator: Coordinator {
     func start() {
 //        if UserDefaultsHelper.getBool(key: .hasCompletedOnboarding) {
             showLogin()
+//        showSignUp()
+//        showOnboarding()
+//        showLaunch()
 //        } else {
 //            showOnboarding()
 //        }
@@ -60,12 +63,17 @@ extension AuthCoordinator: AuthNavigation {
     }
     
     func showSignUp() {
-//        let vc = SignupViewController(viewModel: .init(navigation: self))
-//        showController(vc: vc)
+        let vc = SignUpViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
+    }
+    
+    func showLaunch() {
+        let vc = LaunchViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
     }
     
     func showOnboarding() {
-//        let vc = OnboardingViewController(viewModel: .init(navigation: self))
-//        showController(vc: vc)
+        let vc = OnboardingViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
     }
 }

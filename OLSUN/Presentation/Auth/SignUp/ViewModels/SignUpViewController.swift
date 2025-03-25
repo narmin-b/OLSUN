@@ -1,13 +1,13 @@
 //
-//  LoginViewController.swift
+//  SignUpViewController.swift
 //  OLSUN
 //
-//  Created by Narmin Baghirova on 19.03.25.
+//  Created by Narmin Baghirova on 20.03.25.
 //
 
 import UIKit
 
-final class LoginViewController: BaseViewController {
+final class SignUpViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -20,7 +20,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Log into an account to use our services",
+            labelText: "Create an  account to use our services",
             labelColor: .primaryHighlight,
             labelFont: .workSansBold,
             labelSize: 32,
@@ -37,7 +37,6 @@ final class LoginViewController: BaseViewController {
         )
         textfield.textColor = .black
         textfield.tintColor = .black
-        textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -71,7 +70,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Log in",
+            title: "Create Account",
             onAction: loginTapped,
             titleFont: .interSemiBold
         )
@@ -182,9 +181,9 @@ final class LoginViewController: BaseViewController {
     }()
     
     
-    private let viewModel: LoginViewModel?
+    private let viewModel: SignUpViewModel?
     
-    init(viewModel: LoginViewModel) {
+    init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -202,12 +201,6 @@ final class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        
-        for family in UIFont.familyNames {
-            for font in UIFont.fontNames(forFamilyName: family) {
-                print(font)
-            }
-        }
     }
     
     fileprivate func setUpBackground() {
@@ -254,6 +247,7 @@ final class LoginViewController: BaseViewController {
                 padding: .init(top: 60, left: 52, bottom: 0, right: -52)
             )
         }
+        
         titleLabel.centerXToSuperview()
         
         emailTextField.anchor(

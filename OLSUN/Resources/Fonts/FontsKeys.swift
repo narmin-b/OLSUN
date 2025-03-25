@@ -8,12 +8,12 @@
 import Foundation
 
 enum FontKeys: String {
-    case interBold = "Inter_18pt-Bold"
-    case interExtraLight = "Inter_18pt-ExtraLight"
-    case interLight = "Inter_18pt-Light"
-    case interMedium = "Inter_18pt-Medium"
-    case interRegular = "Inter_18pt-Regular"
-    case interSemiBold = "Inter_18pt-SemiBold"
+    case interBold = "Inter18pt-Bold"
+    case interExtraLight = "Inter18pt-ExtraLight"
+    case interLight = "Inter18pt-Light"
+    case interMedium = "Inter18pt-Medium"
+    case interRegular = "Inter18pt-Regular"
+    case interSemiBold = "Inter18pt-SemiBold"
     case robotoBold = "Roboto-Bold"
     case robotoExtraLight = "Roboto-ExtraLight"
     case robotoLight = "Roboto-Light"

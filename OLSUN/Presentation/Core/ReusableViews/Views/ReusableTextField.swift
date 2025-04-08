@@ -51,9 +51,9 @@ class ReusableTextField: UITextField {
          placeholderSize: CGFloat = 16,
          placeholderFont: FontKeys = .robotoRegular,
          placeholderColor: UIColor = .gray,
-         cornerRadius: CGFloat = 4,
-         backgroundColor: UIColor = .clear,
-         borderColor: UIColor = .black,
+         cornerRadius: CGFloat = 12,
+         backgroundColor: UIColor = .white,
+         borderColor: UIColor = .clear,
          borderWidth: CGFloat = 1) {
         self.placeholderTitle = placeholder
         self.placeholderFont = placeholderFont

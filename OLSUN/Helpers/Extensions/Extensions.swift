@@ -192,7 +192,7 @@ extension String {
     }
     
     func isValidPassword() -> Bool {
-        let pattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        let pattern = "^[a-zA-Z0-9@#_-]{8,16}$"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: self)
     }
     
@@ -225,6 +225,7 @@ extension UIImageView {
 extension UITextField {
     func errorBorderOff() {
         self.layer.borderWidth = 0
+        self.layer.borderColor = UIColor.black.cgColor
         self.layer.masksToBounds = false
     }
     
@@ -302,7 +303,6 @@ extension UINavigationItem {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         self.backBarButtonItem = backButton
-//        self.navigationBar.tintColor = .primaryHighlight
     }
 }
 
@@ -321,5 +321,23 @@ extension MKCoordinateRegion {
         let center = CLLocationCoordinate2D(latitude: 35.2, longitude: 33.4)
         let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.8)
         return MKCoordinateRegion(center: center, span: span)
+    }
+}
+
+extension UIView {
+    func addShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 4
+        self.layer.masksToBounds = false
+    }
+}
+
+func printFonts() {
+    for family in UIFont.familyNames {
+        for font in UIFont.fontNames(forFamilyName: family) {
+            print(font)
+        }
     }
 }

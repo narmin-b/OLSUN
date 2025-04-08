@@ -7,116 +7,132 @@
 
 import UIKit
 
-final class OnboardingViewController: BaseViewController {
-    private lazy var loadingView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .large)
-        view.color = .black
-        view.tintColor = .black
-        view.hidesWhenStopped = true
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var imageView: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "onboardingImage"))
-        imageview.contentMode = .scaleAspectFill
-        imageview.translatesAutoresizingMaskIntoConstraints = false
-        return imageview
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 3
-        label.textAlignment = .center
-        
-        var size = 32
-        if flag { size = 28 }
-
-        let regularFont = UIFont(name: FontKeys.workSansMedium.rawValue, size: CGFloat(size))
-        let boldFont = UIFont(name: FontKeys.workSansBold.rawValue, size: CGFloat(size))
-
-        let text = "Find all the needed services for your "
-        let boldText = "special day"
-
-        let attributedString = NSMutableAttributedString(string: text, attributes: [.font: regularFont, .foregroundColor: UIColor.primaryHighlight])
-        let boldAttributedString = NSAttributedString(string: boldText, attributes: [.font: boldFont, .foregroundColor: UIColor.primaryHighlight])
-
-        attributedString.append(boldAttributedString)
-
-        label.attributedText = attributedString
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
+    private lazy var nextButton: UIButton = {
+        let button = ReusableButton(
+            title: "Növbəti",
+            onAction: nextTapped,
+            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
+            titleFont: .workSansMedium
+        )
+        button.addShadow()
+        button.isHidden = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Login",
+            title: "Daxil ol",
             onAction: loginTapped,
-            titleFont: .interBold
+            bgColor: .accentMain,
+            titleColor: .primaryHighlight,
+            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
+            titleFont: .workSansMedium
         )
+        button.addShadow()
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var registerButton: UIButton = {
         let button = ReusableButton(
-            title: "Register",
+            title: "Hesab yarat",
             onAction: registerTapped,
-            bgColor: .backgroundMain,
-            titleColor: .primaryHighlight,
-            titleFont: .interBold,
-            borderColor: .primaryHighlight,
-            borderWidth: 2
+            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
+            titleFont: .workSansMedium
         )
+        button.addShadow()
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var guestButton: UIButton = {
         let button = UIButton(type: .system)
-
-        let title = "Continue as a guest"
+        let title = "Qonaq kimi davam et"
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: FontKeys.interSemiBold.rawValue, size: 16),
+            .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.black.withAlphaComponent(0.7)
+            .foregroundColor: UIColor.black
         ]
-
-        let attributedString = NSAttributedString(string: title, attributes: attributes)
-        button.setAttributedTitle(attributedString, for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
         button.addTarget(self, action: #selector(guestLoginTapped), for: .touchUpInside)
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let viewModel: SignUpViewModel?
-    let flag = UIScreen.main.bounds.width <= 375
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.alwaysBounceVertical = false
+        scrollView.delegate = self
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     
-    init(viewModel: SignUpViewModel) {
+    private lazy var pageControl: CustomPageControl = {
+        let pageControl = CustomPageControl()
+        pageControl.currentPage = 0
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        return pageControl
+    }()
+
+    private var pages: [UIView] = []
+    private let deviceClass = DeviceSizeClass.current
+    private let flag = UIScreen.main.bounds.width <= 375
+
+    private let viewModel: OnboardingViewModel?
+    
+    init(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
-    deinit {
-        viewModel?.requestCallback = nil
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var isKeepLoggedIn: Bool = false
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        
         print(UIScreen.main.bounds.width)
-        print(flag)
+    }
+
+    override func configureView() {
+        configureNavigationBar()
+        setUpBackground()
+        view.backgroundColor = .white
+        view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
+        
+        configurePages()
+        pageControl.numberOfPages = pages.count
     }
     
+    fileprivate func configureNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+    }
+    
+    
     fileprivate func setUpBackground() {
-        let backgroundView = OnboardingViewBackground(frame: view.bounds)
+        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(backgroundView)
@@ -125,100 +141,235 @@ final class OnboardingViewController: BaseViewController {
         backgroundView.fillSuperview()
     }
     
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-    }
-    
-    override func configureView() {
-        setUpBackground()
-        configureNavigationBar()
-        
-        view.backgroundColor = .backgroundMain
-        view.addSubViews(loadingView, imageView, titleLabel, loginButton, registerButton, guestButton)
-        view.bringSubviewToFront(loadingView)
-    }
-    
     override func configureConstraint() {
-        loadingView.fillSuperview()
-        
-        imageView.anchor(
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+
+        scrollView.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: -4, left: 16, bottom: 0, right: 0)
-        )
-        if flag/*UIScreen.main.bounds.width <= 375*/ {
-            imageView.anchorSize(.init(width: view.frame.width * 0.65, height: (view.frame.width * 0.75)*447/357))
-        } else {
-            imageView.anchorSize(.init(width: view.frame.width * 0.85, height: (view.frame.width * 0.75)*447/357))
-        }
-        
-        var size = 40
-        if flag { size = 28 }
-
-        titleLabel.anchor(
-            leading: view.leadingAnchor,
-            bottom: loginButton.topAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 0/*62*/, left: 44, bottom: -CGFloat(size), right: -44)
+            padding: .init(top: 24, left: 0, bottom: 0, right: 0)
         )
+        scrollView.anchorSize(.init(width: 0, height: view.frame.height * 0.65))
         
-        titleLabel.centerXToSuperview()
+        pageControl.anchor(
+            top: scrollView.bottomAnchor,
+            padding: .init(all: 16)
+        )
+        pageControl.centerXToSuperview()
         
+        let nextButtonDist: CGFloat = DeviceSizeClass.current == .compact ? 24 : 40
+        nextButton.anchor(
+            bottom: view.bottomAnchor,
+            padding: .init(all: nextButtonDist)
+        )
+        nextButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
+        nextButton.centerXToSuperview()
+        
+        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -68 : -80
         loginButton.anchor(
             leading: view.leadingAnchor,
-            bottom: guestButton.topAnchor,
+            bottom: view.bottomAnchor,
             trailing: view.centerXAnchor,
-            padding: .init(top: 0, left: 16, bottom: -12, right: -8)
+            padding: .init(top: 0, left: 32, bottom: buttonDist, right: -8)
         )
-        loginButton.anchorSize(.init(width: 0, height: 44))
+        loginButton.anchorSize(.init(width: 0, height: buttonHeight))
         
         registerButton.anchor(
             leading: view.centerXAnchor,
-            bottom: guestButton.topAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 0/*28*/, left: 8, bottom: -12, right: -16)
-        )
-        registerButton.anchorSize(.init(width: 0, height: 44))
-        
-        guestButton.anchor(
-            leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 24, bottom: -20, right: -24)
+            padding: .init(top: 0, left: 8, bottom: buttonDist, right: -32)
         )
-        guestButton.anchorSize(.init(width: 0, height: 44))
+        registerButton.anchorSize(.init(width: 0, height: buttonHeight))
+        
+        let guestButtonDist: CGFloat = DeviceSizeClass.current == .compact ? 20 : 32
+        guestButton.anchor(
+            bottom: view.bottomAnchor,
+            padding: .init(all: guestButtonDist)
+        )
+        guestButton.centerXToSuperview()
+    }
+
+    private func makeFirstPage(title: String, subtitle: String) -> UIView {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "onboardingImageFirst")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let titleSize: CGFloat = DeviceSizeClass.current == .compact ? 28 : 32
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = UIFont(name: FontKeys.futuricaBold.rawValue, size: titleSize)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        titleLabel.textColor = .primaryHighlight
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let subTitleSize: CGFloat = DeviceSizeClass.current == .compact ? 16 : 20
+        let subtitleLabel = UILabel()
+        subtitleLabel.text = subtitle
+        subtitleLabel.font = UIFont(name: FontKeys.workSansRegular.rawValue, size: subTitleSize)
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.textColor = .black
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        container.addSubViews(imageView, titleLabel, subtitleLabel)
+
+        let multiplier: CGFloat = DeviceSizeClass.current == .compact ? 0.35 : 0.4
+        imageView.anchor(
+            top: container.topAnchor,
+            padding: .init(all: 0)
+        )
+        imageView.centerXToView(to: container)
+        imageView.anchorSize(.init(width: view.frame.height*multiplier, height: view.frame.height*multiplier))
+        
+        titleLabel.anchor(
+            top: imageView.bottomAnchor,
+            leading: container.leadingAnchor,
+            trailing: container.trailingAnchor,
+            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+        )
+        
+        subtitleLabel.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: container.leadingAnchor,
+            bottom: container.bottomAnchor,
+            trailing: container.trailingAnchor,
+            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+        )
+
+        return container
+    }
+
+    private func makeSecondPage(title: String, subtitle: String) -> UIView {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "onboardingImageSecond")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let titleSize: CGFloat = DeviceSizeClass.current == .compact ? 28 : 32
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = UIFont(name: FontKeys.futuricaBold.rawValue, size: titleSize)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        titleLabel.textColor = .primaryHighlight
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let subTitleSize: CGFloat = DeviceSizeClass.current == .compact ? 16 : 20
+        let subtitleLabel = UILabel()
+        subtitleLabel.text = subtitle
+        subtitleLabel.font = UIFont(name: FontKeys.workSansRegular.rawValue, size: subTitleSize)
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.textColor = .black
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        container.addSubViews(imageView, titleLabel, subtitleLabel)
+
+        let multiplier: CGFloat = DeviceSizeClass.current == .compact ? 0.35 : 0.4
+        imageView.anchor(
+            top: container.topAnchor,
+            padding: .init(all: 0)
+        )
+        imageView.centerXToView(to: container)
+        imageView.anchorSize(.init(width: view.frame.height*multiplier, height: view.frame.height*multiplier))
+        
+        titleLabel.anchor(
+            top: imageView.bottomAnchor,
+            leading: container.leadingAnchor,
+            trailing: container.trailingAnchor,
+            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+        )
+        
+        subtitleLabel.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: container.leadingAnchor,
+            bottom: container.bottomAnchor,
+            trailing: container.trailingAnchor,
+            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+        )
+
+        return container
+    }
+
+    private func configurePages() {
+        let page1 = makeFirstPage(
+            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
+            subtitle: "Toyunuzu planlayın və istədiyiniz hər şeyi asanlıqla tapın – fotoqraf, məkan, musiqi və daha çoxu!"
+        )
+
+        let page2 = makeSecondPage(
+            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
+            subtitle: "Vizajist, gəlinlik, bəy kostyumu, dekor, tort – hamısı bir tətbiqdə!"
+        )
+
+        pages = [page1, page2]
+
+        for (index, page) in pages.enumerated() {
+            scrollView.addSubview(page)
+
+            NSLayoutConstraint.activate([
+                page.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                page.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+                page.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+                page.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: CGFloat(index) * view.frame.width)
+            ])
+        }
+
+        scrollView.contentSize = CGSize(width: CGFloat(pages.count) * view.bounds.width, height: scrollView.bounds.height)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageIndex = Int(round(scrollView.contentOffset.x / view.frame.width))
+        pageControl.currentPage = pageIndex
+
+        let isLastPage = pageIndex == (pages.count - 1)
+        loginButton.isHidden = !isLastPage
+        registerButton.isHidden = !isLastPage
+        guestButton.isHidden = !isLastPage
+
+        nextButton.isHidden = isLastPage
     }
     
+
+    @objc private func nextTapped() {
+        let nextOffset = CGPoint(x: view.frame.width, y: 0)
+        scrollView.setContentOffset(nextOffset, animated: true)
+    }
+
+    @objc private func loginTapped() {
+        viewModel?.showLoginScreen()
+    }
+
+    @objc private func registerTapped() {
+        viewModel?.showShowSignUpScreen()
+    }
+
+    @objc private func guestLoginTapped() {
+        print("Guest tapped")
+    }
+
     private func configureViewModel() {
         viewModel?.requestCallback = { [weak self] state in
-            guard let self = self else {return}
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch state {
-                case .loading:
-                    self.loadingView.startAnimating()
-                case .loaded:
-                    self.loadingView.stopAnimating()
-                case .success:
-                    print(#function)
+                case .loading: break
+                case .loaded: break
+                case .success: break
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
             }
         }
-    }
-    
-    @objc fileprivate func loginTapped() {
-        print(#function)
-    }
-    
-    @objc fileprivate func registerTapped() {
-        print(#function)
-    }
-    
-    @objc fileprivate func guestLoginTapped() {
-        print(#function)
     }
 }

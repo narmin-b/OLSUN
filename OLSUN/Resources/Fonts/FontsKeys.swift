@@ -26,5 +26,8 @@ enum FontKeys: String {
     case workSansMedium = "WorkSans-Medium"
     case workSansRegular = "WorkSans-Regular"
     case workSansSemiBold = "WorkSans-SemiBold"
+    case futuricaRegular = "Futurica"
+    case futuricaBold = "Futurica-Bold"
+    case futuricaLight = "FuturicaLight"
 }
 

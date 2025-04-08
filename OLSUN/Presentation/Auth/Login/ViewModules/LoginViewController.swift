@@ -20,32 +20,57 @@ final class LoginViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Log into an account to use our services",
+            labelText: "Hesaba daxil ol və aramıza qayıt!",
             labelColor: .primaryHighlight,
-            labelFont: .workSansBold,
-            labelSize: 32,
-            numOfLines: 3
+            labelFont: .futuricaBold,
+            labelSize: DeviceSizeClass.current == .compact ? 24 : 32,
+            numOfLines: 2
         )
-        label.textAlignment = .center
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var emailLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "E-mail",
+            labelColor: .black,
+            labelFont: .workSansRegular,
+            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            numOfLines: 1
+        )
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var emailTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "Email"
-        )
+            placeholder: "")
         textfield.textColor = .black
-        textfield.tintColor = .black
+        textfield.tintColor = .clear
+        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
     
+    private lazy var passwordLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "Şifrə",
+            labelColor: .black,
+            labelFont: .workSansRegular,
+            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            numOfLines: 1
+        )
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var passwordTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "Password"
-        )
+            placeholder: "")
         
         let rightIcon = UIImageView(image: UIImage(systemName: "eye.fill"))
         rightIcon.tintColor = .black
@@ -61,9 +86,10 @@ final class LoginViewController: BaseViewController {
         rightIcon.addGestureRecognizer(tapGestureRecognizer)
         
         textfield.isSecureTextEntry = true
-        textfield.inputAccessoryView = doneToolBar
         textfield.textColor = .black
-        textfield.tintColor = .black
+        textfield.tintColor = .clear
+        textfield.addShadow()
+        textfield.inputAccessoryView = doneToolBar
         
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -71,10 +97,13 @@ final class LoginViewController: BaseViewController {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Log in",
+            title: "Davam et",
             onAction: loginTapped,
-            titleFont: .interSemiBold
+            titleSize: DeviceSizeClass.current == .large ? 20 : 16,
+            titleFont: .workSansMedium,
         )
+        button.addShadow()
+        button.isHidden = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -106,10 +135,10 @@ final class LoginViewController: BaseViewController {
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "or",
-            labelColor: .black,
-            labelFont: .interLight,
-            labelSize: 12,
+            labelText: "və ya",
+            labelColor: .primaryHighlight,
+            labelFont: .futuricaBold,
+            labelSize: 20,
             numOfLines: 1
         )
         label.textAlignment = .center
@@ -119,12 +148,11 @@ final class LoginViewController: BaseViewController {
     
     private lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Continue with Google", attributes: [.font: UIFont(name: FontKeys.interSemiBold.rawValue, size: 16)]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
-        config.background.strokeColor = .black
         config.background.strokeWidth = 1
-        config.imagePadding = 12
+        config.imagePadding = 4
         config.imagePlacement = .leading
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
 
@@ -133,38 +161,17 @@ final class LoginViewController: BaseViewController {
         })
 
         button.clipsToBounds = true
-        button.tintColor = .white
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 12
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = true
+        button.tintColor = .black
+        button.addShadow()
         button.contentHorizontalAlignment = .center
         
         let image = UIImage(named: "googleLogo")
-        let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
-        button.setImage(resizedImage, for: .normal)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var appleLoginButton: UIButton = {
-        var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Continue with Apple", attributes: [.font: UIFont(name: FontKeys.interSemiBold.rawValue, size: 16)]))
-        config.baseForegroundColor = .black
-        config.background.backgroundColor = .clear
-        config.background.strokeColor = .black
-        config.background.strokeWidth = 1
-        config.imagePadding = 12
-        config.imagePlacement = .leading
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
-
-        let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
-            self?.googleLoginButtonTapped()
-        })
-
-        button.clipsToBounds = true
-        button.tintColor = .white
-        button.contentHorizontalAlignment = .center
-        
-        let image = UIImage(named: "appleLogo")
-        let resizedImage = image?.resizeImage(to: CGSize(width: 16, height: 16))
+        let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
         button.setImage(resizedImage, for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -202,16 +209,10 @@ final class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        
-        for family in UIFont.familyNames {
-            for font in UIFont.fontNames(forFamilyName: family) {
-                print(font)
-            }
-        }
     }
     
     fileprivate func setUpBackground() {
-        let backgroundView = GeometricBackgroundView(frame: view.bounds)
+        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(backgroundView)
@@ -232,91 +233,90 @@ final class LoginViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .backgroundMain
-        view.addSubViews(loadingView, titleLabel, emailTextField, passwordTextField, loginButton, seperatorStackView, googleLoginButton, appleLoginButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, seperatorStackView, googleLoginButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperview()
         
-        if view.frame.height < 700 {
-            titleLabel.anchor(
-                top: view.safeAreaLayoutGuide.topAnchor,
-                leading: view.leadingAnchor,
-                trailing: view.trailingAnchor,
-                padding: .init(top: 32, left: 52, bottom: 0, right: -52)
-            )
-        } else {
-            titleLabel.anchor(
-                top: view.safeAreaLayoutGuide.topAnchor,
-                leading: view.leadingAnchor,
-                trailing: view.trailingAnchor,
-                padding: .init(top: 60, left: 52, bottom: 0, right: -52)
-            )
-        }
-        titleLabel.centerXToSuperview()
+        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 16
+        titleLabel.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: topConst, left: 24, bottom: 0, right: 24)
+        )
         
-        emailTextField.anchor(
+        let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
+        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
+        
+        emailLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
+            padding: .init(top: 60, left: 32, bottom: 0, right: 0)
+        )
+        emailTextField.anchor(
+            top: emailLabel.bottomAnchor,
+            leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 60, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
         )
         emailTextField.centerXToSuperview()
-        emailTextField.anchorSize(.init(width: 0, height: 44))
+        emailTextField.anchorSize(.init(width: 0, height: textFieldHeight))
         
-        passwordTextField.anchor(
+        passwordLabel.anchor(
             top: emailTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 32, bottom: 0, right: -32)
+            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
         )
-        passwordTextField.centerXToSuperview()
-        passwordTextField.anchorSize(.init(width: 0, height: 44))
-        
-        loginButton.anchor(
-            top: passwordTextField.bottomAnchor,
+        passwordTextField.anchor(
+            top: passwordLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+        )
+        passwordTextField.centerXToSuperview()
+        passwordTextField.anchorSize(.init(width: 0, height: textFieldHeight))
+        
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+        loginButton.anchor(
+            top: passwordTextField.bottomAnchor,
+
+            padding: .init(all: 44)
         )
         loginButton.centerXToSuperview()
-        loginButton.anchorSize(.init(width: 0, height: 44))
+        loginButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         
+        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 68
         seperatorStackView.centerXToSuperview()
-        seperatorStackView.anchorSize(.init(width: 0, height: 12))
+        seperatorStackView.anchorSize(.init(width: 0, height: 20))
         seperatorStackView.anchor(
             top: loginButton.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 16, left: 32, bottom: 0, right: -32)
+            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
         )
         orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         orLabel.anchorSize(.init(width: 24, height: 0))
-
+        orLabel.centerYToView(to: seperatorStackView)
+        line1View.centerYToView(to: seperatorStackView)
+        line2View.centerYToView(to: seperatorStackView)
         
         NSLayoutConstraint.activate([
             line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
             line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
             ])
         
+        let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 40 : 44
         googleLoginButton.anchor(
             top: seperatorStackView.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 32, bottom: 0, right: -32)
+            padding: .init(top: googleDist, left: 32, bottom: 0, right: -32)
         )
         googleLoginButton.centerXToSuperview()
         googleLoginButton.anchorSize(.init(width: 0, height: 44))
-        
-        appleLoginButton.anchor(
-            top: googleLoginButton.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 32, bottom: 0, right: -32)
-        )
-        appleLoginButton.centerXToSuperview()
-        appleLoginButton.anchorSize(.init(width: 0, height: 44))
     }
     
     private func configureViewModel() {
@@ -346,10 +346,6 @@ final class LoginViewController: BaseViewController {
     }
     
     @objc func googleLoginButtonTapped() {
-        print(#function)
-    }
-    
-    @objc func appleLoginButtonTapped() {
         print(#function)
     }
     

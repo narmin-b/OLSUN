@@ -26,7 +26,7 @@ final class LaunchViewModel {
         navigation?.popbackScreen()
     }
     
-    func showShowSignUpScreen() {
+    func showSignupScreen() {
         navigation?.showSignUp()
     }
 }

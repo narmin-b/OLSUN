@@ -26,7 +26,11 @@ final class OnboardingViewModel {
         navigation?.popbackScreen()
     }
     
+    func showLoginScreen() {
+        navigation?.showLogin()
+    }
+    
     func showShowSignUpScreen() {
-        navigation?.showSignUp()
+        navigation?.showLaunch()
     }
 }

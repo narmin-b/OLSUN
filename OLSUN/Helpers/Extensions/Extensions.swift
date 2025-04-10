@@ -196,6 +196,30 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: self)
     }
     
+    func isValidName() -> Bool {
+        let nameRegex = "^[A-Za-zÀ-ÿ]+([\\s'-][A-Za-zÀ-ÿ]+)*$"
+        let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+        return namePredicate.evaluate(with: self)
+    }
+    
+    func isValidAge(format: String = "yyyy-MM-dd") -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        guard let birthDate = dateFormatter.date(from: self) else {
+            return false
+        }
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+        if let age = ageComponents.year {
+            return age >= 10
+        }
+        return false
+    }
+    
     func isValidPasswordMask() -> Bool  {
         count >= 8 && count <= 4096
     }
@@ -208,10 +232,6 @@ extension String {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: self)
-    }
-    
-    func isValidName() -> Bool {
-        count > 2 && !self.containsWhitespace
     }
 }
 
@@ -313,14 +333,6 @@ extension UIImage {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
-    }
-}
-
-extension MKCoordinateRegion {
-    static var northCyprus: MKCoordinateRegion {
-        let center = CLLocationCoordinate2D(latitude: 35.2, longitude: 33.4)
-        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.8)
-        return MKCoordinateRegion(center: center, span: span)
     }
 }
 

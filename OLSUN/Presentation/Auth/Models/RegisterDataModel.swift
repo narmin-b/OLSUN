@@ -24,9 +24,8 @@ struct RegisterDataModel {
     var gender: Gender
     var coupleName: String
     var coupleGender: Gender
-    var email: String
-    var password: String
-    var confirmPassword: String
+    var email: String?
+    var password: String?
     var bday: String?
     var auth: Auth
 }

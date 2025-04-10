@@ -29,14 +29,7 @@ final class AuthCoordinator: Coordinator {
     }
     
     func start() {
-//        if UserDefaultsHelper.getBool(key: .hasCompletedOnboarding) {
-//            showLogin()
-//        showSignUp()
         showOnboarding()
-//        showLaunch()
-//        } else {
-//            showOnboarding()
-//        }
     }
 
     func childDidFinish(_ child: Coordinator) {
@@ -47,11 +40,6 @@ final class AuthCoordinator: Coordinator {
 }
 
 extension AuthCoordinator: AuthNavigation {
-    func showLogin() {
-        let vc = LoginViewController(viewModel: .init(navigation: self))
-        showController(vc: vc)
-    }
-
     func didCompleteAuthentication() {
         delegate?.authDidFinish()
         
@@ -62,18 +50,27 @@ extension AuthCoordinator: AuthNavigation {
         popControllerBack()
     }
     
-    func showSignUp() {
-        let vc = SignUpViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService()))
+    func showLogin() {
+        let vc = LoginViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService()))
         showController(vc: vc)
     }
     
-    func showLaunch() {
-        let vc = LaunchViewController(viewModel: .init(navigation: self))
+    func showSignUp() {
+        let vc = SignUpViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
+    }
+    
+    func showLaunch(email: String, password: String) {
+        let vc = LaunchViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService(), email: email, password: password))
         showController(vc: vc)
     }
     
     func showOnboarding() {
         let vc = OnboardingViewController(viewModel: .init(navigation: self))
         showController(vc: vc)
+    }
+    
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: true)
     }
 }

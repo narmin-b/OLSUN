@@ -17,9 +17,28 @@ final class LoginViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
+    private var authSessionUse: AuthSessionUseCase
         
-    init(navigation: AuthNavigation) {
+    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
+        self.authSessionUse = authSessionUse
+    }
+    
+    func logInUser(user: LoginDataModel) {
+        requestCallback?(.loading)
+        authSessionUse.loginUser(user: user) { [weak self] dto, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.requestCallback?(.loaded)
+                print("dto:", dto ?? "No resp")
+                
+                if let dto = dto {
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
     }
     
     func popControllerBack() {

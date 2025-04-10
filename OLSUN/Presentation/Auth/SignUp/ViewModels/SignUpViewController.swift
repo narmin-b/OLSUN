@@ -23,7 +23,7 @@ final class SignUpViewController: BaseViewController {
             labelText: "Hesab yarat və bizə qoşul!",
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
-            labelSize: DeviceSizeClass.current == .compact ? 24 : 32,
+            labelSize: 32,
             numOfLines: 2
         )
         label.textAlignment = .left
@@ -69,28 +69,24 @@ final class SignUpViewController: BaseViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-        let textfield = ReusableTextField(
-            placeholder: "")
+        let textfield = ReusableTextField(placeholder: "")
         
-        let rightIcon = UIImageView(image: UIImage(systemName: "eye.fill"))
-        rightIcon.tintColor = .black
-        let rightPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: rightIcon.frame.height))
-        rightIcon.frame = CGRect(x: -8, y: 0, width: rightIcon.frame.width, height: rightIcon.frame.height)
-        rightPaddingView.addSubview(rightIcon)
+        let toggleButton = UIButton(type: .system)
+        toggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        toggleButton.tintColor = .black
+        toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
         
-        textfield.rightView = rightPaddingView
+        toggleButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        toggleButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        
+        textfield.rightView = toggleButton
         textfield.rightViewMode = .always
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        rightIcon.isUserInteractionEnabled = true
-        rightIcon.addGestureRecognizer(tapGestureRecognizer)
-        
+
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
         textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
-        
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -203,10 +199,19 @@ final class SignUpViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
         
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        textfieldCleaning()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
         removeErrorBorder()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     fileprivate func setUpBackground() {
@@ -227,10 +232,10 @@ final class SignUpViewController: BaseViewController {
     }
     
     override func configureView() {
-        setUpBackground()
+//        setUpBackground()
         configureNavigationBar()
         
-        view.backgroundColor = .backgroundMain
+        view.backgroundColor = .white
         view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, signupButton, seperatorStackView, googleLoginButton)
         view.bringSubviewToFront(loadingView)
     }
@@ -327,7 +332,7 @@ final class SignUpViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     print(#function)
-//                    self.viewModel?.startHomeScreen()
+//                    self.viewModel?.showLaunchScreen()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -335,11 +340,21 @@ final class SignUpViewController: BaseViewController {
         }
     }
     
-    @objc fileprivate func imageTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        let tappedImage = tapGestureRecognizer.view as? UIImageView
+    @objc private func togglePasswordVisibility(_ sender: UIButton) {
+        let wasFirstResponder = passwordTextField.isFirstResponder
+        let currentText = passwordTextField.text
         
-        tappedImage?.image = UIImage(systemName: passwordTextField.isSecureTextEntry ? "eye.fill" : "eye.slash.fill")
         passwordTextField.isSecureTextEntry.toggle()
+        
+        passwordTextField.text = nil
+        passwordTextField.text = currentText
+        
+        let iconName = passwordTextField.isSecureTextEntry ? "eye.slash.fill" : "eye.fill"
+        sender.setImage(UIImage(systemName: iconName), for: .normal)
+        
+        if wasFirstResponder {
+            passwordTextField.becomeFirstResponder()
+        }
     }
     
     @objc func googleSignupButtonTapped() {
@@ -347,6 +362,7 @@ final class SignUpViewController: BaseViewController {
     }
     
     @objc fileprivate func signupTapped() {
+//        viewModel?.showShowLaunchScreen(email: "11", password: "22")
         checkInputRequirements()
     }
     
@@ -359,30 +375,13 @@ final class SignUpViewController: BaseViewController {
         passwordTextField.errorBorderOff()
     }
     
-    fileprivate func createUserWithPassword(user: RegisterDataModel) {
-        viewModel?.createUser(user: user)
-    }
-    
     fileprivate func checkInputRequirements() {
         let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
         let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
-        var userInput = RegisterDataModel(
-            username: "test",
-            gender: .female,
-            coupleName: "Name1",
-            coupleGender: .male,
-            email: email,
-            password: password,
-            confirmPassword: password,
-            bday: "2000-01-01",
-            auth: .local
-        )
-
+        checkErrorBorders(email: email, password: password)
         if email.isValidEmail() && password.isValidPassword() {
-            createUserWithPassword(user: userInput)
-        } else {
-            checkErrorBorders(email: email, password: password)
+            viewModel?.showShowLaunchScreen(email: email, password: password)
         }
     }
     

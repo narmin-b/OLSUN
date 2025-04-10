@@ -9,5 +9,5 @@ import Foundation
 
 protocol AuthSessionUseCase {
     func createUser(user: RegisterDataModel, completion: @escaping(String?, String?) -> Void)
-    func loginUser(user: RegisterDataModel, completion: @escaping(String?, String?) -> Void)
+    func loginUser(user: LoginDataModel, completion: @escaping(String?, String?) -> Void)
 }

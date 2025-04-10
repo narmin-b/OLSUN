@@ -13,7 +13,7 @@ final class LaunchViewController: BaseViewController {
         view.color = .black
         view.tintColor = .black
         view.hidesWhenStopped = true
-        view.backgroundColor = .white
+        view.backgroundColor = .white.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -38,6 +38,16 @@ final class LaunchViewController: BaseViewController {
         return image
     }()
     
+    private lazy var nameStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [nameLabel, nameTextField])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var nameLabel: UILabel = {
         let label = ReusableLabel(
             labelText: "Adınız",
@@ -57,9 +67,20 @@ final class LaunchViewController: BaseViewController {
         textfield.textColor = .black
         textfield.tintColor = .clear
         textfield.addShadow()
+        textfield.delegate = self
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
+    }()
+    
+    private lazy var partnerNameStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [partnerNameLabel, partnerNameTextField])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var partnerNameLabel: UILabel = {
@@ -82,9 +103,20 @@ final class LaunchViewController: BaseViewController {
         textfield.textColor = .black
         textfield.tintColor = .black
         textfield.addShadow()
+        textfield.delegate = self
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
+    }()
+    
+    private lazy var dateStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [dateLabel, dateTextField])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var dateLabel: UILabel = {
@@ -122,9 +154,20 @@ final class LaunchViewController: BaseViewController {
         textfield.textColor = .black
         textfield.tintColor = .black
         textfield.addShadow()
+        textfield.delegate = self
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
+    }()
+    
+    private lazy var genderStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [genderLabel, genderTextfield])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var genderLabel: UILabel = {
@@ -153,16 +196,17 @@ final class LaunchViewController: BaseViewController {
         rightIcon.frame = CGRect(x: -8, y: 0, width: rightIcon.frame.width, height: rightIcon.frame.height)
         rightPaddingView.addSubview(rightIcon)
         
-        textfield.rightView = rightPaddingView
-        textfield.rightViewMode = .always
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openPicker))
         rightIcon.addGestureRecognizer(tapGestureRecognizer)
+        
+        textfield.rightView = rightPaddingView
+        textfield.rightViewMode = .always
         
         textfield.textColor = .black
         textfield.tintColor = .clear
         textfield.addShadow()
         textfield.inputView = genderPicker
+        textfield.delegate = self
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -189,6 +233,27 @@ final class LaunchViewController: BaseViewController {
         return button
     }()
     
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var contentView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [titleLabel, launchImage,
+                                                  nameStack,
+                                                  partnerNameStack,
+                                                  dateStack,
+                                                  genderStack
+                                                  ])
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 20
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var doneToolBar: UIToolbar = {
         let keyboardToolbar = UIToolbar()
         keyboardToolbar.sizeToFit()
@@ -201,10 +266,10 @@ final class LaunchViewController: BaseViewController {
     
     private let datePicker = UIDatePicker()
     private let toolbar = UIToolbar()
-    private let flag = UIScreen.main.bounds.height > 700 ? true : false
     private let deviceClass = DeviceSizeClass.current
+    private var activeTextField: UITextField?
     
-    let genders = ["Female", "Male"]
+    let genders = ["Qadın", "Kişi"]
     private let viewModel: LaunchViewModel?
     
     init(viewModel: LaunchViewModel) {
@@ -214,15 +279,47 @@ final class LaunchViewController: BaseViewController {
     
     deinit {
         viewModel?.requestCallback = nil
+        NotificationCenter.default.removeObserver(self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        textfieldCleaning()
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func configureViewModel() {
+        viewModel?.requestCallback = { [weak self] state in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch state {
+                case .loading:
+                    self.loadingView.startAnimating()
+                case .loaded:
+                    self.loadingView.stopAnimating()
+                case .success:
+                    self.viewModel?.backToOnboarding()
+                    self.showMessage(title: "Hesab yaradıldı!", message: "Artıq hesabınıza daxil olub davam edə bilərsiniz!")
+                case .error(let error):
+                    self.showMessage(title: "Error", message: error)
+                }
+            }
+        }
     }
     
     fileprivate func setUpBackground() {
@@ -245,94 +342,19 @@ final class LaunchViewController: BaseViewController {
     }
     
     override func configureView() {
-        setUpBackground()
+//        setUpBackground()
         configureNavigationBar()
         setupDatePicker()
         
-        view.backgroundColor = .backgroundMain
-        view.addSubViews(loadingView, titleLabel, launchImage, nameLabel, nameTextField, partnerNameLabel, partnerNameTextField, dateLabel, dateTextField, genderLabel, genderTextfield, nextButton)
+        view.backgroundColor = .white
+        view.addSubViews(loadingView, nextButton, scrollView)
+        scrollView.addSubview(contentView)
+        
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperview()
-        
-        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 32
-        titleLabel.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
-        )
-        titleLabel.centerXToSuperview()
-        
-        let height = DeviceSizeClass.current == .compact ? 120 : 164
-        launchImage.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 0, bottom: 0, right: 0)
-        )
-        launchImage.anchorSize(.init(width: 0, height: height))
-        
-        let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
-
-        nameLabel.anchor(
-            top: launchImage.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 24, left: 32, bottom: 0, right: 0)
-        )
-        nameTextField.anchor(
-            top: nameLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
-        )
-        nameTextField.centerXToSuperview()
-        nameTextField.anchorSize(.init(width: 0, height: textFieldHeight))
-        
-        partnerNameLabel.anchor(
-            top: nameTextField.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
-        )
-        partnerNameTextField.anchor(
-            top: partnerNameLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
-        )
-        partnerNameTextField.centerXToSuperview()
-        partnerNameTextField.anchorSize(.init(width: 0, height: textFieldHeight))
-        
-        dateLabel.anchor(
-            top: partnerNameTextField.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
-        )
-        dateTextField.anchor(
-            top: dateLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
-        )
-        dateTextField.centerXToSuperview()
-        dateTextField.anchorSize(.init(width: 0, height: textFieldHeight))
-        
-        genderLabel.anchor(
-            top: dateTextField.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
-        )
-        genderTextfield.anchor(
-            top: genderLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
-        )
-        genderTextfield.centerXToSuperview()
-        genderTextfield.anchorSize(.init(width: 0, height: textFieldHeight))
         
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         let nextButtonDist: CGFloat = DeviceSizeClass.current == .compact ? 24 : 40
@@ -342,24 +364,105 @@ final class LaunchViewController: BaseViewController {
         )
         nextButton.centerXToSuperview()
         nextButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
-    }
-    
-    private func configureViewModel() {
-        viewModel?.requestCallback = { [weak self] state in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                switch state {
-                case .loading:
-                    self.loadingView.startAnimating()
-                case .loaded:
-                    self.loadingView.stopAnimating()
-                case .success:
-                    print(#function)
-                case .error(let error):
-                    self.showMessage(title: "Error", message: error)
-                }
-            }
-        }
+        
+        scrollView.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.leadingAnchor,
+            bottom: nextButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        contentView.anchor(
+            top: scrollView.topAnchor,
+            leading: scrollView.leadingAnchor,
+            bottom: scrollView.bottomAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+
+        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 32
+        titleLabel.anchor(
+            top: scrollView.topAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
+        )
+        titleLabel.centerXToSuperview()
+        
+        let height = DeviceSizeClass.current == .compact ? 120 : 164
+        launchImage.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: 4, left: 0, bottom: 0, right: 0)
+        )
+        launchImage.anchorSize(.init(width: 0, height: height))
+        
+        let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
+        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
+
+        nameLabel.anchor(
+            top: launchImage.bottomAnchor,
+            leading: contentView.leadingAnchor,
+            padding: .init(top: 24, left: 32, bottom: 0, right: 0)
+        )
+        nameTextField.anchor(
+            top: nameLabel.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+        )
+        nameStack.centerXToSuperview()
+        nameTextField.centerXToSuperview()
+        nameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
+        
+        partnerNameLabel.anchor(
+            top: nameTextField.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+        )
+        partnerNameTextField.anchor(
+            top: partnerNameLabel.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+        )
+        partnerNameTextField.centerXToSuperview()
+        partnerNameStack.centerXToSuperview()
+        partnerNameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
+        
+        dateLabel.anchor(
+            top: partnerNameTextField.bottomAnchor,
+            leading: contentView.leadingAnchor,
+            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+        )
+        dateTextField.anchor(
+            top: dateLabel.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+        )
+        dateTextField.centerXToSuperview()
+        dateStack.centerXToSuperview()
+        dateTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
+        
+        genderLabel.anchor(
+            top: dateTextField.bottomAnchor,
+            leading: contentView.leadingAnchor,
+            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+        )
+        genderTextfield.anchor(
+            top: genderLabel.bottomAnchor,
+            leading: scrollView.leadingAnchor,
+            trailing: scrollView.trailingAnchor,
+            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+        )
+        genderTextfield.centerXToSuperview()
+        genderStack.centerXToSuperview()
+        genderTextfield.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
     }
     
     private func setupDatePicker() {
@@ -386,7 +489,7 @@ final class LaunchViewController: BaseViewController {
     
     @objc private func donePressed() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
         dateTextField.text = formatter.string(from: datePicker.date)
         dateTextField.resignFirstResponder()
     }
@@ -396,19 +499,113 @@ final class LaunchViewController: BaseViewController {
     }
     
     @objc func openPicker() {
+        if genderTextfield.text?.isEmpty ?? true {
+            let defaultGender = genders[genderPicker.selectedRow(inComponent: 0)]
+            genderTextfield.text = defaultGender
+        }
         genderTextfield.becomeFirstResponder()
     }
     
     @objc fileprivate func nextTapped() {
-        viewModel?.showSignupScreen()
+        checkInputRequirements()
     }
    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    fileprivate func createUserWithPassword(user: RegisterDataModel) {
+        viewModel?.createUser(user: user)
+    }
+    
+    fileprivate func checkInputRequirements() {
+        let username = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let partnerName = partnerNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let dateString = dateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let genderString = genderTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+        
+        var gender: Gender = .female
+        var partnerGender: Gender = .male
+        if genderString == "qadın" {
+            gender = .female
+            partnerGender = .male
+        } else if genderString == "kişi" {
+            gender = .male
+            partnerGender = .female
+        }
+        
+        checkErrorBorders(name: username, partnerName: partnerName, bday: dateString)
+        
+        if username.isValidName() && partnerName.isValidName() && dateString.isValidAge() {
+            let userInput = RegisterDataModel(
+                username: username,
+                gender: gender,
+                coupleName: partnerName,
+                coupleGender: partnerGender,
+                bday: dateString,
+                auth: .local
+            )
+            createUserWithPassword(user: userInput)
+        } 
+    }
+    
+    fileprivate func checkErrorBorders(name: String, partnerName: String, bday: String) {
+        if !name.isValidName() {
+            nameTextField.errorBorderOn()
+        } else {
+            nameTextField.errorBorderOff()
+        }
+        if !partnerName.isValidName() {
+            partnerNameTextField.errorBorderOn()
+        } else {
+            partnerNameTextField.errorBorderOff()
+        }
+        if !bday.isValidAge() {
+            dateTextField.errorBorderOn()
+        } else {
+            dateTextField.errorBorderOff()
+        }
+        if genderTextfield.text?.isEmpty == true {
+            genderTextfield.errorBorderOn()
+        } else {
+            genderTextfield.errorBorderOff()
+        }
+    }
+    
+    fileprivate func textfieldCleaning() {
+        nameTextField.text = ""
+        partnerNameTextField.text = ""
+        genderTextfield.text = ""
+        dateTextField.text = ""
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+
+        let keyboardHeight = keyboardFrame.height
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0) 
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+
+        if let activeField = activeTextField {
+            var visibleRect = scrollView.bounds
+            visibleRect.size.height -= keyboardHeight
+
+            let fieldFrameInScroll = activeField.convert(activeField.bounds, to: scrollView)
+
+            if !visibleRect.contains(fieldFrameInScroll.origin) {
+                scrollView.scrollRectToVisible(fieldFrameInScroll, animated: true)
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: Notification) {
+        scrollView.contentInset = .zero
+        scrollView.scrollIndicatorInsets = .zero
+    }
 }
 
-extension LaunchViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension LaunchViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -418,10 +615,23 @@ extension LaunchViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if genderTextfield.text?.isEmpty ?? true {
+            let defaultGender = genders[genderPicker.selectedRow(inComponent: 0)]
+            genderTextfield.text = defaultGender
+        }
         return genders[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(row)
         genderTextfield.text = genders[row]
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeTextField = nil
     }
 }

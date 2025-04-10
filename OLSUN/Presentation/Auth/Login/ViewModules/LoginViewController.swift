@@ -13,7 +13,7 @@ final class LoginViewController: BaseViewController {
         view.color = .black
         view.tintColor = .black
         view.hidesWhenStopped = true
-        view.backgroundColor = .white
+        view.backgroundColor = .white.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -23,7 +23,7 @@ final class LoginViewController: BaseViewController {
             labelText: "Hesaba daxil ol və aramıza qayıt!",
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
-            labelSize: DeviceSizeClass.current == .compact ? 24 : 32,
+            labelSize: 32,
             numOfLines: 2
         )
         label.textAlignment = .left
@@ -69,28 +69,24 @@ final class LoginViewController: BaseViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-        let textfield = ReusableTextField(
-            placeholder: "")
+        let textfield = ReusableTextField(placeholder: "")
         
-        let rightIcon = UIImageView(image: UIImage(systemName: "eye.fill"))
-        rightIcon.tintColor = .black
-        let rightPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: rightIcon.frame.height))
-        rightIcon.frame = CGRect(x: -8, y: 0, width: rightIcon.frame.width, height: rightIcon.frame.height)
-        rightPaddingView.addSubview(rightIcon)
+        let toggleButton = UIButton(type: .system)
+        toggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        toggleButton.tintColor = .black
+        toggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
         
-        textfield.rightView = rightPaddingView
+        toggleButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        toggleButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        
+        textfield.rightView = toggleButton
         textfield.rightViewMode = .always
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        rightIcon.isUserInteractionEnabled = true
-        rightIcon.addGestureRecognizer(tapGestureRecognizer)
-        
+
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
         textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
-        
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -209,6 +205,10 @@ final class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     fileprivate func setUpBackground() {
@@ -229,10 +229,10 @@ final class LoginViewController: BaseViewController {
     }
     
     override func configureView() {
-        setUpBackground()
+//        setUpBackground()
         configureNavigationBar()
         
-        view.backgroundColor = .backgroundMain
+        view.backgroundColor = .white
         view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, seperatorStackView, googleLoginButton)
         view.bringSubviewToFront(loadingView)
     }
@@ -338,11 +338,21 @@ final class LoginViewController: BaseViewController {
         }
     }
     
-    @objc fileprivate func imageTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        let tappedImage = tapGestureRecognizer.view as? UIImageView
+    @objc private func togglePasswordVisibility(_ sender: UIButton) {
+        let wasFirstResponder = passwordTextField.isFirstResponder
+        let currentText = passwordTextField.text
         
-        tappedImage?.image = UIImage(systemName: passwordTextField.isSecureTextEntry ? "eye.fill" : "eye.slash.fill")
         passwordTextField.isSecureTextEntry.toggle()
+        
+        passwordTextField.text = nil
+        passwordTextField.text = currentText
+        
+        let iconName = passwordTextField.isSecureTextEntry ? "eye.slash.fill" : "eye.fill"
+        sender.setImage(UIImage(systemName: iconName), for: .normal)
+        
+        if wasFirstResponder {
+            passwordTextField.becomeFirstResponder()
+        }
     }
     
     @objc func googleLoginButtonTapped() {
@@ -351,9 +361,46 @@ final class LoginViewController: BaseViewController {
     
     @objc fileprivate func loginTapped() {
         print(#function)
+        checkInputRequirements()
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    fileprivate func removeErrorBorder() {
+        emailTextField.errorBorderOff()
+        passwordTextField.errorBorderOff()
+    }
+    
+    fileprivate func checkInputRequirements() {
+        let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+        let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        checkErrorBorders(email: email, password: password)
+        
+        if email.isValidEmail() && password.isValidPassword() {
+            let user = LoginDataModel(email: email, password: password)
+
+            viewModel?.logInUser(user: user)
+        }
+    }
+    
+    fileprivate func checkErrorBorders(email: String, password: String) {
+        if !email.isValidEmail() {
+            emailTextField.errorBorderOn()
+        } else {
+            emailTextField.errorBorderOff()
+        }
+        if !password.isValidPassword() {
+            passwordTextField.errorBorderOn()
+        } else {
+            passwordTextField.errorBorderOff()
+        }
+    }
+    
+    fileprivate func textfieldCleaning() {
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
 }

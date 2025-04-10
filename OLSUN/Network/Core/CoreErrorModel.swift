@@ -7,19 +7,34 @@
 
 import Foundation
 
-struct CoreErrorModel: Error, Decodable {
+struct CoreErrorModel: LocalizedError, Decodable {
     let code: Int?
     let message: String?
+
+    var errorDescription: String? {
+            return message ?? "Unknown error"
+        }
     
     static func authError(code: Int) -> CoreErrorModel {
-        return CoreErrorModel(code: code, message: "Zehmet olmasa yeniden login olun")
+        return CoreErrorModel(code: code, message: "Zəhmət olmasa yenidən giriş edin.")
     }
-    
+
     static func generalError() -> CoreErrorModel {
-        return CoreErrorModel(code: 500, message: "Xeta bash verdi")
+        return CoreErrorModel(code: 500, message: "Xəta baş verdi.")
     }
 
     static func decodingError() -> CoreErrorModel {
-        return CoreErrorModel(code: 0, message: "Can not parse json")
+        return CoreErrorModel(code: 0, message: "JSON parse edilə bilmədi.")
     }
 }
+
+struct ServerErrorResponse: Decodable {
+    let error: String
+}
+
+struct ErrorResponse: Codable {
+    let message: String
+    let status: String
+}
+
+struct EmptyResponse: Decodable {}

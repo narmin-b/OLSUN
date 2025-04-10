@@ -17,9 +17,37 @@ final class LaunchViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
-        
-    init(navigation: AuthNavigation) {
+    private var authSessionUse: AuthSessionUseCase
+    private var email: String?
+    private var password: String?
+   
+    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase, email: String?, password: String?) {
         self.navigation = navigation
+        self.authSessionUse = authSessionUse
+        self.email = email
+        self.password = password
+    }
+    
+    func createUser(user: RegisterDataModel) {
+        var user = user
+        user.email = email
+        user.password = password
+
+        print(user)
+        requestCallback?(.loading)
+        authSessionUse.createUser(user: user) { [weak self] dto, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.requestCallback?(.loaded)
+                print("dto:", dto ?? "No resp")
+                
+                if let dto = dto {
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
     }
     
     func popControllerBack() {
@@ -28,5 +56,9 @@ final class LaunchViewModel {
     
     func showSignupScreen() {
         navigation?.showSignUp()
+    }
+    
+    func backToOnboarding() {
+        navigation?.popToRoot()
     }
 }

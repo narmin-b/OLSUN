@@ -113,7 +113,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     override func configureView() {
         configureNavigationBar()
-        setUpBackground()
+//        setUpBackground()
         view.backgroundColor = .white
         view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
         

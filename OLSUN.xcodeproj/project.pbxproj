@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D7C432DA827A20090280D /* LoginDataModel.swift */; };
 		110D9C272DA306E800492B46 /* Futurica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 110D9C212DA306E800492B46 /* Futurica.ttf */; };
 		11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */; };
 		11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D712D95E03700AAD720 /* CoreAPIHelper.swift */; };
@@ -195,6 +196,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110D7C432DA827A20090280D /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
 		110D9C212DA306E800492B46 /* Futurica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futurica.ttf; sourceTree = "<group>"; };
 		11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeltingCircleBackgroundView.swift; sourceTree = "<group>"; };
 		11529D712D95E03700AAD720 /* CoreAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAPIHelper.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				11529D772D95E34700AAD720 /* RegisterDataModel.swift */,
+				110D7C432DA827A20090280D /* LoginDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1134,6 +1137,7 @@
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
 				11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */,
+				110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */,
 				11A7E3772D8B373600D82AF2 /* UserDefaultsHelper.swift in Sources */,
 				11BB9F2E2D8C957E00008DD7 /* OnboardingViewModel.swift in Sources */,
 				11A7E3792D8B374300D82AF2 /* UserDefaultsKey.swift in Sources */,

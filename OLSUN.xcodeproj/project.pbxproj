@@ -17,6 +17,24 @@
 		11529D7B2D95E4BB00AAD720 /* AuthSessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */; };
 		11529D7D2D95E4C600AAD720 /* AuthSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */; };
 		11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */; };
+		1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */; };
+		1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF932DAAC32200DC1CCC /* TabBarController.swift */; };
+		1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1174DF972DAAC45B00DC1CCC /* GoogleSignIn */; };
+		1174DF9A2DAAC45B00DC1CCC /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1174DF992DAAC45B00DC1CCC /* GoogleSignInSwift */; };
+		1174DFA42DAAD23800DC1CCC /* HomeNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */; };
+		1174DFA62DAAD24700DC1CCC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */; };
+		1174DFAC2DAAD2E800DC1CCC /* PlanningNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFAB2DAAD2E100DC1CCC /* PlanningNavigation.swift */; };
+		1174DFAE2DAAD2F700DC1CCC /* PlanningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */; };
+		1174DFB12DAAD31600DC1CCC /* GuestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFB02DAAD30E00DC1CCC /* GuestsCoordinator.swift */; };
+		1174DFB32DAAD32300DC1CCC /* GuestsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFB22DAAD31900DC1CCC /* GuestsNavigation.swift */; };
+		1174DFB62DAAD50100DC1CCC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFB52DAAD4FB00DC1CCC /* HomeViewController.swift */; };
+		1174DFB82DAAD50A00DC1CCC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFB72DAAD50500DC1CCC /* HomeViewModel.swift */; };
+		1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFB92DAAD50E00DC1CCC /* PlanningViewController.swift */; };
+		1174DFBC2DAAD51C00DC1CCC /* PlanningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFBB2DAAD51700DC1CCC /* PlanningViewModel.swift */; };
+		1174DFBE2DAAD52D00DC1CCC /* GuestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFBD2DAAD51F00DC1CCC /* GuestsViewController.swift */; };
+		1174DFC02DAAD53600DC1CCC /* GuestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */; };
+		1174DFC22DAAE55000DC1CCC /* GoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */; };
+		1174DFC42DAAE87900DC1CCC /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1174DFC32DAAE87900DC1CCC /* Icons.xcassets */; };
 		11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3592D8B361500D82AF2 /* AppDelegate.swift */; };
 		11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E35C2D8B361500D82AF2 /* SceneDelegate.swift */; };
 		11A7E3622D8B361500D82AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A7E35A2D8B361500D82AF2 /* Assets.xcassets */; };
@@ -206,6 +224,22 @@
 		11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionHelper.swift; sourceTree = "<group>"; };
 		11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionUseCase.swift; sourceTree = "<group>"; };
 		11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionAPIService.swift; sourceTree = "<group>"; };
+		1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarCoordinator.swift; sourceTree = "<group>"; };
+		1174DF932DAAC32200DC1CCC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigation.swift; sourceTree = "<group>"; };
+		1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		1174DFAB2DAAD2E100DC1CCC /* PlanningNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningNavigation.swift; sourceTree = "<group>"; };
+		1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningCoordinator.swift; sourceTree = "<group>"; };
+		1174DFB02DAAD30E00DC1CCC /* GuestsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsCoordinator.swift; sourceTree = "<group>"; };
+		1174DFB22DAAD31900DC1CCC /* GuestsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsNavigation.swift; sourceTree = "<group>"; };
+		1174DFB52DAAD4FB00DC1CCC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1174DFB72DAAD50500DC1CCC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		1174DFB92DAAD50E00DC1CCC /* PlanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewController.swift; sourceTree = "<group>"; };
+		1174DFBB2DAAD51700DC1CCC /* PlanningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewModel.swift; sourceTree = "<group>"; };
+		1174DFBD2DAAD51F00DC1CCC /* GuestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewController.swift; sourceTree = "<group>"; };
+		1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewModel.swift; sourceTree = "<group>"; };
+		1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleHelper.swift; sourceTree = "<group>"; };
+		1174DFC32DAAE87900DC1CCC /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		11A7E3252D8B35BF00D82AF2 /* OLSUN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLSUN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E33B2D8B35C200D82AF2 /* OLSUNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E3452D8B35C200D82AF2 /* OLSUNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -376,6 +410,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */,
+				1174DF9A2DAAC45B00DC1CCC /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +478,83 @@
 				11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */,
 			);
 			path = AuthSession;
+			sourceTree = "<group>";
+		};
+		1174DF902DAAC2F800DC1CCC /* HomeTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */,
+				1174DF932DAAC32200DC1CCC /* TabBarController.swift */,
+				1174DF952DAAC32E00DC1CCC /* Home */,
+				1174DFA92DAAD2B400DC1CCC /* Planning */,
+				1174DFAA2DAAD2D000DC1CCC /* Guests */,
+			);
+			path = HomeTabBar;
+			sourceTree = "<group>";
+		};
+		1174DF952DAAC32E00DC1CCC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */,
+				1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */,
+				1174DFA72DAAD25300DC1CCC /* ViewModules */,
+				1174DFA82DAAD26700DC1CCC /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1174DFA72DAAD25300DC1CCC /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFB52DAAD4FB00DC1CCC /* HomeViewController.swift */,
+				1174DFB72DAAD50500DC1CCC /* HomeViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		1174DFA82DAAD26700DC1CCC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1174DFA92DAAD2B400DC1CCC /* Planning */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */,
+				1174DFAB2DAAD2E100DC1CCC /* PlanningNavigation.swift */,
+				1174DFAF2DAAD30000DC1CCC /* ViewModules */,
+			);
+			path = Planning;
+			sourceTree = "<group>";
+		};
+		1174DFAA2DAAD2D000DC1CCC /* Guests */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFB02DAAD30E00DC1CCC /* GuestsCoordinator.swift */,
+				1174DFB22DAAD31900DC1CCC /* GuestsNavigation.swift */,
+				1174DFB42DAAD32800DC1CCC /* ViewModules */,
+			);
+			path = Guests;
+			sourceTree = "<group>";
+		};
+		1174DFAF2DAAD30000DC1CCC /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFB92DAAD50E00DC1CCC /* PlanningViewController.swift */,
+				1174DFBB2DAAD51700DC1CCC /* PlanningViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		1174DFB42DAAD32800DC1CCC /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				1174DFBD2DAAD51F00DC1CCC /* GuestsViewController.swift */,
+				1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */,
+			);
+			path = ViewModules;
 			sourceTree = "<group>";
 		};
 		11A7E31C2D8B35BF00D82AF2 = {
@@ -511,6 +624,7 @@
 				11A7E3702D8B36A100D82AF2 /* Fonts */,
 				11A7E35A2D8B361500D82AF2 /* Assets.xcassets */,
 				11A7E3712D8B36D100D82AF2 /* Colors.xcassets */,
+				1174DFC32DAAE87900DC1CCC /* Icons.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -529,6 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				11A7E3812D8B378100D82AF2 /* Auth */,
+				1174DF902DAAC2F800DC1CCC /* HomeTabBar */,
 				11A7E3802D8B377C00D82AF2 /* Core */,
 			);
 			path = Presentation;
@@ -842,6 +957,7 @@
 		11F41BB02DA5718400C16224 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */,
 				11F41BB12DA5718E00C16224 /* DeviceSizeClass.swift */,
 			);
 			path = Helpers;
@@ -864,6 +980,8 @@
 			);
 			name = OLSUN;
 			packageProductDependencies = (
+				1174DF972DAAC45B00DC1CCC /* GoogleSignIn */,
+				1174DF992DAAC45B00DC1CCC /* GoogleSignInSwift */,
 			);
 			productName = OLSUN;
 			productReference = 11A7E3252D8B35BF00D82AF2 /* OLSUN.app */;
@@ -941,6 +1059,9 @@
 			);
 			mainGroup = 11A7E31C2D8B35BF00D82AF2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11A7E3262D8B35BF00D82AF2 /* Products */;
 			projectDirPath = "";
@@ -968,6 +1089,7 @@
 				11BB9E3B2D8C8F4E00008DD7 /* WorkSans-ExtraBold.ttf in Resources */,
 				11BB9E3C2D8C8F4E00008DD7 /* WorkSans-Medium.ttf in Resources */,
 				11BB9E3D2D8C8F4E00008DD7 /* WorkSans-ThinItalic.ttf in Resources */,
+				1174DFC42DAAE87900DC1CCC /* Icons.xcassets in Resources */,
 				11BB9E3E2D8C8F4E00008DD7 /* WorkSans-ExtraLightItalic.ttf in Resources */,
 				11BB9E3F2D8C8F4E00008DD7 /* WorkSans-LightItalic.ttf in Resources */,
 				11BB9E402D8C8F4E00008DD7 /* WorkSans-BoldItalic.ttf in Resources */,
@@ -1117,35 +1239,50 @@
 				11A7E37B2D8B375600D82AF2 /* NotificationNameExtensions.swift in Sources */,
 				11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */,
 				11A7E3932D8B39C700D82AF2 /* AuthNavigation.swift in Sources */,
+				1174DFAC2DAAD2E800DC1CCC /* PlanningNavigation.swift in Sources */,
+				1174DFB82DAAD50A00DC1CCC /* HomeViewModel.swift in Sources */,
+				1174DFB62DAAD50100DC1CCC /* HomeViewController.swift in Sources */,
+				1174DFC02DAAD53600DC1CCC /* GuestsViewModel.swift in Sources */,
 				11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */,
 				11BB9F2C2D8C956E00008DD7 /* OnboardingViewController.swift in Sources */,
+				1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */,
 				11A7E38B2D8B37FD00D82AF2 /* ReusableButton.swift in Sources */,
 				11F41BB22DA5718E00C16224 /* DeviceSizeClass.swift in Sources */,
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,
 				11BB9F342D8C95A900008DD7 /* SignUpViewController.swift in Sources */,
 				11A7E3952D8B39D200D82AF2 /* AuthCoordinator.swift in Sources */,
 				11529D7D2D95E4C600AAD720 /* AuthSessionUseCase.swift in Sources */,
+				1174DFC22DAAE55000DC1CCC /* GoogleHelper.swift in Sources */,
 				11529D742D95E04600AAD720 /* CoreAPIManager.swift in Sources */,
 				11BB9F322D8C959600008DD7 /* LaunchViewModel.swift in Sources */,
+				1174DFB32DAAD32300DC1CCC /* GuestsNavigation.swift in Sources */,
 				11A7E3872D8B37C000D82AF2 /* BaseViewController.swift in Sources */,
+				1174DFBC2DAAD51C00DC1CCC /* PlanningViewModel.swift in Sources */,
+				1174DFA42DAAD23800DC1CCC /* HomeNavigation.swift in Sources */,
 				11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */,
 				11A7E3852D8B37AA00D82AF2 /* AppCoordinator.swift in Sources */,
 				11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */,
+				1174DFAE2DAAD2F700DC1CCC /* PlanningCoordinator.swift in Sources */,
 				11A7E3A02D8B3A9C00D82AF2 /* LoginViewModel.swift in Sources */,
 				11A7E38D2D8B380600D82AF2 /* ReusableLabel.swift in Sources */,
 				11A7E38F2D8B381000D82AF2 /* ReusableTextField.swift in Sources */,
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
+				1174DFB12DAAD31600DC1CCC /* GuestsCoordinator.swift in Sources */,
 				11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */,
 				110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */,
+				1174DFBE2DAAD52D00DC1CCC /* GuestsViewController.swift in Sources */,
 				11A7E3772D8B373600D82AF2 /* UserDefaultsHelper.swift in Sources */,
 				11BB9F2E2D8C957E00008DD7 /* OnboardingViewModel.swift in Sources */,
+				1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */,
 				11A7E3792D8B374300D82AF2 /* UserDefaultsKey.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,
+				1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */,
 				11A7E37F2D8B376E00D82AF2 /* LayoutExtensions.swift in Sources */,
 				11BB9F302D8C958B00008DD7 /* LaunchViewController.swift in Sources */,
+				1174DFA62DAAD24700DC1CCC /* HomeCoordinator.swift in Sources */,
 				11529D7B2D95E4BB00AAD720 /* AuthSessionHelper.swift in Sources */,
 				11A7E3832D8B37A000D82AF2 /* Coordinator.swift in Sources */,
 			);
@@ -1479,6 +1616,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1174DF972DAAC45B00DC1CCC /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		1174DF992DAAC45B00DC1CCC /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11A7E31D2D8B35BF00D82AF2 /* Project object */;
 }

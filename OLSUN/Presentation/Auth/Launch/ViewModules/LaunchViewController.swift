@@ -542,11 +542,10 @@ final class LaunchViewController: BaseViewController {
                 gender: gender,
                 coupleName: partnerName,
                 coupleGender: partnerGender,
-                bday: dateString,
-                auth: .local
+                bday: dateString
             )
-            createUserWithPassword(user: userInput)
-        } 
+            viewModel?.createUser(user: userInput)
+        }
     }
     
     fileprivate func checkErrorBorders(name: String, partnerName: String, bday: String) {

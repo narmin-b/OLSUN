@@ -12,13 +12,14 @@ final class LoginViewModel {
         case loading
         case loaded
         case success
+        case launch
         case error(message: String)
     }
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
     private var authSessionUse: AuthSessionUseCase
-        
+    
     init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
         self.authSessionUse = authSessionUse
@@ -32,7 +33,7 @@ final class LoginViewModel {
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
                 
-                if let dto = dto {
+                if dto != nil {
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))
@@ -41,8 +42,30 @@ final class LoginViewModel {
         }
     }
     
+    func googleEmailCheck(user: GoogleUser) {
+        requestCallback?(.loading)
+        authSessionUse.googleEmailCheck(idToken: user.idToken) { [weak self] dto, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.requestCallback?(.loaded)
+                print("dto:", dto ?? "No resp")
+
+                if dto != nil {
+                    self.showShowLaunchScreen(user: user)
+                } else {
+                    self.requestCallback?(.success)
+//                    self.requestCallback?(.error(message: error ?? "Unknown error"))
+                }
+            }
+        }
+    }
+    
     func popControllerBack() {
         navigation?.popbackScreen()
+    }
+    
+    func showShowLaunchScreen(user: GoogleUser) {
+        navigation?.showLaunch(auth: .google, loginModel: nil, googleModel: user)
     }
     
     func showShowSignUpScreen() {

@@ -71,6 +71,11 @@ final class CoreAPIManager {
         statusCode: Int,
         completion: @escaping((Result<(T, Int), CoreErrorModel>) -> Void)
     ) {
+        if T.self == String.self, let string = String(data: data, encoding: .utf8) as? T {
+            completion(.success((string, statusCode)))
+            return
+        }
+
         do {
             let response = try JSONDecoder().decode(T.self, from: data)
             completion(.success((response, statusCode)))

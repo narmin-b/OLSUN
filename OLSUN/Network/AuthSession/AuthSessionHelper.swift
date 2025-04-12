@@ -10,6 +10,8 @@ import Foundation
 enum AuthSessionHelper {
     case register
     case login
+    case googleLogin
+    case googleCheck
     
     var endpoint: URL? {
         switch self {
@@ -17,6 +19,10 @@ enum AuthSessionHelper {
             return CoreAPIHelper.instance.makeURL(path: "test/auth/register")
         case .login:
             return CoreAPIHelper.instance.makeURL(path: "test/auth/login")
+        case .googleLogin:
+            return CoreAPIHelper.instance.makeURL(path: "auth/google/register")
+        case .googleCheck:
+            return CoreAPIHelper.instance.makeURL(path: "auth/google/email")
         }
     }
 }

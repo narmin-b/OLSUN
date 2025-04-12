@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    func application(_ app: UIApplication, open url: URL,
+              options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+      var handled: Bool
 
+        let config = GIDConfiguration(clientID: "207601672687-h1t25jp8d3lrc1oio27pmd8gr82qjjpf.apps.googleusercontent.com")
+        GIDSignIn.sharedInstance.configuration = config
+      handled = GIDSignIn.sharedInstance.handle(url)
+      if handled {
+        return true
+      }
 
+      return false
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

@@ -17,16 +17,42 @@ final class SignUpViewModel {
 
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
+    private var authSessionUse: AuthSessionUseCase
         
-    init(navigation: AuthNavigation) {
+    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
+        self.authSessionUse = authSessionUse
     }
     
     func popControllerBack() {
         navigation?.popbackScreen()
     }
         
-    func showShowLaunchScreen(email: String, password: String) {
-        navigation?.showLaunch(email: email, password: password)
+    func showShowLaunchScreen(auth: Auth, loginUser: LoginDataModel?, googleUser: GoogleUser?) {
+        switch auth {
+        case .google:
+            navigation?.showLaunch(auth: auth, loginModel: nil, googleModel: googleUser)
+        case .local:
+            navigation?.showLaunch(auth: auth, loginModel: loginUser, googleModel: nil)
+        case .guest:
+            return
+        }
+    }
+    
+    func googleEmailCheck(user: GoogleUser) {
+        requestCallback?(.loading)
+        authSessionUse.googleEmailCheck(idToken: user.idToken) { [weak self] dto, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.requestCallback?(.loaded)
+                print("dto:", dto ?? "No resp")
+
+                if dto != nil {
+                    self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)
+                } else {
+                    self.requestCallback?(.success)
+                }
+            }
+        }
     }
 }

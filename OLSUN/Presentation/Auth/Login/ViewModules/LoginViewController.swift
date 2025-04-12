@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 final class LoginViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -330,7 +331,10 @@ final class LoginViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     print(#function)
+                    self.showMessage(title: "Giriş Edildi", message: "Hesabınıza davam edə bilərsiniz!")
 //                    self.viewModel?.startHomeScreen()
+                case .launch:
+                    print(#function)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -357,6 +361,19 @@ final class LoginViewController: BaseViewController {
     
     @objc func googleLoginButtonTapped() {
         print(#function)
+        GoogleAuthManager.shared.signIn(from: self) { result in
+            switch result {
+            case .success(let googleUser):
+                let loggedUser = GoogleUser(
+                    name: googleUser.name,
+                    email: googleUser.email,
+                    idToken: googleUser.idToken
+                )
+                self.viewModel?.googleEmailCheck(user: loggedUser)
+            case .failure(let error):
+                print("❌ Google Sign-In failed: \(error.localizedDescription)")
+            }
+        }
     }
     
     @objc fileprivate func loginTapped() {

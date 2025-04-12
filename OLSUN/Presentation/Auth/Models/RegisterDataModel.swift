@@ -27,5 +27,5 @@ struct RegisterDataModel {
     var email: String?
     var password: String?
     var bday: String?
-    var auth: Auth
+    var auth: Auth?
 }

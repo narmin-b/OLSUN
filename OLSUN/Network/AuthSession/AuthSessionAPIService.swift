@@ -6,8 +6,13 @@
 //
 
 import Foundation
+//import GoogleSignIn
 
 final class AuthSessionAPIService: AuthSessionUseCase {
+//    func googleEmailCheck(idToken: String, completion: @escaping (String?, String?) -> Void) {
+//        <#code#>
+//    }
+    
     private let apiService = CoreAPIManager.instance
  
     func createUser(user: RegisterDataModel, completion: @escaping (String?, String?) -> Void) {
@@ -21,13 +26,13 @@ final class AuthSessionAPIService: AuthSessionUseCase {
                 "gender" : user.gender.rawValue,
                 "coupleName" : user.coupleName,
                 "coupleGender" : user.coupleGender.rawValue,
-                "email": user.email,
-                "password" : user.password,
+                "email": user.email ?? "",
+                "password" : user.password ?? "",
                 "bday" : user.bday ?? "",
-                "auth" : user.auth.rawValue
+                "auth" : user.auth?.rawValue ?? ""
             ]
         ) { [weak self] result in
-            guard let self = self else { return }
+            guard self != nil else { return }
             print("result:", result)
 
             switch result {
@@ -59,6 +64,65 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             switch result {
             case .success(let (data, statusCode)):
                 print("User logged in successfully. Status Code: \(statusCode)")
+
+                if (200...299).contains(statusCode) {
+                    completion(data, nil)
+                } else {
+                    completion(nil, data)
+                }
+               
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func googleSignIn(idToken: String, user: RegisterDataModel, completion: @escaping (String?, String?) -> Void) {
+        apiService.request(
+            type: String.self,
+            url: AuthSessionHelper.googleLogin.endpoint,
+            method: .POST,
+            header: ["Content-Type" : "application/json",
+                     "Authorization": "Bearer \(idToken)"],
+            body: [
+                "email": user.email ?? "",
+                "name" : user.username,
+                "gender" : user.gender.rawValue,
+                "coupleName" : user.coupleName,
+                "coupleGender" : user.coupleGender.rawValue,
+                "bday" : user.bday ?? ""
+            ]
+        ) { [weak self] result in
+            guard let _ = self else { return }
+            switch result {
+            case .success(let (data, statusCode)):
+                print("Status Code: \(statusCode)")
+
+                if (200...299).contains(statusCode) {
+                    completion(data, nil)
+                } else {
+                    completion(nil, data)
+                }
+               
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func googleEmailCheck(idToken: String, completion: @escaping (String?, String?) -> Void) {
+        apiService.request(
+            type: String.self,
+            url: AuthSessionHelper.googleCheck.endpoint,
+            method: .POST,
+            header: ["Content-Type" : "application/json",
+                     "Authorization": "Bearer \(idToken)"],
+            body: [ : ]
+        ) { [weak self] result in
+            guard let _ = self else { return }
+            switch result {
+            case .success(let (data, statusCode)):
+                print("Status Code: \(statusCode)")
 
                 if (200...299).contains(statusCode) {
                     completion(data, nil)

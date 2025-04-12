@@ -13,7 +13,7 @@ final class SignUpViewController: BaseViewController {
         view.color = .black
         view.tintColor = .black
         view.hidesWhenStopped = true
-        view.backgroundColor = .white
+        view.backgroundColor = .white.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -142,7 +142,7 @@ final class SignUpViewController: BaseViewController {
         return label
     }()
     
-    private lazy var googleLoginButton: UIButton = {
+    private lazy var googleSignInButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
         config.baseForegroundColor = .black
@@ -153,7 +153,7 @@ final class SignUpViewController: BaseViewController {
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
 
         let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
-            self?.googleSignupButtonTapped()
+            self?.googleSignInButtonTapped()
         })
 
         button.clipsToBounds = true
@@ -236,7 +236,7 @@ final class SignUpViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, signupButton, seperatorStackView, googleLoginButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, signupButton, seperatorStackView, googleSignInButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -311,14 +311,14 @@ final class SignUpViewController: BaseViewController {
             ])
         
         let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 40 : 44
-        googleLoginButton.anchor(
+        googleSignInButton.anchor(
             top: seperatorStackView.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
             padding: .init(top: googleDist, left: 32, bottom: 0, right: -32)
         )
-        googleLoginButton.centerXToSuperview()
-        googleLoginButton.anchorSize(.init(width: 0, height: 44))
+        googleSignInButton.centerXToSuperview()
+        googleSignInButton.anchorSize(.init(width: 0, height: 44))
     }
     
     private func configureViewModel() {
@@ -332,6 +332,7 @@ final class SignUpViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     print(#function)
+                    self.showMessage(title: "Giriş Edildi", message: "Hesabınıza davam edə bilərsiniz!")
 //                    self.viewModel?.showLaunchScreen()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
@@ -357,12 +358,24 @@ final class SignUpViewController: BaseViewController {
         }
     }
     
-    @objc func googleSignupButtonTapped() {
+    @objc func googleSignInButtonTapped() {
         print(#function)
+        GoogleAuthManager.shared.signIn(from: self) { result in
+            switch result {
+            case .success(let googleUser):
+                let loggedUser = GoogleUser(
+                    name: googleUser.name,
+                    email: googleUser.email,
+                    idToken: googleUser.idToken
+                )
+                self.viewModel?.googleEmailCheck(user: loggedUser)
+            case .failure(let error):
+                print("❌ Google Sign-In failed: \(error.localizedDescription)")
+            }
+        }
     }
     
     @objc fileprivate func signupTapped() {
-//        viewModel?.showShowLaunchScreen(email: "11", password: "22")
         checkInputRequirements()
     }
     
@@ -381,7 +394,8 @@ final class SignUpViewController: BaseViewController {
 
         checkErrorBorders(email: email, password: password)
         if email.isValidEmail() && password.isValidPassword() {
-            viewModel?.showShowLaunchScreen(email: email, password: password)
+            let loggedUser = LoginDataModel(email: email, password: password)
+            viewModel?.showShowLaunchScreen(auth: .local, loginUser: loggedUser, googleUser: nil)
         }
     }
     

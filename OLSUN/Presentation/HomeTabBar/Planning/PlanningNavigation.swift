@@ -8,5 +8,6 @@
 import Foundation
 
 protocol PlanningNavigation: AnyObject {
-   
+    func showTask(taskItem: TaskItem)
+    func showAddTask()
 }

@@ -95,7 +95,7 @@ final class LoginViewController: BaseViewController {
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
             title: "Davam et",
-            onAction: loginTapped,
+            onAction: { [weak self] in self?.loginTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
         )
@@ -184,7 +184,6 @@ final class LoginViewController: BaseViewController {
         keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
         return keyboardToolbar
     }()
-    
     
     private let viewModel: LoginViewModel?
     
@@ -331,8 +330,9 @@ final class LoginViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     print(#function)
-                    self.showMessage(title: "Giriş Edildi", message: "Hesabınıza davam edə bilərsiniz!")
-//                    self.viewModel?.startHomeScreen()
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+
+                    self.viewModel?.showHomeTabBar()
                 case .launch:
                     print(#function)
                 case .error(let error):
@@ -377,7 +377,8 @@ final class LoginViewController: BaseViewController {
     }
     
     @objc fileprivate func loginTapped() {
-        print(#function)
+//        viewModel?.showHomeTabBar()
+//        print(#function)
         checkInputRequirements()
     }
     
@@ -386,8 +387,8 @@ final class LoginViewController: BaseViewController {
     }
     
     fileprivate func removeErrorBorder() {
-        emailTextField.errorBorderOff()
-        passwordTextField.errorBorderOff()
+        emailTextField.borderOff()
+        passwordTextField.borderOff()
     }
     
     fileprivate func checkInputRequirements() {
@@ -407,12 +408,12 @@ final class LoginViewController: BaseViewController {
         if !email.isValidEmail() {
             emailTextField.errorBorderOn()
         } else {
-            emailTextField.errorBorderOff()
+            emailTextField.borderOff()
         }
         if !password.isValidPassword() {
             passwordTextField.errorBorderOn()
         } else {
-            passwordTextField.errorBorderOff()
+            passwordTextField.borderOff()
         }
     }
     

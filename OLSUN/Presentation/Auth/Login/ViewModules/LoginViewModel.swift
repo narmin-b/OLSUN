@@ -32,7 +32,7 @@ final class LoginViewModel {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
-                
+                UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
                 if dto != nil {
                     self.requestCallback?(.success)
                 } else if let error = error {
@@ -49,12 +49,11 @@ final class LoginViewModel {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
-
+                UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
                 if dto != nil {
-                    self.showShowLaunchScreen(user: user)
-                } else {
                     self.requestCallback?(.success)
-//                    self.requestCallback?(.error(message: error ?? "Unknown error"))
+                } else {
+                    self.showShowLaunchScreen(user: user)
                 }
             }
         }
@@ -70,5 +69,9 @@ final class LoginViewModel {
     
     func showShowSignUpScreen() {
         navigation?.showSignUp()
+    }
+    
+    func showHomeTabBar() {
+        navigation?.didCompleteAuthentication()
     }
 }

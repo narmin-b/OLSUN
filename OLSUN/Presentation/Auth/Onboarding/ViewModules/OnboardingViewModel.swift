@@ -32,6 +32,9 @@ final class OnboardingViewModel {
     
     func showShowSignUpScreen() {
         navigation?.showSignUp()
-//        navigation?.showLaunch(email: email, password: password)
+    }
+    
+    func showHomeTabBar() {
+        navigation?.didCompleteAuthentication()
     }
 }

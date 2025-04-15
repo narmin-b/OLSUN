@@ -8,10 +8,17 @@
 import Foundation
 import UIKit.UINavigationController
 
+protocol HomeTabBarCoordinatorDelegate: AnyObject {
+    func homeDidFinish()
+}
+
 final class HomeCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
+    weak var delegate: HomeTabBarCoordinatorDelegate?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
+    
+    weak var tabBarDelegate: HomeTabBarNavigation?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -24,7 +31,7 @@ final class HomeCoordinator: Coordinator {
     func start() {
         let controller = HomeViewController(
             viewModel: .init(
-                navigation: self
+                navigation: self, tabBarDelegate: tabBarDelegate
             )
         )
         showController(vc: controller)
@@ -32,5 +39,9 @@ final class HomeCoordinator: Coordinator {
 }
 
 extension HomeCoordinator: HomeNavigation {
-    
+    func showAuth() {
+        delegate?.homeDidFinish()
+        
+        parentCoordinator?.childDidFinish(self)
+    }
 }

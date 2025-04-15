@@ -14,11 +14,11 @@ final class SignUpViewModel {
         case success
         case error(message: String)
     }
-
+    
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
     private var authSessionUse: AuthSessionUseCase
-        
+    
     init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
         self.authSessionUse = authSessionUse
@@ -27,7 +27,11 @@ final class SignUpViewModel {
     func popControllerBack() {
         navigation?.popbackScreen()
     }
-        
+    
+    func showHomeTabBar() {
+        navigation?.didCompleteAuthentication()
+    }
+    
     func showShowLaunchScreen(auth: Auth, loginUser: LoginDataModel?, googleUser: GoogleUser?) {
         switch auth {
         case .google:
@@ -46,11 +50,12 @@ final class SignUpViewModel {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
-
+                
+                UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
                 if dto != nil {
-                    self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)
-                } else {
                     self.requestCallback?(.success)
+                } else {
+                    self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)
                 }
             }
         }

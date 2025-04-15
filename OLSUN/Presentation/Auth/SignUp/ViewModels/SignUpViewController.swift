@@ -94,7 +94,7 @@ final class SignUpViewController: BaseViewController {
     private lazy var signupButton: UIButton = {
         let button = ReusableButton(
             title: "Davam et",
-            onAction: signupTapped,
+            onAction: { [weak self] in self?.signupTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
         )
@@ -332,8 +332,9 @@ final class SignUpViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     print(#function)
-                    self.showMessage(title: "Giriş Edildi", message: "Hesabınıza davam edə bilərsiniz!")
-//                    self.viewModel?.showLaunchScreen()
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+
+                    self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -384,8 +385,8 @@ final class SignUpViewController: BaseViewController {
     }
     
     fileprivate func removeErrorBorder() {
-        emailTextField.errorBorderOff()
-        passwordTextField.errorBorderOff()
+        emailTextField.borderOff()
+        passwordTextField.borderOff()
     }
     
     fileprivate func checkInputRequirements() {
@@ -403,12 +404,12 @@ final class SignUpViewController: BaseViewController {
         if !email.isValidEmail() {
             emailTextField.errorBorderOn()
         } else {
-            emailTextField.errorBorderOff()
+            emailTextField.borderOff()
         }
         if !password.isValidPassword() {
             passwordTextField.errorBorderOn()
         } else {
-            passwordTextField.errorBorderOff()
+            passwordTextField.borderOff()
         }
     }
     

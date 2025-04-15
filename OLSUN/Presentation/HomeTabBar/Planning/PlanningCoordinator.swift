@@ -32,5 +32,13 @@ final class PlanningCoordinator: Coordinator {
 }
 
 extension PlanningCoordinator: PlanningNavigation {
+    func showTask(taskItem: TaskItem) {
+        let vc = TaskViewController(viewModel: .init(navigation: self, taskItem: taskItem))
+        showController(vc: vc)
+    }
     
+    func showAddTask() {
+        let vc = AddTaskViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
+    }
 }

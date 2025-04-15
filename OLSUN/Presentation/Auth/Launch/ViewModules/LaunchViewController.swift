@@ -121,7 +121,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Yaşınız",
+            labelText: "Doğum Gününüz",
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -223,7 +223,7 @@ final class LaunchViewController: BaseViewController {
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
             title: "Növbəti",
-            onAction: nextTapped,
+            onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
         )
@@ -552,22 +552,22 @@ final class LaunchViewController: BaseViewController {
         if !name.isValidName() {
             nameTextField.errorBorderOn()
         } else {
-            nameTextField.errorBorderOff()
+            nameTextField.borderOff()
         }
         if !partnerName.isValidName() {
             partnerNameTextField.errorBorderOn()
         } else {
-            partnerNameTextField.errorBorderOff()
+            partnerNameTextField.borderOff()
         }
         if !bday.isValidAge() {
             dateTextField.errorBorderOn()
         } else {
-            dateTextField.errorBorderOff()
+            dateTextField.borderOff()
         }
         if genderTextfield.text?.isEmpty == true {
             genderTextfield.errorBorderOn()
         } else {
-            genderTextfield.errorBorderOff()
+            genderTextfield.borderOff()
         }
     }
     

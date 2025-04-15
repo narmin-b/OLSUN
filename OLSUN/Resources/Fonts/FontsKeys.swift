@@ -29,5 +29,11 @@ enum FontKeys: String {
     case futuricaRegular = "Futurica"
     case futuricaBold = "Futurica-Bold"
     case futuricaLight = "FuturicaLight"
+    case montserratExtraLight = "Montserrat-ExtraLight"
+    case montserratLight = "Montserrat-Light"
+    case montserratMedium = "Montserrat-Medium"
+    case montserratRegular = "Montserrat-Regular"
+    case montserratSemiBold = "Montserrat-SemiBold"
+    case montserratBold = "Montserrat-Bold"
 }
 

@@ -9,7 +9,37 @@
 /* Begin PBXBuildFile section */
 		110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D7C432DA827A20090280D /* LoginDataModel.swift */; };
 		110D9C272DA306E800492B46 /* Futurica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 110D9C212DA306E800492B46 /* Futurica.ttf */; };
+		11273A3D2DAE832300E2FB47 /* GuestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A3C2DAE831E00E2FB47 /* GuestHelper.swift */; };
+		11273A3F2DAE832C00E2FB47 /* GuestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A3E2DAE832600E2FB47 /* GuestAPIService.swift */; };
+		11273A412DAE833300E2FB47 /* GuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A402DAE832F00E2FB47 /* GuestUseCase.swift */; };
+		11273A442DAE840F00E2FB47 /* GuestDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A432DAE840500E2FB47 /* GuestDataModel.swift */; };
+		11273A462DAE898200E2FB47 /* ListCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A452DAE897100E2FB47 /* ListCellProtocol.swift */; };
 		11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */; };
+		1147AF132DABEA28006D28CD /* MenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF122DABE9FE006D28CD /* MenuTableCell.swift */; };
+		1147AF152DABF6B5006D28CD /* HomeTabBarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */; };
+		1147AF182DAC0055006D28CD /* TasksTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF172DAC004E006D28CD /* TasksTableCell.swift */; };
+		1147AF2C2DAC2F66006D28CD /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF222DAC2F66006D28CD /* Montserrat-Light.ttf */; };
+		1147AF2D2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1C2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf */; };
+		1147AF2E2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1D2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf */; };
+		1147AF2F2DAC2F66006D28CD /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF292DAC2F66006D28CD /* Montserrat-Thin.ttf */; };
+		1147AF302DAC2F66006D28CD /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF242DAC2F66006D28CD /* Montserrat-Medium.ttf */; };
+		1147AF312DAC2F66006D28CD /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF202DAC2F66006D28CD /* Montserrat-ExtraLightItalic.ttf */; };
+		1147AF322DAC2F66006D28CD /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1E2DAC2F66006D28CD /* Montserrat-ExtraBoldItalic.ttf */; };
+		1147AF332DAC2F66006D28CD /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF212DAC2F66006D28CD /* Montserrat-Italic.ttf */; };
+		1147AF342DAC2F66006D28CD /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF192DAC2F66006D28CD /* Montserrat-Black.ttf */; };
+		1147AF352DAC2F66006D28CD /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF232DAC2F66006D28CD /* Montserrat-LightItalic.ttf */; };
+		1147AF362DAC2F66006D28CD /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF272DAC2F66006D28CD /* Montserrat-SemiBold.ttf */; };
+		1147AF372DAC2F66006D28CD /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF282DAC2F66006D28CD /* Montserrat-SemiBoldItalic.ttf */; };
+		1147AF382DAC2F66006D28CD /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF2A2DAC2F66006D28CD /* Montserrat-ThinItalic.ttf */; };
+		1147AF392DAC2F66006D28CD /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1F2DAC2F66006D28CD /* Montserrat-ExtraLight.ttf */; };
+		1147AF3A2DAC2F66006D28CD /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF262DAC2F66006D28CD /* Montserrat-Regular.ttf */; };
+		1147AF3B2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1A2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf */; };
+		1147AF3C2DAC2F66006D28CD /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1B2DAC2F66006D28CD /* Montserrat-Bold.ttf */; };
+		1147AF3D2DAC2F66006D28CD /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF252DAC2F66006D28CD /* Montserrat-MediumItalic.ttf */; };
+		1147AF462DAC3ECA006D28CD /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF452DAC3EC3006D28CD /* TaskViewController.swift */; };
+		1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF472DAC3ECE006D28CD /* TaskViewModel.swift */; };
+		1147AF4A2DAC3EDE006D28CD /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF492DAC3ED8006D28CD /* AddTaskViewController.swift */; };
+		1147AF4C2DAC3EEA006D28CD /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF4B2DAC3EE2006D28CD /* AddTaskViewModel.swift */; };
 		11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D712D95E03700AAD720 /* CoreAPIHelper.swift */; };
 		11529D742D95E04600AAD720 /* CoreAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D732D95E04600AAD720 /* CoreAPIManager.swift */; };
 		11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D752D95E05400AAD720 /* CoreErrorModel.swift */; };
@@ -35,6 +65,10 @@
 		1174DFC02DAAD53600DC1CCC /* GuestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */; };
 		1174DFC22DAAE55000DC1CCC /* GoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */; };
 		1174DFC42DAAE87900DC1CCC /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1174DFC32DAAE87900DC1CCC /* Icons.xcassets */; };
+		118AFB8E2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB8B2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift */; };
+		118AFB8F2DAD9DC000FAC4F0 /* GuestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB8A2DAD9DC000FAC4F0 /* GuestDetailViewController.swift */; };
+		118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */; };
+		118AFB9C2DAD9F0C00FAC4F0 /* AddGuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB982DAD9F0C00FAC4F0 /* AddGuestViewController.swift */; };
 		11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3592D8B361500D82AF2 /* AppDelegate.swift */; };
 		11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E35C2D8B361500D82AF2 /* SceneDelegate.swift */; };
 		11A7E3622D8B361500D82AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A7E35A2D8B361500D82AF2 /* Assets.xcassets */; };
@@ -216,7 +250,37 @@
 /* Begin PBXFileReference section */
 		110D7C432DA827A20090280D /* LoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataModel.swift; sourceTree = "<group>"; };
 		110D9C212DA306E800492B46 /* Futurica.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futurica.ttf; sourceTree = "<group>"; };
+		11273A3C2DAE831E00E2FB47 /* GuestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestHelper.swift; sourceTree = "<group>"; };
+		11273A3E2DAE832600E2FB47 /* GuestAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestAPIService.swift; sourceTree = "<group>"; };
+		11273A402DAE832F00E2FB47 /* GuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestUseCase.swift; sourceTree = "<group>"; };
+		11273A432DAE840500E2FB47 /* GuestDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDataModel.swift; sourceTree = "<group>"; };
+		11273A452DAE897100E2FB47 /* ListCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellProtocol.swift; sourceTree = "<group>"; };
 		11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeltingCircleBackgroundView.swift; sourceTree = "<group>"; };
+		1147AF122DABE9FE006D28CD /* MenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableCell.swift; sourceTree = "<group>"; };
+		1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarNavigation.swift; sourceTree = "<group>"; };
+		1147AF172DAC004E006D28CD /* TasksTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableCell.swift; sourceTree = "<group>"; };
+		1147AF192DAC2F66006D28CD /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		1147AF1A2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		1147AF1B2DAC2F66006D28CD /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		1147AF1C2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
+		1147AF1D2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		1147AF1E2DAC2F66006D28CD /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1147AF1F2DAC2F66006D28CD /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		1147AF202DAC2F66006D28CD /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		1147AF212DAC2F66006D28CD /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
+		1147AF222DAC2F66006D28CD /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		1147AF232DAC2F66006D28CD /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		1147AF242DAC2F66006D28CD /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		1147AF252DAC2F66006D28CD /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
+		1147AF262DAC2F66006D28CD /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		1147AF272DAC2F66006D28CD /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		1147AF282DAC2F66006D28CD /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		1147AF292DAC2F66006D28CD /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		1147AF2A2DAC2F66006D28CD /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
+		1147AF452DAC3EC3006D28CD /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		1147AF472DAC3ECE006D28CD /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		1147AF492DAC3ED8006D28CD /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		1147AF4B2DAC3EE2006D28CD /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		11529D712D95E03700AAD720 /* CoreAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAPIHelper.swift; sourceTree = "<group>"; };
 		11529D732D95E04600AAD720 /* CoreAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAPIManager.swift; sourceTree = "<group>"; };
 		11529D752D95E05400AAD720 /* CoreErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreErrorModel.swift; sourceTree = "<group>"; };
@@ -240,6 +304,10 @@
 		1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewModel.swift; sourceTree = "<group>"; };
 		1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleHelper.swift; sourceTree = "<group>"; };
 		1174DFC32DAAE87900DC1CCC /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		118AFB8A2DAD9DC000FAC4F0 /* GuestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewController.swift; sourceTree = "<group>"; };
+		118AFB8B2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewModel.swift; sourceTree = "<group>"; };
+		118AFB982DAD9F0C00FAC4F0 /* AddGuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuestViewController.swift; sourceTree = "<group>"; };
+		118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuestViewModel.swift; sourceTree = "<group>"; };
 		11A7E3252D8B35BF00D82AF2 /* OLSUN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLSUN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E33B2D8B35C200D82AF2 /* OLSUNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E3452D8B35C200D82AF2 /* OLSUNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -442,6 +510,15 @@
 			path = Futurica;
 			sourceTree = "<group>";
 		};
+		11273A422DAE83F100E2FB47 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11273A452DAE897100E2FB47 /* ListCellProtocol.swift */,
+				11273A432DAE840500E2FB47 /* GuestDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		11365C942D93207A0004A3F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,9 +528,86 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1147AF162DAC0044006D28CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF172DAC004E006D28CD /* TasksTableCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1147AF2B2DAC2F66006D28CD /* Montserrat */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF192DAC2F66006D28CD /* Montserrat-Black.ttf */,
+				1147AF1A2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf */,
+				1147AF1B2DAC2F66006D28CD /* Montserrat-Bold.ttf */,
+				1147AF1C2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf */,
+				1147AF1D2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf */,
+				1147AF1E2DAC2F66006D28CD /* Montserrat-ExtraBoldItalic.ttf */,
+				1147AF1F2DAC2F66006D28CD /* Montserrat-ExtraLight.ttf */,
+				1147AF202DAC2F66006D28CD /* Montserrat-ExtraLightItalic.ttf */,
+				1147AF212DAC2F66006D28CD /* Montserrat-Italic.ttf */,
+				1147AF222DAC2F66006D28CD /* Montserrat-Light.ttf */,
+				1147AF232DAC2F66006D28CD /* Montserrat-LightItalic.ttf */,
+				1147AF242DAC2F66006D28CD /* Montserrat-Medium.ttf */,
+				1147AF252DAC2F66006D28CD /* Montserrat-MediumItalic.ttf */,
+				1147AF262DAC2F66006D28CD /* Montserrat-Regular.ttf */,
+				1147AF272DAC2F66006D28CD /* Montserrat-SemiBold.ttf */,
+				1147AF282DAC2F66006D28CD /* Montserrat-SemiBoldItalic.ttf */,
+				1147AF292DAC2F66006D28CD /* Montserrat-Thin.ttf */,
+				1147AF2A2DAC2F66006D28CD /* Montserrat-ThinItalic.ttf */,
+			);
+			path = Montserrat;
+			sourceTree = "<group>";
+		};
+		1147AF3E2DAC3E71006D28CD /* SubPages */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF402DAC3E8D006D28CD /* Task */,
+				1147AF3F2DAC3E86006D28CD /* AddTask */,
+			);
+			path = SubPages;
+			sourceTree = "<group>";
+		};
+		1147AF3F2DAC3E86006D28CD /* AddTask */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF442DAC3EBC006D28CD /* ViewModules */,
+			);
+			path = AddTask;
+			sourceTree = "<group>";
+		};
+		1147AF402DAC3E8D006D28CD /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF432DAC3EB6006D28CD /* ViewModules */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		1147AF432DAC3EB6006D28CD /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF452DAC3EC3006D28CD /* TaskViewController.swift */,
+				1147AF472DAC3ECE006D28CD /* TaskViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		1147AF442DAC3EBC006D28CD /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				1147AF492DAC3ED8006D28CD /* AddTaskViewController.swift */,
+				1147AF4B2DAC3EE2006D28CD /* AddTaskViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
 		11529D6F2D95E01500AAD720 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1175A3C72DAE81B9003F5307 /* Guest */,
 				11529D792D95E49700AAD720 /* AuthSession */,
 				11529D702D95E02100AAD720 /* Core */,
 			);
@@ -484,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */,
+				1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */,
 				1174DF932DAAC32200DC1CCC /* TabBarController.swift */,
 				1174DF952DAAC32E00DC1CCC /* Home */,
 				1174DFA92DAAD2B400DC1CCC /* Planning */,
@@ -495,8 +650,8 @@
 		1174DF952DAAC32E00DC1CCC /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */,
 				1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */,
+				1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */,
 				1174DFA72DAAD25300DC1CCC /* ViewModules */,
 				1174DFA82DAAD26700DC1CCC /* Views */,
 			);
@@ -515,6 +670,7 @@
 		1174DFA82DAAD26700DC1CCC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1147AF122DABE9FE006D28CD /* MenuTableCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,9 +678,11 @@
 		1174DFA92DAAD2B400DC1CCC /* Planning */ = {
 			isa = PBXGroup;
 			children = (
-				1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */,
 				1174DFAB2DAAD2E100DC1CCC /* PlanningNavigation.swift */,
+				1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */,
 				1174DFAF2DAAD30000DC1CCC /* ViewModules */,
+				1147AF162DAC0044006D28CD /* Views */,
+				1147AF3E2DAC3E71006D28CD /* SubPages */,
 			);
 			path = Planning;
 			sourceTree = "<group>";
@@ -532,9 +690,11 @@
 		1174DFAA2DAAD2D000DC1CCC /* Guests */ = {
 			isa = PBXGroup;
 			children = (
-				1174DFB02DAAD30E00DC1CCC /* GuestsCoordinator.swift */,
 				1174DFB22DAAD31900DC1CCC /* GuestsNavigation.swift */,
+				1174DFB02DAAD30E00DC1CCC /* GuestsCoordinator.swift */,
 				1174DFB42DAAD32800DC1CCC /* ViewModules */,
+				11273A422DAE83F100E2FB47 /* Models */,
+				118AFB872DAD9D0C00FAC4F0 /* SubPages */,
 			);
 			path = Guests;
 			sourceTree = "<group>";
@@ -553,6 +713,59 @@
 			children = (
 				1174DFBD2DAAD51F00DC1CCC /* GuestsViewController.swift */,
 				1174DFBF2DAAD53000DC1CCC /* GuestsViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		1175A3C72DAE81B9003F5307 /* Guest */ = {
+			isa = PBXGroup;
+			children = (
+				11273A3C2DAE831E00E2FB47 /* GuestHelper.swift */,
+				11273A402DAE832F00E2FB47 /* GuestUseCase.swift */,
+				11273A3E2DAE832600E2FB47 /* GuestAPIService.swift */,
+			);
+			path = Guest;
+			sourceTree = "<group>";
+		};
+		118AFB872DAD9D0C00FAC4F0 /* SubPages */ = {
+			isa = PBXGroup;
+			children = (
+				118AFB8D2DAD9DC000FAC4F0 /* GuestDetail */,
+				118AFB972DAD9EF400FAC4F0 /* AddGuest */,
+			);
+			path = SubPages;
+			sourceTree = "<group>";
+		};
+		118AFB8C2DAD9DC000FAC4F0 /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				118AFB8A2DAD9DC000FAC4F0 /* GuestDetailViewController.swift */,
+				118AFB8B2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		118AFB8D2DAD9DC000FAC4F0 /* GuestDetail */ = {
+			isa = PBXGroup;
+			children = (
+				118AFB8C2DAD9DC000FAC4F0 /* ViewModules */,
+			);
+			path = GuestDetail;
+			sourceTree = "<group>";
+		};
+		118AFB972DAD9EF400FAC4F0 /* AddGuest */ = {
+			isa = PBXGroup;
+			children = (
+				118AFB9A2DAD9F0C00FAC4F0 /* ViewModules */,
+			);
+			path = AddGuest;
+			sourceTree = "<group>";
+		};
+		118AFB9A2DAD9F0C00FAC4F0 /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				118AFB982DAD9F0C00FAC4F0 /* AddGuestViewController.swift */,
+				118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */,
 			);
 			path = ViewModules;
 			sourceTree = "<group>";
@@ -652,6 +865,7 @@
 		11A7E3702D8B36A100D82AF2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				1147AF2B2DAC2F66006D28CD /* Montserrat */,
 				110D9C242DA306E800492B46 /* Futurica */,
 				11BB9E332D8C8F4E00008DD7 /* WorkSans */,
 				11BB9E7C2D8C8F5D00008DD7 /* Roboto */,
@@ -1167,6 +1381,24 @@
 				11BB9E8B2D8C8F5D00008DD7 /* Roboto_Condensed-Bold.ttf in Resources */,
 				11BB9E8C2D8C8F5D00008DD7 /* Roboto-ExtraLightItalic.ttf in Resources */,
 				11BB9E8D2D8C8F5D00008DD7 /* Roboto_Condensed-MediumItalic.ttf in Resources */,
+				1147AF2C2DAC2F66006D28CD /* Montserrat-Light.ttf in Resources */,
+				1147AF2D2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf in Resources */,
+				1147AF2E2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf in Resources */,
+				1147AF2F2DAC2F66006D28CD /* Montserrat-Thin.ttf in Resources */,
+				1147AF302DAC2F66006D28CD /* Montserrat-Medium.ttf in Resources */,
+				1147AF312DAC2F66006D28CD /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				1147AF322DAC2F66006D28CD /* Montserrat-ExtraBoldItalic.ttf in Resources */,
+				1147AF332DAC2F66006D28CD /* Montserrat-Italic.ttf in Resources */,
+				1147AF342DAC2F66006D28CD /* Montserrat-Black.ttf in Resources */,
+				1147AF352DAC2F66006D28CD /* Montserrat-LightItalic.ttf in Resources */,
+				1147AF362DAC2F66006D28CD /* Montserrat-SemiBold.ttf in Resources */,
+				1147AF372DAC2F66006D28CD /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				1147AF382DAC2F66006D28CD /* Montserrat-ThinItalic.ttf in Resources */,
+				1147AF392DAC2F66006D28CD /* Montserrat-ExtraLight.ttf in Resources */,
+				1147AF3A2DAC2F66006D28CD /* Montserrat-Regular.ttf in Resources */,
+				1147AF3B2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf in Resources */,
+				1147AF3C2DAC2F66006D28CD /* Montserrat-Bold.ttf in Resources */,
+				1147AF3D2DAC2F66006D28CD /* Montserrat-MediumItalic.ttf in Resources */,
 				11BB9E8E2D8C8F5D00008DD7 /* Roboto_Condensed-BlackItalic.ttf in Resources */,
 				11BB9E8F2D8C8F5D00008DD7 /* Roboto_Condensed-BoldItalic.ttf in Resources */,
 				11BB9E912D8C8F5D00008DD7 /* Roboto_SemiCondensed-Light.ttf in Resources */,
@@ -1239,9 +1471,11 @@
 				11A7E37B2D8B375600D82AF2 /* NotificationNameExtensions.swift in Sources */,
 				11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */,
 				11A7E3932D8B39C700D82AF2 /* AuthNavigation.swift in Sources */,
+				11273A3D2DAE832300E2FB47 /* GuestHelper.swift in Sources */,
 				1174DFAC2DAAD2E800DC1CCC /* PlanningNavigation.swift in Sources */,
 				1174DFB82DAAD50A00DC1CCC /* HomeViewModel.swift in Sources */,
 				1174DFB62DAAD50100DC1CCC /* HomeViewController.swift in Sources */,
+				11273A442DAE840F00E2FB47 /* GuestDataModel.swift in Sources */,
 				1174DFC02DAAD53600DC1CCC /* GuestsViewModel.swift in Sources */,
 				11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */,
 				11BB9F2C2D8C956E00008DD7 /* OnboardingViewController.swift in Sources */,
@@ -1251,15 +1485,20 @@
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,
 				11BB9F342D8C95A900008DD7 /* SignUpViewController.swift in Sources */,
 				11A7E3952D8B39D200D82AF2 /* AuthCoordinator.swift in Sources */,
+				118AFB8E2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift in Sources */,
+				118AFB8F2DAD9DC000FAC4F0 /* GuestDetailViewController.swift in Sources */,
 				11529D7D2D95E4C600AAD720 /* AuthSessionUseCase.swift in Sources */,
 				1174DFC22DAAE55000DC1CCC /* GoogleHelper.swift in Sources */,
 				11529D742D95E04600AAD720 /* CoreAPIManager.swift in Sources */,
 				11BB9F322D8C959600008DD7 /* LaunchViewModel.swift in Sources */,
 				1174DFB32DAAD32300DC1CCC /* GuestsNavigation.swift in Sources */,
 				11A7E3872D8B37C000D82AF2 /* BaseViewController.swift in Sources */,
+				1147AF4C2DAC3EEA006D28CD /* AddTaskViewModel.swift in Sources */,
 				1174DFBC2DAAD51C00DC1CCC /* PlanningViewModel.swift in Sources */,
 				1174DFA42DAAD23800DC1CCC /* HomeNavigation.swift in Sources */,
 				11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */,
+				1147AF132DABEA28006D28CD /* MenuTableCell.swift in Sources */,
+				11273A412DAE833300E2FB47 /* GuestUseCase.swift in Sources */,
 				11A7E3852D8B37AA00D82AF2 /* AppCoordinator.swift in Sources */,
 				11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */,
 				1174DFAE2DAAD2F700DC1CCC /* PlanningCoordinator.swift in Sources */,
@@ -1267,15 +1506,24 @@
 				11A7E38D2D8B380600D82AF2 /* ReusableLabel.swift in Sources */,
 				11A7E38F2D8B381000D82AF2 /* ReusableTextField.swift in Sources */,
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
+				1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
+				118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */,
+				118AFB9C2DAD9F0C00FAC4F0 /* AddGuestViewController.swift in Sources */,
+				11273A462DAE898200E2FB47 /* ListCellProtocol.swift in Sources */,
 				1174DFB12DAAD31600DC1CCC /* GuestsCoordinator.swift in Sources */,
+				1147AF462DAC3ECA006D28CD /* TaskViewController.swift in Sources */,
+				11273A3F2DAE832C00E2FB47 /* GuestAPIService.swift in Sources */,
 				11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */,
 				110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */,
 				1174DFBE2DAAD52D00DC1CCC /* GuestsViewController.swift in Sources */,
+				1147AF152DABF6B5006D28CD /* HomeTabBarNavigation.swift in Sources */,
+				1147AF4A2DAC3EDE006D28CD /* AddTaskViewController.swift in Sources */,
 				11A7E3772D8B373600D82AF2 /* UserDefaultsHelper.swift in Sources */,
 				11BB9F2E2D8C957E00008DD7 /* OnboardingViewModel.swift in Sources */,
 				1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */,
 				11A7E3792D8B374300D82AF2 /* UserDefaultsKey.swift in Sources */,
+				1147AF182DAC0055006D28CD /* TasksTableCell.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 final class TabBarController: UITabBarController {
     let customTabBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = .accentMain
+        view.backgroundColor = .white
         view.layer.cornerRadius = 30
         view.layer.masksToBounds = true
         return view
@@ -21,17 +21,15 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        delegate = self
         setupTabBar()
         setupCustomTabBarView()
-        setupUnderlineIndicator()
     }
     
     private func setupTabBar() {
         UITabBar.setTransparentTabbar()
-        tabBar.barTintColor = .accentMain
-        tabBar.tintColor = .white
-        tabBar.unselectedItemTintColor = .lightGray
+        tabBar.barTintColor = .white
+        tabBar.tintColor = .black
+        tabBar.unselectedItemTintColor = .black
     }
     
     private func setupCustomTabBarView() {
@@ -46,69 +44,15 @@ final class TabBarController: UITabBarController {
             width: view.frame.width - 40,
             height: tabBarHeight
         )
+//        customTabBarView.addShadow()
+        customTabBarView.layer.shadowColor = UIColor.black.cgColor
+        customTabBarView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        customTabBarView.layer.shadowOpacity = 0.1
+        customTabBarView.layer.shadowRadius = 8
+        customTabBarView.layer.masksToBounds = false
         
         view.addSubview(customTabBarView)
         view.bringSubviewToFront(tabBar)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateUnderlinePosition(animated: false)
-    }
-
-    private func setupUnderlineIndicator() {
-        let itemCount = CGFloat(tabBar.items?.count ?? 1)
-        
-        let tabWidth = tabBar.frame.width / itemCount
-        let underlineWidth: CGFloat = 28
-        let underlineHeight: CGFloat = 4
-        let underlineYPosition: CGFloat = tabBar.frame.height - 10
-        
-        let underline = UIView(frame: CGRect(
-            x: (tabWidth - underlineWidth) / 2,
-            y: underlineYPosition,
-            width: underlineWidth,
-            height: underlineHeight
-        ))
-        
-        underline.backgroundColor = .white
-        underline.layer.cornerRadius = underlineHeight / 2
-        tabBar.addSubview(underline)
-        
-        underlineView = underline
-        updateUnderlinePosition(animated: false)
-    }
-    
-    private func updateUnderlinePosition(animated: Bool) {
-        guard let selectedIndex = tabBar.items?.firstIndex(of: tabBar.selectedItem ?? UITabBarItem()) else { return }
-        
-        let itemCount = CGFloat(tabBar.items?.count ?? 1)
-        let tabWidth = tabBar.frame.width / itemCount
-        let underlineWidth: CGFloat = 28
-        let firstTabCenterX = tabWidth / 2 - underlineWidth / 2
-        let targetX = firstTabCenterX + CGFloat(selectedIndex) * tabWidth
-        
-        if animated {
-            UIView.animate(withDuration: 0.3) {
-                if selectedIndex == 0 {
-                    self.underlineView?.frame.origin.x = firstTabCenterX
-                    return
-                }
-                self.underlineView?.frame.origin.x = targetX
-            }
-        } else {
-            if selectedIndex == 0 {
-                self.underlineView?.frame.origin.x = firstTabCenterX
-                return
-            }
-            underlineView?.frame.origin.x = targetX
-        }
-    }
-}
-
-extension TabBarController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        updateUnderlinePosition(animated: true)
     }
 }
 

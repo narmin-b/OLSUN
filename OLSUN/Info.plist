@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>GIDClientID</key>
-	<string>207601672687-h1t25jp8d3lrc1oio27pmd8gr82qjjpf.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -13,9 +11,17 @@
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>207601672687-h1t25jp8d3lrc1oio27pmd8gr82qjjpf.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Futurica-Light.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-Light.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-ExtraLight.ttf</string>
+		<string>FuturicaL.ttf</string>
 		<string>FuturicaB.ttf</string>
 		<string>Futurica.ttf</string>
 		<string>Inter_18pt-Bold.ttf</string>

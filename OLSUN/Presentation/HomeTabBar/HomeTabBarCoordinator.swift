@@ -7,9 +7,14 @@
 
 import UIKit
 
-final class HomeTabBarCoordinator: Coordinator {
+final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
+    func homeDidFinish() {
+        delegate?.homeDidFinish()
+    }
+    
     weak var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
+    weak var delegate: HomeTabBarCoordinatorDelegate?
     var navigationController: UINavigationController
     private let window: UIWindow
 
@@ -37,6 +42,8 @@ final class HomeTabBarCoordinator: Coordinator {
         let homeNavigationController = UINavigationController()
         homeCoordinator = HomeCoordinator(navigationController: homeNavigationController)
         homeCoordinator?.parentCoordinator = self
+        homeCoordinator?.tabBarDelegate = self
+        homeCoordinator?.delegate = self
         children.append(homeCoordinator!)
         
         let planningNavigationController = UINavigationController()
@@ -50,20 +57,20 @@ final class HomeTabBarCoordinator: Coordinator {
         children.append(guestsCoordinator!)
 
         let homeItem = UITabBarItem()
-        homeItem.image = UIImage(systemName: "homeIcon")
-        homeItem.selectedImage = UIImage(systemName: "homeIcon")
+        homeItem.image = UIImage(named: "Home")
+        homeItem.selectedImage = UIImage(named: "HomeFill")
         homeNavigationController.tabBarItem = homeItem
         homeNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         homeNavigationController.navigationBar.shadowImage = UIImage()
 
         let planningItem = UITabBarItem()
-        planningItem.image = UIImage(systemName: "planningIcon")
-        planningItem.selectedImage = UIImage(systemName: "planningIcon")
+        planningItem.image = UIImage(named: "DoneFill")
+        planningItem.selectedImage = UIImage(named: "Done")
         planningNavigationController.tabBarItem = planningItem
 
         let guestsItem = UITabBarItem()
-        guestsItem.image = UIImage(systemName: "guestsIcon")
-        guestsItem.selectedImage = UIImage(systemName: "guestsIcon")
+        guestsItem.image = UIImage(named: "3People")
+        guestsItem.selectedImage = UIImage(named: "3PeopleFill")
         guestsNavigationController.tabBarItem = guestsItem
 
         tabBarController.viewControllers = [
@@ -86,5 +93,11 @@ final class HomeTabBarCoordinator: Coordinator {
         homeCoordinator = nil
         planningCoordinator = nil
         guestsCoordinator = nil
+    }
+}
+
+extension HomeTabBarCoordinator: HomeTabBarNavigation {    
+    func switchToTab(index: Int) {
+        tabBarController.selectedIndex = index
     }
 }

@@ -6,13 +6,9 @@
 //
 
 import Foundation
-//import GoogleSignIn
 
 final class AuthSessionAPIService: AuthSessionUseCase {
-//    func googleEmailCheck(idToken: String, completion: @escaping (String?, String?) -> Void) {
-//        <#code#>
-//    }
-    
+
     private let apiService = CoreAPIManager.instance
  
     func createUser(user: RegisterDataModel, completion: @escaping (String?, String?) -> Void) {
@@ -124,11 +120,11 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             case .success(let (data, statusCode)):
                 print("Status Code: \(statusCode)")
 
-                if (200...299).contains(statusCode) {
+//                if (200...299).contains(statusCode) {
                     completion(data, nil)
-                } else {
-                    completion(nil, data)
-                }
+//                } else {
+//                    completion(nil, data)
+//                }
                
             case .failure(let error):
                 completion(nil, error.localizedDescription)

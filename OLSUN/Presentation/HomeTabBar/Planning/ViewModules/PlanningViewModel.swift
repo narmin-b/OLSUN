@@ -21,4 +21,12 @@ final class PlanningViewModel {
     init(navigation: PlanningNavigation) {
         self.navigation = navigation
     }
+    
+    func taskSelected(taskItem: TaskItem) {
+        navigation?.showTask(taskItem: taskItem)
+    }
+    
+    func showAddTaskVC() {
+        navigation?.showAddTask()
+    }
 }

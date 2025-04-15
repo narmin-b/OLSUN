@@ -14,11 +14,21 @@ final class HomeViewModel {
         case success
         case error(message: String)
     }
-
+    
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: HomeNavigation?
-        
-    init(navigation: HomeNavigation) {
+    weak var tabBarDelegate: HomeTabBarNavigation?
+    
+    init(navigation: HomeNavigation, tabBarDelegate: HomeTabBarNavigation?) {
         self.navigation = navigation
+        self.tabBarDelegate = tabBarDelegate
+    }
+    
+    func userSelectedMenuItem(at index: Int) {
+        tabBarDelegate?.switchToTab(index: index + 1)
+    }
+    
+    func showLaunchScreen() {
+        navigation?.showAuth()
     }
 }

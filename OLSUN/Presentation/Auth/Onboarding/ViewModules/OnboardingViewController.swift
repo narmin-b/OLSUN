@@ -11,7 +11,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
             title: "Növbəti",
-            onAction: nextTapped,
+            onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
         )
@@ -24,7 +24,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
             title: "Daxil ol",
-            onAction: loginTapped,
+            onAction: { [weak self] in self?.loginTapped() },
             bgColor: .accentMain,
             titleColor: .primaryHighlight,
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
@@ -39,7 +39,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     private lazy var registerButton: UIButton = {
         let button = ReusableButton(
             title: "Hesab yarat",
-            onAction: registerTapped,
+            onAction: { [weak self] in self?.registerTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
         )
@@ -108,6 +108,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         configureViewModel()
         
+        UserDefaultsHelper.setString(key: .userID, value: "")
         print(UIScreen.main.bounds.width)
     }
 
@@ -116,7 +117,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 //        setUpBackground()
         view.backgroundColor = .white
         view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
-        
+
         configurePages()
         pageControl.numberOfPages = pages.count
     }
@@ -335,7 +336,6 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         let isLastPage = pageIndex == (pages.count - 1)
         loginButton.isHidden = !isLastPage
         registerButton.isHidden = !isLastPage
-        guestButton.isHidden = !isLastPage
 
         nextButton.isHidden = isLastPage
     }
@@ -355,7 +355,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
 
     @objc private func guestLoginTapped() {
-        print("Guest tapped")
+        viewModel?.showHomeTabBar()
     }
 
     private func configureViewModel() {

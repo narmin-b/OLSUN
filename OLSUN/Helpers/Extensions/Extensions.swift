@@ -243,9 +243,14 @@ extension UIImageView {
 }
 
 extension UITextField {
-    func errorBorderOff() {
+    func borderOn(with color: UIColor, width: CGFloat = 1) {
+        self.layer.borderWidth = width
+        self.layer.borderColor = color.cgColor
+        self.layer.masksToBounds = true
+    }
+    
+    func borderOff() {
         self.layer.borderWidth = 0
-        self.layer.borderColor = UIColor.black.cgColor
         self.layer.masksToBounds = false
     }
     
@@ -310,8 +315,8 @@ extension UINavigationItem {
         label.text = text
         label.sizeToFit()
         label.textAlignment = .center
-        label.font = UIFont(name: "Nexa-Bold", size: 20)
-        label.textColor = .white
+        label.font = UIFont(name: "Montserrat-Bold", size: 28)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
        
         navgationView.addSubview(label)
@@ -351,5 +356,14 @@ func printFonts() {
         for font in UIFont.fontNames(forFamilyName: family) {
             print(font)
         }
+    }
+}
+
+extension UIButton {
+    func addRightImage(image: UIImage, offset: CGFloat) {
+        self.setImage(image, for: .normal)
+        self.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0.0).isActive = true
+        self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -offset).isActive = true
     }
 }

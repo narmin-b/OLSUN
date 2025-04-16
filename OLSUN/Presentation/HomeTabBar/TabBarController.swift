@@ -44,7 +44,6 @@ final class TabBarController: UITabBarController {
             width: view.frame.width - 40,
             height: tabBarHeight
         )
-//        customTabBarView.addShadow()
         customTabBarView.layer.shadowColor = UIColor.black.cgColor
         customTabBarView.layer.shadowOffset = CGSize(width: 0, height: 0)
         customTabBarView.layer.shadowOpacity = 0.1

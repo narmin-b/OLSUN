@@ -27,7 +27,6 @@ final class AddGuestViewModel {
     private var guestUseCase: GuestUseCase
     var guestMode: GuestMode
     var guestItem: ListCellProtocol
-//    var editedGuest: ListCellProtocol = ListCellProtocol(titleString: "", dateString: "", statusString: <#T##EditStatus#>, idInt: <#T##Int#>)
     
     init(navigation: GuestsNavigation, guestUseCase: GuestUseCase, guestMode: GuestMode, guestItem: ListCellProtocol) {
         self.navigation = navigation
@@ -38,6 +37,12 @@ final class AddGuestViewModel {
         print(guestMode)
     }
     
+    // MARK: Navigations
+    func popControllerBack() {
+        navigation?.popController()
+    }
+    
+    // MARK: Requests
     func performEdit(guest: GuestDataModel) {
         switch guestMode {
         case .edit:
@@ -92,9 +97,5 @@ final class AddGuestViewModel {
                 }
             }
         }
-    }
-    
-    func popControllerBack() {
-        navigation?.popController()
     }
 }

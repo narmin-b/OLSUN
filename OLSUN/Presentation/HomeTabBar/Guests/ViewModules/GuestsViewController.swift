@@ -8,6 +8,7 @@
 import UIKit
 
 final class GuestsViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -18,19 +19,26 @@ final class GuestsViewController: BaseViewController {
         return view
     }()
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
+        return refreshControl
+    }()
+    
     private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Qonaqların siyahısı",
-                                  labelColor: .primaryHighlight,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 24,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Qonaqların siyahısı",
+            labelColor: .primaryHighlight,
+            labelFont: .montserratMedium,
+            labelSize: 24,
+            numOfLines: 1
         )
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var addTaskButton: UIButton = {
+    private lazy var addGuestButton: UIButton = {
         let button = ReusableButton(
             title: "",
             onAction: { [weak self] in self?.addGuestButtonTapped() },
@@ -48,19 +56,16 @@ final class GuestsViewController: BaseViewController {
         let tableview = UITableView()
         tableview.delegate = self
         tableview.dataSource = self
-        tableview.register(TasksTableCell.self, forCellReuseIdentifier: "TasksTableCell")
+        tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
+        tableview.refreshControl = refreshControl
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
+    // MARK: Configurations
     private let viewModel: GuestsViewModel?
-    
-    var taskItems: [TaskItem] = [
-        TaskItem(status: .pending, title: "Leyla", descTitle: "Dəvət tarixi: ", description: "09.10.2025"),
-        TaskItem(status: .accepted, title: "Arzu", descTitle: "Dəvət tarixi: ", description: "09.10.2025")
-    ]
     
     init(viewModel: GuestsViewModel) {
         self.viewModel = viewModel
@@ -82,23 +87,15 @@ final class GuestsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        viewModel?.getAllGuests()
-        print("id:", UserDefaultsHelper.getString(key: .userID))
-    }
-    
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
+        
+        print("id:", UserDefaultsHelper.getString(key: .userID) ?? "")
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, addTaskButton, tasksTableView)
+        view.addSubViews(loadingView, titleLabel, addGuestButton, tasksTableView)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -110,12 +107,12 @@ final class GuestsViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
-        addTaskButton.anchor(
+        addGuestButton.anchor(
             trailing: view.trailingAnchor,
             padding: .init(all: 16)
         )
-        addTaskButton.anchorSize(.init(width: 32, height: 32))
-        addTaskButton.centerYToView(to: titleLabel)
+        addGuestButton.anchorSize(.init(width: 32, height: 32))
+        addGuestButton.centerYToView(to: titleLabel)
         
         tasksTableView.anchor(
             top: titleLabel.bottomAnchor,
@@ -124,6 +121,14 @@ final class GuestsViewController: BaseViewController {
             trailing: view.trailingAnchor,
             padding: .init(top: 16, left: 16, bottom: -12, right: -16)
         )
+    }
+    
+    fileprivate func configureNavigationBar() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+        navigationItem.configureNavigationBar(text: "Qonaqlar")
     }
     
     private func configureViewModel() {
@@ -136,6 +141,7 @@ final class GuestsViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
+                    self.refreshControl.endRefreshing()
                     self.tasksTableView.reloadData()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
@@ -144,8 +150,13 @@ final class GuestsViewController: BaseViewController {
         }
     }
     
+    // MARK: Functions
     @objc fileprivate func addGuestButtonTapped() {
         viewModel?.showAddGuestVC()
+    }
+    
+    @objc fileprivate func reloadPage() {
+        viewModel?.refreshAllGuests()
     }
 }
 
@@ -159,7 +170,7 @@ extension GuestsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? TasksTableCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? ListTableCell else {
             return UITableViewCell()
         }
         cell.configure(with: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
@@ -181,6 +192,6 @@ extension GuestsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.taskSelected(taskItem: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
+        viewModel?.guestSelected(guestItem: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
     }
 }

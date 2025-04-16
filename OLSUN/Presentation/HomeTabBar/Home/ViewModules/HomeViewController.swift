@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomeViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -26,11 +27,12 @@ final class HomeViewController: BaseViewController {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Hazırlıqlar",
-                                  labelColor: .primaryHighlight,
-                                  labelFont: .workSansBold,
-                                  labelSize: 28,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Hazırlıqlar",
+            labelColor: .primaryHighlight,
+            labelFont: .workSansBold,
+            labelSize: 28,
+            numOfLines: 1
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +51,7 @@ final class HomeViewController: BaseViewController {
         return tableview
     }()
     
+    // MARK: Configurations
     private let viewModel: HomeViewModel?
     
     var menuItems: [MenuItem] = [
@@ -72,6 +75,40 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+    }
+    
+    override func configureView() {
+        configureNavigationBar()
+        
+        view.backgroundColor = .white
+        view.addSubViews(loadingView, homeImageView, titleLabel, menuTableView)
+        view.bringSubviewToFront(loadingView)
+    }
+    
+    override func configureConstraint() {
+        loadingView.fillSuperview()
+        
+        homeImageView.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        homeImageView.anchorSize(.init(width: view.frame.width, height: DeviceSizeClass.current == .compact ? 160 : 200))
+        
+        titleLabel.anchor(
+            top: homeImageView.bottomAnchor,
+            leading: view.leadingAnchor,
+            padding: .init(top: 24, left: 16, bottom: 0, right: 0)
+        )
+        
+        menuTableView.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: view.leadingAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
+        )
     }
     
     fileprivate func configureNavigationBar() {
@@ -103,40 +140,6 @@ final class HomeViewController: BaseViewController {
         navigationItem.rightBarButtonItem = editButton
     }
     
-    override func configureView() {
-        configureNavigationBar()
-        
-        view.backgroundColor = .white
-        view.addSubViews(loadingView, homeImageView, titleLabel, menuTableView)
-        view.bringSubviewToFront(loadingView)
-    }
-    
-    override func configureConstraint() {
-        loadingView.fillSuperview()
-        
-        homeImageView.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(all: 0)
-        )
-        homeImageView.anchorSize(.init(width: view.frame.width, height: DeviceSizeClass.current == .compact ? 160 : 200))
-        
-        titleLabel.anchor(
-            top: homeImageView.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 24, left: 16, bottom: 0, right: 0)
-        )
-        
-        menuTableView.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(all: 16)
-        )
-        menuTableView.anchorSize(.init(width: view.frame.width - 32, height: 300))
-    }
-    
     private func configureViewModel() {
         viewModel?.requestCallback = { [weak self] state in
             guard let self = self else {return}
@@ -155,6 +158,7 @@ final class HomeViewController: BaseViewController {
         }
     }
     
+    // MARK: Functions
     @objc private func logOutTapped() {
         viewModel?.showLaunchScreen()
         UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)

@@ -49,7 +49,7 @@ final class PlanningViewController: BaseViewController {
         let tableview = UITableView()
         tableview.delegate = self
         tableview.dataSource = self
-        tableview.register(TasksTableCell.self, forCellReuseIdentifier: "TasksTableCell")
+        tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
         tableview.isScrollEnabled = false
@@ -156,7 +156,7 @@ extension PlanningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? TasksTableCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? ListTableCell else {
             return UITableViewCell()
         }
         cell.configure(with: taskItems[indexPath.section])

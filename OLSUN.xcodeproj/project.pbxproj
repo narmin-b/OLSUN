@@ -17,7 +17,7 @@
 		11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */; };
 		1147AF132DABEA28006D28CD /* MenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF122DABE9FE006D28CD /* MenuTableCell.swift */; };
 		1147AF152DABF6B5006D28CD /* HomeTabBarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */; };
-		1147AF182DAC0055006D28CD /* TasksTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF172DAC004E006D28CD /* TasksTableCell.swift */; };
+		1147AF182DAC0055006D28CD /* ListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147AF172DAC004E006D28CD /* ListTableCell.swift */; };
 		1147AF2C2DAC2F66006D28CD /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF222DAC2F66006D28CD /* Montserrat-Light.ttf */; };
 		1147AF2D2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1C2DAC2F66006D28CD /* Montserrat-BoldItalic.ttf */; };
 		1147AF2E2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1147AF1D2DAC2F66006D28CD /* Montserrat-ExtraBold.ttf */; };
@@ -258,7 +258,7 @@
 		11365C952D93209B0004A3F4 /* MeltingCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeltingCircleBackgroundView.swift; sourceTree = "<group>"; };
 		1147AF122DABE9FE006D28CD /* MenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableCell.swift; sourceTree = "<group>"; };
 		1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarNavigation.swift; sourceTree = "<group>"; };
-		1147AF172DAC004E006D28CD /* TasksTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableCell.swift; sourceTree = "<group>"; };
+		1147AF172DAC004E006D28CD /* ListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableCell.swift; sourceTree = "<group>"; };
 		1147AF192DAC2F66006D28CD /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		1147AF1A2DAC2F66006D28CD /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		1147AF1B2DAC2F66006D28CD /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 		1147AF162DAC0044006D28CD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1147AF172DAC004E006D28CD /* TasksTableCell.swift */,
+				1147AF172DAC004E006D28CD /* ListTableCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1523,7 +1523,7 @@
 				11BB9F2E2D8C957E00008DD7 /* OnboardingViewModel.swift in Sources */,
 				1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */,
 				11A7E3792D8B374300D82AF2 /* UserDefaultsKey.swift in Sources */,
-				1147AF182DAC0055006D28CD /* TasksTableCell.swift in Sources */,
+				1147AF182DAC0055006D28CD /* ListTableCell.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,

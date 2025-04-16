@@ -25,19 +25,36 @@ final class GuestsViewModel {
         self.guestUseCase = guestUseCase
     }
     
-    func taskSelected(taskItem: ListCellProtocol) {
-        navigation?.showTask(taskItem: taskItem)
+    // MARK: Navigations
+    func guestSelected(guestItem: ListCellProtocol) {
+        navigation?.showGuest(guestItem: guestItem)
     }
     
     func showAddGuestVC() {
         navigation?.showAddGuest()
     }
     
+    // MARK: Requests
     func getAllGuests() {
         requestCallback?(.loading)
         guestUseCase.getGuestList { [weak self] result, error in
             guard let self = self else { return }
             self.requestCallback?(.loaded)
+            DispatchQueue.main.async {
+                if let result = result {
+                    self.guestList = (result.map({$0.mapToDomain()}))/*.reversed()*/
+                    print(self.guestList)
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
+    }
+    
+    func refreshAllGuests() {
+        guestUseCase.getGuestList { [weak self] result, error in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 if let result = result {
                     self.guestList = (result.map({$0.mapToDomain()}))/*.reversed()*/

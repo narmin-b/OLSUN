@@ -233,12 +233,28 @@ extension String {
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: self)
     }
+    
+    func toDisplayDateFormat(from inputFormat: String = "yyyy-MM-dd", to outputFormat: String = "dd.MM.yyyy") -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = inputFormat
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = outputFormat
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = inputFormatter.date(from: self) {
+            return outputFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
 }
 
 extension UIImageView {
     func loadImageURL(url: String) {
         guard let url = URL(string: url) else {return}
-//        self.sd_setImage(with: url)
+        //        self.sd_setImage(with: url)
     }
 }
 
@@ -318,13 +334,13 @@ extension UINavigationItem {
         label.font = UIFont(name: "Montserrat-Bold", size: 28)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         navgationView.addSubview(label)
         label.centerXToView(to: navgationView)
         label.centerYToView(to: navgationView)
-
+        
         self.titleView = navgationView
-
+        
         let backButton = UIBarButtonItem()
         backButton.title = ""
         self.backBarButtonItem = backButton

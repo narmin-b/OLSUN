@@ -7,11 +7,8 @@
 
 import UIKit
 
-//protocol AddGuestViewControllerDelegate: AnyObject {
-//    func didUpdateData(_ data: ListCellProtocol)
-//}
-
 final class AddGuestViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -23,11 +20,12 @@ final class AddGuestViewController: BaseViewController {
     }()
     
     private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Qonağın adı:",
-                                  labelColor: .primaryHighlight,
-                                  labelFont: .montserratMedium,
-                                  labelSize: DeviceSizeClass.current == .compact ? 16 : 24,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Qonağın adı:",
+            labelColor: .primaryHighlight,
+            labelFont: .montserratMedium,
+            labelSize: 24,
+            numOfLines: 1
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,11 +44,12 @@ final class AddGuestViewController: BaseViewController {
     }()
     
     private lazy var dateLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Dəvət tarixi:",
-                                  labelColor: .black,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 16,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Dəvət tarixi:",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 1
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,11 +84,12 @@ final class AddGuestViewController: BaseViewController {
     }()
     
     private lazy var statusLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Status:",
-                                  labelColor: .black,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 16,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Status:",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 3
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -162,9 +162,11 @@ final class AddGuestViewController: BaseViewController {
         return keyboardToolbar
     }()
     
-    private let viewModel: AddGuestViewModel?
     private let datePicker = UIDatePicker()
     private let toolbar = UIToolbar()
+    
+    // MARK: Configurations
+    private let viewModel: AddGuestViewModel?
     let statusOptions = ["Qəbul edib", "Gözləmədə", "Uyğun deyil"]
     var onGuestUpdate: ((ListCellProtocol) -> Void)?
     
@@ -207,7 +209,7 @@ final class AddGuestViewController: BaseViewController {
         case .add:
             deleteButton.isHidden = true
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.dateFormat = "dd.MM.yyyy"
             let today = Date()
             dateTextField.text = formatter.string(from: today)
             datePicker.date = today
@@ -218,14 +220,6 @@ final class AddGuestViewController: BaseViewController {
         case .none:
             return
         }
-    }
-    
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
     }
     
     override func configureView() {
@@ -245,7 +239,6 @@ final class AddGuestViewController: BaseViewController {
         }
         
         statusMenuButton.menu = UIMenu(title: "", options: .displayInline, children: menuItems)
-        
     }
     
     override func configureConstraint() {
@@ -316,6 +309,14 @@ final class AddGuestViewController: BaseViewController {
         saveButton.anchorSize(.init(width: 0, height: 48))
     }
     
+    fileprivate func configureNavigationBar() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+        navigationItem.configureNavigationBar(text: "Qonaqlar")
+    }
+    
     private func configureViewModel() {
         viewModel?.requestCallback = { [weak self] state in
             guard let self = self else {return}
@@ -333,10 +334,7 @@ final class AddGuestViewController: BaseViewController {
                     print(#function)
                     self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq silindi.")
                 case .success:
-                    //                    let updatedGuest = ListCellProtocol(...)
-                    //                    self.onGuestUpdate?(self.updatedGuest)
                     self.viewModel?.popControllerBack()
-                    
                     self.showMessage(title: "Uğurlu qeydiyyat!", message: "Qonaq uğurla əlavə edildi.")
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
@@ -345,6 +343,7 @@ final class AddGuestViewController: BaseViewController {
         }
     }
     
+    // MARK: Functions
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -359,7 +358,7 @@ final class AddGuestViewController: BaseViewController {
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePressed))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(datePickerCancelPressed))
         
         toolbar.setItems([cancelButton, space, doneButton], animated: false)
         
@@ -372,18 +371,17 @@ final class AddGuestViewController: BaseViewController {
     }
     
     @objc private func donePressed() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        dateTextField.text = formatter.string(from: datePicker.date)
+        let uiFormatter = DateFormatter()
+        uiFormatter.dateFormat = "dd.MM.yyyy"
+        dateTextField.text = uiFormatter.string(from: datePicker.date)
         dateTextField.resignFirstResponder()
     }
     
-    @objc private func cancelPressed() {
+    @objc private func datePickerCancelPressed() {
         dateTextField.resignFirstResponder()
     }
     
     @objc fileprivate func saveTapped() {
-        print(#function)
         checkNewGuest()
     }
     
@@ -391,20 +389,27 @@ final class AddGuestViewController: BaseViewController {
         viewModel?.deleteGuest(id: viewModel?.guestItem.idInt ?? 0)
     }
     
-    //    @objc func saveTapped() {
-    //        let updatedGuest = ListCellProtocol(...) // Construct it however you normally do
-    //        onGuestUpdate?(updatedGuest)
-    //        viewModel.popControllerBack()
-    //    }
-    
     @objc fileprivate func cancelTapped() {
-        print(#function)
         viewModel?.popControllerBack()
+        textfieldCleaning()
     }
     
     fileprivate func checkNewGuest() {
         let name = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let date = dateTextField.text
+        
+        var requestDateString = ""
+        if let textDate = dateTextField.text {
+            let uiFormatter = DateFormatter()
+            uiFormatter.dateFormat = "dd.MM.yyyy"
+            
+            let apiFormatter = DateFormatter()
+            apiFormatter.dateFormat = "yyyy-MM-dd"
+            
+            if let date = uiFormatter.date(from: textDate) {
+                requestDateString = apiFormatter.string(from: date)
+            }
+        }
+        
         var status: EditStatus
         if statusMenuButton.currentTitle == statusOptions[0] {
             status = EditStatus.accepted
@@ -417,8 +422,13 @@ final class AddGuestViewController: BaseViewController {
         }
         
         checkErrorBorders(name: name)
-        if name.isValidName() && ((date?.isEmpty) == false) {
-            let guestInput = GuestDataModel(id: viewModel?.guestItem.idInt ?? 0, name: name, guestInvitationDate: date ?? "sss", guestStatus: status)
+        if name.isValidName() && ((dateTextField.text?.isEmpty) == false) {
+            let guestInput = GuestDataModel(
+                id: viewModel?.guestItem.idInt ?? 0,
+                name: name,
+                guestInvitationDate: requestDateString,
+                guestStatus: status
+            )
             print(guestInput)
             viewModel?.performEdit(guest: guestInput)
         }
@@ -445,12 +455,19 @@ final class AddGuestViewController: BaseViewController {
     
     fileprivate func setUpGuestInfo() {
         nameTextField.text = viewModel?.guestItem.titleString
-        dateTextField.text = viewModel?.guestItem.dateString
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let date = formatter.date(from: viewModel?.guestItem.dateString ?? "") {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "dd.MM.yyyy"
+        
+        if let rawDateString = viewModel?.guestItem.dateString,
+           let date = inputFormatter.date(from: rawDateString) {
             datePicker.date = date
+            dateTextField.text = outputFormatter.string(from: date)
+        } else {
+            dateTextField.text = ""
         }
         
         switch (viewModel?.guestItem.statusString) {

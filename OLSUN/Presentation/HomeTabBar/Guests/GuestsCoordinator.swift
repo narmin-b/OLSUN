@@ -32,13 +32,10 @@ final class GuestsCoordinator: Coordinator {
 }
 
 extension GuestsCoordinator: GuestsNavigation {
-//    func showEditGuest(guestItem: ListCellProtocol, onUpdate: @escaping (ListCellProtocol) -> Void) {
-//        <#code#>
-//    }
+    func popController() {
+        popControllerBack()
+    }
     
-//    func showEditGuest(guestItem: GuestDataModel, onUpdate: @escaping (ListCellProtocol) -> Void) {
-//        <#code#>
-//    }
     func popTwoControllersBack() {
         if navigationController.viewControllers.count >= 3 {
             let targetVC = navigationController.viewControllers[navigationController.viewControllers.count - 3]
@@ -52,17 +49,13 @@ extension GuestsCoordinator: GuestsNavigation {
         showController(vc: vc)
     }
     
-    func popController() {
-        popControllerBack()
-    }
-    
     func showAddGuest() {
         let vc = AddGuestViewController(viewModel: .init(navigation: self, guestUseCase: GuestAPIService(), guestMode: .add, guestItem: ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0)))
         showController(vc: vc)
     }
     
-    func showTask(taskItem: ListCellProtocol) {
-        let vc = GuestDetailViewController(viewModel: .init(navigation: self, guestUseCase: GuestAPIService(), taskItem: taskItem))
+    func showGuest(guestItem: ListCellProtocol) {
+        let vc = GuestDetailViewController(viewModel: .init(navigation: self, guestUseCase: GuestAPIService(), taskItem: guestItem))
         showController(vc: vc)
     }
 }

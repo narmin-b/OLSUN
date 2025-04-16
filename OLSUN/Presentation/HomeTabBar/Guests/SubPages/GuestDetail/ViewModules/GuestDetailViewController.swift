@@ -1,15 +1,14 @@
-////
-////  GuestDetailViewController.swift
-////  OLSUN
-////
-////  Created by Narmin Baghirova on 15.04.25.
-////
 //
-//import UIKit
+//  GuestDetailViewController.swift
+//  OLSUN
+//
+//  Created by Narmin Baghirova on 15.04.25.
+//
 
 import UIKit
 
 final class GuestDetailViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -23,13 +22,10 @@ final class GuestDetailViewController: BaseViewController {
     private lazy var titleLabel: UITextField = {
         let textfield = ReusableTextField(
             placeholder: "",
-            cornerRadius: 12,
             backgroundColor: .clear,
         )
-        textfield.delegate = self
-        textfield.attributedText = NSAttributedString(string: "Test", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24), NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
+        textfield.attributedText = NSAttributedString(string: "Test", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
         textfield.isEnabled = false
-        textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
@@ -49,72 +45,36 @@ final class GuestDetailViewController: BaseViewController {
     }()
     
     private lazy var deadlineLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Dəvət tarixi:",
-                                  labelColor: .black,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 16,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Dəvət tarixi:",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 1
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private lazy var dateLabel: UITextField = {
-        let textfield = ReusableTextField(
-            placeholder: "",
-            cornerRadius: 8,
-            backgroundColor: .clear,
+ 
+    private lazy var dateLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 1
         )
-        textfield.delegate = self
-        textfield.attributedText = NSAttributedString(string: "11.11.1111", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16), NSAttributedString.Key.foregroundColor: UIColor.black])
-        textfield.isEnabled = false
-        
-        textfield.inputView = datePicker
-        textfield.inputAccessoryView = doneToolBar
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        
-        textfield.tintColor = .clear
-        textfield.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openDatePicker)))
-        
-        textfield.inputAccessoryView = doneToolBar
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        return textfield
-    }()
-    
-    private lazy var cancelButton: UIButton = {
-        let button = ReusableButton(
-            title: "İmtina et",
-            onAction: { [weak self] in self?.cancelTapped() },
-            bgColor: .accentMain,
-            titleColor: .primaryHighlight,
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
-        )
-        button.addShadow()
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var saveButton: UIButton = {
-        let button = ReusableButton(
-            title: "Yadda saxla",
-            onAction: { [weak self] in self?.saveTapped() },
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
-        )
-        button.addShadow()
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var statusMenuButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Status", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont(name: FontKeys.workSansMedium.rawValue, size: 16)
         button.backgroundColor = .secondaryHighlight
         button.layer.cornerRadius = 12
         button.contentHorizontalAlignment = .left
@@ -126,35 +86,9 @@ final class GuestDetailViewController: BaseViewController {
         return button
     }()
     
-    private lazy var deleteButton: UIButton = {
-        let button = UIButton(type: .system)
-        let title = "Qonağı sil"
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.red
-        ]
-        button.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
-        button.addTarget(self, action: #selector(deleteGuest), for: .touchUpInside)
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var doneToolBar: UIToolbar = {
-        let keyboardToolbar = UIToolbar()
-        keyboardToolbar.sizeToFit()
-        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
-        keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
-        return keyboardToolbar
-    }()
-    
+    // MARK: Configurations
     private let viewModel: GuestDetailViewModel?
     let statusOptions = ["Qəbul edib", "Gözləmədə", "Uyğun deyil"]
-    private let toolbar = UIToolbar()
-    private let datePicker = UIDatePicker()
     
     init(viewModel: GuestDetailViewModel) {
         self.viewModel = viewModel
@@ -192,22 +126,20 @@ final class GuestDetailViewController: BaseViewController {
         configureViewModel()
         
         setUpGuest(with: viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
-        print(viewModel?.taskItem)
-    }
-    
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, editGuestButton, deadlineLabel, dateLabel, statusMenuButton, deleteButton, cancelButton, saveButton)
+        view.addSubViews(
+            loadingView,
+            titleLabel,
+            editGuestButton,
+            deadlineLabel,
+            dateLabel,
+            statusMenuButton
+        )
         view.bringSubviewToFront(loadingView)
         
         let menuItems = statusOptions.map { option in
@@ -218,7 +150,6 @@ final class GuestDetailViewController: BaseViewController {
         }
         
         statusMenuButton.menu = UIMenu(title: "", options: .displayInline, children: menuItems)
-        setupDatePicker()
     }
     
     override func configureConstraint() {
@@ -230,7 +161,6 @@ final class GuestDetailViewController: BaseViewController {
             trailing: editGuestButton.leadingAnchor,
             padding: .init(top: 12, left: 8, bottom: 0, right: -8)
         )
-        titleLabel.anchorSize(.init(width: 0, height: 36))
         
         editGuestButton.anchor(
             trailing: view.trailingAnchor,
@@ -246,7 +176,7 @@ final class GuestDetailViewController: BaseViewController {
         )
         dateLabel.anchor(
             trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 0, bottom: 0, right: -8)
+            padding: .init(top: 0, left: 0, bottom: 0, right: -16)
         )
         dateLabel.centerYToView(to: deadlineLabel)
         
@@ -255,29 +185,15 @@ final class GuestDetailViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(top: 20, left: 16, bottom: 0, right: 0)
         )
-        statusMenuButton.anchorSize(.init(width: view.frame.width/3 + 8, height: 44))
-        
-        deleteButton.anchor(
-            bottom: view.bottomAnchor,
-            padding: .init(all: 92)
-        )
-        deleteButton.centerXToSuperview()
-        
-        cancelButton.anchor(
-            leading: view.leadingAnchor,
-            bottom: view.bottomAnchor,
-            trailing: view.centerXAnchor,
-            padding: .init(top: 0, left: 32, bottom: -32 , right: -8)
-        )
-        cancelButton.anchorSize(.init(width: 0, height: 48))
-        
-        saveButton.anchor(
-            leading: view.centerXAnchor,
-            bottom: view.bottomAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 8, bottom: -32 , right: -32)
-        )
-        saveButton.anchorSize(.init(width: 0, height: 48))
+        statusMenuButton.anchorSize(.init(width: view.frame.width/3 + 12, height: 44))
+    }
+    
+    fileprivate func configureNavigationBar() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+        navigationItem.configureNavigationBar(text: "Qonaqlar")
     }
     
     private func configureViewModel() {
@@ -289,14 +205,10 @@ final class GuestDetailViewController: BaseViewController {
                     self.loadingView.startAnimating()
                 case .loaded:
                     self.loadingView.stopAnimating()
-                case .deleteSuccess:
-                    self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Qonaq silindi!", message: "Məlumatlar uğurla yeniləndi.")
                 case .editSuccess:
                     print(#function)
                 case .success:
                     self.setUpGuest(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
-//                    self.showMessage(title: "Uğurlu dəyişikliklər!", message: "Məlumatlar uğurla yeniləndi.")
                 case .error(let error):
                     self.setUpGuest(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
                     self.showMessage(title: "Error", message: error)
@@ -306,15 +218,22 @@ final class GuestDetailViewController: BaseViewController {
     }
     
     fileprivate func setUpGuest(with guest: ListCellProtocol){
-        titleLabel.attributedText = NSAttributedString(string: viewModel?.taskItem.titleString ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
-        dateLabel.attributedText = NSAttributedString(string: viewModel?.taskItem.dateString ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16)!, NSAttributedString.Key.foregroundColor: UIColor.black])
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let date = formatter.date(from: guest.dateString) {
-            datePicker.date = date
-        }
+        titleLabel.attributedText = NSAttributedString(
+            string: viewModel?.taskItem.titleString ?? "",
+            attributes: [
+                NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!,
+                NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight
+            ]
+        )
         
+        dateLabel.attributedText = NSAttributedString(
+            string: viewModel?.taskItem.dateString.toDisplayDateFormat() ?? "",
+            attributes: [
+                NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16)!,
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+        )
+
         switch (viewModel?.taskItem.statusString) {
         case .accepted:
             statusMenuButton.setTitle(statusOptions[0], for: .normal)
@@ -325,74 +244,11 @@ final class GuestDetailViewController: BaseViewController {
         }
     }
     
-    private func setupDatePicker() {
-        datePicker.datePickerMode = .date
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePressed))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
-        
-        toolbar.setItems([cancelButton, space, doneButton], animated: false)
-        
-        dateLabel.inputView = datePicker
-        dateLabel.inputAccessoryView = toolbar
-    }
-    
-    @objc func openDatePicker() {
-        dateLabel.becomeFirstResponder()
-    }
-    
+    // MARK: Functions
     @objc fileprivate func editTaskButtonTapped() {
         viewModel?.showEditGuest()
-//        toggleEditButtons()
-//        titleLabel.backgroundColor = .secondaryHighlight
-//        dateLabel.backgroundColor = .secondaryHighlight
     }
-    
-    @objc private func donePressed() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        dateLabel.text = formatter.string(from: datePicker.date)
-        dateLabel.resignFirstResponder()
-    }
-    
-    fileprivate func toggleEditButtons() {
-        saveButton.isHidden.toggle()
-        cancelButton.isHidden.toggle()
-        titleLabel.isEnabled.toggle()
-        dateLabel.isEnabled.toggle()
-        editGuestButton.isHidden.toggle()
-        deleteButton.isHidden.toggle()
-    }
-    
-    @objc fileprivate func saveTapped() {
-        checkEditedGuest()
-    }
-    
-    @objc fileprivate func cancelTapped() {
-        toggleEditButtons()
-        titleLabel.backgroundColor = .clear
-        dateLabel.backgroundColor = .clear
-        setUpGuest(with: viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc func deleteGuest() {
-        viewModel?.deleteGuest(id: viewModel?.taskItem.idInt ?? 0)
-    }
-    
-    @objc private func cancelPressed() {
-        dateLabel.resignFirstResponder()
-    }
-    
+
     fileprivate func checkEditedGuest() {
         let name = titleLabel.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let date = dateLabel.text
@@ -406,30 +262,29 @@ final class GuestDetailViewController: BaseViewController {
         } else {
             status = EditStatus.invited
         }
-        
-        checkErrorBorders(name: name)
+ 
         if name.isValidName() {
-            let guestInput = GuestDataModel(id: viewModel?.taskItem.idInt, name: name, guestInvitationDate: date ?? "", guestStatus: status)
+            let guestInput = GuestDataModel(id: viewModel?.taskItem.idInt, name: name, guestInvitationDate: date?.toDisplayDateFormat() ?? "", guestStatus: status)
             
             print(guestInput)
             viewModel?.editGuest(guest: guestInput)
-        
+            
         }
     }
     
-    fileprivate func checkErrorBorders(name: String) {
-        if !name.isValidName() {
-            titleLabel.errorBorderOn()
-        } else {
-            titleLabel.borderOff()
-        }
-    }
-}
-
-extension GuestDetailViewController: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField == titleLabel {
-            titleLabel.attributedText = NSAttributedString(string: textField.text ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
-        }
-    }
+//    fileprivate func convertDateToDisplayFormat(_ dateString: String) -> String {
+//        let inputFormatter = DateFormatter()
+//        inputFormatter.dateFormat = "yyyy-MM-dd"
+//        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+//
+//        let outputFormatter = DateFormatter()
+//        outputFormatter.dateFormat = "dd.MM.yyyy"
+//        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        
+//        if let date = inputFormatter.date(from: dateString) {
+//            return outputFormatter.string(from: date)
+//        } else {
+//            return dateString
+//        }
+//    }
 }

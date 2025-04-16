@@ -24,6 +24,7 @@ final class HomeViewModel {
         self.tabBarDelegate = tabBarDelegate
     }
     
+    // MARK: Navigations
     func userSelectedMenuItem(at index: Int) {
         tabBarDelegate?.switchToTab(index: index + 1)
     }

@@ -1,5 +1,5 @@
 //
-//  TasksTableCell.swift
+//  ListTableCell.swift
 //  OLSUN
 //
 //  Created by Narmin Baghirova on 13.04.25.
@@ -27,7 +27,7 @@ struct TaskItem {
     var description: String
 }
 
-final class TasksTableCell: UITableViewCell {
+final class ListTableCell: UITableViewCell {
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -151,8 +151,8 @@ final class TasksTableCell: UITableViewCell {
             iconImageView.image = UIImage(systemName: "multiply.square")
             deadlineLabel.text = "Dəvət tarixi:"
         }
-//        deadlineLabel.text = item.descTitle
+        
         titleLabel.text = item.titleString
-        dateLabel.text = item.dateString
+        dateLabel.text = item.dateString.toDisplayDateFormat()
     }
 }

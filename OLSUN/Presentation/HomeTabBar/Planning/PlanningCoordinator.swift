@@ -24,7 +24,8 @@ final class PlanningCoordinator: Coordinator {
     func start() {
         let controller = PlanningViewController(
             viewModel: .init(
-                navigation: self
+                navigation: self,
+                taskUseCase: PlanningAPIService()
             )
         )
         showController(vc: controller)
@@ -32,13 +33,30 @@ final class PlanningCoordinator: Coordinator {
 }
 
 extension PlanningCoordinator: PlanningNavigation {
-    func showTask(taskItem: TaskItem) {
-        let vc = TaskViewController(viewModel: .init(navigation: self, taskItem: taskItem))
+    func popController() {
+        popControllerBack()
+    }
+    
+    func popTwoControllersBack() {
+        if navigationController.viewControllers.count >= 3 {
+            let targetVC = navigationController.viewControllers[navigationController.viewControllers.count - 3]
+            navigationController.popToViewController(targetVC, animated: true)
+        }
+    }
+    
+    func showEditTask(taskItem: ListCellProtocol, onUpdate: @escaping (ListCellProtocol) -> Void) {
+        let vc = AddTaskViewController(viewModel: .init(navigation: self, taskUseCase: PlanningAPIService(), taskMode: .edit, taskItem: taskItem))
+        vc.onTaskUpdate = onUpdate
         showController(vc: vc)
     }
     
     func showAddTask() {
-        let vc = AddTaskViewController(viewModel: .init(navigation: self))
+        let vc = AddTaskViewController(viewModel: .init(navigation: self, taskUseCase: PlanningAPIService(), taskMode: .add, taskItem: ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0)))
+        showController(vc: vc)
+    }
+    
+    func showTask(taskItem: ListCellProtocol) {
+        let vc = TaskViewController(viewModel: .init(navigation: self, taskUseCase: PlanningAPIService(), taskItem: taskItem))
         showController(vc: vc)
     }
 }

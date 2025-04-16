@@ -7,24 +7,9 @@
 
 import UIKit
 
-enum TaskStatus: String {
-    case completed = "Bitib"
-    case inProgress = "İş davam edir"
-    case delayed = "Gecikir"
-    case accepted = "Qəbul edib"
-    case pending = "Gözləmədə"
-    case declined = "Uyğun deyil"
-
-    var displayName: String {
-        return self.rawValue
-    }
-}
-
-struct TaskItem {
-    var status: TaskStatus
-    var title: String
-    var descTitle: String
-    var description: String
+enum ItemName {
+    case guest
+    case task
 }
 
 final class ListTableCell: UITableViewCell {
@@ -113,43 +98,38 @@ final class ListTableCell: UITableViewCell {
         )
     }
     
-    func configure(with item: TaskItem) {
-        switch item.status {
-        case .completed:
-            iconImageView.image = UIImage(systemName: "checkmark.square")
-        case .inProgress:
-            iconImageView.image = UIImage(systemName: "square")
-        case .delayed:
-            iconImageView.image = UIImage(systemName: "exclamationmark.square")
-        case .accepted:
-            iconImageView.image = UIImage(systemName: "checkmark.square")
-        case .pending:
-            iconImageView.image = UIImage(systemName: "square")
-        case .declined:
-            iconImageView.image = UIImage(systemName: "multiply.square")
-        }
-        deadlineLabel.text = item.descTitle
-        titleLabel.text = item.title
-        dateLabel.text = item.description
-    }
-    
-    func configure(with item: ListCellProtocol) {
-        switch item.statusString {
-//        case .completed:
-//            iconImageView.image = UIImage(systemName: "checkmark.square")
-//        case .inProgress:
-//            iconImageView.image = UIImage(systemName: "square")
-//        case .delayed:
-//            iconImageView.image = UIImage(systemName: "exclamationmark.square")
-        case .accepted:
-            iconImageView.image = UIImage(systemName: "checkmark.square")
-            deadlineLabel.text = "Dəvət tarixi:"
-        case .invited:
-            iconImageView.image = UIImage(systemName: "square")
-            deadlineLabel.text = "Dəvət tarixi:"
-        case .declined:
-            iconImageView.image = UIImage(systemName: "multiply.square")
-            deadlineLabel.text = "Dəvət tarixi:"
+    func configure(with item: ListCellProtocol, itemName: ItemName) {
+        switch itemName {
+        case .guest:
+            switch item.statusString {
+            case .accepted:
+                iconImageView.image = UIImage(systemName: "checkmark.square")
+                deadlineLabel.text = "Dəvət tarixi:"
+            case .invited:
+                iconImageView.image = UIImage(systemName: "square")
+                deadlineLabel.text = "Dəvət tarixi:"
+            case .declined:
+                iconImageView.image = UIImage(systemName: "multiply.square")
+                deadlineLabel.text = "Dəvət tarixi:"
+            case .pending:
+                iconImageView.image = UIImage(systemName: "square")
+                deadlineLabel.text = "Dəvət tarixi:"
+            }
+        case .task:
+            switch item.statusString {
+            case .accepted:
+                iconImageView.image = UIImage(systemName: "checkmark.square")
+                deadlineLabel.text = "Deadline:"
+            case .invited:
+                iconImageView.image = UIImage(systemName: "square")
+                deadlineLabel.text = "Deadline:"
+            case .declined:
+                iconImageView.image = UIImage(systemName: "exclamationmark.square")
+                deadlineLabel.text = "Deadline:"
+            case .pending:
+                iconImageView.image = UIImage(systemName: "square")
+                deadlineLabel.text = "Deadline:"
+            }
         }
         
         titleLabel.text = item.titleString

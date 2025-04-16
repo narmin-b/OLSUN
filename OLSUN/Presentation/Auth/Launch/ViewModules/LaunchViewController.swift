@@ -32,7 +32,7 @@ final class LaunchViewController: BaseViewController {
     }()
     
     private lazy var launchImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "launchImage"))
+        let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -294,6 +294,8 @@ final class LaunchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        
+        launchImage.loadImage(named: "launchImage.png")
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false

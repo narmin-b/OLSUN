@@ -20,7 +20,7 @@ final class HomeViewController: BaseViewController {
     }()
     
     private lazy var homeImageView: UIImageView = {
-        let imageview = UIImageView(image: UIImage(named: "homeImage"))
+        let imageview = UIImageView()
         imageview.contentMode = .scaleAspectFill
         imageview.translatesAutoresizingMaskIntoConstraints = false
         return imageview
@@ -55,8 +55,8 @@ final class HomeViewController: BaseViewController {
     private let viewModel: HomeViewModel?
     
     var menuItems: [MenuItem] = [
-        MenuItem(iconImage: UIImage(named: "planningIcon")!, title: "Planlama", description: "Daha çox məlumat"),
-        MenuItem(iconImage: UIImage(named: "guestsIcon")!, title: "Qonaqlar", description: "Daha çox məlumat")
+        MenuItem(iconName: "planningIcon", title: "Planlama", description: "Daha çox məlumat"),
+        MenuItem(iconName: "guestsIcon", title: "Qonaqlar", description: "Daha çox məlumat")
     ]
     
     init(viewModel: HomeViewModel) {
@@ -75,6 +75,8 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        
+        homeImageView.loadImage(named: "homeImage.png")
     }
     
     override func configureView() {
@@ -178,7 +180,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableCell", for: indexPath) as? MenuTableCell else {
             return UITableViewCell()
         }
-        cell.configure(with: menuItems[indexPath.section]) // use `section` instead of `row`
+        cell.configure(with: menuItems[indexPath.section])
         return cell
     }
     

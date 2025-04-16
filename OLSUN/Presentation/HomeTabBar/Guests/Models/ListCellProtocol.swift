@@ -10,6 +10,7 @@ import Foundation
 enum EditStatus: String, Codable {
     case accepted = "ACCEPTED"
     case invited = "INVITED"
+    case pending = "PENDING"
     case declined = "DECLINED"
 }
 

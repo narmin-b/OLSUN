@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import MapKit
+import SDWebImage
+import SVGKit
 
 extension Double {
     func convertToString() -> String {
@@ -249,12 +251,83 @@ extension String {
             return self
         }
     }
+    
+    func toAPIDateFormat() -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "dd.MM.yyyy"
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy-MM-dd"
+        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = inputFormatter.date(from: self) {
+            return outputFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
 }
 
 extension UIImageView {
-    func loadImageURL(url: String) {
-        guard let url = URL(string: url) else {return}
-        //        self.sd_setImage(with: url)
+    //    func loadImageURL(url: String) {
+    //        guard let url = URL(string: url) else {return}
+    //        self.sd_setImage(with: url)
+    //    }
+    //
+    //    func loadImage(from urlString: String) {
+    //        guard let url = URL(string: urlString) else { return }
+    //
+    //        DispatchQueue.global(qos: .userInitiated).async {
+    //            let ext = url.pathExtension.lowercased()
+    //
+    //            switch ext {
+    //            case "svg":
+    //                if let data = try? Data(contentsOf: url),
+    //                   let svgImage = SVGKImage(data: data) {
+    //                    DispatchQueue.main.async {
+    //                        self.image = svgImage.uiImage.withRenderingMode(.alwaysOriginal)
+    //                        self.backgroundColor = .clear
+    //                    }
+    //                }
+    //            case "png", "jpg", "jpeg":
+    //                if let data = try? Data(contentsOf: url),
+    //                   let img = UIImage(data: data) {
+    //                    DispatchQueue.main.async {
+    //                        self.image = img.withRenderingMode(.alwaysOriginal)
+    //                        self.backgroundColor = .clear
+    //                    }
+    //                }
+    //            default:
+    //                print("Unsupported format")
+    //            }
+    //        }
+    //    }
+    
+//    func loadSVG(from urlString: String) {
+//        guard let url = URL(string: urlString) else { return }
+//        
+//        // Remove existing SVG layers
+//        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+//        
+//        let svgContainer = UIView
+//        
+//        // Layout must be done to get correct bounds
+//        svgContainer.frame = self.bounds
+//        svgContainer.backgroundColor = .clear
+//    }
+//    
+    func loadImage(named imageName: String) {
+        let baseURL = "https://olsun.in/img/app/"
+        guard let url = URL(string: baseURL + imageName) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil,
+                  let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }.resume()
     }
 }
 

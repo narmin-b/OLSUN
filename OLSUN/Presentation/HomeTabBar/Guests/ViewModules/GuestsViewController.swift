@@ -173,7 +173,7 @@ extension GuestsViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? ListTableCell else {
             return UITableViewCell()
         }
-        cell.configure(with: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
+        cell.configure(with: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0), itemName: .guest)
         return cell
     }
     

@@ -34,6 +34,15 @@
 		11529D7B2D95E4BB00AAD720 /* AuthSessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */; };
 		11529D7D2D95E4C600AAD720 /* AuthSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */; };
 		11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */; };
+		11630E992DB0179200C277AE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E982DB0179200C277AE /* SDWebImage */; };
+		11630E9C2DB019D700C277AE /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E9B2DB019D700C277AE /* SVGKit */; };
+		11630E9E2DB019D700C277AE /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E9D2DB019D700C277AE /* SVGKitSwift */; };
+		11630EA12DB0242D00C277AE /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 11630EA02DB0242D00C277AE /* SwiftSVG */; };
+		11630EA42DB02FBD00C277AE /* Macaw in Frameworks */ = {isa = PBXBuildFile; productRef = 11630EA32DB02FBD00C277AE /* Macaw */; };
+		11630EA92DB03CF000C277AE /* PlanningHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EA52DB03CEF00C277AE /* PlanningHelper.swift */; };
+		11630EAA2DB03CF000C277AE /* PlanningUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */; };
+		11630EAB2DB03CF000C277AE /* PlanningAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */; };
+		11630EAF2DB03EA200C277AE /* PlanDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EAD2DB03EA200C277AE /* PlanDataModel.swift */; };
 		1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */; };
 		1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF932DAAC32200DC1CCC /* TabBarController.swift */; };
 		1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1174DF972DAAC45B00DC1CCC /* GoogleSignIn */; };
@@ -155,6 +164,10 @@
 		11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionHelper.swift; sourceTree = "<group>"; };
 		11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionUseCase.swift; sourceTree = "<group>"; };
 		11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionAPIService.swift; sourceTree = "<group>"; };
+		11630EA52DB03CEF00C277AE /* PlanningHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningHelper.swift; sourceTree = "<group>"; };
+		11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningUseCase.swift; sourceTree = "<group>"; };
+		11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningAPIService.swift; sourceTree = "<group>"; };
+		11630EAD2DB03EA200C277AE /* PlanDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDataModel.swift; sourceTree = "<group>"; };
 		1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarCoordinator.swift; sourceTree = "<group>"; };
 		1174DF932DAAC32200DC1CCC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigation.swift; sourceTree = "<group>"; };
@@ -238,8 +251,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11630E992DB0179200C277AE /* SDWebImage in Frameworks */,
 				1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */,
+				11630EA42DB02FBD00C277AE /* Macaw in Frameworks */,
+				11630E9E2DB019D700C277AE /* SVGKitSwift in Frameworks */,
+				11630E9C2DB019D700C277AE /* SVGKit in Frameworks */,
 				1174DF9A2DAAC45B00DC1CCC /* GoogleSignInSwift in Frameworks */,
+				11630EA12DB0242D00C277AE /* SwiftSVG in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +373,7 @@
 		11529D6F2D95E01500AAD720 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				11630EA82DB03CEF00C277AE /* Planning */,
 				1175A3C72DAE81B9003F5307 /* Guest */,
 				11529D792D95E49700AAD720 /* AuthSession */,
 				11529D702D95E02100AAD720 /* Core */,
@@ -380,6 +399,24 @@
 				11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */,
 			);
 			path = AuthSession;
+			sourceTree = "<group>";
+		};
+		11630EA82DB03CEF00C277AE /* Planning */ = {
+			isa = PBXGroup;
+			children = (
+				11630EA52DB03CEF00C277AE /* PlanningHelper.swift */,
+				11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */,
+				11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */,
+			);
+			path = Planning;
+			sourceTree = "<group>";
+		};
+		11630EAE2DB03EA200C277AE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11630EAD2DB03EA200C277AE /* PlanDataModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		1174DF902DAAC2F800DC1CCC /* HomeTabBar */ = {
@@ -429,6 +466,7 @@
 				1174DFAB2DAAD2E100DC1CCC /* PlanningNavigation.swift */,
 				1174DFAD2DAAD2EB00DC1CCC /* PlanningCoordinator.swift */,
 				1174DFAF2DAAD30000DC1CCC /* ViewModules */,
+				11630EAE2DB03EA200C277AE /* Models */,
 				1147AF162DAC0044006D28CD /* Views */,
 				1147AF3E2DAC3E71006D28CD /* SubPages */,
 			);
@@ -836,6 +874,11 @@
 			packageProductDependencies = (
 				1174DF972DAAC45B00DC1CCC /* GoogleSignIn */,
 				1174DF992DAAC45B00DC1CCC /* GoogleSignInSwift */,
+				11630E982DB0179200C277AE /* SDWebImage */,
+				11630E9B2DB019D700C277AE /* SVGKit */,
+				11630E9D2DB019D700C277AE /* SVGKitSwift */,
+				11630EA02DB0242D00C277AE /* SwiftSVG */,
+				11630EA32DB02FBD00C277AE /* Macaw */,
 			);
 			productName = OLSUN;
 			productReference = 11A7E3252D8B35BF00D82AF2 /* OLSUN.app */;
@@ -915,6 +958,10 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				11630E972DB0179200C277AE /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				11630E9A2DB019D700C277AE /* XCRemoteSwiftPackageReference "SVGKit" */,
+				11630E9F2DB0242D00C277AE /* XCRemoteSwiftPackageReference "SwiftSVG" */,
+				11630EA22DB02FBD00C277AE /* XCRemoteSwiftPackageReference "Macaw" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11A7E3262D8B35BF00D82AF2 /* Products */;
@@ -991,6 +1038,7 @@
 				11A7E37B2D8B375600D82AF2 /* NotificationNameExtensions.swift in Sources */,
 				11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */,
 				11A7E3932D8B39C700D82AF2 /* AuthNavigation.swift in Sources */,
+				11630EA92DB03CF000C277AE /* PlanningHelper.swift in Sources */,
 				11273A3D2DAE832300E2FB47 /* GuestHelper.swift in Sources */,
 				1174DFAC2DAAD2E800DC1CCC /* PlanningNavigation.swift in Sources */,
 				1174DFB82DAAD50A00DC1CCC /* HomeViewModel.swift in Sources */,
@@ -1011,6 +1059,7 @@
 				1174DFC22DAAE55000DC1CCC /* GoogleHelper.swift in Sources */,
 				11529D742D95E04600AAD720 /* CoreAPIManager.swift in Sources */,
 				11BB9F322D8C959600008DD7 /* LaunchViewModel.swift in Sources */,
+				11630EAF2DB03EA200C277AE /* PlanDataModel.swift in Sources */,
 				1174DFB32DAAD32300DC1CCC /* GuestsNavigation.swift in Sources */,
 				11A7E3872D8B37C000D82AF2 /* BaseViewController.swift in Sources */,
 				1147AF4C2DAC3EEA006D28CD /* AddTaskViewModel.swift in Sources */,
@@ -1044,6 +1093,8 @@
 				1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */,
 				11A7E3792D8B374300D82AF2 /* UserDefaultsKey.swift in Sources */,
 				1147AF182DAC0055006D28CD /* ListTableCell.swift in Sources */,
+				11630EAB2DB03CF000C277AE /* PlanningAPIService.swift in Sources */,
+				11630EAA2DB03CF000C277AE /* PlanningUseCase.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,
@@ -1386,6 +1437,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		11630E972DB0179200C277AE /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.0;
+			};
+		};
+		11630E9A2DB019D700C277AE /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		11630E9F2DB0242D00C277AE /* XCRemoteSwiftPackageReference "SwiftSVG" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchoe/SwiftSVG.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		11630EA22DB02FBD00C277AE /* XCRemoteSwiftPackageReference "Macaw" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/Macaw";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.10;
+			};
+		};
 		1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1397,6 +1480,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		11630E982DB0179200C277AE /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11630E972DB0179200C277AE /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		11630E9B2DB019D700C277AE /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11630E9A2DB019D700C277AE /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		11630E9D2DB019D700C277AE /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11630E9A2DB019D700C277AE /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
+		};
+		11630EA02DB0242D00C277AE /* SwiftSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11630E9F2DB0242D00C277AE /* XCRemoteSwiftPackageReference "SwiftSVG" */;
+			productName = SwiftSVG;
+		};
+		11630EA32DB02FBD00C277AE /* Macaw */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11630EA22DB02FBD00C277AE /* XCRemoteSwiftPackageReference "Macaw" */;
+			productName = Macaw;
+		};
 		1174DF972DAAC45B00DC1CCC /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

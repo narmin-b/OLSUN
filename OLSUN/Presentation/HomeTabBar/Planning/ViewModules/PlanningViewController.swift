@@ -8,6 +8,7 @@
 import UIKit
 
 final class PlanningViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -18,14 +19,21 @@ final class PlanningViewController: BaseViewController {
         return view
     }()
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
+        return refreshControl
+    }()
+    
     private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Görəcəyin işlər",
-                                  labelColor: .primaryHighlight,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 24,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Planların siyahısı",
+            labelColor: .primaryHighlight,
+            labelFont: .montserratMedium,
+            labelSize: 24,
+            numOfLines: 1
         )
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,7 +44,6 @@ final class PlanningViewController: BaseViewController {
             onAction: { [weak self] in self?.addTaskButtonTapped() },
             bgColor: .clear,
         )
-//        button.setImage(UIImage(systemName: "plus"), for: .normal)
         let image = UIImage(systemName: "plus")
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
@@ -52,17 +59,13 @@ final class PlanningViewController: BaseViewController {
         tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
-        tableview.isScrollEnabled = false
+        tableview.refreshControl = refreshControl
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
+    // MARK: Configurations
     private let viewModel: PlanningViewModel?
-    
-    var taskItems: [TaskItem] = [
-        TaskItem(status: .inProgress, title: "Fotoqraf", descTitle: "Deadline: ", description: "10.10.2025"),
-        TaskItem(status: .completed, title: "Məkan", descTitle: "Deadline: ", description: "10.10.2025")
-    ]
     
     init(viewModel: PlanningViewModel) {
         self.viewModel = viewModel
@@ -76,18 +79,16 @@ final class PlanningViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel?.getAllTasks()
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-    }
-    
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        
+        print("id:", UserDefaultsHelper.getString(key: .userID) ?? "")
     }
     
     override func configureView() {
@@ -99,7 +100,7 @@ final class PlanningViewController: BaseViewController {
     }
     
     override func configureConstraint() {
-        loadingView.fillSuperview()
+        loadingView.fillSuperviewSafeAreaLayoutGuide()
         
         titleLabel.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
@@ -116,10 +117,18 @@ final class PlanningViewController: BaseViewController {
         tasksTableView.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(all: 16)
+            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
         )
-        tasksTableView.anchorSize(.init(width: view.frame.width - 32, height: 300))
+    }
+    
+    fileprivate func configureNavigationBar() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+        navigationItem.configureNavigationBar(text: "Planlama")
     }
     
     private func configureViewModel() {
@@ -132,7 +141,8 @@ final class PlanningViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    print(#function)
+                    self.refreshControl.endRefreshing()
+                    self.tasksTableView.reloadData()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -140,17 +150,21 @@ final class PlanningViewController: BaseViewController {
         }
     }
     
+    // MARK: Functions
     @objc fileprivate func addTaskButtonTapped() {
-        print(#function)
         viewModel?.showAddTaskVC()
+    }
+    
+    @objc fileprivate func reloadPage() {
+        viewModel?.refreshAllTasks()
     }
 }
 
 extension PlanningViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return taskItems.count
+        return viewModel?.taskList.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -159,18 +173,18 @@ extension PlanningViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? ListTableCell else {
             return UITableViewCell()
         }
-        cell.configure(with: taskItems[indexPath.section])
+        cell.configure(with: viewModel?.taskList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0), itemName: .task)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 12
     }
-
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let spacer = UIView()
         spacer.backgroundColor = .clear
@@ -178,6 +192,6 @@ extension PlanningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.taskSelected(taskItem: taskItems[indexPath.section])
+        viewModel?.taskSelected(taskItem: viewModel?.taskList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
     }
 }

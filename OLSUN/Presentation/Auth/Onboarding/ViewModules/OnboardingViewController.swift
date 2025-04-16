@@ -114,7 +114,6 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     override func configureView() {
         configureNavigationBar()
-//        setUpBackground()
         view.backgroundColor = .white
         view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
 
@@ -132,15 +131,15 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     
-    fileprivate func setUpBackground() {
-        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(backgroundView)
-        view.sendSubviewToBack(backgroundView)
-
-        backgroundView.fillSuperview()
-    }
+//    fileprivate func setUpBackground() {
+//        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
+//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        view.addSubview(backgroundView)
+//        view.sendSubviewToBack(backgroundView)
+//
+//        backgroundView.fillSuperview()
+//    }
     
     override func configureConstraint() {
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
@@ -197,7 +196,8 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         container.translatesAutoresizingMaskIntoConstraints = false
 
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "onboardingImageFirst")
+        imageView.loadImage(named: "onboardingImageFirst.png")
+//        imageView.image = UIImage(named: "onboardingImageFirst")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -252,7 +252,8 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         container.translatesAutoresizingMaskIntoConstraints = false
 
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "onboardingImageSecond")
+        imageView.loadImage(named: "onboardingImageSecond.png")
+//        imageView.image = UIImage(named: "onboardingImageSecond")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 

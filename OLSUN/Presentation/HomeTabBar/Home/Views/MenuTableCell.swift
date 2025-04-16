@@ -6,17 +6,28 @@
 //
 
 import UIKit
+import Macaw
 
 struct MenuItem {
-    var iconImage: UIImage
+    var iconName: String
     var title: String
     var description: String
 }
 
 final class MenuTableCell: UITableViewCell {
+    private var svgNode: Node?
+
+    let iconView: MacawView = {
+        let view = MacawView()
+        view.backgroundColor = .clear
+        view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -60,15 +71,24 @@ final class MenuTableCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        iconView.setNeedsLayout()
+//        iconView.layoutIfNeeded()
+//    }
+
     private func setupConstraints() {
         iconImageView.anchor(
-            top: self.topAnchor,
-            bottom: self.bottomAnchor,
-            trailing: self.trailingAnchor,
+            top: topAnchor,
+            bottom: bottomAnchor,
+            trailing: trailingAnchor,
             padding: .init(top: 4, left: 0, bottom: -4, right: -12)
         )
-        iconImageView.anchorSize(.init(width: DeviceSizeClass.current == .compact ? 60 : 68, height: DeviceSizeClass.current == .compact ? 60 : 68))
+        iconImageView.anchorSize(.init(
+            width: DeviceSizeClass.current == .compact ? 60 : 68,
+            height: DeviceSizeClass.current == .compact ? 60 : 68
+        ))
         
         titleLabel.anchor(
             top: topAnchor,
@@ -83,8 +103,43 @@ final class MenuTableCell: UITableViewCell {
     }
     
     func configure(with item: MenuItem) {
-        iconImageView.image = item.iconImage
         titleLabel.text = item.title
         descriptionLabel.text = item.description
+        iconImageView.image = UIImage(named: item.iconName)
+    }
+
+    private func loadSVG(urlString: String) {
+        guard let url = URL(string: urlString) else {
+            print("❌ Invalid URL: \(urlString)")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                print("❌ SVG download error: \(error)")
+                return
+            }
+
+            guard let data = data,
+                  let svgText = String(data: data, encoding: .utf8) else {
+                print("❌ Could not decode SVG data")
+                return
+            }
+
+            print("✅ SVG Loaded from URL")
+            print(svgText.prefix(100)) // Print first 100 chars for debug
+
+            do {
+                let node = try SVGParser.parse(text: svgText)
+                DispatchQueue.main.async {
+                    self.svgNode = node
+                    self.iconView.node = node
+                }
+            } catch {
+                print("❌ SVG Parsing failed: \(error)")
+            }
+        }.resume()
     }
 }

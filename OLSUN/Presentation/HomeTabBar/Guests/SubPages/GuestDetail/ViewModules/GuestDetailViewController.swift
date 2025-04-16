@@ -264,27 +264,16 @@ final class GuestDetailViewController: BaseViewController {
         }
  
         if name.isValidName() {
-            let guestInput = GuestDataModel(id: viewModel?.taskItem.idInt, name: name, guestInvitationDate: date?.toDisplayDateFormat() ?? "", guestStatus: status)
+            let guestInput = GuestDataModel(
+                id: viewModel?.taskItem.idInt,
+                name: name,
+                guestInvitationDate: date?.toAPIDateFormat() ?? "",
+                guestStatus: status
+            )
             
             print(guestInput)
             viewModel?.editGuest(guest: guestInput)
             
         }
     }
-    
-//    fileprivate func convertDateToDisplayFormat(_ dateString: String) -> String {
-//        let inputFormatter = DateFormatter()
-//        inputFormatter.dateFormat = "yyyy-MM-dd"
-//        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-//
-//        let outputFormatter = DateFormatter()
-//        outputFormatter.dateFormat = "dd.MM.yyyy"
-//        outputFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        
-//        if let date = inputFormatter.date(from: dateString) {
-//            return outputFormatter.string(from: date)
-//        } else {
-//            return dateString
-//        }
-//    }
 }

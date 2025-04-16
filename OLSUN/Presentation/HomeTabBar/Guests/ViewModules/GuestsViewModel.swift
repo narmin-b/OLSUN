@@ -42,7 +42,7 @@ final class GuestsViewModel {
             self.requestCallback?(.loaded)
             DispatchQueue.main.async {
                 if let result = result {
-                    self.guestList = (result.map({$0.mapToDomain()}))/*.reversed()*/
+                    self.guestList = (result.map({$0.mapToDomain()}))
                     print(self.guestList)
                     self.requestCallback?(.success)
                 } else if let error = error {

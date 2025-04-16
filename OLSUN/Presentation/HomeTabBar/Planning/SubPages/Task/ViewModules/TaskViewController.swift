@@ -8,6 +8,7 @@
 import UIKit
 
 final class TaskViewController: BaseViewController {
+    // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .black
@@ -21,11 +22,9 @@ final class TaskViewController: BaseViewController {
     private lazy var titleLabel: UITextField = {
         let textfield = ReusableTextField(
             placeholder: "",
-            cornerRadius: 12,
             backgroundColor: .clear,
         )
-        textfield.delegate = self
-        textfield.attributedText = NSAttributedString(string: "Test", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24), NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
+        textfield.attributedText = NSAttributedString(string: "Test", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
         textfield.isEnabled = false
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -45,87 +44,37 @@ final class TaskViewController: BaseViewController {
         return button
     }()
     
-    private lazy var cancelTaskButton: UIButton = {
-        let button = ReusableButton(
-            title: "",
-            onAction: { [weak self] in self?.editTaskButtonTapped() },
-            bgColor: .clear,
-        )
-        let image = UIImage(named: "editIcon")
-        let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
-        button.setImage(resizedImage, for: .normal)
-        button.tintColor = .primaryHighlight
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     private lazy var deadlineLabel: UILabel = {
-        let label = ReusableLabel(labelText: "Deadline:",
-                                  labelColor: .black,
-                                  labelFont: .montserratMedium,
-                                  labelSize: 16,
-                                  numOfLines: 3
+        let label = ReusableLabel(
+            labelText: "Deadline:",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 1
         )
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private lazy var dateLabel: UITextField = {
-        let textfield = ReusableTextField(
-            placeholder: "",
-            cornerRadius: 8,
-            backgroundColor: .clear,
+ 
+    private lazy var dateLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "",
+            labelColor: .black,
+            labelFont: .montserratMedium,
+            labelSize: 16,
+            numOfLines: 1
         )
-        textfield.delegate = self
-        textfield.attributedText = NSAttributedString(string: "11.11.1111", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16), NSAttributedString.Key.foregroundColor: UIColor.black])
-        textfield.isEnabled = false
-        
-        textfield.inputView = datePicker
-        textfield.inputAccessoryView = doneToolBar
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        
-        textfield.tintColor = .clear
-        textfield.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openDatePicker)))
-        
-        textfield.inputAccessoryView = doneToolBar
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        return textfield
-    }()
-    
-    private lazy var cancelButton: UIButton = {
-        let button = ReusableButton(
-            title: "İmtina et",
-            onAction: { [weak self] in self?.cancelTapped() },
-            bgColor: .accentMain,
-            titleColor: .primaryHighlight,
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
-        )
-        button.addShadow()
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var saveButton: UIButton = {
-        let button = ReusableButton(
-            title: "Yadda saxla",
-            onAction: { [weak self] in self?.saveTapped() },
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
-        )
-        button.addShadow()
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var statusMenuButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Status", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont(name: FontKeys.workSansMedium.rawValue, size: 16)
         button.backgroundColor = .secondaryHighlight
         button.layer.cornerRadius = 12
         button.contentHorizontalAlignment = .left
@@ -137,20 +86,9 @@ final class TaskViewController: BaseViewController {
         return button
     }()
     
-    private lazy var doneToolBar: UIToolbar = {
-        let keyboardToolbar = UIToolbar()
-        keyboardToolbar.sizeToFit()
-        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
-        keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
-        return keyboardToolbar
-    }()
-    
+    // MARK: Configurations
     private let viewModel: TaskViewModel?
-    let statusOptions = ["Bitib", "İş davam edir", "Gecikir"]
-    private let toolbar = UIToolbar()
-    private let datePicker = UIDatePicker()
+    let statusOptions = ["Bitib", "Gözləmədə", "Gecikir"]
     
     init(viewModel: TaskViewModel) {
         self.viewModel = viewModel
@@ -187,34 +125,31 @@ final class TaskViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
-        setUpTask()
-        print(viewModel?.taskItem!)
-    }
-    
-    fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        setUpTask(with: viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, editTaskButton, deadlineLabel, dateLabel, statusMenuButton, cancelButton, saveButton)
+        view.addSubViews(
+            loadingView,
+            titleLabel,
+            editTaskButton,
+            deadlineLabel,
+            dateLabel,
+            statusMenuButton
+        )
         view.bringSubviewToFront(loadingView)
         
         let menuItems = statusOptions.map { option in
             UIAction(title: option) { [weak self] _ in
                 self?.statusMenuButton.setTitle(option, for: .normal)
-                print("✅ Selected: \(option)")
+                self?.checkEditedTask()
             }
         }
         
         statusMenuButton.menu = UIMenu(title: "", options: .displayInline, children: menuItems)
-        setupDatePicker()
     }
     
     override func configureConstraint() {
@@ -226,7 +161,6 @@ final class TaskViewController: BaseViewController {
             trailing: editTaskButton.leadingAnchor,
             padding: .init(top: 12, left: 8, bottom: 0, right: -8)
         )
-        titleLabel.anchorSize(.init(width: 0, height: 36))
         
         editTaskButton.anchor(
             trailing: view.trailingAnchor,
@@ -242,7 +176,7 @@ final class TaskViewController: BaseViewController {
         )
         dateLabel.anchor(
             trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 0, bottom: 0, right: -8)
+            padding: .init(top: 0, left: 0, bottom: 0, right: -16)
         )
         dateLabel.centerYToView(to: deadlineLabel)
         
@@ -251,23 +185,15 @@ final class TaskViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(top: 20, left: 16, bottom: 0, right: 0)
         )
-        statusMenuButton.anchorSize(.init(width: view.frame.width/3 + 16, height: 44))
-        
-        cancelButton.anchor(
-            leading: view.leadingAnchor,
-            bottom: view.bottomAnchor,
-            trailing: view.centerXAnchor,
-            padding: .init(top: 0, left: 32, bottom: -32 , right: -8)
-        )
-        cancelButton.anchorSize(.init(width: 0, height: 48))
-        
-        saveButton.anchor(
-            leading: view.centerXAnchor,
-            bottom: view.bottomAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 8, bottom: -32 , right: -32)
-        )
-        saveButton.anchorSize(.init(width: 0, height: 48))
+        statusMenuButton.anchorSize(.init(width: view.frame.width/3 + 12, height: 44))
+    }
+    
+    fileprivate func configureNavigationBar() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        navigationController?.navigationBar.tintColor = .primaryHighlight
+        navigationItem.configureNavigationBar(text: "Planlama")
     }
     
     private func configureViewModel() {
@@ -279,88 +205,74 @@ final class TaskViewController: BaseViewController {
                     self.loadingView.startAnimating()
                 case .loaded:
                     self.loadingView.stopAnimating()
-                case .success:
+                case .editSuccess:
                     print(#function)
+                case .success:
+                    self.setUpTask(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
                 case .error(let error):
+                    self.setUpTask(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
                     self.showMessage(title: "Error", message: error)
                 }
             }
         }
     }
     
-    fileprivate func setUpTask(){
-        titleLabel.attributedText = NSAttributedString(string: viewModel?.taskItem?.title ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24), NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
-        dateLabel.attributedText = NSAttributedString(string: viewModel?.taskItem?.description ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16), NSAttributedString.Key.foregroundColor: UIColor.black])
+    fileprivate func setUpTask(with guest: ListCellProtocol){
+        titleLabel.attributedText = NSAttributedString(
+            string: viewModel?.taskItem.titleString ?? "",
+            attributes: [
+                NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!,
+                NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight
+            ]
+        )
         
-        if let status = viewModel?.taskItem?.status.displayName {
-            statusMenuButton.setTitle(status, for: .normal)
-        }
-    }
-    
-    @objc fileprivate func editTaskButtonTapped() {
-        print(#function)
-        toggleEditButtons()
-    }
-    
-    private func setupDatePicker() {
-        datePicker.datePickerMode = .date
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        
-        toolbar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePressed))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
-        
-        toolbar.setItems([cancelButton, space, doneButton], animated: false)
-        
-        dateLabel.inputView = datePicker
-        dateLabel.inputAccessoryView = toolbar
-    }
-    
-    @objc func openDatePicker() {
-        dateLabel.becomeFirstResponder()
-    }
-    
-    @objc private func donePressed() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        dateLabel.text = formatter.string(from: datePicker.date)
-        dateLabel.resignFirstResponder()
-    }
-    
-    fileprivate func toggleEditButtons() {
-        saveButton.isHidden.toggle()
-        cancelButton.isHidden.toggle()
-        titleLabel.isEnabled.toggle()
-        dateLabel.isEnabled.toggle()
-        editTaskButton.isHidden.toggle()
-    }
-    
-    @objc fileprivate func saveTapped() {
-        print(#function)
-        toggleEditButtons()
-    }
-    
-    @objc fileprivate func cancelTapped() {
-        print(#function)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc private func cancelPressed() {
-        dateLabel.resignFirstResponder()
-    }
-}
+        dateLabel.attributedText = NSAttributedString(
+            string: viewModel?.taskItem.dateString.toDisplayDateFormat() ?? "",
+            attributes: [
+                NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 16)!,
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+        )
 
-extension TaskViewController: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField == titleLabel {
-            titleLabel.attributedText = NSAttributedString(string: textField.text ?? "", attributes: [NSAttributedString.Key.font: UIFont(name: FontKeys.montserratMedium.rawValue, size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.primaryHighlight])
+        switch (viewModel?.taskItem.statusString) {
+        case .accepted:
+            statusMenuButton.setTitle(statusOptions[0], for: .normal)
+        case .declined:
+            statusMenuButton.setTitle(statusOptions[2], for: .normal)
+        default:
+            statusMenuButton.setTitle(statusOptions[1], for: .normal)
+        }
+    }
+    
+    // MARK: Functions
+    @objc fileprivate func editTaskButtonTapped() {
+        viewModel?.showEditTask()
+    }
+
+    fileprivate func checkEditedTask() {
+        let name = titleLabel.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let date = dateLabel.text
+        var status: EditStatus
+        if statusMenuButton.currentTitle == statusOptions[0] {
+            status = EditStatus.accepted
+        } else if statusMenuButton.currentTitle == statusOptions[1] {
+            status = EditStatus.pending
+        } else if statusMenuButton.currentTitle == statusOptions[2] {
+            status = EditStatus.declined
+        } else {
+            status = EditStatus.pending
+        }
+ 
+        if name.isValidName() {
+            let taskInput = PlanDataModel(
+                id: viewModel?.taskItem.idInt,
+                planTitle: name,
+                deadline: date?.toAPIDateFormat() ?? "",
+                status: status
+            )
+            
+            print(taskInput)
+            viewModel?.editTask(task: taskInput)
         }
     }
 }

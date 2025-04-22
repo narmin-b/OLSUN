@@ -470,6 +470,7 @@ final class LaunchViewController: BaseViewController {
     
     private func setupDatePicker() {
         datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }

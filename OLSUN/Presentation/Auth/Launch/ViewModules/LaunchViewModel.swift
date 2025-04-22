@@ -87,6 +87,10 @@ final class LaunchViewModel {
         }
     }
     
+    func showHomeTabBar() {
+        navigation?.didCompleteAuthentication()
+    }
+    
     func popControllerBack() {
         navigation?.popbackScreen()
     }

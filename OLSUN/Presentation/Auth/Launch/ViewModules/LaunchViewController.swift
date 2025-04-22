@@ -315,8 +315,9 @@ final class LaunchViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    self.viewModel?.backToOnboarding()
-                    self.showMessage(title: "Hesab yaradıldı!", message: "Artıq hesabınıza daxil olub davam edə bilərsiniz!")
+                    self.viewModel?.showHomeTabBar()
+//                    self.viewModel?.backToOnboarding()
+//                    self.showMessage(title: "Hesab yaradıldı!", message: "Artıq hesabınıza daxil olub davam edə bilərsiniz!")
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

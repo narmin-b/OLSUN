@@ -50,7 +50,7 @@ final class LoginViewModel {
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
                 UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
-                if dto != nil {
+                if dto == nil {
                     self.requestCallback?(.success)
                 } else {
                     self.showShowLaunchScreen(user: user)

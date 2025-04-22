@@ -52,7 +52,7 @@ final class SignUpViewModel {
                 print("dto:", dto ?? "No resp")
                 
                 UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
-                if dto != nil {
+                if dto == nil {
                     self.requestCallback?(.success)
                 } else {
                     self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)

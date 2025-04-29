@@ -51,7 +51,6 @@ final class CoreAPIManager {
             
             if !(200..<300).contains(httpResponse.statusCode) {
                 if let serverError = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
-                    // Use the message from the server error response
                     let errorMessage = serverError.message ?? "Unknown error"
                     completion(.failure(CoreErrorModel(code: httpResponse.statusCode, message: errorMessage)))
                 } else {

@@ -158,7 +158,6 @@ final class AddTaskViewController: BaseViewController {
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
         return keyboardToolbar
     }()
     

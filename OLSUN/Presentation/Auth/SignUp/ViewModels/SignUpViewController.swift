@@ -82,6 +82,7 @@ final class SignUpViewController: BaseViewController {
         textfield.rightView = toggleButton
         textfield.rightViewMode = .always
 
+        textfield.delegate = self
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
@@ -89,6 +90,47 @@ final class SignUpViewController: BaseViewController {
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
+    }()
+    
+    private lazy var passReqLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "• Must Contain 8 Characters",
+            labelColor: .black,
+            labelFont: .workSansMedium,
+            labelSize: 12
+        )
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var passUpcaseReqLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "• Must Contain An Uppercase",
+            labelColor: .black,
+            labelFont: .workSansMedium,
+            labelSize: 12
+        )
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var passNumReqLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "• Must Contain A Number",
+            labelColor: .black,
+            labelFont: .workSansMedium,
+            labelSize: 12
+        )
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var passwordRequirementsStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [passReqLabel, passUpcaseReqLabel, passNumReqLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private lazy var signupButton: UIButton = {
@@ -180,7 +222,6 @@ final class SignUpViewController: BaseViewController {
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
         return keyboardToolbar
     }()
     
@@ -198,11 +239,6 @@ final class SignUpViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        textfieldCleaning()
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,17 +249,7 @@ final class SignUpViewController: BaseViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-    
-    fileprivate func setUpBackground() {
-        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(backgroundView)
-        view.sendSubviewToBack(backgroundView)
-
-        backgroundView.fillSuperview()
-    }
-    
+   
     fileprivate func configureNavigationBar() {
         let backItem = UIBarButtonItem()
         backItem.title = ""
@@ -232,11 +258,10 @@ final class SignUpViewController: BaseViewController {
     }
     
     override func configureView() {
-//        setUpBackground()
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, signupButton, seperatorStackView, googleSignInButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -282,9 +307,15 @@ final class SignUpViewController: BaseViewController {
         passwordTextField.centerXToSuperview()
         passwordTextField.anchorSize(.init(width: 0, height: textFieldHeight))
         
-        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
-        signupButton.anchor(
+        passwordRequirementsStack.anchor(
             top: passwordTextField.bottomAnchor,
+            leading: view.leadingAnchor,
+            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+        )
+        
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 48
+        signupButton.anchor(
+            top: passwordRequirementsStack.bottomAnchor,
             padding: .init(all: 44)
         )
         signupButton.centerXToSuperview()
@@ -300,7 +331,6 @@ final class SignUpViewController: BaseViewController {
             padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
         )
         orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        orLabel.anchorSize(.init(width: 24, height: 0))
         orLabel.centerYToView(to: seperatorStackView)
         line1View.centerYToView(to: seperatorStackView)
         line2View.centerYToView(to: seperatorStackView)
@@ -407,14 +437,50 @@ final class SignUpViewController: BaseViewController {
             emailTextField.borderOff()
         }
         if !password.isValidPassword() {
+            if password.isValidPassword() {
+                passReqLabel.textColor = .black
+            } else {
+                passReqLabel.textColor = .red
+            }
+            if password.doesContainDigit() {
+                passNumReqLabel.textColor = .black
+            } else {
+                passNumReqLabel.textColor = .red
+            }
+            if password.doesContainUppercase() {
+                passUpcaseReqLabel.textColor = .black
+            } else {
+                passUpcaseReqLabel.textColor = .red
+            }
             passwordTextField.errorBorderOn()
         } else {
             passwordTextField.borderOff()
         }
     }
     
+    fileprivate func checkPassWordRequirements() {
+        let passwordText = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if passwordText.isValidPassword() {
+            passReqLabel.textColor = .reqGreen
+        }
+        if passwordText.doesContainDigit() {
+            passNumReqLabel.textColor = .reqGreen
+        }
+        if passwordText.doesContainUppercase() {
+            passUpcaseReqLabel.textColor = .reqGreen
+        }
+    }
+    
     fileprivate func textfieldCleaning() {
         emailTextField.text = ""
         passwordTextField.text = ""
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == passwordTextField {
+            checkPassWordRequirements()
+        }
     }
 }

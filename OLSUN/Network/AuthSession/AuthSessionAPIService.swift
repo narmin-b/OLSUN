@@ -8,9 +8,9 @@
 import Foundation
 
 final class AuthSessionAPIService: AuthSessionUseCase {
-
+    
     private let apiService = CoreAPIManager.instance
- 
+    
     func createUser(user: RegisterDataModel, completion: @escaping (String?, String?) -> Void) {
         apiService.request(
             type: String.self,
@@ -30,7 +30,7 @@ final class AuthSessionAPIService: AuthSessionUseCase {
         ) { [weak self] result in
             guard self != nil else { return }
             print("result:", result)
-
+            
             switch result {
             case .success(let (data, statusCode)):
                 print("Status Code: \(statusCode)")
@@ -44,7 +44,7 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             }
         }
     }
-
+    
     func loginUser(user: LoginDataModel, completion: @escaping (String?, String?) -> Void) {
         apiService.request(
             type: String.self,
@@ -60,13 +60,13 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             switch result {
             case .success(let (data, statusCode)):
                 print("User logged in successfully. Status Code: \(statusCode)")
-
+                
                 if (200...299).contains(statusCode) {
                     completion(data, nil)
                 } else {
                     completion(nil, data)
                 }
-               
+                
             case .failure(let error):
                 completion(nil, error.localizedDescription)
             }
@@ -93,22 +93,22 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             switch result {
             case .success(let (data, statusCode)):
                 print("Status Code: \(statusCode)")
-
+                
                 if (200...299).contains(statusCode) {
                     completion(data, nil)
                 } else {
                     completion(nil, data)
                 }
-               
+                
             case .failure(let error):
                 completion(nil, error.localizedDescription)
             }
         }
     }
     
-    func googleEmailCheck(idToken: String, completion: @escaping (String?, String?) -> Void) {
+    func googleEmailCheck(idToken: String, completion: @escaping (EmailOrTokenDataModel?, String?) -> Void) {
         apiService.request(
-            type: String.self,
+            type: EmailOrTokenDataModel.self,
             url: AuthSessionHelper.googleCheck.endpoint,
             method: .POST,
             header: ["Content-Type" : "application/json",
@@ -119,13 +119,8 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             switch result {
             case .success(let (data, statusCode)):
                 print("Status Code: \(statusCode)")
-
-//                if (200...299).contains(statusCode) {
-                    completion(data, nil)
-//                } else {
-//                    completion(nil, data)
-//                }
-               
+                completion(data, nil)
+                
             case .failure(let error):
                 completion(nil, error.localizedDescription)
             }

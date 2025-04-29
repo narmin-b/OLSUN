@@ -240,12 +240,7 @@ final class LaunchViewController: BaseViewController {
     }()
 
     private lazy var contentView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [titleLabel, launchImage,
-                                                  nameStack,
-                                                  partnerNameStack,
-                                                  dateStack,
-                                                  genderStack
-                                                  ])
+        let view = UIStackView(arrangedSubviews: [titleLabel, launchImage])
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
@@ -260,7 +255,6 @@ final class LaunchViewController: BaseViewController {
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
         return keyboardToolbar
     }()
     
@@ -316,8 +310,6 @@ final class LaunchViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.viewModel?.showHomeTabBar()
-//                    self.viewModel?.backToOnboarding()
-//                    self.showMessage(title: "Hesab yaradıldı!", message: "Artıq hesabınıza daxil olub davam edə bilərsiniz!")
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -345,7 +337,6 @@ final class LaunchViewController: BaseViewController {
     }
     
     override func configureView() {
-//        setUpBackground()
         configureNavigationBar()
         setupDatePicker()
         
@@ -373,99 +364,93 @@ final class LaunchViewController: BaseViewController {
             leading: view.leadingAnchor,
             bottom: nextButton.topAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(all: 0)
+            padding: .init(top: 0, left: 0, bottom: -4, right: 0)
         )
         contentView.anchor(
             top: scrollView.topAnchor,
             leading: scrollView.leadingAnchor,
             bottom: scrollView.bottomAnchor,
             trailing: scrollView.trailingAnchor,
-            padding: .init(all: 0)
+            padding: .init(top: 0, left: 0, bottom: -24, right: 0)
         )
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-
-        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 32
-        titleLabel.anchor(
-            top: scrollView.topAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
-        )
-        titleLabel.centerXToSuperview()
-        
+    
         let height = DeviceSizeClass.current == .compact ? 120 : 164
-        launchImage.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: 4, left: 0, bottom: 0, right: 0)
-        )
+
         launchImage.anchorSize(.init(width: 0, height: height))
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
         let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
 
+        let nameContainer = UIView()
+        nameContainer.addSubViews(nameLabel, nameTextField)
         nameLabel.anchor(
-            top: launchImage.bottomAnchor,
-            leading: contentView.leadingAnchor,
-            padding: .init(top: 24, left: 32, bottom: 0, right: 0)
+            top: nameContainer.topAnchor,
+            leading: nameContainer.leadingAnchor,
+            trailing: nameContainer.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: 0, right: -32)
         )
         nameTextField.anchor(
             top: nameLabel.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            leading: nameContainer.leadingAnchor,
+            bottom: nameContainer.bottomAnchor,
+            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
-        nameStack.centerXToSuperview()
-        nameTextField.centerXToSuperview()
         nameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
-        
+        contentView.addArrangedSubview(nameContainer)
+
+        let partnerNameContainer = UIView()
+        partnerNameContainer.addSubViews(partnerNameLabel, partnerNameTextField)
         partnerNameLabel.anchor(
-            top: nameTextField.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+            top: partnerNameContainer.topAnchor,
+            leading: partnerNameContainer.leadingAnchor,
+            trailing: partnerNameContainer.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: 0, right: -32)
         )
         partnerNameTextField.anchor(
             top: partnerNameLabel.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            leading: partnerNameContainer.leadingAnchor,
+            bottom: partnerNameContainer.bottomAnchor,
+            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
-        partnerNameTextField.centerXToSuperview()
-        partnerNameStack.centerXToSuperview()
         partnerNameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
-        
+        contentView.addArrangedSubview(partnerNameContainer)
+     
+        let dateContainer = UIView()
+        dateContainer.addSubViews(dateLabel, dateTextField)
         dateLabel.anchor(
-            top: partnerNameTextField.bottomAnchor,
-            leading: contentView.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+            top: dateContainer.topAnchor,
+            leading: dateContainer.leadingAnchor,
+            trailing: dateContainer.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: 0, right: -32)
         )
         dateTextField.anchor(
             top: dateLabel.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            leading: dateContainer.leadingAnchor,
+            bottom: dateContainer.bottomAnchor,
+            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
-        dateTextField.centerXToSuperview()
-        dateStack.centerXToSuperview()
         dateTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
-        
+        contentView.addArrangedSubview(dateContainer)
+   
+        let genderContainer = UIView()
+        genderContainer.addSubViews(genderLabel, genderTextfield)
         genderLabel.anchor(
-            top: dateTextField.bottomAnchor,
-            leading: contentView.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+            top: genderContainer.topAnchor,
+            leading: genderContainer.leadingAnchor,
+            trailing: genderContainer.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: 0, right: -32)
         )
         genderTextfield.anchor(
             top: genderLabel.bottomAnchor,
-            leading: scrollView.leadingAnchor,
-            trailing: scrollView.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            leading: genderContainer.leadingAnchor,
+            bottom: genderContainer.bottomAnchor,
+            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
-        genderTextfield.centerXToSuperview()
-        genderStack.centerXToSuperview()
         genderTextfield.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
+        contentView.addArrangedSubview(genderContainer)
     }
     
     private func setupDatePicker() {
@@ -475,6 +460,7 @@ final class LaunchViewController: BaseViewController {
             datePicker.preferredDatePickerStyle = .wheels
         }
         
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePressed))

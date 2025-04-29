@@ -50,12 +50,11 @@ final class SignUpViewModel {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
                 print("dto:", dto ?? "No resp")
-                
-                UserDefaultsHelper.setString(key: .userID, value: dto ?? "")
-                if dto == nil {
-                    self.requestCallback?(.success)
-                } else {
+                if dto?.status == .email {
                     self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)
+                } else {
+                    UserDefaultsHelper.setString(key: .userID, value: dto?.message ?? "")
+                    self.requestCallback?(.success)
                 }
             }
         }

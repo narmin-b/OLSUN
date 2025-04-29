@@ -11,5 +11,5 @@ protocol AuthSessionUseCase {
     func createUser(user: RegisterDataModel, completion: @escaping(String?, String?) -> Void)
     func loginUser(user: LoginDataModel, completion: @escaping(String?, String?) -> Void)
     func googleSignIn(idToken: String, user: RegisterDataModel, completion: @escaping(String?, String?) -> Void)
-    func googleEmailCheck(idToken: String, completion: @escaping(String?, String?) -> Void)
+    func googleEmailCheck(idToken: String, completion: @escaping(EmailOrTokenDataModel?, String?) -> Void)
 }

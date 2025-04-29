@@ -72,18 +72,11 @@ final class MenuTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        iconView.setNeedsLayout()
-//        iconView.layoutIfNeeded()
-//    }
-
     private func setupConstraints() {
         iconImageView.anchor(
             top: topAnchor,
-            bottom: bottomAnchor,
             trailing: trailingAnchor,
-            padding: .init(top: 4, left: 0, bottom: -4, right: -12)
+            padding: .init(top: 4, left: 0, bottom: 0, right: -12)
         )
         iconImageView.anchorSize(.init(
             width: DeviceSizeClass.current == .compact ? 60 : 68,
@@ -129,7 +122,7 @@ final class MenuTableCell: UITableViewCell {
             }
 
             print("✅ SVG Loaded from URL")
-            print(svgText.prefix(100)) // Print first 100 chars for debug
+            print(svgText.prefix(100))
 
             do {
                 let node = try SVGParser.parse(text: svgText)

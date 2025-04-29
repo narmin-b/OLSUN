@@ -181,7 +181,6 @@ final class LoginViewController: BaseViewController {
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         keyboardToolbar.items = [flexBarButton, doneBarButton]
-        keyboardToolbar.translatesAutoresizingMaskIntoConstraints = true
         return keyboardToolbar
     }()
     
@@ -210,17 +209,7 @@ final class LoginViewController: BaseViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-    
-    fileprivate func setUpBackground() {
-        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(backgroundView)
-        view.sendSubviewToBack(backgroundView)
-
-        backgroundView.fillSuperview()
-    }
-    
+   
     fileprivate func configureNavigationBar() {
         let backItem = UIBarButtonItem()
         backItem.title = ""
@@ -229,7 +218,6 @@ final class LoginViewController: BaseViewController {
     }
     
     override func configureView() {
-//        setUpBackground()
         configureNavigationBar()
         
         view.backgroundColor = .white
@@ -298,7 +286,6 @@ final class LoginViewController: BaseViewController {
             padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
         )
         orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        orLabel.anchorSize(.init(width: 24, height: 0))
         orLabel.centerYToView(to: seperatorStackView)
         line1View.centerYToView(to: seperatorStackView)
         line2View.centerYToView(to: seperatorStackView)
@@ -377,8 +364,6 @@ final class LoginViewController: BaseViewController {
     }
     
     @objc fileprivate func loginTapped() {
-//        viewModel?.showHomeTabBar()
-//        print(#function)
         checkInputRequirements()
     }
     

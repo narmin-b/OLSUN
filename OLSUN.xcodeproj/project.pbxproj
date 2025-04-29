@@ -34,6 +34,7 @@
 		11529D7B2D95E4BB00AAD720 /* AuthSessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */; };
 		11529D7D2D95E4C600AAD720 /* AuthSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */; };
 		11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */; };
+		116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116248662DC13BC400DFFA01 /* EmailOrTokenDataModel.swift */; };
 		11630E992DB0179200C277AE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E982DB0179200C277AE /* SDWebImage */; };
 		11630E9C2DB019D700C277AE /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E9B2DB019D700C277AE /* SVGKit */; };
 		11630E9E2DB019D700C277AE /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 11630E9D2DB019D700C277AE /* SVGKitSwift */; };
@@ -164,6 +165,7 @@
 		11529D7A2D95E4BB00AAD720 /* AuthSessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionHelper.swift; sourceTree = "<group>"; };
 		11529D7C2D95E4C600AAD720 /* AuthSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionUseCase.swift; sourceTree = "<group>"; };
 		11529D7E2D95E4D400AAD720 /* AuthSessionAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSessionAPIService.swift; sourceTree = "<group>"; };
+		116248662DC13BC400DFFA01 /* EmailOrTokenDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailOrTokenDataModel.swift; sourceTree = "<group>"; };
 		11630EA52DB03CEF00C277AE /* PlanningHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningHelper.swift; sourceTree = "<group>"; };
 		11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningUseCase.swift; sourceTree = "<group>"; };
 		11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningAPIService.swift; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 		11A7E3992D8B39F700D82AF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				116248662DC13BC400DFFA01 /* EmailOrTokenDataModel.swift */,
 				11529D772D95E34700AAD720 /* RegisterDataModel.swift */,
 				110D7C432DA827A20090280D /* LoginDataModel.swift */,
 			);
@@ -1048,6 +1051,7 @@
 				11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */,
 				11BB9F2C2D8C956E00008DD7 /* OnboardingViewController.swift in Sources */,
 				1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */,
+				116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */,
 				11A7E38B2D8B37FD00D82AF2 /* ReusableButton.swift in Sources */,
 				11F41BB22DA5718E00C16224 /* DeviceSizeClass.swift in Sources */,
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,

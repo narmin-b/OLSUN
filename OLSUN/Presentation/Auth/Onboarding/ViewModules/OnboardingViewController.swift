@@ -130,17 +130,6 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         navigationController?.navigationBar.tintColor = .primaryHighlight
     }
     
-    
-//    fileprivate func setUpBackground() {
-//        let backgroundView = MeltingCircleBackgroundView(frame: view.bounds)
-//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        view.addSubview(backgroundView)
-//        view.sendSubviewToBack(backgroundView)
-//
-//        backgroundView.fillSuperview()
-//    }
-    
     override func configureConstraint() {
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
 
@@ -158,7 +147,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         )
         pageControl.centerXToSuperview()
         
-        let nextButtonDist: CGFloat = DeviceSizeClass.current == .compact ? 24 : 40
+        let nextButtonDist: CGFloat = DeviceSizeClass.current == .compact ? 24 : 80
         nextButton.anchor(
             bottom: view.bottomAnchor,
             padding: .init(all: nextButtonDist)
@@ -166,7 +155,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         nextButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         nextButton.centerXToSuperview()
         
-        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -68 : -80
+        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -24 : -80
         loginButton.anchor(
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,

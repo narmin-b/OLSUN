@@ -93,7 +93,6 @@ final class HomeViewController: BaseViewController {
         homeImageView.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
             padding: .init(all: 0)
         )
         homeImageView.anchorSize(.init(width: view.frame.width, height: DeviceSizeClass.current == .compact ? 160 : 200))

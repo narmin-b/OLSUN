@@ -25,7 +25,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     deinit {
-        print(#function)
+        Logger.debug("HomeCoordinator deinit")
     }
     
     func start() {

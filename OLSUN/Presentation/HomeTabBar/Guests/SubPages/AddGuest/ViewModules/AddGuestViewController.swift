@@ -233,7 +233,7 @@ final class AddGuestViewController: BaseViewController {
         let menuItems = statusOptions.map { option in
             UIAction(title: option) { [weak self] _ in
                 self?.statusMenuButton.setTitle(option, for: .normal)
-                print("✅ Selected: \(option)")
+                Logger.debug("✅ Selected: \(option)")
             }
         }
         
@@ -330,7 +330,6 @@ final class AddGuestViewController: BaseViewController {
                     self.viewModel?.popControllerBack()
                     self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq məlumatları uğurla dəyişdirildi.")
                 case .deleteSuccess:
-                    print(#function)
                     self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq silindi.")
                 case .success:
                     self.viewModel?.popControllerBack()
@@ -429,7 +428,7 @@ final class AddGuestViewController: BaseViewController {
                 guestInvitationDate: requestDateString,
                 guestStatus: status
             )
-            print(guestInput)
+            Logger.debug("\(guestInput)")
             viewModel?.performEdit(guest: guestInput)
         }
     }

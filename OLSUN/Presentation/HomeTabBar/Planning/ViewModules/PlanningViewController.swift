@@ -33,6 +33,7 @@ final class PlanningViewController: BaseViewController {
             labelSize: 24,
             numOfLines: 1
         )
+        label.accessibilityIdentifier = "planningTitleLabel"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,6 +45,7 @@ final class PlanningViewController: BaseViewController {
             onAction: { [weak self] in self?.addTaskButtonTapped() },
             bgColor: .clear,
         )
+        button.accessibilityIdentifier = "addTaskButton"
         let image = UIImage(systemName: "plus")
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
@@ -60,6 +62,7 @@ final class PlanningViewController: BaseViewController {
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
         tableview.refreshControl = refreshControl
+        tableview.accessibilityIdentifier = "tasksTableView"
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
@@ -88,7 +91,7 @@ final class PlanningViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
-        print("id:", UserDefaultsHelper.getString(key: .userID) ?? "")
+        Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
     override func configureView() {

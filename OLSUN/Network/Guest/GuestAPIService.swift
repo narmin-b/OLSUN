@@ -17,7 +17,7 @@ final class GuestAPIService: GuestUseCase {
             url: GuestHelper.addGuest.endpoint,
             method: .POST,
             header: ["Content-Type" : "application/json",
-                     "Authorization" : "Bearer \(UserDefaultsHelper.getString(key: .userID) ?? "")"],
+                     "Authorization" : "Bearer \(KeychainHelper.getString(key: .userID) ?? "")"],
             body: [
                 "name" : guest.name,
                 "guestInvitationDate" : guest.guestInvitationDate,
@@ -26,11 +26,11 @@ final class GuestAPIService: GuestUseCase {
             ]
         ) { [weak self] result in
             guard self != nil else { return }
-            print("result:", result)
+            Logger.debug("result: \(result)")
             
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)
@@ -44,15 +44,15 @@ final class GuestAPIService: GuestUseCase {
             url: GuestHelper.allGuestList.endpoint,
             method: .GET,
             header: ["Content-Type" : "application/json",
-                     "Authorization" : "Bearer \(UserDefaultsHelper.getString(key: .userID) ?? "")"],
+                     "Authorization" : "Bearer \(KeychainHelper.getString(key: .userID) ?? "")"],
             body: [ : ]
         ) { [weak self] result in
             guard self != nil else { return }
-            print("result:", result)
+            Logger.debug("result: \(result)")
             
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)
@@ -66,7 +66,7 @@ final class GuestAPIService: GuestUseCase {
             url: GuestHelper.editGuest(id: guest.id!).endpoint,
             method: .PUT,
             header: ["Content-Type" : "application/json",
-                     "Authorization" : "Bearer \(UserDefaultsHelper.getString(key: .userID) ?? "")"],
+                     "Authorization" : "Bearer \(KeychainHelper.getString(key: .userID) ?? "")"],
             body: [
                 "name" : guest.name,
                 "guestInvitationDate" : guest.guestInvitationDate,
@@ -74,11 +74,11 @@ final class GuestAPIService: GuestUseCase {
             ]
         ) { [weak self] result in
             guard self != nil else { return }
-            print("result:", result)
+            Logger.debug("result: \(result)")
             
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)
@@ -92,15 +92,15 @@ final class GuestAPIService: GuestUseCase {
             url: GuestHelper.deleteGuest(id: id).endpoint,
             method: .DELETE,
             header: ["Content-Type" : "application/json",
-                     "Authorization" : "Bearer \(UserDefaultsHelper.getString(key: .userID) ?? "")"],
+                     "Authorization" : "Bearer \(KeychainHelper.getString(key: .userID) ?? "")"],
             body: [ : ]
         ) { [weak self] result in
             guard self != nil else { return }
-            print("result:", result)
+            Logger.debug("result: \(result)")
             
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)

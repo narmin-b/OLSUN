@@ -20,7 +20,7 @@ final class CoreAPIManager {
         completion: @escaping ((Result<(T, Int), CoreErrorModel>) -> Void)
     ) {
         guard let url = url else { return }
-        print("URL:", url)
+        Logger.debug("URL: \(url)")
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -37,7 +37,7 @@ final class CoreAPIManager {
                 return
             }
             
-            print("Response Status Code:", httpResponse.statusCode)
+            Logger.debug("Response Status Code: \(httpResponse.statusCode)")
             
             if let error = error {
                 completion(.failure(CoreErrorModel(code: httpResponse.statusCode, message: error.localizedDescription)))

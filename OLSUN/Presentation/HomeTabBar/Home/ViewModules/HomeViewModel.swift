@@ -11,7 +11,6 @@ final class HomeViewModel {
     enum ViewState {
         case loading
         case loaded
-        case success
         case error(message: String)
     }
     

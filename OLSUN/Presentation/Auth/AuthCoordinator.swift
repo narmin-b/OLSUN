@@ -25,7 +25,7 @@ final class AuthCoordinator: Coordinator {
     }
     
     deinit {
-        print("AuthCoordinator deinit")
+        Logger.debug("AuthCoordinator deinit")
     }
     
     func start() {

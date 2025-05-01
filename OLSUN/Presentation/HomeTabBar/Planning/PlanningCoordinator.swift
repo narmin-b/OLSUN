@@ -18,7 +18,7 @@ final class PlanningCoordinator: Coordinator {
     }
     
     deinit {
-        print(#function)
+        Logger.debug("PlanningCoordinator deinit")
     }
     
     func start() {

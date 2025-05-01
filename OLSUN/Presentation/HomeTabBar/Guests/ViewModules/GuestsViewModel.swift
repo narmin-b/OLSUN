@@ -43,7 +43,7 @@ final class GuestsViewModel {
             DispatchQueue.main.async {
                 if let result = result {
                     self.guestList = (result.map({$0.mapToDomain()}))
-                    print(self.guestList)
+                    Logger.debug("\(self.guestList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))
@@ -58,7 +58,7 @@ final class GuestsViewModel {
             DispatchQueue.main.async {
                 if let result = result {
                     self.guestList = (result.map({$0.mapToDomain()}))/*.reversed()*/
-                    print(self.guestList)
+                    Logger.debug("\(self.guestList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))

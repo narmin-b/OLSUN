@@ -316,12 +316,8 @@ final class LoginViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    print(#function)
                     UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
-
                     self.viewModel?.showHomeTabBar()
-                case .launch:
-                    print(#function)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -358,7 +354,7 @@ final class LoginViewController: BaseViewController {
                 )
                 self.viewModel?.googleEmailCheck(user: loggedUser)
             case .failure(let error):
-                print("❌ Google Sign-In failed: \(error.localizedDescription)")
+                Logger.debug("❌ Google Sign-In failed: \(error.localizedDescription)")
             }
         }
     }

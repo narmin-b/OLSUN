@@ -205,8 +205,6 @@ final class GuestDetailViewController: BaseViewController {
                     self.loadingView.startAnimating()
                 case .loaded:
                     self.loadingView.stopAnimating()
-                case .editSuccess:
-                    print(#function)
                 case .success:
                     self.setUpGuest(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
                 case .error(let error):
@@ -271,7 +269,7 @@ final class GuestDetailViewController: BaseViewController {
                 guestStatus: status
             )
             
-            print(guestInput)
+            Logger.debug("\(guestInput)")
             viewModel?.editGuest(guest: guestInput)
             
         }

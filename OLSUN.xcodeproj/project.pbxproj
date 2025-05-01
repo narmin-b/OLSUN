@@ -44,6 +44,7 @@
 		11630EAA2DB03CF000C277AE /* PlanningUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */; };
 		11630EAB2DB03CF000C277AE /* PlanningAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */; };
 		11630EAF2DB03EA200C277AE /* PlanDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11630EAD2DB03EA200C277AE /* PlanDataModel.swift */; };
+		1164A9872DC2855D0061B57D /* MockAtuhSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1164A9862DC285530061B57D /* MockAtuhSessionUseCase.swift */; };
 		1174DF922DAAC31600DC1CCC /* HomeTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */; };
 		1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1174DF932DAAC32200DC1CCC /* TabBarController.swift */; };
 		1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1174DF972DAAC45B00DC1CCC /* GoogleSignIn */; };
@@ -69,8 +70,7 @@
 		11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3592D8B361500D82AF2 /* AppDelegate.swift */; };
 		11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E35C2D8B361500D82AF2 /* SceneDelegate.swift */; };
 		11A7E3622D8B361500D82AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A7E35A2D8B361500D82AF2 /* Assets.xcassets */; };
-		11A7E3662D8B361700D82AF2 /* OLSUNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3642D8B361700D82AF2 /* OLSUNTests.swift */; };
-		11A7E36A2D8B361A00D82AF2 /* OLSUNUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3672D8B361A00D82AF2 /* OLSUNUITests.swift */; };
+		11A7E3662D8B361700D82AF2 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3642D8B361700D82AF2 /* LoginViewModelTests.swift */; };
 		11A7E36B2D8B361A00D82AF2 /* OLSUNUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3682D8B361A00D82AF2 /* OLSUNUITestsLaunchTests.swift */; };
 		11A7E3722D8B36D100D82AF2 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A7E3712D8B36D100D82AF2 /* Colors.xcassets */; };
 		11A7E3772D8B373600D82AF2 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3762D8B373600D82AF2 /* UserDefaultsHelper.swift */; };
@@ -89,6 +89,13 @@
 		11A7E3952D8B39D200D82AF2 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3942D8B39D200D82AF2 /* AuthCoordinator.swift */; };
 		11A7E39E2D8B3A8800D82AF2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E39D2D8B3A8800D82AF2 /* LoginViewController.swift */; };
 		11A7E3A02D8B3A9C00D82AF2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E39F2D8B3A9C00D82AF2 /* LoginViewModel.swift */; };
+		11B4136E2DC28A9E006FF14F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4136D2DC28A89006FF14F /* SignUpViewModelTests.swift */; };
+		11B413702DC3D9A1006FF14F /* HomeViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4136F2DC3D999006FF14F /* HomeViewControllerUITests.swift */; };
+		11B413722DC3E983006FF14F /* PlanningViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413712DC3E978006FF14F /* PlanningViewControllerUITests.swift */; };
+		11B413742DC3ED78006FF14F /* GuestsViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413732DC3ED6D006FF14F /* GuestsViewControllerUITests.swift */; };
+		11B413762DC3F10F006FF14F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413752DC3F10D006FF14F /* Logger.swift */; };
+		11B413792DC3F68B006FF14F /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413782DC3F687006FF14F /* KeychainHelper.swift */; };
+		11B4137B2DC3F89B006FF14F /* KeychainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4137A2DC3F895006FF14F /* KeychainKeys.swift */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
@@ -170,6 +177,7 @@
 		11630EA62DB03CEF00C277AE /* PlanningUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningUseCase.swift; sourceTree = "<group>"; };
 		11630EA72DB03CEF00C277AE /* PlanningAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningAPIService.swift; sourceTree = "<group>"; };
 		11630EAD2DB03EA200C277AE /* PlanDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDataModel.swift; sourceTree = "<group>"; };
+		1164A9862DC285530061B57D /* MockAtuhSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAtuhSessionUseCase.swift; sourceTree = "<group>"; };
 		1174DF912DAAC31600DC1CCC /* HomeTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarCoordinator.swift; sourceTree = "<group>"; };
 		1174DF932DAAC32200DC1CCC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1174DFA32DAAD22C00DC1CCC /* HomeNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigation.swift; sourceTree = "<group>"; };
@@ -197,8 +205,7 @@
 		11A7E35A2D8B361500D82AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11A7E35B2D8B361500D82AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11A7E35C2D8B361500D82AF2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		11A7E3642D8B361700D82AF2 /* OLSUNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLSUNTests.swift; sourceTree = "<group>"; };
-		11A7E3672D8B361A00D82AF2 /* OLSUNUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLSUNUITests.swift; sourceTree = "<group>"; };
+		11A7E3642D8B361700D82AF2 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		11A7E3682D8B361A00D82AF2 /* OLSUNUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLSUNUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		11A7E3712D8B36D100D82AF2 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		11A7E3762D8B373600D82AF2 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -217,6 +224,13 @@
 		11A7E3942D8B39D200D82AF2 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		11A7E39D2D8B3A8800D82AF2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		11A7E39F2D8B3A9C00D82AF2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		11B4136D2DC28A89006FF14F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
+		11B4136F2DC3D999006FF14F /* HomeViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerUITests.swift; sourceTree = "<group>"; };
+		11B413712DC3E978006FF14F /* PlanningViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewControllerUITests.swift; sourceTree = "<group>"; };
+		11B413732DC3ED6D006FF14F /* GuestsViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewControllerUITests.swift; sourceTree = "<group>"; };
+		11B413752DC3F10D006FF14F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		11B413782DC3F687006FF14F /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		11B4137A2DC3F895006FF14F /* KeychainKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKeys.swift; sourceTree = "<group>"; };
 		11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -421,6 +435,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		1164A9852DC285430061B57D /* MockAuthSession */ = {
+			isa = PBXGroup;
+			children = (
+				1164A9862DC285530061B57D /* MockAtuhSessionUseCase.swift */,
+				11B4136D2DC28A89006FF14F /* SignUpViewModelTests.swift */,
+				11A7E3642D8B361700D82AF2 /* LoginViewModelTests.swift */,
+			);
+			path = MockAuthSession;
+			sourceTree = "<group>";
+		};
 		1174DF902DAAC2F800DC1CCC /* HomeTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,7 +618,7 @@
 		11A7E3652D8B361700D82AF2 /* OLSUNTests */ = {
 			isa = PBXGroup;
 			children = (
-				11A7E3642D8B361700D82AF2 /* OLSUNTests.swift */,
+				1164A9852DC285430061B57D /* MockAuthSession */,
 			);
 			path = OLSUNTests;
 			sourceTree = "<group>";
@@ -602,7 +626,9 @@
 		11A7E3692D8B361A00D82AF2 /* OLSUNUITests */ = {
 			isa = PBXGroup;
 			children = (
-				11A7E3672D8B361A00D82AF2 /* OLSUNUITests.swift */,
+				11B413732DC3ED6D006FF14F /* GuestsViewControllerUITests.swift */,
+				11B413712DC3E978006FF14F /* PlanningViewControllerUITests.swift */,
+				11B4136F2DC3D999006FF14F /* HomeViewControllerUITests.swift */,
 				11A7E3682D8B361A00D82AF2 /* OLSUNUITestsLaunchTests.swift */,
 			);
 			path = OLSUNUITests;
@@ -666,6 +692,7 @@
 		11A7E3732D8B36F300D82AF2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				11B413772DC3F67F006FF14F /* Keychain */,
 				11A7E3742D8B36FC00D82AF2 /* UserDefaults */,
 			);
 			path = Managers;
@@ -683,6 +710,7 @@
 		11A7E3752D8B370900D82AF2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				11B413752DC3F10D006FF14F /* Logger.swift */,
 				11A7E37A2D8B375600D82AF2 /* NotificationNameExtensions.swift */,
 				11A7E37C2D8B376000D82AF2 /* Extensions.swift */,
 				11A7E37E2D8B376E00D82AF2 /* LayoutExtensions.swift */,
@@ -791,6 +819,15 @@
 				11BB9F352D8C95B500008DD7 /* SignUpViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		11B413772DC3F67F006FF14F /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				11B4137A2DC3F895006FF14F /* KeychainKeys.swift */,
+				11B413782DC3F687006FF14F /* KeychainHelper.swift */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		11BB9E332D8C8F4E00008DD7 /* WorkSans */ = {
@@ -1049,6 +1086,7 @@
 				11273A442DAE840F00E2FB47 /* GuestDataModel.swift in Sources */,
 				1174DFC02DAAD53600DC1CCC /* GuestsViewModel.swift in Sources */,
 				11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */,
+				11B413792DC3F68B006FF14F /* KeychainHelper.swift in Sources */,
 				11BB9F2C2D8C956E00008DD7 /* OnboardingViewController.swift in Sources */,
 				1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */,
 				116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */,
@@ -1068,6 +1106,7 @@
 				11A7E3872D8B37C000D82AF2 /* BaseViewController.swift in Sources */,
 				1147AF4C2DAC3EEA006D28CD /* AddTaskViewModel.swift in Sources */,
 				1174DFBC2DAAD51C00DC1CCC /* PlanningViewModel.swift in Sources */,
+				11B413762DC3F10F006FF14F /* Logger.swift in Sources */,
 				1174DFA42DAAD23800DC1CCC /* HomeNavigation.swift in Sources */,
 				11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */,
 				1147AF132DABEA28006D28CD /* MenuTableCell.swift in Sources */,
@@ -1108,6 +1147,7 @@
 				1174DFA62DAAD24700DC1CCC /* HomeCoordinator.swift in Sources */,
 				11529D7B2D95E4BB00AAD720 /* AuthSessionHelper.swift in Sources */,
 				11A7E3832D8B37A000D82AF2 /* Coordinator.swift in Sources */,
+				11B4137B2DC3F89B006FF14F /* KeychainKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,7 +1155,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A7E3662D8B361700D82AF2 /* OLSUNTests.swift in Sources */,
+				1164A9872DC2855D0061B57D /* MockAtuhSessionUseCase.swift in Sources */,
+				11A7E3662D8B361700D82AF2 /* LoginViewModelTests.swift in Sources */,
+				11B4136E2DC28A9E006FF14F /* SignUpViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,7 +1165,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A7E36A2D8B361A00D82AF2 /* OLSUNUITests.swift in Sources */,
+				11B413722DC3E983006FF14F /* PlanningViewControllerUITests.swift in Sources */,
+				11B413702DC3D9A1006FF14F /* HomeViewControllerUITests.swift in Sources */,
+				11B413742DC3ED78006FF14F /* GuestsViewControllerUITests.swift in Sources */,
 				11A7E36B2D8B361A00D82AF2 /* OLSUNUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

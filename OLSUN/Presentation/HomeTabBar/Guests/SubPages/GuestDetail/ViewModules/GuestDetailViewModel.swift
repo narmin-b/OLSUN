@@ -12,7 +12,6 @@ final class GuestDetailViewModel {
         case loading
         case loaded
         case success
-        case editSuccess
         case error(message: String)
     }
     
@@ -25,7 +24,7 @@ final class GuestDetailViewModel {
         self.navigation = navigation
         self.guestUseCase = guestUseCase
         self.taskItem = taskItem
-        print(taskItem)
+        Logger.debug("\(taskItem)")
     }
     
     // MARK: Navigations
@@ -56,7 +55,7 @@ final class GuestDetailViewModel {
             self.requestCallback?(.loaded)
             DispatchQueue.main.async {
                 if result != nil {
-                    self.requestCallback?(.editSuccess)
+                    return
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))
                 }

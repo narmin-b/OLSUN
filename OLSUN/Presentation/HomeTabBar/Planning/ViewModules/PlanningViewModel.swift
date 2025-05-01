@@ -43,7 +43,7 @@ final class PlanningViewModel {
             DispatchQueue.main.async {
                 if let result = result {
                     self.taskList = (result.map({$0.mapToDomain()}))
-                    print(self.taskList)
+                    Logger.debug("\(self.taskList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))
@@ -58,7 +58,7 @@ final class PlanningViewModel {
             DispatchQueue.main.async {
                 if let result = result {
                     self.taskList = (result.map({$0.mapToDomain()}))
-                    print(self.taskList)
+                    Logger.debug("/(self.taskList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))

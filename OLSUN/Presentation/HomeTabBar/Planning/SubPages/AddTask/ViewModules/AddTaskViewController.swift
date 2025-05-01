@@ -233,7 +233,7 @@ final class AddTaskViewController: BaseViewController {
         let menuItems = statusOptions.map { option in
             UIAction(title: option) { [weak self] _ in
                 self?.statusMenuButton.setTitle(option, for: .normal)
-                print("✅ Selected: \(option)")
+                Logger.debug("✅ Selected: \(option)")
             }
         }
         
@@ -428,7 +428,7 @@ final class AddTaskViewController: BaseViewController {
                 deadline: requestDateString,
                 status: status
             )
-            print(taskInput)
+            Logger.debug("\(taskInput)")
             viewModel?.performEdit(task: taskInput)
         }
     }

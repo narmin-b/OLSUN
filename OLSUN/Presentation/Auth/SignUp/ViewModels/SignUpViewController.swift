@@ -361,9 +361,7 @@ final class SignUpViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    print(#function)
                     UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
-
                     self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
@@ -390,7 +388,6 @@ final class SignUpViewController: BaseViewController {
     }
     
     @objc func googleSignInButtonTapped() {
-        print(#function)
         GoogleAuthManager.shared.signIn(from: self) { result in
             switch result {
             case .success(let googleUser):
@@ -401,7 +398,7 @@ final class SignUpViewController: BaseViewController {
                 )
                 self.viewModel?.googleEmailCheck(user: loggedUser)
             case .failure(let error):
-                print("❌ Google Sign-In failed: \(error.localizedDescription)")
+                Logger.debug("❌ Google Sign-In failed: \(error.localizedDescription)")
             }
         }
     }

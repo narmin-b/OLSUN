@@ -34,6 +34,7 @@ final class GuestsViewController: BaseViewController {
             numOfLines: 1
         )
         label.textAlignment = .left
+        label.accessibilityIdentifier = "guestsTitleLabel"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -48,6 +49,7 @@ final class GuestsViewController: BaseViewController {
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = .primaryHighlight
+        button.accessibilityIdentifier = "addGuestButton"
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -60,6 +62,7 @@ final class GuestsViewController: BaseViewController {
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
         tableview.refreshControl = refreshControl
+        tableview.accessibilityIdentifier = "guestsTableView"
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
@@ -88,7 +91,7 @@ final class GuestsViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
-        print("id:", UserDefaultsHelper.getString(key: .userID) ?? "")
+        Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
     override func configureView() {

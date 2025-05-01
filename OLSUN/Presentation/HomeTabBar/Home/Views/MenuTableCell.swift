@@ -97,13 +97,14 @@ final class MenuTableCell: UITableViewCell {
     
     func configure(with item: MenuItem) {
         titleLabel.text = item.title
+        accessibilityIdentifier = "menuCell_\(item.title)"
         descriptionLabel.text = item.description
         iconImageView.image = UIImage(named: item.iconName)
     }
 
     private func loadSVG(urlString: String) {
         guard let url = URL(string: urlString) else {
-            print("❌ Invalid URL: \(urlString)")
+            Logger.debug("❌ Invalid URL: \(urlString)")
             return
         }
 
@@ -111,18 +112,18 @@ final class MenuTableCell: UITableViewCell {
             guard let self = self else { return }
 
             if let error = error {
-                print("❌ SVG download error: \(error)")
+                Logger.debug("❌ SVG download error: \(error)")
                 return
             }
 
             guard let data = data,
                   let svgText = String(data: data, encoding: .utf8) else {
-                print("❌ Could not decode SVG data")
+                Logger.debug("❌ Could not decode SVG data")
                 return
             }
 
-            print("✅ SVG Loaded from URL")
-            print(svgText.prefix(100))
+            Logger.debug("✅ SVG Loaded from URL")
+            Logger.debug("\(svgText.prefix(100))")
 
             do {
                 let node = try SVGParser.parse(text: svgText)
@@ -131,7 +132,7 @@ final class MenuTableCell: UITableViewCell {
                     self.iconView.node = node
                 }
             } catch {
-                print("❌ SVG Parsing failed: \(error)")
+                Logger.debug("❌ SVG Parsing failed: \(error)")
             }
         }.resume()
     }

@@ -11,6 +11,19 @@ import MapKit
 import SDWebImage
 import SVGKit
 
+func whatsapp() {
+    let message = "Salam! Mən OLSUN tətbiqindən çıxdım."
+    let phoneNumber = "994504577132" 
+    
+    if let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+       let url = URL(string: "whatsapp://send?phone=\(phoneNumber)&text=\(encodedMessage)"),
+       UIApplication.shared.canOpenURL(url) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    } else {
+        Logger.debug("WhatsApp not available")
+    }
+}
+
 extension Double {
     func convertToString() -> String {
         return String(self)
@@ -270,53 +283,6 @@ extension String {
 }
 
 extension UIImageView {
-    //    func loadImageURL(url: String) {
-    //        guard let url = URL(string: url) else {return}
-    //        self.sd_setImage(with: url)
-    //    }
-    //
-    //    func loadImage(from urlString: String) {
-    //        guard let url = URL(string: urlString) else { return }
-    //
-    //        DispatchQueue.global(qos: .userInitiated).async {
-    //            let ext = url.pathExtension.lowercased()
-    //
-    //            switch ext {
-    //            case "svg":
-    //                if let data = try? Data(contentsOf: url),
-    //                   let svgImage = SVGKImage(data: data) {
-    //                    DispatchQueue.main.async {
-    //                        self.image = svgImage.uiImage.withRenderingMode(.alwaysOriginal)
-    //                        self.backgroundColor = .clear
-    //                    }
-    //                }
-    //            case "png", "jpg", "jpeg":
-    //                if let data = try? Data(contentsOf: url),
-    //                   let img = UIImage(data: data) {
-    //                    DispatchQueue.main.async {
-    //                        self.image = img.withRenderingMode(.alwaysOriginal)
-    //                        self.backgroundColor = .clear
-    //                    }
-    //                }
-    //            default:
-    //                print("Unsupported format")
-    //            }
-    //        }
-    //    }
-    
-//    func loadSVG(from urlString: String) {
-//        guard let url = URL(string: urlString) else { return }
-//        
-//        // Remove existing SVG layers
-//        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-//        
-//        let svgContainer = UIView
-//        
-//        // Layout must be done to get correct bounds
-//        svgContainer.frame = self.bounds
-//        svgContainer.backgroundColor = .clear
-//    }
-//    
     func loadImage(named imageName: String) {
         let baseURL = "https://olsun.in/img/app/"
         guard let url = URL(string: baseURL + imageName) else { return }
@@ -443,7 +409,7 @@ extension UIView {
 func printFonts() {
     for family in UIFont.familyNames {
         for font in UIFont.fontNames(forFamilyName: family) {
-            print(font)
+            Logger.debug("\(font)")
         }
     }
 }

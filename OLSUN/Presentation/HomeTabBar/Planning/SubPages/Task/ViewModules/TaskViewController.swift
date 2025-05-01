@@ -205,8 +205,6 @@ final class TaskViewController: BaseViewController {
                     self.loadingView.startAnimating()
                 case .loaded:
                     self.loadingView.stopAnimating()
-                case .editSuccess:
-                    print(#function)
                 case .success:
                     self.setUpTask(with: self.viewModel?.taskItem ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
                 case .error(let error):
@@ -271,7 +269,7 @@ final class TaskViewController: BaseViewController {
                 status: status
             )
             
-            print(taskInput)
+            Logger.debug("\(taskInput)")
             viewModel?.editTask(task: taskInput)
         }
     }

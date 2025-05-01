@@ -34,6 +34,7 @@ final class HomeViewController: BaseViewController {
             labelSize: 28,
             numOfLines: 1
         )
+        label.accessibilityIdentifier = "homeTitleLabel"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -150,8 +151,6 @@ final class HomeViewController: BaseViewController {
                     self.loadingView.startAnimating()
                 case .loaded:
                     self.loadingView.stopAnimating()
-                case .success:
-                    print(#function)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

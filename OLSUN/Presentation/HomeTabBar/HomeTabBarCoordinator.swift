@@ -35,7 +35,7 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
     }
 
     deinit {
-        print("tabbar")
+        Logger.debug("Tabbar deinit")
     }
 
     private func initializeHomeTabBar() {

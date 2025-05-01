@@ -8,7 +8,7 @@
 import Foundation
 
 final class SignUpViewModel {
-    enum ViewState {
+    enum ViewState: Equatable {
         case loading
         case loaded
         case success
@@ -19,7 +19,7 @@ final class SignUpViewModel {
     private weak var navigation: AuthNavigation?
     private var authSessionUse: AuthSessionUseCase
     
-    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
+    init(navigation: AuthNavigation?, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
         self.authSessionUse = authSessionUse
     }
@@ -49,11 +49,22 @@ final class SignUpViewModel {
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
-                print("dto:", dto ?? "No resp")
-                if dto?.status == .email {
+                
+                if let error = error {
+                    self.requestCallback?(.error(message: error))
+                    return
+                }
+                
+                guard let dto = dto else {
+                    self.requestCallback?(.error(message: "Unexpected error occurred."))
+                    return
+                }
+                print("dto: \(dto)")
+                
+                if dto.status == .email {
                     self.showShowLaunchScreen(auth: .google, loginUser: nil, googleUser: user)
                 } else {
-                    UserDefaultsHelper.setString(key: .userID, value: dto?.message ?? "")
+                    KeychainHelper.setString(dto.message, key: .userID)
                     self.requestCallback?(.success)
                 }
             }

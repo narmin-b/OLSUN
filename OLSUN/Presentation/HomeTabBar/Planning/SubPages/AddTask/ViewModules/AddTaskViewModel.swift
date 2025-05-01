@@ -33,8 +33,8 @@ final class AddTaskViewModel {
         self.taskUseCase = taskUseCase
         self.taskMode = taskMode
         self.taskItem = taskItem
-        print(taskItem)
-        print(taskMode)
+        Logger.debug("\(taskItem)")
+        Logger.debug("\(taskMode)")
     }
     
     // MARK: Navigations

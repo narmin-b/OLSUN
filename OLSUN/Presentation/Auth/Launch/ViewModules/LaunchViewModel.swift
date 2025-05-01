@@ -49,13 +49,13 @@ final class LaunchViewModel {
         user.password = loginModel?.password
         user.auth = .local
 
-        print(user)
+        Logger.debug("\(user)")
         requestCallback?(.loading)
         authSessionUse.createUser(user: user) { [weak self] dto, error in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
-                print("dto:", dto ?? "No resp")
+                Logger.debug("dto: \(dto ?? "No resp")")
                 
                 if dto != nil {
                     self.requestCallback?(.success)
@@ -70,13 +70,13 @@ final class LaunchViewModel {
         var user = user
         user.email = googleUser?.email
         
-        print(user)
+        Logger.debug("\(user)")
         requestCallback?(.loading)
         authSessionUse.googleSignIn(idToken: idToken, user: user) { [weak self] dto, error in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
-                print("dto:", dto ?? "No resp")
+                Logger.debug("dto: \(dto ?? "No resp")")
                 
                 if dto != nil {
                     self.requestCallback?(.success)

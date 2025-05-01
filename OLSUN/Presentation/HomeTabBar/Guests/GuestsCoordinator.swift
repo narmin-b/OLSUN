@@ -18,7 +18,7 @@ final class GuestsCoordinator: Coordinator {
     }
     
     deinit {
-        print(#function)
+        Logger.debug("GuestsCoordinator deinit")
     }
     
     func start() {

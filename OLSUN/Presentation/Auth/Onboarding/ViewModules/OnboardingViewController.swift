@@ -108,8 +108,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         configureViewModel()
         
-        UserDefaultsHelper.setString(key: .userID, value: "")
-        print(UIScreen.main.bounds.width)
+        KeychainHelper.setString("", key: .userID)
     }
 
     override func configureView() {
@@ -186,7 +185,6 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
         let imageView = UIImageView()
         imageView.loadImage(named: "onboardingImageFirst.png")
-//        imageView.image = UIImage(named: "onboardingImageFirst")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -242,7 +240,6 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
         let imageView = UIImageView()
         imageView.loadImage(named: "onboardingImageSecond.png")
-//        imageView.image = UIImage(named: "onboardingImageSecond")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 

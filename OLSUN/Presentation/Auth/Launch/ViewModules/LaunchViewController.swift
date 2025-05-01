@@ -612,7 +612,6 @@ extension LaunchViewController: UIPickerViewDelegate, UIPickerViewDataSource, UI
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(row)
         genderTextfield.text = genders[row]
     }
     

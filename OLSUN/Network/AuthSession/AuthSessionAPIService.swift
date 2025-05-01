@@ -29,11 +29,11 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             ]
         ) { [weak self] result in
             guard self != nil else { return }
-            print("result:", result)
+            Logger.debug("result: \(result)")
             
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 if statusCode == 201 {
                     completion(data, nil)
                 } else {
@@ -59,7 +59,7 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             guard let _ = self else { return }
             switch result {
             case .success(let (data, statusCode)):
-                print("User logged in successfully. Status Code: \(statusCode)")
+                Logger.debug("User logged in successfully. Status Code: \(statusCode)")
                 
                 if (200...299).contains(statusCode) {
                     completion(data, nil)
@@ -92,13 +92,10 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             guard let _ = self else { return }
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 
-                if (200...299).contains(statusCode) {
-                    completion(data, nil)
-                } else {
-                    completion(nil, data)
-                }
+                completion(data, nil)
+                
                 
             case .failure(let error):
                 completion(nil, error.localizedDescription)
@@ -118,7 +115,7 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             guard let _ = self else { return }
             switch result {
             case .success(let (data, statusCode)):
-                print("Status Code: \(statusCode)")
+                Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
                 
             case .failure(let error):

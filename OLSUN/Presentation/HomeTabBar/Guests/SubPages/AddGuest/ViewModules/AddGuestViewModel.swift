@@ -33,8 +33,8 @@ final class AddGuestViewModel {
         self.guestUseCase = guestUseCase
         self.guestMode = guestMode
         self.guestItem = guestItem
-        print(guestItem)
-        print(guestMode)
+        Logger.debug("\(guestItem)")
+        Logger.debug("\(guestMode)")
     }
     
     // MARK: Navigations

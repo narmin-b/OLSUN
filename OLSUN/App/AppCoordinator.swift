@@ -24,10 +24,16 @@ final class AppCoordinator: Coordinator, AuthCoordinatorDelegate, HomeTabBarCoor
     }
     
     deinit {
-        print("AppCoordinator deinit")
+        Logger.debug("AppCoordinator deinit")
     }
     
     func start() {
+#if DEBUG
+        if CommandLine.arguments.contains("-ui-testing") {
+            UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+        }
+#endif
+        
         isLogin = UserDefaultsHelper.getBool(key: .isLoggedIn)
         
         if isLogin {

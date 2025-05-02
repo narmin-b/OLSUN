@@ -240,7 +240,7 @@ final class LaunchViewController: BaseViewController {
     }()
 
     private lazy var contentView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [titleLabel, launchImage])
+        let view = UIStackView(/*arrangedSubviews: [titleLabel, launchImage]*/)
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
@@ -309,7 +309,8 @@ final class LaunchViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    self.viewModel?.showHomeTabBar()
+                    self.viewModel?.backToOnboarding()
+                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Hesabınız uğurla yaradıldı!")
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -379,10 +380,22 @@ final class LaunchViewController: BaseViewController {
     
         let height = DeviceSizeClass.current == .compact ? 120 : 164
 
+        let titleContainer = UIView()
+        titleContainer.addSubview(titleLabel)
+
+        titleLabel.anchor(
+            top: titleContainer.topAnchor,
+            leading: titleContainer.leadingAnchor,
+            bottom: titleContainer.bottomAnchor,
+            trailing: titleContainer.trailingAnchor,
+            padding: .init(top: 0, left: 24, bottom: 0, right: -24)
+        )
+
+        contentView.addArrangedSubview(titleContainer)
+        contentView.addArrangedSubview(launchImage)
         launchImage.anchorSize(.init(width: 0, height: height))
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
 
         let nameContainer = UIView()
         nameContainer.addSubViews(nameLabel, nameTextField)

@@ -20,6 +20,7 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
 
     private let tabBarController = TabBarController()
     private var homeCoordinator: HomeCoordinator?
+    private var partnersCoordinator: PartnersCoordinator?
     private var planningCoordinator: PlanningCoordinator?
     private var guestsCoordinator: GuestsCoordinator?
 
@@ -46,6 +47,11 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         homeCoordinator?.delegate = self
         children.append(homeCoordinator!)
         
+        let partnersNavigationController = UINavigationController()
+        partnersCoordinator = PartnersCoordinator(navigationController: partnersNavigationController)
+        partnersCoordinator?.parentCoordinator = self
+        children.append(partnersCoordinator!)
+        
         let planningNavigationController = UINavigationController()
         planningCoordinator = PlanningCoordinator(navigationController: planningNavigationController)
         planningCoordinator?.parentCoordinator = self
@@ -63,6 +69,11 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         homeNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         homeNavigationController.navigationBar.shadowImage = UIImage()
 
+        let partnersItem = UITabBarItem()
+        partnersItem.image = UIImage(systemName: "handbag")
+        partnersItem.selectedImage = UIImage(systemName: "handbag.fill")
+        partnersNavigationController.tabBarItem = partnersItem
+        
         let planningItem = UITabBarItem()
         planningItem.image = UIImage(named: "DoneFill")
         planningItem.selectedImage = UIImage(named: "Done")
@@ -75,11 +86,13 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
 
         tabBarController.viewControllers = [
             homeNavigationController,
+            partnersNavigationController,
             planningNavigationController,
             guestsNavigationController
         ]
         
         homeCoordinator?.start()
+        partnersCoordinator?.start()
         planningCoordinator?.start()
         guestsCoordinator?.start()
     }
@@ -91,6 +104,7 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         children.removeAll()
         
         homeCoordinator = nil
+        partnersCoordinator = nil
         planningCoordinator = nil
         guestsCoordinator = nil
     }

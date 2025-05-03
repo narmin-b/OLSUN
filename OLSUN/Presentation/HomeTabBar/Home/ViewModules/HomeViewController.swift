@@ -126,7 +126,7 @@ final class HomeViewController: BaseViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 76),
-            imageView.heightAnchor.constraint(equalToConstant: 76)
+            imageView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         let logoItem = UIBarButtonItem(customView: imageView)
@@ -197,6 +197,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.userSelectedMenuItem(at: indexPath.section)
+        viewModel?.userSelectedMenuItem(at: 1 + indexPath.section)
     }
 }

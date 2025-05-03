@@ -76,7 +76,7 @@ final class TaskViewController: BaseViewController {
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: FontKeys.workSansMedium.rawValue, size: 16)
         button.backgroundColor = .secondaryHighlight
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 8
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: -12, bottom: 12, right: 0)
         button.tintColor = .black

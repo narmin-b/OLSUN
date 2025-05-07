@@ -96,6 +96,7 @@
 		11B413762DC3F10F006FF14F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413752DC3F10D006FF14F /* Logger.swift */; };
 		11B413792DC3F68B006FF14F /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413782DC3F687006FF14F /* KeychainHelper.swift */; };
 		11B4137B2DC3F89B006FF14F /* KeychainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4137A2DC3F895006FF14F /* KeychainKeys.swift */; };
+		11B413BB2DCB9E45006FF14F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
@@ -231,6 +232,7 @@
 		11B413752DC3F10D006FF14F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		11B413782DC3F687006FF14F /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		11B4137A2DC3F895006FF14F /* KeychainKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKeys.swift; sourceTree = "<group>"; };
+		11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		11529D6F2D95E01500AAD720 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				11B413BA2DCB9E45006FF14F /* NetworkCheck */,
 				11630EA82DB03CEF00C277AE /* Planning */,
 				1175A3C72DAE81B9003F5307 /* Guest */,
 				11529D792D95E49700AAD720 /* AuthSession */,
@@ -830,6 +833,14 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
+		11B413BA2DCB9E45006FF14F /* NetworkCheck */ = {
+			isa = PBXGroup;
+			children = (
+				11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */,
+			);
+			path = NetworkCheck;
+			sourceTree = "<group>";
+		};
 		11BB9E332D8C8F4E00008DD7 /* WorkSans */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,6 +1122,7 @@
 				11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */,
 				1147AF132DABEA28006D28CD /* MenuTableCell.swift in Sources */,
 				11273A412DAE833300E2FB47 /* GuestUseCase.swift in Sources */,
+				11B413BB2DCB9E45006FF14F /* NetworkMonitor.swift in Sources */,
 				11A7E3852D8B37AA00D82AF2 /* AppCoordinator.swift in Sources */,
 				11529D7F2D95E4D400AAD720 /* AuthSessionAPIService.swift in Sources */,
 				1174DFAE2DAAD2F700DC1CCC /* PlanningCoordinator.swift in Sources */,

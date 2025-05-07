@@ -328,12 +328,12 @@ final class AddGuestViewController: BaseViewController {
                 case .editSuccess(let guest):
                     self.onGuestUpdate?(guest)
                     self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq məlumatları uğurla dəyişdirildi.")
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.guestUpdateSuccess_Message.localized)
                 case .deleteSuccess:
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq silindi.")
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.guestDelete_Message.localized)
                 case .success:
                     self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Qonaq uğurla əlavə edildi.")
+                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.guestAdded_Message.localized)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

@@ -9,5 +9,6 @@ import Foundation
 
 enum UserDefaultsKey: String {
     case isLoggedIn
+    case appLanguage
 }
 

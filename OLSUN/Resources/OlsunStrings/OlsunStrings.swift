@@ -53,14 +53,24 @@ enum OlsunStrings: String {
     case signUpVC_Message
     case signUpButton
     case statusText
+    case registerSuccessText
+    case registerSuccess_Message
+    case updateSuccessText
+    case planUpdateSuccess_Message
+    case networkError
+    case planDelete_Message
+    case planAdded_Message
+    case networkError_Message
+    case guestDelete_Message
+    case guestUpdateSuccess_Message
+    case guestAdded_Message
+    case reLoginMessage
+    case generalError_Message
+    case jsonParsingError_Message
 }
 
 extension OlsunStrings {
     var localized: String {
-        return String(localized: LocalizationValue(self.rawValue))
-    }
-
-    private func LocalizationValue(_ key: String) -> LocalizedStringResource {
-        return LocalizedStringResource(stringLiteral: key)
+        return LocalizationManager.shared.localizedString(forKey: self.rawValue)
     }
 }

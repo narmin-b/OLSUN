@@ -137,6 +137,23 @@
         }
       }
     },
+    "generalError_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xəta baş verdi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error has accured."
+          }
+        }
+      }
+    },
     "googleLoginText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -150,6 +167,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue with Google"
+          }
+        }
+      }
+    },
+    "guestAdded_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qonaq uğurla əlavə edildi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guest added successfully."
+          }
+        }
+      }
+    },
+    "guestDelete_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qonaq silindi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guest deleted."
           }
         }
       }
@@ -290,6 +341,23 @@
         }
       }
     },
+    "guestUpdateSuccess_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qonaq məlumatları uğurla dəyişdirildi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guest info changed successfully."
+          }
+        }
+      }
+    },
     "homeListText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -303,6 +371,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preparations"
+          }
+        }
+      }
+    },
+    "jsonParsingError_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON parse edilə bilmədi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON couldn’t be parsed."
           }
         }
       }
@@ -388,6 +473,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your name"
+          }
+        }
+      }
+    },
+    "networkError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bağlantı xətası"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network error"
+          }
+        }
+      }
+    },
+    "networkError_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zəhmət olmasa internet bağlantınızı yoxlayın."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your network connection."
           }
         }
       }
@@ -507,6 +626,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Password"
+          }
+        }
+      }
+    },
+    "planAdded_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan uğurla əlavə edildi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan added successfully."
+          }
+        }
+      }
+    },
+    "planDelete_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan silindi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan added."
           }
         }
       }
@@ -647,6 +800,23 @@
         }
       }
     },
+    "planUpdateSuccess_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan məlumatları uğurla dəyişdirildi."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan info changed successfully."
+          }
+        }
+      }
+    },
     "pwLengthText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -694,6 +864,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• Must have at least 1 upper case"
+          }
+        }
+      }
+    },
+    "registerSuccess_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabınız uğurla yaradıldı!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account created successfully."
+          }
+        }
+      }
+    },
+    "registerSuccessText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uğurlu qeydiyyat!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success!"
+          }
+        }
+      }
+    },
+    "reLoginMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zəhmət olmasa yenidən giriş edin."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please log back into your account!"
           }
         }
       }
@@ -762,6 +983,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status:"
+          }
+        }
+      }
+    },
+    "updateSuccessText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uğurlu dəyişiklik!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Successful update!"
           }
         }
       }

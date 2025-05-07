@@ -100,6 +100,7 @@
 		11B413C12DCBA126006FF14F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 11B413C02DCBA126006FF14F /* SkeletonView */; };
 		11B413C92DCBED0F006FF14F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 11B413C82DCBED0F006FF14F /* Localizable.xcstrings */; };
 		11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */; };
+		11B413CF2DCBFFCF006FF14F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
@@ -238,6 +239,7 @@
 		11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		11B413C82DCBED0F006FF14F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OlsunStrings.swift; sourceTree = "<group>"; };
+		11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 		11A7E36E2D8B366300D82AF2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				11B413CD2DCBFFC0006FF14F /* LocalizationManager */,
 				11F41BB02DA5718400C16224 /* Helpers */,
 				11A7E3732D8B36F300D82AF2 /* Managers */,
 				11A7E3752D8B370900D82AF2 /* Extensions */,
@@ -857,6 +860,14 @@
 			path = OlsunStrings;
 			sourceTree = "<group>";
 		};
+		11B413CD2DCBFFC0006FF14F /* LocalizationManager */ = {
+			isa = PBXGroup;
+			children = (
+				11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */,
+			);
+			path = LocalizationManager;
+			sourceTree = "<group>";
+		};
 		11BB9E332D8C8F4E00008DD7 /* WorkSans */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,7 +1031,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				az,
 			);
 			mainGroup = 11A7E31C2D8B35BF00D82AF2;
@@ -1149,6 +1159,7 @@
 				11A7E3A02D8B3A9C00D82AF2 /* LoginViewModel.swift in Sources */,
 				11A7E38D2D8B380600D82AF2 /* ReusableLabel.swift in Sources */,
 				11A7E38F2D8B381000D82AF2 /* ReusableTextField.swift in Sources */,
+				11B413CF2DCBFFCF006FF14F /* LocalizationManager.swift in Sources */,
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
 				1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,

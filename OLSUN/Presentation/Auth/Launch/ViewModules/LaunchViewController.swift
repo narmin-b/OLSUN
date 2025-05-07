@@ -312,7 +312,7 @@ final class LaunchViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.viewModel?.backToOnboarding()
-                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Hesabınız uğurla yaradıldı!")
+                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.registerSuccess_Message.localized)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

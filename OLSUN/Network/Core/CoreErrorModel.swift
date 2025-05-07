@@ -16,15 +16,15 @@ struct CoreErrorModel: LocalizedError, Decodable {
         }
     
     static func authError(code: Int) -> CoreErrorModel {
-        return CoreErrorModel(code: code, message: "Zəhmət olmasa yenidən giriş edin.")
+        return CoreErrorModel(code: code, message: OlsunStrings.reLoginMessage.localized)
     }
 
     static func generalError() -> CoreErrorModel {
-        return CoreErrorModel(code: 500, message: "Xəta baş verdi.")
+        return CoreErrorModel(code: 500, message: OlsunStrings.generalError_Message.localized)
     }
 
     static func decodingError() -> CoreErrorModel {
-        return CoreErrorModel(code: 0, message: "JSON parse edilə bilmədi.")
+        return CoreErrorModel(code: 0, message: OlsunStrings.jsonParsingError_Message.localized)
     }
 }
 

@@ -163,7 +163,7 @@ final class PlanningViewController: BaseViewController {
         if NetworkMonitor.shared.isConnected {
             viewModel?.showAddTaskVC()
         } else {
-            self.showMessage(title: "Bağlantı xətası", message: "Zəhmət olmasa internet bağlantınızı yoxlayın.")
+            self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
         }
     }
     

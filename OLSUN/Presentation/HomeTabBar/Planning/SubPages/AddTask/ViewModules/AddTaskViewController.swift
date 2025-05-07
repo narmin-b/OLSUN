@@ -328,12 +328,12 @@ final class AddTaskViewController: BaseViewController {
                 case .editSuccess(let guest):
                     self.onTaskUpdate?(guest)
                     self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Plan məlumatları uğurla dəyişdirildi.")
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.planUpdateSuccess_Message.localized)
                 case .deleteSuccess:
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Plan silindi.")
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.planDelete_Message.localized)
                 case .success:
                     self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Plan uğurla əlavə edildi.")
+                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.planAdded_Message.localized)
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

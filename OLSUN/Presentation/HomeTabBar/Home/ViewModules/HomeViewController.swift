@@ -133,23 +133,28 @@ final class HomeViewController: BaseViewController {
         let logo = UIImage(named: "olsunHomeLogo")
         let imageView = UIImageView(image: logo)
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 76),
-            imageView.heightAnchor.constraint(equalToConstant: 76)
-        ])
+        imageView.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
         
         let logoItem = UIBarButtonItem(customView: imageView)
         navigationItem.leftBarButtonItem = logoItem
         
-        let editButton = UIBarButtonItem(
+        let logoutButton = UIBarButtonItem(
             image: UIImage(systemName: "iphone.and.arrow.right.outward"),
             style: .plain,
             target: self,
             action: #selector(logOutTapped)
         )
-        editButton.tintColor = .primaryHighlight
-        navigationItem.rightBarButtonItem = editButton
+
+        let toggleLangButton = UIBarButtonItem(
+            title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
+            style: .plain,
+            target: self,
+            action: #selector(toggleLanguage)
+        )
+        toggleLangButton.tintColor = .primaryHighlight
+        logoutButton.tintColor = .primaryHighlight
+
+        navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
     }
     
     private func configureViewModel() {
@@ -172,6 +177,17 @@ final class HomeViewController: BaseViewController {
     @objc private func logOutTapped() {
         viewModel?.showLaunchScreen()
         UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+    }
+    
+    @objc private func toggleLanguage() {
+        let current = LocalizationManager.shared.currentLanguage
+        let newLang = (current == "az") ? "en" : "az"
+        
+        LocalizationManager.shared.setLanguage(newLang)
+        
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.reloadRootViewController()
+        }
     }
 }
 

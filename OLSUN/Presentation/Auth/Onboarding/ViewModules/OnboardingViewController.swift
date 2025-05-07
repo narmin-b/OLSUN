@@ -96,15 +96,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
@@ -122,12 +114,21 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     fileprivate func configureNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
 
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
+
+        let toggleLangButton = UIBarButtonItem(
+            title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
+            style: .plain,
+            target: self,
+            action: #selector(toggleLanguage)
+        )
+        toggleLangButton.tintColor = .primaryHighlight
+
+        navigationItem.rightBarButtonItems = [toggleLangButton]
     }
     
     override func configureConstraint() {
@@ -137,7 +138,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 24, left: 0, bottom: 0, right: 0)
+            padding: .init(top: 0, left: 0, bottom: 0, right: 0)
         )
         scrollView.anchorSize(.init(width: 0, height: view.frame.height * 0.65))
         
@@ -346,6 +347,17 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     @objc private func guestLoginTapped() {
         viewModel?.showHomeTabBar()
+    }
+    
+    @objc private func toggleLanguage() {
+        let current = LocalizationManager.shared.currentLanguage
+        let newLang = (current == "az") ? "en" : "az"
+        
+        LocalizationManager.shared.setLanguage(newLang)
+        
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.reloadRootViewController()
+        }
     }
 
     private func configureViewModel() {

@@ -98,6 +98,8 @@
 		11B4137B2DC3F89B006FF14F /* KeychainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4137A2DC3F895006FF14F /* KeychainKeys.swift */; };
 		11B413BB2DCB9E45006FF14F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */; };
 		11B413C12DCBA126006FF14F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 11B413C02DCBA126006FF14F /* SkeletonView */; };
+		11B413C92DCBED0F006FF14F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 11B413C82DCBED0F006FF14F /* Localizable.xcstrings */; };
+		11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
@@ -234,6 +236,8 @@
 		11B413782DC3F687006FF14F /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		11B4137A2DC3F895006FF14F /* KeychainKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKeys.swift; sourceTree = "<group>"; };
 		11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		11B413C82DCBED0F006FF14F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OlsunStrings.swift; sourceTree = "<group>"; };
 		11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 		11A7E31C2D8B35BF00D82AF2 = {
 			isa = PBXGroup;
 			children = (
+				11B413C82DCBED0F006FF14F /* Localizable.xcstrings */,
 				11A7E35E2D8B361500D82AF2 /* OLSUN */,
 				11A7E3652D8B361700D82AF2 /* OLSUNTests */,
 				11A7E3692D8B361A00D82AF2 /* OLSUNUITests */,
@@ -653,6 +658,7 @@
 		11A7E36D2D8B365B00D82AF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				11B413CA2DCBF724006FF14F /* OlsunStrings */,
 				11A7E3702D8B36A100D82AF2 /* Fonts */,
 				11A7E35A2D8B361500D82AF2 /* Assets.xcassets */,
 				11A7E3712D8B36D100D82AF2 /* Colors.xcassets */,
@@ -843,6 +849,14 @@
 			path = NetworkCheck;
 			sourceTree = "<group>";
 		};
+		11B413CA2DCBF724006FF14F /* OlsunStrings */ = {
+			isa = PBXGroup;
+			children = (
+				11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */,
+			);
+			path = OlsunStrings;
+			sourceTree = "<group>";
+		};
 		11BB9E332D8C8F4E00008DD7 /* WorkSans */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,11 +1016,12 @@
 				};
 			};
 			buildConfigurationList = 11A7E3202D8B35BF00D82AF2 /* Build configuration list for PBXProject "OLSUN" */;
-			developmentRegion = en;
+			developmentRegion = az;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				az,
 			);
 			mainGroup = 11A7E31C2D8B35BF00D82AF2;
 			minimizedProjectReferenceProxies = 1;
@@ -1041,6 +1056,7 @@
 				11BB9E3C2D8C8F4E00008DD7 /* WorkSans-Medium.ttf in Resources */,
 				1174DFC42DAAE87900DC1CCC /* Icons.xcassets in Resources */,
 				11F41BAE2DA564FF00C16224 /* FuturicaL.ttf in Resources */,
+				11B413C92DCBED0F006FF14F /* Localizable.xcstrings in Resources */,
 				11F41BAF2DA564FF00C16224 /* FuturicaB.ttf in Resources */,
 				11BB9E422D8C8F4E00008DD7 /* WorkSans-SemiBold.ttf in Resources */,
 				11BB9E432D8C8F4E00008DD7 /* WorkSans-Regular.ttf in Resources */,
@@ -1141,6 +1157,7 @@
 				11273A462DAE898200E2FB47 /* ListCellProtocol.swift in Sources */,
 				1174DFB12DAAD31600DC1CCC /* GuestsCoordinator.swift in Sources */,
 				1147AF462DAC3ECA006D28CD /* TaskViewController.swift in Sources */,
+				11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */,
 				11273A3F2DAE832C00E2FB47 /* GuestAPIService.swift in Sources */,
 				11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */,
 				110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */,
@@ -1327,6 +1344,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1383,6 +1401,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

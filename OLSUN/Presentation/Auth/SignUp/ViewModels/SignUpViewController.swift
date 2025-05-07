@@ -20,7 +20,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hesab yarat və bizə qoşul!",
+            labelText: OlsunStrings.signUpVC_Message.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 32,
@@ -33,7 +33,7 @@ final class SignUpViewController: BaseViewController {
 
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "E-mail",
+            labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -57,7 +57,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passwordLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Şifrə",
+            labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -94,7 +94,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 8 simvoldan ibarət olmalıdır",
+            labelText: OlsunStrings.pwLengthText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -105,7 +105,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passUpcaseReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 1 böyük hərf olmalıdır",
+            labelText: OlsunStrings.pwUCText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -116,7 +116,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passNumReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 1 rəqəm olmalıdır",
+            labelText: OlsunStrings.pwNumText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -135,7 +135,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var signupButton: UIButton = {
         let button = ReusableButton(
-            title: "Davam et",
+            title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.signupTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -173,7 +173,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "və ya",
+            labelText: OlsunStrings.orText.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 20,
@@ -186,7 +186,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var googleSignInButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1

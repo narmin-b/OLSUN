@@ -46,7 +46,7 @@ final class TaskViewController: BaseViewController {
     
     private lazy var deadlineLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Deadline:",
+            labelText: OlsunStrings.planningDate_Text.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -88,7 +88,7 @@ final class TaskViewController: BaseViewController {
     
     // MARK: Configurations
     private let viewModel: TaskViewModel?
-    let statusOptions = ["Bitib", "Gözləmədə", "Gecikir"]
+    let statusOptions = [OlsunStrings.planningStat_Done.localized, OlsunStrings.planningStat_Pending.localized, OlsunStrings.planningStat_Late.localized]
     
     init(viewModel: TaskViewModel) {
         self.viewModel = viewModel
@@ -193,7 +193,7 @@ final class TaskViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
     }
     
     private func configureViewModel() {

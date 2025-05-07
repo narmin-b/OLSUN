@@ -11,7 +11,7 @@ import SkeletonView
 final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
-            title: "Növbəti",
+            title: OlsunStrings.nextButton.localized,
             onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -24,7 +24,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Daxil ol",
+            title: OlsunStrings.loginButton.localized,
             onAction: { [weak self] in self?.loginTapped() },
             bgColor: .accentMain,
             titleColor: .primaryHighlight,
@@ -39,7 +39,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private lazy var registerButton: UIButton = {
         let button = ReusableButton(
-            title: "Hesab yarat",
+            title: OlsunStrings.signUpButton.localized,
             onAction: { [weak self] in self?.registerTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -294,13 +294,13 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private func configurePages() {
         let page1 = makeFirstPage(
-            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
-            subtitle: "Toyunuzu planlayın və istədiyiniz hər şeyi asanlıqla tapın – fotoqraf, məkan, musiqi və daha çoxu!"
+            title: OlsunStrings.onboardingtitle.localized,
+            subtitle:  OlsunStrings.onboardingMessage_First.localized
         )
 
         let page2 = makeSecondPage(
-            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
-            subtitle: "Vizajist, gəlinlik, bəy kostyumu, dekor, tort – hamısı bir tətbiqdə!"
+            title: OlsunStrings.onboardingtitle.localized,
+            subtitle:  OlsunStrings.onboardingMessage_Second.localized
         )
 
         pages = [page1, page2]

@@ -21,7 +21,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "İlk öncə daha yaxşı xidmət üçün bir neçə sualı cavablandır!",
+            labelText: OlsunStrings.launchMessage.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: DeviceSizeClass.current == .compact ? 24 : 32,
@@ -52,7 +52,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var nameLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Adınız",
+            labelText: OlsunStrings.nameText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -87,7 +87,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var partnerNameLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Partnyorunuzun adı",
+            labelText: OlsunStrings.partnerNameText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -123,7 +123,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Doğum Gününüz",
+            labelText: OlsunStrings.bdayText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -174,7 +174,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var genderLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Cinsiniz",
+            labelText: OlsunStrings.gendertext.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -224,7 +224,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
-            title: "Növbəti",
+            title: OlsunStrings.nextButton.localized,
             onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -242,7 +242,7 @@ final class LaunchViewController: BaseViewController {
     }()
 
     private lazy var contentView: UIStackView = {
-        let view = UIStackView(/*arrangedSubviews: [titleLabel, launchImage]*/)
+        let view = UIStackView()
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
@@ -265,7 +265,7 @@ final class LaunchViewController: BaseViewController {
     private let deviceClass = DeviceSizeClass.current
     private var activeTextField: UITextField?
     
-    let genders = ["Qadın", "Kişi"]
+    let genders = [OlsunStrings.femaleText.localized, OlsunStrings.maleText.localized]
     private let viewModel: LaunchViewModel?
     
     init(viewModel: LaunchViewModel) {

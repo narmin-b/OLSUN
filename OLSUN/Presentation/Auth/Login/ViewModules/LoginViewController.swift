@@ -21,7 +21,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hesaba daxil ol və aramıza qayıt!",
+            labelText: OlsunStrings.loginVC_Message.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 32,
@@ -34,7 +34,7 @@ final class LoginViewController: BaseViewController {
 
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "E-mail",
+            labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -58,7 +58,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var passwordLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Şifrə",
+            labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -94,7 +94,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Davam et",
+            title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.loginTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -132,7 +132,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "və ya",
+            labelText: OlsunStrings.orText.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 20,
@@ -145,7 +145,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
@@ -233,7 +233,7 @@ final class LoginViewController: BaseViewController {
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: 24)
+            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
         )
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36

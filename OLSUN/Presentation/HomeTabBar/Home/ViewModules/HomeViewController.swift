@@ -30,7 +30,7 @@ final class HomeViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hazırlıqlar",
+            labelText: OlsunStrings.homeListText.localized,
             labelColor: .primaryHighlight,
             labelFont: .workSansBold,
             labelSize: 28,
@@ -58,8 +58,16 @@ final class HomeViewController: BaseViewController {
     private let viewModel: HomeViewModel?
     
     var menuItems: [MenuItem] = [
-        MenuItem(iconName: "planningIcon", title: "Planlama", description: "Daha çox məlumat"),
-        MenuItem(iconName: "guestsIcon", title: "Qonaqlar", description: "Daha çox məlumat")
+        MenuItem(
+            iconName: "planningIcon",
+            title: OlsunStrings.planningText.localized,
+            description: OlsunStrings.planningDesc.localized
+        ),
+        MenuItem(
+            iconName: "guestsIcon",
+            title: OlsunStrings.guestText.localized,
+            description: OlsunStrings.guestDesc.localized
+        )
     ]
     
     init(viewModel: HomeViewModel) {

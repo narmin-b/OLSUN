@@ -11,12 +11,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>207601672687-h1t25jp8d3lrc1oio27pmd8gr82qjjpf.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>whatsapp</string>
 	</array>
-	<key>GIDClientID</key>
-	<string>207601672687-h1t25jp8d3lrc1oio27pmd8gr82qjjpf.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Bold.ttf</string>

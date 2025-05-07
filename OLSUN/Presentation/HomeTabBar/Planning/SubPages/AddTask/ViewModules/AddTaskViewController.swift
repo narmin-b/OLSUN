@@ -21,7 +21,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Planın adı:",
+            labelText: OlsunStrings.planName_Text.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
@@ -45,7 +45,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Deadline:",
+            labelText: OlsunStrings.planningDate_Text.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -85,7 +85,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var statusLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Status:",
+            labelText: OlsunStrings.statusText.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -113,7 +113,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var cancelButton: UIButton = {
         let button = ReusableButton(
-            title: "İmtina et",
+            title: OlsunStrings.cancelButton.localized,
             onAction: { [weak self] in self?.cancelTapped() },
             bgColor: .accentMain,
             titleColor: .primaryHighlight,
@@ -127,7 +127,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var saveButton: UIButton = {
         let button = ReusableButton(
-            title: "Yadda saxla",
+            title: OlsunStrings.saveButton.localized,
             onAction: { [weak self] in self?.saveTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -139,7 +139,7 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
-        let title = "Planı sil"
+        let title = OlsunStrings.deletePlan_Text.localized
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
@@ -166,7 +166,7 @@ final class AddTaskViewController: BaseViewController {
     
     // MARK: Configurations
     private let viewModel: AddTaskViewModel?
-    let statusOptions = ["Bitib", "Gözləmədə", "Gecikir"]
+    let statusOptions = [OlsunStrings.planningStat_Done.localized, OlsunStrings.planningStat_Pending.localized, OlsunStrings.planningStat_Late.localized]
     var onTaskUpdate: ((ListCellProtocol) -> Void)?
     
     init(viewModel: AddTaskViewModel) {
@@ -212,7 +212,7 @@ final class AddTaskViewController: BaseViewController {
             let today = Date()
             dateTextField.text = formatter.string(from: today)
             datePicker.date = today
-            statusMenuButton.setTitle("Gözləmədə", for: .normal)
+            statusMenuButton.setTitle(OlsunStrings.planningStat_Pending.localized, for: .normal)
         case .edit:
             deleteButton.isHidden = false
             setUpGuestInfo()
@@ -313,7 +313,7 @@ final class AddTaskViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
     }
     
     private func configureViewModel() {

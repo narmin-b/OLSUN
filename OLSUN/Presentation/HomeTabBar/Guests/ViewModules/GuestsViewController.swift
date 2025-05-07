@@ -27,7 +27,7 @@ final class GuestsViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Qonaqların siyahısı",
+            labelText: OlsunStrings.guestsVC_Title.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
@@ -131,7 +131,7 @@ final class GuestsViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
+        navigationItem.configureNavigationBar(text: OlsunStrings.guestText.localized)
     }
     
     private func configureViewModel() {

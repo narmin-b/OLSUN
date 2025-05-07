@@ -27,7 +27,7 @@ final class PlanningViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Planların siyahısı",
+            labelText: OlsunStrings.planningVC_Title.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
@@ -131,7 +131,7 @@ final class PlanningViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
     }
     
     private func configureViewModel() {

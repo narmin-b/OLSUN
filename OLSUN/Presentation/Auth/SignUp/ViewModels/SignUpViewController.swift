@@ -94,7 +94,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Must Contain 8 Characters",
+            labelText: "• Ən az 8 simvoldan ibarət olmalıdır",
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -105,7 +105,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passUpcaseReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Must Contain An Uppercase",
+            labelText: "• Ən az 1 böyük hərf olmalıdır",
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -116,7 +116,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passNumReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Must Contain A Number",
+            labelText: "• Ən az 1 rəqəm olmalıdır",
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12

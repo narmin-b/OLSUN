@@ -9,6 +9,7 @@ import Foundation
 
 final class GuestsViewModel {
     enum ViewState {
+        case refreshError(message: String)
         case loading
         case loaded
         case success
@@ -61,7 +62,7 @@ final class GuestsViewModel {
                     Logger.debug("\(self.guestList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
-                    self.requestCallback?(.error(message: error))
+                    self.requestCallback?(.refreshError(message: error))
                 }
             }
         }

@@ -9,6 +9,7 @@ import Foundation
 
 final class PlanningViewModel {
     enum ViewState {
+        case refreshError(message: String)
         case loading
         case loaded
         case success
@@ -61,7 +62,7 @@ final class PlanningViewModel {
                     Logger.debug("/(self.taskList)")
                     self.requestCallback?(.success)
                 } else if let error = error {
-                    self.requestCallback?(.error(message: error))
+                    self.requestCallback?(.refreshError(message: error))
                 }
             }
         }

@@ -86,7 +86,7 @@ final class PlanningViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewModel?.getAllTasks()
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
@@ -139,6 +139,11 @@ final class PlanningViewController: BaseViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch state {
+                case .refreshError(let message):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        self.refreshControl.endRefreshing()
+                        self.showMessage(title: "Error", message: message)
+                    }
                 case .loading:
                     self.loadingView.startAnimating()
                 case .loaded:
@@ -155,7 +160,11 @@ final class PlanningViewController: BaseViewController {
     
     // MARK: Functions
     @objc fileprivate func addTaskButtonTapped() {
-        viewModel?.showAddTaskVC()
+        if NetworkMonitor.shared.isConnected {
+            viewModel?.showAddTaskVC()
+        } else {
+            self.showMessage(title: "Bağlantı xətası", message: "Zəhmət olmasa internet bağlantınızı yoxlayın.")
+        }
     }
     
     @objc fileprivate func reloadPage() {

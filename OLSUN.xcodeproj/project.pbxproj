@@ -97,6 +97,7 @@
 		11B413792DC3F68B006FF14F /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413782DC3F687006FF14F /* KeychainHelper.swift */; };
 		11B4137B2DC3F89B006FF14F /* KeychainKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4137A2DC3F895006FF14F /* KeychainKeys.swift */; };
 		11B413BB2DCB9E45006FF14F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413B92DCB9E45006FF14F /* NetworkMonitor.swift */; };
+		11B413C12DCBA126006FF14F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 11B413C02DCBA126006FF14F /* SkeletonView */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
@@ -273,6 +274,7 @@
 				1174DF982DAAC45B00DC1CCC /* GoogleSignIn in Frameworks */,
 				11630EA42DB02FBD00C277AE /* Macaw in Frameworks */,
 				11630E9E2DB019D700C277AE /* SVGKitSwift in Frameworks */,
+				11B413C12DCBA126006FF14F /* SkeletonView in Frameworks */,
 				11630E9C2DB019D700C277AE /* SVGKit in Frameworks */,
 				1174DF9A2DAAC45B00DC1CCC /* GoogleSignInSwift in Frameworks */,
 				11630EA12DB0242D00C277AE /* SwiftSVG in Frameworks */,
@@ -930,6 +932,7 @@
 				11630E9D2DB019D700C277AE /* SVGKitSwift */,
 				11630EA02DB0242D00C277AE /* SwiftSVG */,
 				11630EA32DB02FBD00C277AE /* Macaw */,
+				11B413C02DCBA126006FF14F /* SkeletonView */,
 			);
 			productName = OLSUN;
 			productReference = 11A7E3252D8B35BF00D82AF2 /* OLSUN.app */;
@@ -1013,6 +1016,7 @@
 				11630E9A2DB019D700C277AE /* XCRemoteSwiftPackageReference "SVGKit" */,
 				11630E9F2DB0242D00C277AE /* XCRemoteSwiftPackageReference "SwiftSVG" */,
 				11630EA22DB02FBD00C277AE /* XCRemoteSwiftPackageReference "Macaw" */,
+				11B413BF2DCBA126006FF14F /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11A7E3262D8B35BF00D82AF2 /* Products */;
@@ -1537,6 +1541,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		11B413BF2DCBA126006FF14F /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1574,6 +1586,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1174DF962DAAC45B00DC1CCC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		11B413C02DCBA126006FF14F /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11B413BF2DCBA126006FF14F /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

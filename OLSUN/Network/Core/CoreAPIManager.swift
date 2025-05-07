@@ -40,7 +40,8 @@ final class CoreAPIManager {
             Logger.debug("Response Status Code: \(httpResponse.statusCode)")
             
             if let error = error {
-                completion(.failure(CoreErrorModel(code: httpResponse.statusCode, message: error.localizedDescription)))
+                let code = (response as? HTTPURLResponse)?.statusCode ?? -1
+                completion(.failure(CoreErrorModel(code: code, message: "İnternet bağlantısı yoxdur. Zəhmət olmasa bağlantınızı yoxlayın.")))
                 return
             }
             

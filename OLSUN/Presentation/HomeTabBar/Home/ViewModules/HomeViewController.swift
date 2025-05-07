@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 final class HomeViewController: BaseViewController {
     // MARK: UI Elements
@@ -21,6 +22,7 @@ final class HomeViewController: BaseViewController {
     
     private lazy var homeImageView: UIImageView = {
         let imageview = UIImageView()
+        imageview.isSkeletonable = true
         imageview.contentMode = .scaleAspectFill
         imageview.translatesAutoresizingMaskIntoConstraints = false
         return imageview

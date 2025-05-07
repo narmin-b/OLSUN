@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     private lazy var nextButton: UIButton = {
@@ -184,6 +185,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         container.translatesAutoresizingMaskIntoConstraints = false
 
         let imageView = UIImageView()
+        imageView.isSkeletonable = true
         imageView.loadImage(named: "onboardingImageFirst.png")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -239,6 +241,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         container.translatesAutoresizingMaskIntoConstraints = false
 
         let imageView = UIImageView()
+        imageView.isSkeletonable = true
         imageView.loadImage(named: "onboardingImageSecond.png")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

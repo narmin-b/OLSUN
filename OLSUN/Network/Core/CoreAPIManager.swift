@@ -32,6 +32,13 @@ final class CoreAPIManager {
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             guard let self = self else { return }
+        
+            if let error = error {
+                let code = (response as? HTTPURLResponse)?.statusCode ?? -1
+                completion(.failure(CoreErrorModel(code: code, message: "İnternet bağlantısı yoxdur. Zəhmət olmasa bağlantınızı yoxlayın.")))
+                return
+            }
+            
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(CoreErrorModel.generalError()))
                 return
@@ -39,11 +46,6 @@ final class CoreAPIManager {
             
             Logger.debug("Response Status Code: \(httpResponse.statusCode)")
             
-            if let error = error {
-                let code = (response as? HTTPURLResponse)?.statusCode ?? -1
-                completion(.failure(CoreErrorModel(code: code, message: "İnternet bağlantısı yoxdur. Zəhmət olmasa bağlantınızı yoxlayın.")))
-                return
-            }
             
             guard let data = data, !data.isEmpty else {
                 completion(.failure(CoreErrorModel(code: httpResponse.statusCode, message: "No data received")))

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 final class LaunchViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -33,6 +34,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var launchImage: UIImageView = {
         let image = UIImageView()
+        image.isSkeletonable = true
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image

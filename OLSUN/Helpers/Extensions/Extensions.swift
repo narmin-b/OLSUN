@@ -11,6 +11,7 @@ import MapKit
 import SDWebImage
 import SVGKit
 import ObjectiveC
+import SkeletonView
 
 private var fullTextKey: UInt8 = 0
 
@@ -289,11 +290,15 @@ extension UIImageView {
     func loadImage(named imageName: String) {
         let baseURL = "https://olsun.in/img/app/"
         guard let url = URL(string: baseURL + imageName) else { return }
-        
+
+        isSkeletonable = true
+        showAnimatedGradientSkeleton()
+
         URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil,
-                  let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
+                self.hideSkeleton()
+                guard let data = data, error == nil,
+                      let image = UIImage(data: data) else { return }
                 self.image = image
             }
         }.resume()

@@ -672,7 +672,7 @@
 		11A7E36E2D8B366300D82AF2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				11B413CD2DCBFFC0006FF14F /* LocalizationManager */,
+				11B413CD2DCBFFC0006FF14F /* Localization */,
 				11F41BB02DA5718400C16224 /* Helpers */,
 				11A7E3732D8B36F300D82AF2 /* Managers */,
 				11A7E3752D8B370900D82AF2 /* Extensions */,
@@ -860,12 +860,12 @@
 			path = OlsunStrings;
 			sourceTree = "<group>";
 		};
-		11B413CD2DCBFFC0006FF14F /* LocalizationManager */ = {
+		11B413CD2DCBFFC0006FF14F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
 				11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */,
 			);
-			path = LocalizationManager;
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		11BB9E332D8C8F4E00008DD7 /* WorkSans */ = {
@@ -1245,7 +1245,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1277,7 +1277,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

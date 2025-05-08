@@ -23,7 +23,7 @@ final class HomeViewController: BaseViewController {
     private lazy var homeImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.isSkeletonable = true
-        imageview.contentMode = .scaleAspectFill
+        imageview.contentMode = .scaleAspectFit
         imageview.translatesAutoresizingMaskIntoConstraints = false
         return imageview
     }()
@@ -106,12 +106,12 @@ final class HomeViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(all: 0)
         )
-        homeImageView.anchorSize(.init(width: view.frame.width, height: DeviceSizeClass.current == .compact ? 160 : 200))
+        homeImageView.anchorSize(.init(width: view.frame.width, height: view.frame.width*0.506))
         
         titleLabel.anchor(
             top: homeImageView.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 24, left: 16, bottom: 0, right: 0)
+            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
         
         menuTableView.anchor(

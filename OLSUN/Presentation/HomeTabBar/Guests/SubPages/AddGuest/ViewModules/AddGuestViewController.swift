@@ -348,7 +348,7 @@ final class AddGuestViewController: BaseViewController {
     
     private func setupDatePicker() {
         datePicker.datePickerMode = .date
-        datePicker.maximumDate = Date()
+        datePicker.minimumDate = Date()
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }

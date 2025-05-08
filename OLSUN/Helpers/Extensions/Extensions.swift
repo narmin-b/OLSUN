@@ -213,7 +213,7 @@ extension String {
     }
     
     func isValidName() -> Bool {
-        let nameRegex = "^[A-Za-zÀ-ÿ]+([\\s'-][A-Za-zÀ-ÿ]+)*$"
+        let nameRegex = "^[A-Za-zÀ-ÿƏəĞğİıŞşÇçÖöÜü]+([\\s'-][A-Za-zÀ-ÿƏəĞğİıŞşÇçÖöÜü]+)*$"
         let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         return namePredicate.evaluate(with: self)
     }

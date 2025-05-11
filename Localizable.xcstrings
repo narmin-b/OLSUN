@@ -35,19 +35,19 @@
         }
       }
     },
-    "accDeleteTitle" : {
+    "accDeleteWarningButton" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Əminsiniz?"
+            "value" : "Hesabı sil"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure?"
+            "value" : "Delete account"
           }
         }
       }
@@ -103,6 +103,23 @@
         }
       }
     },
+    "confirmationTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Əminsiniz?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure?"
+          }
+        }
+      }
+    },
     "continueButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -116,6 +133,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        }
+      }
+    },
+    "deleteAccButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabı SİLMƏK!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete ACCOUNT!"
           }
         }
       }
@@ -528,6 +562,57 @@
         }
       }
     },
+    "logoutAcc_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabdan çıxış etmək istədiyinizə əminsiniz?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you really want to log out?"
+          }
+        }
+      }
+    },
+    "logoutButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabdan çıxış"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
+          }
+        }
+      }
+    },
+    "logoutConfirmButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesabdan çıx"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
+          }
+        }
+      }
+    },
     "maleText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -789,7 +874,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deadline:"
+            "value" : "Bitmə tarixi:"
           }
         },
         "en" : {
@@ -915,6 +1000,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plan info changed successfully."
+          }
+        }
+      }
+    },
+    "profileText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
           }
         }
       }

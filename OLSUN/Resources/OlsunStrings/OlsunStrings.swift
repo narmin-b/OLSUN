@@ -70,9 +70,15 @@ enum OlsunStrings: String {
     case jsonParsingError_Message
     case optionalText
     case accDelete_Message
-    case accDeleteTitle
+    case confirmationTitle
     case deleteButton
     case accDelete_Success
+    case profileText
+    case logoutButton
+    case deleteAccButton
+    case logoutConfirmButton
+    case logoutAcc_Message
+    case accDeleteWarningButton
 }
 
 extension OlsunStrings {

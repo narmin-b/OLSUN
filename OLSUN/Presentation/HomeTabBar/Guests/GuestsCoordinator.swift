@@ -33,7 +33,12 @@ final class GuestsCoordinator: Coordinator {
 
 extension GuestsCoordinator: GuestsNavigation, UserProfileNavigation {
     func showProfile() {
-        let vc = UserProfileViewController(viewModel: .init(navigation: self))
+        let vc = UserProfileViewController(
+            viewModel: .init(
+                navigation: self,
+                accountUseCase: AccountSessionAPIService()
+            )
+        )
         showController(vc: vc)
     }
     

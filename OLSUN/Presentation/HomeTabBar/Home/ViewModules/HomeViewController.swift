@@ -88,6 +88,7 @@ final class HomeViewController: BaseViewController {
         configureViewModel()
         
         homeImageView.loadImage(named: "homeImage.png")
+        print(KeychainHelper.getString(key: .userID) ?? "")
     }
     
     override func configureView() {
@@ -170,7 +171,7 @@ final class HomeViewController: BaseViewController {
                     self.showMessage(title: "Error", message: error)
                 case .success:
                     self.viewModel?.showLaunchScreen()
-                    self.showMessage(title: OlsunStrings.updateSuccessText.rawValue, message: OlsunStrings.accDelete_Success.rawValue)
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.accDelete_Success.localized)
                     UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
                 }
             }
@@ -180,29 +181,6 @@ final class HomeViewController: BaseViewController {
     // MARK: Functions
     @objc private func profileTabClicked() {
         viewModel?.showProfileScreen()
-    }
-    
-    @objc private func logOutTapped() {
-        showDeleteAccountAlert()
-        UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
-    }
-    
-    func showDeleteAccountAlert() {
-        guard let window = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first?.windows
-            .first(where: { $0.isKeyWindow }) else {
-            return
-        }
-        
-        let confirmation = ConfirmationView(frame: window.bounds)
-        confirmation.onConfirm = {
-            self.viewModel?.deleteAccount()
-        }
-        confirmation.onCancel = {
-        }
-        
-        window.addSubview(confirmation)
     }
     
     @objc private func toggleLanguage() {
@@ -250,5 +228,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel?.userSelectedMenuItem(at: indexPath.section)
+    }
+}
+
+extension HomeViewController: UserProfileDelegate {
+    func didRequestLogout() {
+        print(#function)
+        viewModel?.showLaunchScreen()
     }
 }

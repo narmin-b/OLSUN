@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol UserProfileDelegate: AnyObject {
+    func didRequestLogout()
+}
+
 final class UserProfileViewController: BaseViewController {
     // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -25,28 +29,14 @@ final class UserProfileViewController: BaseViewController {
         return refreshControl
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.planningVC_Title.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .montserratMedium,
-            labelSize: 24,
-            numOfLines: 1
-        )
-        label.accessibilityIdentifier = "planningTitleLabel"
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var addTaskButton: UIButton = {
+    private lazy var editProfileButton: UIButton = {
         let button = ReusableButton(
             title: "",
-            onAction: { [weak self] in self?.addTaskButtonTapped() },
+            onAction: { [weak self] in self?.editProfileButtonTapped() },
             bgColor: .clear,
         )
         button.accessibilityIdentifier = "addTaskButton"
-        let image = UIImage(systemName: "plus")
+        let image = UIImage(named: "editProfile")
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = .primaryHighlight
@@ -54,21 +44,54 @@ final class UserProfileViewController: BaseViewController {
         return button
     }()
     
-//    private lazy var tasksTableView: UITableView = {
-//        let tableview = UITableView()
-//        tableview.delegate = self
-//        tableview.dataSource = self
-//        tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
-//        tableview.separatorStyle = .none
-//        tableview.backgroundColor = .clear
-//        tableview.refreshControl = refreshControl
-//        tableview.accessibilityIdentifier = "tasksTableView"
-//        tableview.translatesAutoresizingMaskIntoConstraints = false
-//        return tableview
-//    }()
+    private lazy var userInfoTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.register(ProfileInfoCell.self, forCellReuseIdentifier: ProfileInfoCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+        tableView.backgroundColor = .clear
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: -16)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    private lazy var logoutButton: UIButton = {
+        let button = ReusableButton(
+            title: OlsunStrings.logoutButton.localized,
+            onAction: { [weak self] in self?.logoutButtonTapped() },
+            titleSize: DeviceSizeClass.current == .large ? 20 : 16,
+            titleFont: .workSansMedium,
+        )
+        button.addShadow()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var deleteAccountButton: UIButton = {
+        let button = ReusableButton(
+            title: OlsunStrings.deleteAccButton.localized,
+            onAction: { [weak self] in self?.deleteAccountTapped() },
+            bgColor: .warningRed,
+            titleSize: DeviceSizeClass.current == .large ? 20 : 16,
+            titleFont: .workSansMedium
+        )
+        button.addShadow()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     // MARK: Configurations
     private let viewModel: UserProfileViewModel?
+    private var bottomBorder: UIView?
+    weak var logoutDelegate: UserProfileDelegate?
+    
+    private let data: [(title: String, value: String)] = [
+            ("Adınız", "Eldar"),
+            ("Cins", "Kişi"),
+            ("Yaş", "24")
+        ]
     
     init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -99,45 +122,64 @@ final class UserProfileViewController: BaseViewController {
             tabBarController.tabBar.isHidden = false
             tabBarController.customTabBarView.isHidden = false
         }
+        
+        bottomBorder?.removeFromSuperview()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
         
+        userInfoTableView.tableFooterView = UIView()
+        userInfoTableView.tableHeaderView = UIView()
         Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
+        
+        viewModel?.getUserInfo()
     }
     
     override func configureView() {
         configureNavigationBar()
         
-        view.backgroundColor = .red
-        view.addSubViews(loadingView, titleLabel, addTaskButton)
+        view.backgroundColor = .white
+        view.addSubViews(loadingView, editProfileButton, userInfoTableView, logoutButton, deleteAccountButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperviewSafeAreaLayoutGuide()
         
-        titleLabel.anchor(
+        editProfileButton.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
-        )
-        addTaskButton.anchor(
             trailing: view.trailingAnchor,
-            padding: .init(all: 16)
+            padding: .init(top: 8, left: 0, bottom: 0, right: -16)
         )
-        addTaskButton.anchorSize(.init(width: 32, height: 32))
-        addTaskButton.centerYToView(to: titleLabel)
+        editProfileButton.anchorSize(.init(width: 32, height: 32))
         
-//        tasksTableView.anchor(
-//            top: titleLabel.bottomAnchor,
-//            leading: view.leadingAnchor,
-//            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-//            trailing: view.trailingAnchor,
-//            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
-//        )
+        userInfoTableView.anchor(
+            top: editProfileButton.bottomAnchor,
+            leading: view.leadingAnchor,
+            bottom: logoutButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 12, left: 0, bottom: -12, right: 0)
+        )
+        
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+
+        logoutButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: deleteAccountButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 16, bottom: -12, right: -16)
+        )
+        logoutButton.anchorSize(.init(width: 0, height: buttonHeight))
+        
+        deleteAccountButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 16, bottom: -16, right: -16)
+        )
+        deleteAccountButton.anchorSize(.init(width: 0, height: buttonHeight))
     }
     
     fileprivate func configureNavigationBar() {
@@ -145,7 +187,22 @@ final class UserProfileViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
+        navigationItem.configureNavigationBar(text: OlsunStrings.profileText.localized)
+        
+        let border = UIView()
+        border.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        border.translatesAutoresizingMaskIntoConstraints = false
+        navigationController?.navigationBar.addSubview(border)
+        
+        border.anchorSize(.init(width: 0, height: 4))
+        border.anchor(
+            leading: navigationController!.navigationBar.leadingAnchor,
+            bottom: navigationController!.navigationBar.bottomAnchor,
+            trailing: navigationController!.navigationBar.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        
+        self.bottomBorder = border
     }
     
     private func configureViewModel() {
@@ -164,7 +221,7 @@ final class UserProfileViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.refreshControl.endRefreshing()
-//                    self.tasksTableView.reloadData()
+                    self.userInfoTableView.reloadData()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -173,7 +230,57 @@ final class UserProfileViewController: BaseViewController {
     }
     
     // MARK: Functions
-    @objc fileprivate func addTaskButtonTapped() {
+      func showDeleteAccountAlert() {
+          guard let window = UIApplication.shared.connectedScenes
+              .compactMap({ $0 as? UIWindowScene })
+              .first?.windows
+              .first(where: { $0.isKeyWindow }) else {
+              return
+          }
+          
+          let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
+          confirmation.configure(
+            title: OlsunStrings.confirmationTitle.localized,
+            message: OlsunStrings.accDelete_Message.localized,
+            confirmButtonTitle: OlsunStrings.accDeleteWarningButton.localized,
+            cancelButtonTitle: OlsunStrings.cancelButton.localized
+          )
+          confirmation.onConfirm = {
+              self.viewModel?.deleteAccount()
+              UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+          }
+          confirmation.onCancel = {
+          }
+          
+          window.addSubview(confirmation)
+      }
+    
+    func showLogoutAlert() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
+        confirmation.configure(
+          title: OlsunStrings.confirmationTitle.localized,
+          message: OlsunStrings.logoutAcc_Message.localized,
+          confirmButtonTitle: OlsunStrings.logoutConfirmButton.localized,
+          cancelButtonTitle: OlsunStrings.cancelButton.localized
+        )
+        confirmation.onConfirm = {
+            self.logoutDelegate?.didRequestLogout()
+            UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+        }
+        confirmation.onCancel = {
+        }
+        
+        window.addSubview(confirmation)
+    }
+    
+    @objc fileprivate func editProfileButtonTapped() {
         if NetworkMonitor.shared.isConnected {
 //            viewModel?.showAddTaskVC()
         } else {
@@ -182,6 +289,30 @@ final class UserProfileViewController: BaseViewController {
     }
     
     @objc fileprivate func reloadPage() {
-//        viewModel?.refreshAllTasks()
     }
+    
+    @objc fileprivate func deleteAccountTapped() {
+        showDeleteAccountAlert()
+    }
+    
+    @objc fileprivate func logoutButtonTapped() {
+        showLogoutAlert()
+    }
+}
+
+extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           return data.count
+       }
+
+       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoCell.identifier, for: indexPath) as? ProfileInfoCell else {
+               return UITableViewCell()
+           }
+
+           let item = data[indexPath.row]
+           cell.selectionStyle = .none
+           cell.configure(title: item.title, value: item.value, showSeparator: indexPath.row != data.count - 1)
+           return cell
+       }
 }

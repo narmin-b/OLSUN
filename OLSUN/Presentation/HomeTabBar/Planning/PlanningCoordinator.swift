@@ -34,7 +34,12 @@ final class PlanningCoordinator: Coordinator {
 
 extension PlanningCoordinator: PlanningNavigation, UserProfileNavigation {
     func showProfile() {
-        let vc = UserProfileViewController(viewModel: .init(navigation: self))
+        let vc = UserProfileViewController(
+            viewModel: .init(
+                navigation: self,
+                accountUseCase: AccountSessionAPIService()
+            )
+        )
         showController(vc: vc)
     }
     

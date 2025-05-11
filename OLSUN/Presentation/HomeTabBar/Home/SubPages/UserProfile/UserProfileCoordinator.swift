@@ -24,7 +24,8 @@ final class UserProfileCoordinator: Coordinator {
     func start() {
         let controller = UserProfileViewController(
             viewModel: .init(
-                navigation: self
+                navigation: self,
+                accountUseCase: AccountSessionAPIService()
             )
         )
         showController(vc: controller)

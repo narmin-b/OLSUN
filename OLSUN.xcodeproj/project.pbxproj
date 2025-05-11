@@ -126,6 +126,7 @@
 		11BB9F322D8C959600008DD7 /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F312D8C959600008DD7 /* LaunchViewModel.swift */; };
 		11BB9F342D8C95A900008DD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F332D8C95A900008DD7 /* SignUpViewController.swift */; };
 		11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F352D8C95B500008DD7 /* SignUpViewModel.swift */; };
+		11C3E48A2DD1447700ADC7D4 /* UserInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3E4892DD1447000ADC7D4 /* UserInfoDataModel.swift */; };
 		11E0524C2DCFEDA9001F686A /* AccountSessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524B2DCFEDA2001F686A /* AccountSessionHelper.swift */; };
 		11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */; };
 		11E052502DCFEDBF001F686A /* AccountSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */; };
@@ -134,6 +135,7 @@
 		11E052592DD1023A001F686A /* UserProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E052582DD10233001F686A /* UserProfileNavigation.swift */; };
 		11E0525B2DD10274001F686A /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */; };
 		11E0525D2DD1027F001F686A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0525C2DD10278001F686A /* UserProfileViewController.swift */; };
+		11E052602DD13A37001F686A /* ProfileInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0525F2DD13A2F001F686A /* ProfileInfoCell.swift */; };
 		11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F41BA62DA557FF00C16224 /* CustomPageControl.swift */; };
 		11F41BAE2DA564FF00C16224 /* FuturicaL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */; };
 		11F41BAF2DA564FF00C16224 /* FuturicaB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */; };
@@ -273,6 +275,7 @@
 		11BB9F312D8C959600008DD7 /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
 		11BB9F332D8C95A900008DD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		11BB9F352D8C95B500008DD7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		11C3E4892DD1447000ADC7D4 /* UserInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDataModel.swift; sourceTree = "<group>"; };
 		11E052492DCE6301001F686A /* OLSUN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OLSUN.entitlements; sourceTree = "<group>"; };
 		11E0524B2DCFEDA2001F686A /* AccountSessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionHelper.swift; sourceTree = "<group>"; };
 		11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionUseCase.swift; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 		11E052582DD10233001F686A /* UserProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNavigation.swift; sourceTree = "<group>"; };
 		11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		11E0525C2DD10278001F686A /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		11E0525F2DD13A2F001F686A /* ProfileInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCell.swift; sourceTree = "<group>"; };
 		11F41BA62DA557FF00C16224 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaB.ttf; sourceTree = "<group>"; };
 		11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaL.ttf; sourceTree = "<group>"; };
@@ -511,7 +515,6 @@
 		1174DFA82DAAD26700DC1CCC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				11E052512DCFF188001F686A /* ConfirmationView.swift */,
 				1147AF122DABE9FE006D28CD /* MenuTableCell.swift */,
 			);
 			path = Views;
@@ -945,6 +948,14 @@
 			path = ViewModules;
 			sourceTree = "<group>";
 		};
+		11C3E4882DD1446100ADC7D4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				11C3E4892DD1447000ADC7D4 /* UserInfoDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		11E0524A2DCFED8E001F686A /* AccountSession */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,6 +980,8 @@
 				11E052582DD10233001F686A /* UserProfileNavigation.swift */,
 				11E052562DD10226001F686A /* UserProfileCoordinator.swift */,
 				11E052552DD1021B001F686A /* ViewModules */,
+				11E0525E2DD10C03001F686A /* Views */,
+				11C3E4882DD1446100ADC7D4 /* Models */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -980,6 +993,15 @@
 				11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */,
 			);
 			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		11E0525E2DD10C03001F686A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11E0525F2DD13A2F001F686A /* ProfileInfoCell.swift */,
+				11E052512DCFF188001F686A /* ConfirmationView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		11F41BB02DA5718400C16224 /* Helpers */ = {
@@ -1206,6 +1228,8 @@
 				1174DFB32DAAD32300DC1CCC /* GuestsNavigation.swift in Sources */,
 				11A7E3872D8B37C000D82AF2 /* BaseViewController.swift in Sources */,
 				1147AF4C2DAC3EEA006D28CD /* AddTaskViewModel.swift in Sources */,
+				11E052602DD13A37001F686A /* ProfileInfoCell.swift in Sources */,
+				11C3E48A2DD1447700ADC7D4 /* UserInfoDataModel.swift in Sources */,
 				1174DFBC2DAAD51C00DC1CCC /* PlanningViewModel.swift in Sources */,
 				11B413762DC3F10F006FF14F /* Logger.swift in Sources */,
 				1174DFA42DAAD23800DC1CCC /* HomeNavigation.swift in Sources */,

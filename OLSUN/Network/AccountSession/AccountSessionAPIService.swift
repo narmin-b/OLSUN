@@ -11,7 +11,6 @@ final class AccountSessionAPIService: AccountSessionUseCase {
     
     private let apiService = CoreAPIManager.instance
     
-    
     func deleteAccount(completion: @escaping (String?, String?) -> Void) {
         apiService.request(
             type: String.self,
@@ -27,6 +26,28 @@ final class AccountSessionAPIService: AccountSessionUseCase {
                 Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
                 
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func getUserInfo(completion: @escaping (UserInfoDataModel?, String?) -> Void) {
+        apiService.request(
+            type: UserInfoDataModel.self,
+            url: AccountSessionHelper.userInfo.endpoint,
+            method: .GET,
+            header: ["Content-Type" : "application/json",
+                     "Authorization" : "Bearer \(KeychainHelper.getString(key: .userID) ?? "")"],
+            body: [ : ]
+        ) { [weak self] result in
+            guard self != nil else { return }
+            Logger.debug("result: \(result)")
+            
+            switch result {
+            case .success(let (data, statusCode)):
+                Logger.debug("Status Code: \(statusCode)")
+                completion(data, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)
             }

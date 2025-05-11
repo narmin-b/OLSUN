@@ -133,6 +133,20 @@ final class PlanningViewController: BaseViewController {
         navigationController?.navigationBar.tintColor = .primaryHighlight
         navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
         
+        let bottomBorder = UIView()
+        bottomBorder.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        bottomBorder.translatesAutoresizingMaskIntoConstraints = false
+        
+        navigationController?.navigationBar.addSubview(bottomBorder)
+        
+        bottomBorder.anchorSize(.init(width: 0, height: 4))
+        bottomBorder.anchor(
+            leading: navigationController!.navigationBar.leadingAnchor,
+            bottom: navigationController!.navigationBar.bottomAnchor,
+            trailing: navigationController!.navigationBar.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        
         let profileButton = UIBarButtonItem(
             image: UIImage(named: "profile"),
             style: .plain,

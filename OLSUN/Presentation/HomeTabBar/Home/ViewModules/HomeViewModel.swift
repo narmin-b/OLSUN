@@ -18,12 +18,10 @@ final class HomeViewModel {
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: HomeNavigation?
     weak var tabBarDelegate: HomeTabBarNavigation?
-    private var accountUseCase: AccountSessionUseCase
     
-    init(navigation: HomeNavigation, tabBarDelegate: HomeTabBarNavigation?, taskUseCase: AccountSessionUseCase) {
+    init(navigation: HomeNavigation, tabBarDelegate: HomeTabBarNavigation?) {
         self.navigation = navigation
         self.tabBarDelegate = tabBarDelegate
-        self.accountUseCase = taskUseCase
     }
     
     // MARK: Navigations
@@ -37,22 +35,5 @@ final class HomeViewModel {
     
     func showProfileScreen() {
         navigation?.showProfile()
-    }
-    
-    func deleteAccount() {
-        requestCallback?(.loading)
-        accountUseCase.deleteAccount { [weak self] dto, error in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                self.requestCallback?(.loaded)
-                Logger.debug("dto: \(dto ?? "No resp")")
-                
-                if dto != nil {
-                    self.requestCallback?(.success)
-                } else if let error = error {
-                    self.requestCallback?(.error(message: error))
-                }
-            }
-        }
     }
 }

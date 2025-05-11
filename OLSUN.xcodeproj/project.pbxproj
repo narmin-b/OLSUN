@@ -126,6 +126,10 @@
 		11BB9F322D8C959600008DD7 /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F312D8C959600008DD7 /* LaunchViewModel.swift */; };
 		11BB9F342D8C95A900008DD7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F332D8C95A900008DD7 /* SignUpViewController.swift */; };
 		11BB9F362D8C95B500008DD7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BB9F352D8C95B500008DD7 /* SignUpViewModel.swift */; };
+		11E0524C2DCFEDA9001F686A /* AccountSessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524B2DCFEDA2001F686A /* AccountSessionHelper.swift */; };
+		11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */; };
+		11E052502DCFEDBF001F686A /* AccountSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */; };
+		11E052522DCFF18A001F686A /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E052512DCFF188001F686A /* ConfirmationView.swift */; };
 		11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F41BA62DA557FF00C16224 /* CustomPageControl.swift */; };
 		11F41BAE2DA564FF00C16224 /* FuturicaL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */; };
 		11F41BAF2DA564FF00C16224 /* FuturicaB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */; };
@@ -265,6 +269,11 @@
 		11BB9F312D8C959600008DD7 /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
 		11BB9F332D8C95A900008DD7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		11BB9F352D8C95B500008DD7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		11E052492DCE6301001F686A /* OLSUN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OLSUN.entitlements; sourceTree = "<group>"; };
+		11E0524B2DCFEDA2001F686A /* AccountSessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionHelper.swift; sourceTree = "<group>"; };
+		11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionUseCase.swift; sourceTree = "<group>"; };
+		11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionAPIService.swift; sourceTree = "<group>"; };
+		11E052512DCFF188001F686A /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		11F41BA62DA557FF00C16224 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaB.ttf; sourceTree = "<group>"; };
 		11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaL.ttf; sourceTree = "<group>"; };
@@ -402,6 +411,7 @@
 				11B413BA2DCB9E45006FF14F /* NetworkCheck */,
 				11630EA82DB03CEF00C277AE /* Planning */,
 				1175A3C72DAE81B9003F5307 /* Guest */,
+				11E0524A2DCFED8E001F686A /* AccountSession */,
 				11529D792D95E49700AAD720 /* AuthSession */,
 				11529D702D95E02100AAD720 /* Core */,
 			);
@@ -492,6 +502,7 @@
 		1174DFA82DAAD26700DC1CCC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				11E052512DCFF188001F686A /* ConfirmationView.swift */,
 				1147AF122DABE9FE006D28CD /* MenuTableCell.swift */,
 			);
 			path = Views;
@@ -617,6 +628,7 @@
 		11A7E35E2D8B361500D82AF2 /* OLSUN */ = {
 			isa = PBXGroup;
 			children = (
+				11E052492DCE6301001F686A /* OLSUN.entitlements */,
 				11A7E36C2D8B364300D82AF2 /* App */,
 				11529D6F2D95E01500AAD720 /* Network */,
 				11A7E36F2D8B366A00D82AF2 /* Presentation */,
@@ -924,6 +936,16 @@
 			path = ViewModules;
 			sourceTree = "<group>";
 		};
+		11E0524A2DCFED8E001F686A /* AccountSession */ = {
+			isa = PBXGroup;
+			children = (
+				11E0524B2DCFEDA2001F686A /* AccountSessionHelper.swift */,
+				11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */,
+				11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */,
+			);
+			path = AccountSession;
+			sourceTree = "<group>";
+		};
 		11F41BB02DA5718400C16224 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,6 +1153,7 @@
 				11BB9F2C2D8C956E00008DD7 /* OnboardingViewController.swift in Sources */,
 				1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */,
 				116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */,
+				11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */,
 				11A7E38B2D8B37FD00D82AF2 /* ReusableButton.swift in Sources */,
 				11F41BB22DA5718E00C16224 /* DeviceSizeClass.swift in Sources */,
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,
@@ -1161,6 +1184,7 @@
 				11A7E38F2D8B381000D82AF2 /* ReusableTextField.swift in Sources */,
 				11B413CF2DCBFFCF006FF14F /* LocalizationManager.swift in Sources */,
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
+				11E0524C2DCFEDA9001F686A /* AccountSessionHelper.swift in Sources */,
 				1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
 				118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */,
@@ -1174,6 +1198,7 @@
 				110D7C442DA827A20090280D /* LoginDataModel.swift in Sources */,
 				1174DFBE2DAAD52D00DC1CCC /* GuestsViewController.swift in Sources */,
 				1147AF152DABF6B5006D28CD /* HomeTabBarNavigation.swift in Sources */,
+				11E052522DCFF18A001F686A /* ConfirmationView.swift in Sources */,
 				1147AF4A2DAC3EDE006D28CD /* AddTaskViewController.swift in Sources */,
 				11A7E3772D8B373600D82AF2 /* UserDefaultsHelper.swift in Sources */,
 				11BB9F2E2D8C957E00008DD7 /* OnboardingViewModel.swift in Sources */,
@@ -1182,6 +1207,7 @@
 				1147AF182DAC0055006D28CD /* ListTableCell.swift in Sources */,
 				11630EAB2DB03CF000C277AE /* PlanningAPIService.swift in Sources */,
 				11630EAA2DB03CF000C277AE /* PlanningUseCase.swift in Sources */,
+				11E052502DCFEDBF001F686A /* AccountSessionAPIService.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,
@@ -1237,6 +1263,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OLSUN/OLSUN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5V565SJ9S9;
@@ -1269,6 +1296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OLSUN/OLSUN.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5V565SJ9S9;

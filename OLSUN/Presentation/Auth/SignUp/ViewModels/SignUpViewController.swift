@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 final class SignUpViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -200,7 +201,7 @@ final class SignUpViewController: BaseViewController {
 
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 6
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         button.layer.masksToBounds = true
@@ -212,6 +213,19 @@ final class SignUpViewController: BaseViewController {
         let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
         button.setImage(resizedImage, for: .normal)
         
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
+        let button = ASAuthorizationAppleIDButton(type: .continue, style: .white)
+        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
+
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = true
+        button.addShadow()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -261,7 +275,7 @@ final class SignUpViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton, appleSignInButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -349,6 +363,15 @@ final class SignUpViewController: BaseViewController {
         )
         googleSignInButton.centerXToSuperview()
         googleSignInButton.anchorSize(.init(width: 0, height: 44))
+        
+        appleSignInButton.anchor(
+            top: googleSignInButton.bottomAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 12, left: 32, bottom: 0, right: -32)
+        )
+        appleSignInButton.centerXToSuperview()
+        appleSignInButton.anchorSize(.init(width: 0, height: 44))
     }
     
     private func configureViewModel() {
@@ -409,6 +432,17 @@ final class SignUpViewController: BaseViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func handleAppleLogin() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
     }
     
     fileprivate func removeErrorBorder() {
@@ -479,5 +513,45 @@ extension SignUpViewController: UITextFieldDelegate {
         if textField == passwordTextField {
             checkPassWordRequirements()
         }
+    }
+}
+
+extension SignUpViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let identityTokenData = appleIDCredential.identityToken,
+                  let identityToken = String(data: identityTokenData, encoding: .utf8) else {
+                Logger.debug("❌ Unable to parse identity token")
+                return
+            }
+
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+
+            Logger.debug("✅ Apple Sign In Success")
+            Logger.debug("User ID: \(userIdentifier)")
+            Logger.debug("Email: \(email ?? "N/A")")
+            Logger.debug("Token: \(identityToken)")
+
+            let appleUser = AppleUser(
+                id: userIdentifier,
+                name: fullName?.givenName ?? "",
+                email: email ?? "",
+                token: identityToken
+            )
+
+           print(appleUser)
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        Logger.debug("❌ Apple Sign In failed: \(error.localizedDescription)")
+    }
+}
+
+extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
     }
 }

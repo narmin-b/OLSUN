@@ -144,7 +144,7 @@ final class HomeViewController: BaseViewController {
             target: self,
             action: #selector(logOutTapped)
         )
-
+        
         let toggleLangButton = UIBarButtonItem(
             title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
             style: .plain,
@@ -153,7 +153,7 @@ final class HomeViewController: BaseViewController {
         )
         toggleLangButton.tintColor = .primaryHighlight
         logoutButton.tintColor = .primaryHighlight
-
+        
         navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
     }
     
@@ -168,6 +168,10 @@ final class HomeViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .success:
+                    self.viewModel?.showLaunchScreen()
+                    self.showMessage(title: OlsunStrings.updateSuccessText.rawValue, message: OlsunStrings.accDelete_Success.rawValue)
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
                 }
             }
         }
@@ -175,8 +179,26 @@ final class HomeViewController: BaseViewController {
     
     // MARK: Functions
     @objc private func logOutTapped() {
-        viewModel?.showLaunchScreen()
+        showDeleteAccountAlert()
         UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+    }
+    
+    func showDeleteAccountAlert() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        let confirmation = ConfirmationView(frame: window.bounds)
+        confirmation.onConfirm = {
+            self.viewModel?.deleteAccount()
+        }
+        confirmation.onCancel = {
+        }
+        
+        window.addSubview(confirmation)
     }
     
     @objc private func toggleLanguage() {

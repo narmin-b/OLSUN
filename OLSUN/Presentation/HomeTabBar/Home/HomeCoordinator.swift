@@ -31,7 +31,9 @@ final class HomeCoordinator: Coordinator {
     func start() {
         let controller = HomeViewController(
             viewModel: .init(
-                navigation: self, tabBarDelegate: tabBarDelegate
+                navigation: self,
+                tabBarDelegate: tabBarDelegate,
+                taskUseCase: AccountSessionAPIService()
             )
         )
         showController(vc: controller)

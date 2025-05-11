@@ -8,6 +8,7 @@
 import Foundation
 
 enum OlsunStrings: String {
+    case appleLoginText
     case bdayText
     case cancelButton
     case continueButton
@@ -67,6 +68,11 @@ enum OlsunStrings: String {
     case reLoginMessage
     case generalError_Message
     case jsonParsingError_Message
+    case optionalText
+    case accDelete_Message
+    case accDeleteTitle
+    case deleteButton
+    case accDelete_Success
 }
 
 extension OlsunStrings {

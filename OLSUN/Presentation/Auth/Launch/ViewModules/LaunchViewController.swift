@@ -136,7 +136,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var dateTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: ""
+            placeholder: OlsunStrings.optionalText.localized
         )
         
         let rightIcon = UIImageView(image: UIImage(systemName: "calendar"))
@@ -187,7 +187,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var genderTextfield: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: ""
+            placeholder:  OlsunStrings.optionalText.localized
         )
         
         let rightIcon = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill"))
@@ -541,7 +541,7 @@ final class LaunchViewController: BaseViewController {
         
         checkErrorBorders(name: username, partnerName: partnerName, bday: dateString)
         
-        if username.isValidName() && partnerName.isValidName() && dateString.isValidAge() {
+        if username.isValidName() && partnerName.isValidName() {
             let userInput = RegisterDataModel(
                 username: username,
                 gender: gender,
@@ -549,6 +549,7 @@ final class LaunchViewController: BaseViewController {
                 coupleGender: partnerGender,
                 bday: dateString
             )
+            print(userInput)
             viewModel?.createUser(user: userInput)
         }
     }
@@ -564,16 +565,16 @@ final class LaunchViewController: BaseViewController {
         } else {
             partnerNameTextField.borderOff()
         }
-        if !bday.isValidAge() {
-            dateTextField.errorBorderOn()
-        } else {
-            dateTextField.borderOff()
-        }
-        if genderTextfield.text?.isEmpty == true {
-            genderTextfield.errorBorderOn()
-        } else {
-            genderTextfield.borderOff()
-        }
+//        if !bday.isValidAge() {
+//            dateTextField.errorBorderOn()
+//        } else {
+//            dateTextField.borderOff()
+//        }
+//        if genderTextfield.text?.isEmpty == true {
+//            genderTextfield.errorBorderOn()
+//        } else {
+//            genderTextfield.borderOff()
+//        }
     }
     
     fileprivate func textfieldCleaning() {

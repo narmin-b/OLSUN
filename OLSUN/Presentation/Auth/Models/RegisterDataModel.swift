@@ -21,9 +21,9 @@ enum Auth: String {
 
 struct RegisterDataModel {
     var username: String
-    var gender: Gender
+    var gender: Gender?
     var coupleName: String
-    var coupleGender: Gender
+    var coupleGender: Gender?
     var email: String?
     var password: String?
     var bday: String?

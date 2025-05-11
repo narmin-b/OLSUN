@@ -409,6 +409,19 @@ extension UIView {
         self.layer.shadowRadius = 4
         self.layer.masksToBounds = false
     }
+    
+    func pinToEdges(of view: UIView) {
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: view.topAnchor),
+            bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
+    }
 }
 
 func printFonts() {

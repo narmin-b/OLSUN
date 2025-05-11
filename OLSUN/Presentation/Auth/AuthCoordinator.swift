@@ -66,7 +66,7 @@ extension AuthCoordinator: AuthNavigation {
     }
     
     func showOnboarding() {
-        let vc = OnboardingViewController(viewModel: .init(navigation: self))
+        let vc = OnboardingViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService()))
         showController(vc: vc)
     }
     

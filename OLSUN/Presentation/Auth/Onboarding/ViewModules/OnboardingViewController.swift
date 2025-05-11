@@ -327,6 +327,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         let isLastPage = pageIndex == (pages.count - 1)
         loginButton.isHidden = !isLastPage
         registerButton.isHidden = !isLastPage
+        guestButton.isHidden = !isLastPage
 
         nextButton.isHidden = isLastPage
     }

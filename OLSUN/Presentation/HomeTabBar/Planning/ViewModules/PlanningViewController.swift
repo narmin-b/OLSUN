@@ -132,6 +132,17 @@ final class PlanningViewController: BaseViewController {
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
         navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
+        
+        let profileButton = UIBarButtonItem(
+            image: UIImage(named: "profile"),
+            style: .plain,
+            target: self,
+            action: #selector(profileTabClicked)
+        )
+        
+        profileButton.tintColor = .primaryHighlight
+        
+        navigationItem.rightBarButtonItems = [profileButton]
     }
     
     private func configureViewModel() {
@@ -169,6 +180,10 @@ final class PlanningViewController: BaseViewController {
     
     @objc fileprivate func reloadPage() {
         viewModel?.refreshAllTasks()
+    }
+    
+    @objc private func profileTabClicked() {
+        viewModel?.showProfileScreen()
     }
 }
 

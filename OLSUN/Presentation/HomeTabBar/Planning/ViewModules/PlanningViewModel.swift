@@ -35,6 +35,10 @@ final class PlanningViewModel {
         navigation?.showAddTask()
     }
     
+    func showProfileScreen() {
+        navigation?.showProfile()
+    }
+    
     // MARK: Requests
     func getAllTasks() {
         requestCallback?(.loading)

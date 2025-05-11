@@ -1,13 +1,13 @@
 //
-//  GuestsViewController.swift
+//  UserProfileViewController.swift
 //  OLSUN
 //
-//  Created by Narmin Baghirova on 12.04.25.
+//  Created by Narmin Baghirova on 11.05.25.
 //
 
 import UIKit
 
-final class GuestsViewController: BaseViewController {
+final class UserProfileViewController: BaseViewController {
     // MARK: UI Elements
     private lazy var loadingView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
@@ -27,50 +27,50 @@ final class GuestsViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: OlsunStrings.guestsVC_Title.localized,
+            labelText: OlsunStrings.planningVC_Title.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
             numOfLines: 1
         )
+        label.accessibilityIdentifier = "planningTitleLabel"
         label.textAlignment = .left
-        label.accessibilityIdentifier = "guestsTitleLabel"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var addGuestButton: UIButton = {
+    private lazy var addTaskButton: UIButton = {
         let button = ReusableButton(
             title: "",
-            onAction: { [weak self] in self?.addGuestButtonTapped() },
+            onAction: { [weak self] in self?.addTaskButtonTapped() },
             bgColor: .clear,
         )
+        button.accessibilityIdentifier = "addTaskButton"
         let image = UIImage(systemName: "plus")
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = .primaryHighlight
-        button.accessibilityIdentifier = "addGuestButton"
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var tasksTableView: UITableView = {
-        let tableview = UITableView()
-        tableview.delegate = self
-        tableview.dataSource = self
-        tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
-        tableview.separatorStyle = .none
-        tableview.backgroundColor = .clear
-        tableview.refreshControl = refreshControl
-        tableview.accessibilityIdentifier = "guestsTableView"
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        return tableview
-    }()
+//    private lazy var tasksTableView: UITableView = {
+//        let tableview = UITableView()
+//        tableview.delegate = self
+//        tableview.dataSource = self
+//        tableview.register(ListTableCell.self, forCellReuseIdentifier: "TasksTableCell")
+//        tableview.separatorStyle = .none
+//        tableview.backgroundColor = .clear
+//        tableview.refreshControl = refreshControl
+//        tableview.accessibilityIdentifier = "tasksTableView"
+//        tableview.translatesAutoresizingMaskIntoConstraints = false
+//        return tableview
+//    }()
     
     // MARK: Configurations
-    private let viewModel: GuestsViewModel?
+    private let viewModel: UserProfileViewModel?
     
-    init(viewModel: GuestsViewModel) {
+    init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -84,9 +84,23 @@ final class GuestsViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel?.getAllGuests()
-    }
+        super.viewWillAppear(animated)
         
+        if let tabBarController = self.tabBarController as? TabBarController {
+            tabBarController.tabBar.isHidden = true
+            tabBarController.customTabBarView.isHidden = true
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let tabBarController = self.tabBarController as? TabBarController {
+            tabBarController.tabBar.isHidden = false
+            tabBarController.customTabBarView.isHidden = false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
@@ -97,8 +111,8 @@ final class GuestsViewController: BaseViewController {
     override func configureView() {
         configureNavigationBar()
         
-        view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, addGuestButton, tasksTableView)
+        view.backgroundColor = .red
+        view.addSubViews(loadingView, titleLabel, addTaskButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -110,20 +124,20 @@ final class GuestsViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
-        addGuestButton.anchor(
+        addTaskButton.anchor(
             trailing: view.trailingAnchor,
             padding: .init(all: 16)
         )
-        addGuestButton.anchorSize(.init(width: 32, height: 32))
-        addGuestButton.centerYToView(to: titleLabel)
+        addTaskButton.anchorSize(.init(width: 32, height: 32))
+        addTaskButton.centerYToView(to: titleLabel)
         
-        tasksTableView.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
-        )
+//        tasksTableView.anchor(
+//            top: titleLabel.bottomAnchor,
+//            leading: view.leadingAnchor,
+//            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+//            trailing: view.trailingAnchor,
+//            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
+//        )
     }
     
     fileprivate func configureNavigationBar() {
@@ -131,18 +145,7 @@ final class GuestsViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: OlsunStrings.guestText.localized)
-        
-        let profileButton = UIBarButtonItem(
-            image: UIImage(named: "profile"),
-            style: .plain,
-            target: self,
-            action: #selector(profileTabClicked)
-        )
-        
-        profileButton.tintColor = .primaryHighlight
-        
-        navigationItem.rightBarButtonItems = [profileButton]
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
     }
     
     private func configureViewModel() {
@@ -161,7 +164,7 @@ final class GuestsViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.refreshControl.endRefreshing()
-                    self.tasksTableView.reloadData()
+//                    self.tasksTableView.reloadData()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -170,55 +173,15 @@ final class GuestsViewController: BaseViewController {
     }
     
     // MARK: Functions
-    @objc fileprivate func addGuestButtonTapped() {
+    @objc fileprivate func addTaskButtonTapped() {
         if NetworkMonitor.shared.isConnected {
-            viewModel?.showAddGuestVC()
+//            viewModel?.showAddTaskVC()
         } else {
             self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
         }
     }
     
     @objc fileprivate func reloadPage() {
-        viewModel?.refreshAllGuests()
-    }
-    
-    @objc private func profileTabClicked() {
-        viewModel?.showProfileScreen()
-    }
-}
-
-extension GuestsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel?.guestList.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TasksTableCell", for: indexPath) as? ListTableCell else {
-            return UITableViewCell()
-        }
-        cell.configure(with: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0), itemName: .guest)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 12
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let spacer = UIView()
-        spacer.backgroundColor = .clear
-        return spacer
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.guestSelected(guestItem: viewModel?.guestList[indexPath.section] ?? ListCellProtocol(titleString: "", dateString: "", statusString: .accepted, idInt: 0))
+//        viewModel?.refreshAllTasks()
     }
 }

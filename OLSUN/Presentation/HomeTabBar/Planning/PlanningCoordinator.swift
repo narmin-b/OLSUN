@@ -32,7 +32,12 @@ final class PlanningCoordinator: Coordinator {
     }
 }
 
-extension PlanningCoordinator: PlanningNavigation {
+extension PlanningCoordinator: PlanningNavigation, UserProfileNavigation {
+    func showProfile() {
+        let vc = UserProfileViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
+    }
+    
     func popController() {
         popControllerBack()
     }

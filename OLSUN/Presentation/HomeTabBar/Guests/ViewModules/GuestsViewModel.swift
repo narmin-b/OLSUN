@@ -35,6 +35,10 @@ final class GuestsViewModel {
         navigation?.showAddGuest()
     }
     
+    func showProfileScreen() {
+        navigation?.showProfile()
+    }
+    
     // MARK: Requests
     func getAllGuests() {
         requestCallback?(.loading)

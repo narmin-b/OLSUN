@@ -138,11 +138,11 @@ final class HomeViewController: BaseViewController {
         let logoItem = UIBarButtonItem(customView: imageView)
         navigationItem.leftBarButtonItem = logoItem
         
-        let logoutButton = UIBarButtonItem(
-            image: UIImage(systemName: "iphone.and.arrow.right.outward"),
+        let profileButton = UIBarButtonItem(
+            image: UIImage(named: "profile"),
             style: .plain,
             target: self,
-            action: #selector(logOutTapped)
+            action: #selector(profileTabClicked)
         )
         
         let toggleLangButton = UIBarButtonItem(
@@ -152,9 +152,9 @@ final class HomeViewController: BaseViewController {
             action: #selector(toggleLanguage)
         )
         toggleLangButton.tintColor = .primaryHighlight
-        logoutButton.tintColor = .primaryHighlight
+        profileButton.tintColor = .primaryHighlight
         
-        navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
+        navigationItem.rightBarButtonItems = [profileButton, toggleLangButton]
     }
     
     private func configureViewModel() {
@@ -178,6 +178,10 @@ final class HomeViewController: BaseViewController {
     }
     
     // MARK: Functions
+    @objc private func profileTabClicked() {
+        viewModel?.showProfileScreen()
+    }
+    
     @objc private func logOutTapped() {
         showDeleteAccountAlert()
         UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)

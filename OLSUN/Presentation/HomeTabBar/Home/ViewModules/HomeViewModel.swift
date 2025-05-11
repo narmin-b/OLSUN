@@ -35,6 +35,10 @@ final class HomeViewModel {
         navigation?.showAuth()
     }
     
+    func showProfileScreen() {
+        navigation?.showProfile()
+    }
+    
     func deleteAccount() {
         requestCallback?(.loading)
         accountUseCase.deleteAccount { [weak self] dto, error in

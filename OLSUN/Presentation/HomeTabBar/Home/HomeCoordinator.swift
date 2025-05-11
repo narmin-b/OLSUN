@@ -40,7 +40,12 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
-extension HomeCoordinator: HomeNavigation {
+extension HomeCoordinator: HomeNavigation, UserProfileNavigation {
+    func showProfile() {
+        let vc = UserProfileViewController(viewModel: .init(navigation: self))
+        showController(vc: vc)
+    }
+    
     func showAuth() {
         delegate?.homeDidFinish()
         

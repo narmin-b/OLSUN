@@ -130,6 +130,10 @@
 		11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */; };
 		11E052502DCFEDBF001F686A /* AccountSessionAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */; };
 		11E052522DCFF18A001F686A /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E052512DCFF188001F686A /* ConfirmationView.swift */; };
+		11E052572DD1022E001F686A /* UserProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E052562DD10226001F686A /* UserProfileCoordinator.swift */; };
+		11E052592DD1023A001F686A /* UserProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E052582DD10233001F686A /* UserProfileNavigation.swift */; };
+		11E0525B2DD10274001F686A /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */; };
+		11E0525D2DD1027F001F686A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E0525C2DD10278001F686A /* UserProfileViewController.swift */; };
 		11F41BA72DA557FF00C16224 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F41BA62DA557FF00C16224 /* CustomPageControl.swift */; };
 		11F41BAE2DA564FF00C16224 /* FuturicaL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */; };
 		11F41BAF2DA564FF00C16224 /* FuturicaB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */; };
@@ -274,6 +278,10 @@
 		11E0524D2DCFEDAB001F686A /* AccountSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionUseCase.swift; sourceTree = "<group>"; };
 		11E0524F2DCFEDB5001F686A /* AccountSessionAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSessionAPIService.swift; sourceTree = "<group>"; };
 		11E052512DCFF188001F686A /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
+		11E052562DD10226001F686A /* UserProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCoordinator.swift; sourceTree = "<group>"; };
+		11E052582DD10233001F686A /* UserProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNavigation.swift; sourceTree = "<group>"; };
+		11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		11E0525C2DD10278001F686A /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		11F41BA62DA557FF00C16224 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		11F41BAC2DA564FF00C16224 /* FuturicaB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaB.ttf; sourceTree = "<group>"; };
 		11F41BAD2DA564FF00C16224 /* FuturicaL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturicaL.ttf; sourceTree = "<group>"; };
@@ -486,6 +494,7 @@
 				1174DFA52DAAD23D00DC1CCC /* HomeCoordinator.swift */,
 				1174DFA72DAAD25300DC1CCC /* ViewModules */,
 				1174DFA82DAAD26700DC1CCC /* Views */,
+				11E052532DD101BA001F686A /* SubPages */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -946,6 +955,33 @@
 			path = AccountSession;
 			sourceTree = "<group>";
 		};
+		11E052532DD101BA001F686A /* SubPages */ = {
+			isa = PBXGroup;
+			children = (
+				11E052542DD10203001F686A /* UserProfile */,
+			);
+			path = SubPages;
+			sourceTree = "<group>";
+		};
+		11E052542DD10203001F686A /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				11E052582DD10233001F686A /* UserProfileNavigation.swift */,
+				11E052562DD10226001F686A /* UserProfileCoordinator.swift */,
+				11E052552DD1021B001F686A /* ViewModules */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		11E052552DD1021B001F686A /* ViewModules */ = {
+			isa = PBXGroup;
+			children = (
+				11E0525C2DD10278001F686A /* UserProfileViewController.swift */,
+				11E0525A2DD1026E001F686A /* UserProfileViewModel.swift */,
+			);
+			path = ViewModules;
+			sourceTree = "<group>";
+		};
 		11F41BB02DA5718400C16224 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1154,6 +1190,7 @@
 				1174DFBA2DAAD51400DC1CCC /* PlanningViewController.swift in Sources */,
 				116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */,
 				11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */,
+				11E0525B2DD10274001F686A /* UserProfileViewModel.swift in Sources */,
 				11A7E38B2D8B37FD00D82AF2 /* ReusableButton.swift in Sources */,
 				11F41BB22DA5718E00C16224 /* DeviceSizeClass.swift in Sources */,
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,
@@ -1182,14 +1219,17 @@
 				11A7E3A02D8B3A9C00D82AF2 /* LoginViewModel.swift in Sources */,
 				11A7E38D2D8B380600D82AF2 /* ReusableLabel.swift in Sources */,
 				11A7E38F2D8B381000D82AF2 /* ReusableTextField.swift in Sources */,
+				11E052572DD1022E001F686A /* UserProfileCoordinator.swift in Sources */,
 				11B413CF2DCBFFCF006FF14F /* LocalizationManager.swift in Sources */,
 				11529D782D95E34700AAD720 /* RegisterDataModel.swift in Sources */,
+				11E052592DD1023A001F686A /* UserProfileNavigation.swift in Sources */,
 				11E0524C2DCFEDA9001F686A /* AccountSessionHelper.swift in Sources */,
 				1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
 				118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */,
 				118AFB9C2DAD9F0C00FAC4F0 /* AddGuestViewController.swift in Sources */,
 				11273A462DAE898200E2FB47 /* ListCellProtocol.swift in Sources */,
+				11E0525D2DD1027F001F686A /* UserProfileViewController.swift in Sources */,
 				1174DFB12DAAD31600DC1CCC /* GuestsCoordinator.swift in Sources */,
 				1147AF462DAC3ECA006D28CD /* TaskViewController.swift in Sources */,
 				11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */,

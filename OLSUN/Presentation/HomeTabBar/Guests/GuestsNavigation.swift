@@ -14,4 +14,5 @@ protocol GuestsNavigation: AnyObject {
     func showAddGuest()
     func popController()
     func popTwoControllersBack()
+    func showProfile()
 }

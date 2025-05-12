@@ -511,6 +511,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "launchMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1207,6 +1210,9 @@
           }
         }
       }
+    },
+    "usernameText" : {
+      "extractionState" : "manual"
     }
   },
   "version" : "1.0"

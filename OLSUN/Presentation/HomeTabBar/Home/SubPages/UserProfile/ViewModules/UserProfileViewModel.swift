@@ -19,7 +19,7 @@ final class UserProfileViewModel {
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: UserProfileNavigation?
     private var accountUseCase: AccountSessionUseCase
-    private var user: UserInfoDataModel = UserInfoDataModel(username: "")
+    var user: UserInfoDataModel = UserInfoDataModel(username: "")
     
     init(navigation: UserProfileNavigation, accountUseCase: AccountSessionUseCase) {
         self.navigation = navigation

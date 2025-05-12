@@ -51,7 +51,7 @@ final class UserProfileViewController: BaseViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
         tableView.separatorInset = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: -16)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -86,12 +86,8 @@ final class UserProfileViewController: BaseViewController {
     private let viewModel: UserProfileViewModel?
     private var bottomBorder: UIView?
     weak var logoutDelegate: UserProfileDelegate?
-    
-    private let data: [(title: String, value: String)] = [
-            ("Adınız", "Eldar"),
-            ("Cins", "Kişi"),
-            ("Yaş", "24")
-        ]
+    var userInfo: UserInfoDataModel?
+    var data: [ProfileInfoDisplayItem] = []
     
     init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -113,6 +109,9 @@ final class UserProfileViewController: BaseViewController {
             tabBarController.tabBar.isHidden = true
             tabBarController.customTabBarView.isHidden = true
         }
+        
+        viewModel?.getUserInfo()
+//        let data = viewModel?.user.toDisplayItems()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -130,11 +129,12 @@ final class UserProfileViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
-        userInfoTableView.tableFooterView = UIView()
-        userInfoTableView.tableHeaderView = UIView()
+        //        userInfoTableView.tableFooterView = UIView()
+//        userInfoTableView.tableHeaderView = UIView()
         Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
         
-        viewModel?.getUserInfo()
+        userInfoTableView.reloadData()
+
     }
     
     override func configureView() {
@@ -164,7 +164,7 @@ final class UserProfileViewController: BaseViewController {
         )
         
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
-
+        
         logoutButton.anchor(
             leading: view.leadingAnchor,
             bottom: deleteAccountButton.topAnchor,
@@ -221,7 +221,11 @@ final class UserProfileViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.refreshControl.endRefreshing()
-                    self.userInfoTableView.reloadData()
+//                    self.userInfoTableView.reloadData()
+                    if let user = self.viewModel?.user {
+                        self.data = user.toDisplayItems()
+                        self.userInfoTableView.reloadData()
+                    }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -230,30 +234,30 @@ final class UserProfileViewController: BaseViewController {
     }
     
     // MARK: Functions
-      func showDeleteAccountAlert() {
-          guard let window = UIApplication.shared.connectedScenes
-              .compactMap({ $0 as? UIWindowScene })
-              .first?.windows
-              .first(where: { $0.isKeyWindow }) else {
-              return
-          }
-          
-          let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
-          confirmation.configure(
+    func showDeleteAccountAlert() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
+        confirmation.configure(
             title: OlsunStrings.confirmationTitle.localized,
             message: OlsunStrings.accDelete_Message.localized,
             confirmButtonTitle: OlsunStrings.accDeleteWarningButton.localized,
             cancelButtonTitle: OlsunStrings.cancelButton.localized
-          )
-          confirmation.onConfirm = {
-              self.viewModel?.deleteAccount()
-              UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
-          }
-          confirmation.onCancel = {
-          }
-          
-          window.addSubview(confirmation)
-      }
+        )
+        confirmation.onConfirm = {
+            self.viewModel?.deleteAccount()
+            UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+        }
+        confirmation.onCancel = {
+        }
+        
+        window.addSubview(confirmation)
+    }
     
     func showLogoutAlert() {
         guard let window = UIApplication.shared.connectedScenes
@@ -265,10 +269,10 @@ final class UserProfileViewController: BaseViewController {
         
         let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
         confirmation.configure(
-          title: OlsunStrings.confirmationTitle.localized,
-          message: OlsunStrings.logoutAcc_Message.localized,
-          confirmButtonTitle: OlsunStrings.logoutConfirmButton.localized,
-          cancelButtonTitle: OlsunStrings.cancelButton.localized
+            title: OlsunStrings.confirmationTitle.localized,
+            message: OlsunStrings.logoutAcc_Message.localized,
+            confirmButtonTitle: OlsunStrings.logoutConfirmButton.localized,
+            cancelButtonTitle: OlsunStrings.cancelButton.localized
         )
         confirmation.onConfirm = {
             self.logoutDelegate?.didRequestLogout()
@@ -282,7 +286,7 @@ final class UserProfileViewController: BaseViewController {
     
     @objc fileprivate func editProfileButtonTapped() {
         if NetworkMonitor.shared.isConnected {
-//            viewModel?.showAddTaskVC()
+            //            viewModel?.showAddTaskVC()
         } else {
             self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
         }
@@ -302,17 +306,17 @@ final class UserProfileViewController: BaseViewController {
 
 extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return data.count
-       }
-
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoCell.identifier, for: indexPath) as? ProfileInfoCell else {
-               return UITableViewCell()
-           }
-
-           let item = data[indexPath.row]
-           cell.selectionStyle = .none
-           cell.configure(title: item.title, value: item.value, showSeparator: indexPath.row != data.count - 1)
-           return cell
-       }
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoCell.identifier, for: indexPath) as? ProfileInfoCell else {
+            return UITableViewCell()
+        }
+        
+        let item = data[indexPath.row]
+        cell.selectionStyle = .none
+        cell.configure(title: item.title, value: item.value, showSeparator: indexPath.row != data.count - 1)
+        return cell
+    }
 }

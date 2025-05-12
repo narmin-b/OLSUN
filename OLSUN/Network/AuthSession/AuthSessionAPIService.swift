@@ -19,9 +19,9 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             header: ["Content-Type" : "application/json"],
             body: [
                 "username" : user.username,
-                "gender" : user.gender!.rawValue,
+                "gender" : user.gender?.rawValue,
                 "coupleName" : user.coupleName,
-                "coupleGender" : user.coupleGender!.rawValue,
+                "coupleGender" : user.coupleGender?.rawValue,
                 "email": user.email ?? "",
                 "password" : user.password ?? "",
                 "bday" : user.bday ?? "",

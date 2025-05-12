@@ -12,5 +12,22 @@ struct UserInfoDataModel: Codable {
     var coupleName: String?
     var gender: Gender?
     var email: String?
-    var age: String?
+    var bday: String?
+}
+
+struct ProfileInfoDisplayItem {
+    let title: String
+    let value: String
+}
+
+extension UserInfoDataModel {
+    func toDisplayItems() -> [ProfileInfoDisplayItem] {
+        return [
+            ProfileInfoDisplayItem(title: OlsunStrings.nameText.localized, value: username),
+            ProfileInfoDisplayItem(title: OlsunStrings.partnerNameText.localized, value: coupleName ?? "-"),
+            ProfileInfoDisplayItem(title: OlsunStrings.gendertext.localized, value: gender?.rawValue.capitalized ?? "-"),
+            ProfileInfoDisplayItem(title: OlsunStrings.emailText.localized, value: email ?? "-"),
+            ProfileInfoDisplayItem(title: OlsunStrings.bdayText.localized, value: bday ?? "-")
+        ]
+    }
 }

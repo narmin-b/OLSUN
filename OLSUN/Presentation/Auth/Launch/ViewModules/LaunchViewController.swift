@@ -529,8 +529,8 @@ final class LaunchViewController: BaseViewController {
         let dateString = dateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let genderString = genderTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
         
-        var gender: Gender = .female
-        var partnerGender: Gender = .male
+        var gender: Gender?
+        var partnerGender: Gender?
         if genderString == "qadın" {
             gender = .female
             partnerGender = .male

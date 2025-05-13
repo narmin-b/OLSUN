@@ -43,7 +43,6 @@ final class UserDefaultsHelper {
         defaults.synchronize()
     }
     
-    
     // MARK: Getters
     
     static func getObject(key: UserDefaultsKey) -> AnyObject? {

@@ -7,8 +7,14 @@
 
 import Foundation
 
+enum LoginType: String {
+    case user
+    case guest
+}
+
 enum UserDefaultsKey: String {
     case isLoggedIn
     case appLanguage
+    case loginType
 }
 

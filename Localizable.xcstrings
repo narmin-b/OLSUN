@@ -307,6 +307,23 @@
         }
       }
     },
+    "guestButtonText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qonaq kimi davam et"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue as a Guest"
+          }
+        }
+      }
+    },
     "guestDelete_Message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -510,9 +527,6 @@
           }
         }
       }
-    },
-    "Key" : {
-      "extractionState" : "manual"
     },
     "launchMessage" : {
       "extractionState" : "manual",
@@ -1210,9 +1224,6 @@
           }
         }
       }
-    },
-    "usernameText" : {
-      "extractionState" : "manual"
     }
   },
   "version" : "1.0"

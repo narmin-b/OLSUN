@@ -86,9 +86,9 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        
+
         homeImageView.loadImage(named: "homeImage.png")
-        print(KeychainHelper.getString(key: .userID) ?? "")
+        Logger.debug("\(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
     override func configureView() {

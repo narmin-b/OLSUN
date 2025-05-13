@@ -35,7 +35,7 @@ final class UserProfileViewController: BaseViewController {
             onAction: { [weak self] in self?.editProfileButtonTapped() },
             bgColor: .clear,
         )
-        button.accessibilityIdentifier = "addTaskButton"
+        button.accessibilityIdentifier = "editProfileButton"
         let image = UIImage(named: "editProfile")
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
@@ -111,7 +111,6 @@ final class UserProfileViewController: BaseViewController {
         }
         
         viewModel?.getUserInfo()
-//        let data = viewModel?.user.toDisplayItems()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,11 +127,8 @@ final class UserProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        
-        //        userInfoTableView.tableFooterView = UIView()
-//        userInfoTableView.tableHeaderView = UIView()
+      
         Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
-        
         userInfoTableView.reloadData()
 
     }

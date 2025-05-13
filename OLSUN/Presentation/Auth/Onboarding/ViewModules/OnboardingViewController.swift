@@ -52,7 +52,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private lazy var guestButton: UIButton = {
         let button = UIButton(type: .system)
-        let title = "Qonaq kimi davam et"
+        let title = OlsunStrings.guestButtonText.localized
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
             .underlineStyle: NSUnderlineStyle.single.rawValue,

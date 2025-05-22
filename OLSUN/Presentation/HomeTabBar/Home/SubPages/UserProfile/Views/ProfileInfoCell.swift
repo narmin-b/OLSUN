@@ -19,6 +19,8 @@ class ProfileInfoCell: UITableViewCell {
             labelSize: 16,
             numOfLines: 1
         )
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
 
@@ -31,11 +33,14 @@ class ProfileInfoCell: UITableViewCell {
             numOfLines: 1
         )
         label.textAlignment = .right
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
-
+    
     private lazy var stackView: UIStackView = {
         let sv = UIStackView()
+        sv.spacing = 4
         sv.axis = .horizontal
         sv.distribution = .equalSpacing
         sv.translatesAutoresizingMaskIntoConstraints = false

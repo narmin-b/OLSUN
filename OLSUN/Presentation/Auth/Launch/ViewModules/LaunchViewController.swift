@@ -246,7 +246,7 @@ final class LaunchViewController: BaseViewController {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 20
+        view.spacing = DeviceSizeClass.current == .compact ? 12 : 20
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -402,7 +402,8 @@ final class LaunchViewController: BaseViewController {
         launchImage.anchorSize(.init(width: 0, height: height))
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-
+        let betweenDist: CGFloat = DeviceSizeClass.current == .compact ? 6 : 8
+        
         let nameContainer = UIView()
         nameContainer.addSubViews(nameLabel, nameTextField)
         nameLabel.anchor(
@@ -415,7 +416,7 @@ final class LaunchViewController: BaseViewController {
             top: nameLabel.bottomAnchor,
             leading: nameContainer.leadingAnchor,
             bottom: nameContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         nameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(nameContainer)
@@ -432,7 +433,7 @@ final class LaunchViewController: BaseViewController {
             top: partnerNameLabel.bottomAnchor,
             leading: partnerNameContainer.leadingAnchor,
             bottom: partnerNameContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         partnerNameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(partnerNameContainer)
@@ -449,7 +450,7 @@ final class LaunchViewController: BaseViewController {
             top: dateLabel.bottomAnchor,
             leading: dateContainer.leadingAnchor,
             bottom: dateContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         dateTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(dateContainer)
@@ -466,7 +467,7 @@ final class LaunchViewController: BaseViewController {
             top: genderLabel.bottomAnchor,
             leading: genderContainer.leadingAnchor,
             bottom: genderContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         genderTextfield.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(genderContainer)

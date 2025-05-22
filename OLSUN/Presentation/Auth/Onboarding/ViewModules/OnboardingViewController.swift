@@ -174,7 +174,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         nextButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         nextButton.centerXToSuperview()
         
-        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -24 : -80
+        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -60 : -80
         loginButton.anchor(
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,

@@ -84,7 +84,8 @@ final class ListTableCell: UITableViewCell {
         titleLabel.anchor(
             top: topAnchor,
             leading: leadingAnchor,
-            padding: .init(top: 16, left: 24, bottom: 0, right: 0)
+            trailing: iconImageView.leadingAnchor,
+            padding: .init(top: 16, left: 24, bottom: 0, right: -12)
         )
         deadlineLabel.anchor(
             top: titleLabel.bottomAnchor,

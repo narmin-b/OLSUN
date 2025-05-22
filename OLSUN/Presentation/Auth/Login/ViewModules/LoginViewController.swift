@@ -260,10 +260,11 @@ final class LoginViewController: BaseViewController {
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
         let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
         
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
         emailLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 60, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,

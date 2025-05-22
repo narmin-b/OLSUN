@@ -287,16 +287,17 @@ final class SignUpViewController: BaseViewController {
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: 24)
+            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
         )
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
         let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
         
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
         emailLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 60, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,
@@ -327,7 +328,35 @@ final class SignUpViewController: BaseViewController {
             padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
         
-        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 48
+//        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+//        loginButton.anchor(
+//            top: passwordTextField.bottomAnchor,
+//            
+//            padding: .init(all: 44)
+//        )
+//        loginButton.centerXToSuperview()
+//        loginButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
+//        
+//        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 68
+//        seperatorStackView.centerXToSuperview()
+//        seperatorStackView.anchorSize(.init(width: 0, height: 20))
+//        seperatorStackView.anchor(
+//            top: loginButton.bottomAnchor,
+//            leading: view.leadingAnchor,
+//            trailing: view.trailingAnchor,
+//            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
+//        )
+//        orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+//        orLabel.centerYToView(to: seperatorStackView)
+//        line1View.centerYToView(to: seperatorStackView)
+//        line2View.centerYToView(to: seperatorStackView)
+//        
+//        NSLayoutConstraint.activate([
+//            line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
+//            line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
+//        ])
+//        
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         signupButton.anchor(
             top: passwordRequirementsStack.bottomAnchor,
             padding: .init(all: 44)
@@ -335,7 +364,7 @@ final class SignUpViewController: BaseViewController {
         signupButton.centerXToSuperview()
         signupButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         
-        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 88
+        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 88
         seperatorStackView.centerXToSuperview()
         seperatorStackView.anchorSize(.init(width: 0, height: 20))
         seperatorStackView.anchor(

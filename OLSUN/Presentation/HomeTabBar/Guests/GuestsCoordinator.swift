@@ -8,7 +8,11 @@
 import Foundation
 import UIKit.UINavigationController
 
-final class GuestsCoordinator: Coordinator {
+final class GuestsCoordinator: Coordinator, HomeNavigation {
+    func showAuth() {
+        //
+    }
+    
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController

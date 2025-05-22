@@ -17,15 +17,17 @@ enum Auth: String, Codable {
     case local = "LOCAL"
     case google = "GOOGLE"
     case guest = "GUEST"
+    case apple = "APPLE"
 }
 
 struct RegisterDataModel: Codable {
-    var username: String
+    var username: String?
     var gender: Gender?
-    var coupleName: String
+    var coupleName: String?
     var coupleGender: Gender?
     var email: String?
     var password: String?
     var bday: String?
     var auth: Auth?
+    var appleId: String?
 }

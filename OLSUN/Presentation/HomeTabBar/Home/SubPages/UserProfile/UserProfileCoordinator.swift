@@ -8,7 +8,15 @@
 import Foundation
 import UIKit.UINavigationController
 
-final class UserProfileCoordinator: Coordinator {
+final class UserProfileCoordinator: Coordinator, HomeNavigation {
+    func showAuth() {
+        //
+    }
+    
+    func showProfile() {
+        //
+    }
+    
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController

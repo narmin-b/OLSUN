@@ -156,7 +156,11 @@ final class GuestsViewController: BaseViewController {
         
         profileButton.tintColor = .primaryHighlight
         
-        navigationItem.rightBarButtonItems = [profileButton]
+        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+            navigationItem.rightBarButtonItems = []
+        } else {
+            navigationItem.rightBarButtonItems = [profileButton]
+        }
     }
     
     private func configureViewModel() {
@@ -186,7 +190,12 @@ final class GuestsViewController: BaseViewController {
     // MARK: Functions
     @objc fileprivate func addGuestButtonTapped() {
         if NetworkMonitor.shared.isConnected {
-            viewModel?.showAddGuestVC()
+            let loginType = UserDefaultsHelper.getString(key: .loginType)
+            if loginType == "guest" {
+                checkGuestAttempts()
+            } else {
+                viewModel?.showAddGuestVC()
+            }
         } else {
             self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
         }
@@ -198,6 +207,14 @@ final class GuestsViewController: BaseViewController {
     
     @objc private func profileTabClicked() {
         viewModel?.showProfileScreen()
+    }
+    
+    fileprivate func checkGuestAttempts() {
+        if viewModel?.guestList.count ?? 0 >= 2 {
+            showMessage(title: OlsunStrings.warningText.localized, message: OlsunStrings.guestAttemptLimit_Message.localized)
+        } else {
+            viewModel?.showAddGuestVC()
+        }
     }
 }
 

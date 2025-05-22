@@ -167,14 +167,19 @@ extension UIViewController {
     func showMessage(
         title: String = "",
         message: String = "",
-        actionTitle: String = "OK"
+        actionTitle: String = "OK",
+        completion: (() -> Void)? = nil
     ) {
         let alert = UIAlertController(
             title: title,
             message: message,
-            preferredStyle: UIAlertController.Style.alert
+            preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default, handler: nil))
+
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion?()
+        })
+
         self.present(alert, animated: true, completion: nil)
     }
 }

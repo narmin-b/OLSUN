@@ -311,8 +311,12 @@ final class LaunchViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    self.viewModel?.backToOnboarding()
-                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.registerSuccess_Message.localized)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.registerSuccess_Message.localized
+                    ) {
+                        self.viewModel?.backToOnboarding()
+                    }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -565,16 +569,6 @@ final class LaunchViewController: BaseViewController {
         } else {
             partnerNameTextField.borderOff()
         }
-//        if !bday.isValidAge() {
-//            dateTextField.errorBorderOn()
-//        } else {
-//            dateTextField.borderOff()
-//        }
-//        if genderTextfield.text?.isEmpty == true {
-//            genderTextfield.errorBorderOn()
-//        } else {
-//            genderTextfield.borderOff()
-//        }
     }
     
     fileprivate func textfieldCleaning() {

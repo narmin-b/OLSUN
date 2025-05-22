@@ -89,6 +89,7 @@
 		11A7E3952D8B39D200D82AF2 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3942D8B39D200D82AF2 /* AuthCoordinator.swift */; };
 		11A7E39E2D8B3A8800D82AF2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E39D2D8B3A8800D82AF2 /* LoginViewController.swift */; };
 		11A7E3A02D8B3A9C00D82AF2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E39F2D8B3A9C00D82AF2 /* LoginViewModel.swift */; };
+		11AE561D2DD6456300843BCF /* GuestLoginDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE561C2DD6455400843BCF /* GuestLoginDataModel.swift */; };
 		11B4136E2DC28A9E006FF14F /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4136D2DC28A89006FF14F /* SignUpViewModelTests.swift */; };
 		11B413702DC3D9A1006FF14F /* HomeViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4136F2DC3D999006FF14F /* HomeViewControllerUITests.swift */; };
 		11B413722DC3E983006FF14F /* PlanningViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413712DC3E978006FF14F /* PlanningViewControllerUITests.swift */; };
@@ -102,6 +103,7 @@
 		11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */; };
 		11B413CF2DCBFFCF006FF14F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */; };
 		11B677082DAFE8D700B42579 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */; };
+		11B938AF2DD3D94B005C2C23 /* AppleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B938AE2DD3D949005C2C23 /* AppleHelper.swift */; };
 		11BB9E352D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */; };
 		11BB9E382D8C8F4E00008DD7 /* WorkSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */; };
 		11BB9E3A2D8C8F4E00008DD7 /* WorkSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */; };
@@ -239,6 +241,7 @@
 		11A7E3942D8B39D200D82AF2 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		11A7E39D2D8B3A8800D82AF2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		11A7E39F2D8B3A9C00D82AF2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		11AE561C2DD6455400843BCF /* GuestLoginDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestLoginDataModel.swift; sourceTree = "<group>"; };
 		11B4136D2DC28A89006FF14F /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
 		11B4136F2DC3D999006FF14F /* HomeViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerUITests.swift; sourceTree = "<group>"; };
 		11B413712DC3E978006FF14F /* PlanningViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewControllerUITests.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 		11B413CB2DCBF72F006FF14F /* OlsunStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OlsunStrings.swift; sourceTree = "<group>"; };
 		11B413CE2DCBFFC9006FF14F /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		11B677072DAFE8D700B42579 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		11B938AE2DD3D949005C2C23 /* AppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleHelper.swift; sourceTree = "<group>"; };
 		11BB9E232D8C8F4E00008DD7 /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		11BB9E272D8C8F4E00008DD7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
 		11BB9E2A2D8C8F4E00008DD7 /* WorkSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Light.ttf"; sourceTree = "<group>"; };
@@ -825,6 +829,7 @@
 		11A7E3992D8B39F700D82AF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11AE561C2DD6455400843BCF /* GuestLoginDataModel.swift */,
 				116248662DC13BC400DFFA01 /* EmailOrTokenDataModel.swift */,
 				11529D772D95E34700AAD720 /* RegisterDataModel.swift */,
 				110D7C432DA827A20090280D /* LoginDataModel.swift */,
@@ -1007,6 +1012,7 @@
 		11F41BB02DA5718400C16224 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				11B938AE2DD3D949005C2C23 /* AppleHelper.swift */,
 				1174DFC12DAAE54A00DC1CCC /* GoogleHelper.swift */,
 				11F41BB12DA5718E00C16224 /* DeviceSizeClass.swift */,
 			);
@@ -1213,6 +1219,7 @@
 				116248672DC13BCC00DFFA01 /* EmailOrTokenDataModel.swift in Sources */,
 				11E0524E2DCFEDB2001F686A /* AccountSessionUseCase.swift in Sources */,
 				11E0525B2DD10274001F686A /* UserProfileViewModel.swift in Sources */,
+				11B938AF2DD3D94B005C2C23 /* AppleHelper.swift in Sources */,
 				11A7E38B2D8B37FD00D82AF2 /* ReusableButton.swift in Sources */,
 				11F41BB22DA5718E00C16224 /* DeviceSizeClass.swift in Sources */,
 				11529D762D95E05400AAD720 /* CoreErrorModel.swift in Sources */,
@@ -1274,6 +1281,7 @@
 				11E052502DCFEDBF001F686A /* AccountSessionAPIService.swift in Sources */,
 				11365C962D93209B0004A3F4 /* MeltingCircleBackgroundView.swift in Sources */,
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
+				11AE561D2DD6456300843BCF /* GuestLoginDataModel.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,
 				1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */,
 				11A7E37F2D8B376E00D82AF2 /* LayoutExtensions.swift in Sources */,

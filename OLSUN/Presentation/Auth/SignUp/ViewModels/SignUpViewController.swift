@@ -388,6 +388,14 @@ final class SignUpViewController: BaseViewController {
                     self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .registerSuccess:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.registerSuccess_Message.localized
+                    ) {
+                        self.viewModel?.showHomeTabBar()
+                    }
                 }
             }
         }
@@ -414,10 +422,11 @@ final class SignUpViewController: BaseViewController {
         GoogleAuthManager.shared.signIn(from: self) { result in
             switch result {
             case .success(let googleUser):
-                let loggedUser = GoogleUser(
+                let loggedUser = SingInUser(
                     name: googleUser.name,
                     email: googleUser.email,
-                    idToken: googleUser.idToken
+                    idToken: googleUser.idToken,
+                    appleID: nil
                 )
                 self.viewModel?.googleEmailCheck(user: loggedUser)
             case .failure(let error):
@@ -435,14 +444,14 @@ final class SignUpViewController: BaseViewController {
     }
     
     @objc private func handleAppleLogin() {
-        let provider = ASAuthorizationAppleIDProvider()
-        let request = provider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-        controller.delegate = self
-        controller.presentationContextProvider = self
-        controller.performRequests()
+        AppleAuthManager.shared.signIn { result in
+            switch result {
+            case .success(let user):
+                self.viewModel?.appleEmailCheck(user: user)
+            case .failure(let error):
+                print("Apple Sign In failed: \(error)")
+            }
+        }
     }
     
     fileprivate func removeErrorBorder() {
@@ -513,45 +522,5 @@ extension SignUpViewController: UITextFieldDelegate {
         if textField == passwordTextField {
             checkPassWordRequirements()
         }
-    }
-}
-
-extension SignUpViewController: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let identityTokenData = appleIDCredential.identityToken,
-                  let identityToken = String(data: identityTokenData, encoding: .utf8) else {
-                Logger.debug("❌ Unable to parse identity token")
-                return
-            }
-
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-
-            Logger.debug("✅ Apple Sign In Success")
-            Logger.debug("User ID: \(userIdentifier)")
-            Logger.debug("Email: \(email ?? "N/A")")
-            Logger.debug("Token: \(identityToken)")
-
-            let appleUser = AppleUser(
-                id: userIdentifier,
-                name: fullName?.givenName ?? "",
-                email: email ?? "",
-                token: identityToken
-            )
-
-           print(appleUser)
-        }
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        Logger.debug("❌ Apple Sign In failed: \(error.localizedDescription)")
-    }
-}
-
-extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return view.window!
     }
 }

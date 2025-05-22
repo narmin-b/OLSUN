@@ -12,18 +12,22 @@ final class UserProfileViewModel {
         case refreshError(message: String)
         case loading
         case loaded
+        case deleteSuccess
         case success
         case error(message: String)
     }
     
     var requestCallback : ((ViewState) -> Void?)?
-    private weak var navigation: UserProfileNavigation?
+    private weak var navigation: HomeNavigation?
     private var accountUseCase: AccountSessionUseCase
     var user: UserInfoDataModel = UserInfoDataModel(username: "")
+    var loginType = UserDefaultsHelper.getString(key: .loginType)
     
-    init(navigation: UserProfileNavigation, accountUseCase: AccountSessionUseCase) {
+    init(navigation: HomeNavigation, accountUseCase: AccountSessionUseCase) {
         self.navigation = navigation
         self.accountUseCase = accountUseCase
+        
+        print("loginType: ", loginType)
     }
     
     func deleteAccount() {
@@ -35,12 +39,16 @@ final class UserProfileViewModel {
                 Logger.debug("dto: \(dto ?? "No resp")")
                 
                 if dto != nil {
-                    self.requestCallback?(.success)
+                    self.requestCallback?(.deleteSuccess)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))
                 }
             }
         }
+    }
+    
+    func showSignupScreen() {
+        navigation?.showAuth()
     }
     
     func getUserInfo() {

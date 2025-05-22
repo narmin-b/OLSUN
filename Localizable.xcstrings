@@ -52,23 +52,6 @@
         }
       }
     },
-    "appleLoginText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apple ilə giriş et"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue with Apple"
-          }
-        }
-      }
-    },
     "bdayText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -307,6 +290,23 @@
         }
       }
     },
+    "guestAttemptLimit_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Davam etmək üçün hesab yaratmalısınız!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To continue, you need to create an account!"
+          }
+        }
+      }
+    },
     "guestButtonText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -354,6 +354,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More information"
+          }
+        }
+      }
+    },
+    "guestLogoutMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saxlanılan məlumatlarınız silinəcək."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your saved data will be deleted."
           }
         }
       }
@@ -1221,6 +1238,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Successful update!"
+          }
+        }
+      }
+    },
+    "warningText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diqqət!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning!"
           }
         }
       }

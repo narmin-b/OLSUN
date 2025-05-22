@@ -156,7 +156,11 @@ final class PlanningViewController: BaseViewController {
         
         profileButton.tintColor = .primaryHighlight
         
-        navigationItem.rightBarButtonItems = [profileButton]
+        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+            navigationItem.rightBarButtonItems = []
+        } else {
+            navigationItem.rightBarButtonItems = [profileButton]
+        }
     }
     
     private func configureViewModel() {
@@ -186,7 +190,12 @@ final class PlanningViewController: BaseViewController {
     // MARK: Functions
     @objc fileprivate func addTaskButtonTapped() {
         if NetworkMonitor.shared.isConnected {
-            viewModel?.showAddTaskVC()
+            let loginType = UserDefaultsHelper.getString(key: .loginType)
+            if loginType == "guest" {
+                checkGuestAttempts()
+            } else {
+                viewModel?.showAddTaskVC()
+            }
         } else {
             self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
         }
@@ -198,6 +207,14 @@ final class PlanningViewController: BaseViewController {
     
     @objc private func profileTabClicked() {
         viewModel?.showProfileScreen()
+    }
+    
+    fileprivate func checkGuestAttempts() {
+        if viewModel?.taskList.count ?? 0 >= 2 {
+            showMessage(title: OlsunStrings.warningText.localized, message: OlsunStrings.guestAttemptLimit_Message.localized)
+        } else {
+            viewModel?.showAddTaskVC()
+        }
     }
 }
 

@@ -64,7 +64,7 @@ final class LoginViewModelTests: XCTestCase {
     }
 
     func testGoogleLoginSuccess() {
-        let user = GoogleUser(name: "Test", email: "test@example.com", idToken: "token")
+        let user = SingInUser(name: "Test", email: "test@example.com", idToken: "token")
         
         mockService.shouldSucceed = true
         mockService.shouldReturnEmailStatus = false
@@ -82,7 +82,7 @@ final class LoginViewModelTests: XCTestCase {
     }
 
     func testGoogleLoginLaunchFlow() {
-        let user = GoogleUser(name: "Test", email: "test@example.com", idToken: "token")
+        let user = SingInUser(name: "Test", email: "test@example.com", idToken: "token")
         
         mockService.shouldSucceed = true
         mockService.shouldReturnEmailStatus = false
@@ -100,7 +100,7 @@ final class LoginViewModelTests: XCTestCase {
     }
 
     func testGoogleLoginFailure() {
-        let user = GoogleUser(name: "Test", email: "test@example.com", idToken: "token")
+        let user = SingInUser(name: "Test", email: "test@example.com", idToken: "token")
         
         mockService.shouldSucceed = false
         viewModel.googleEmailCheck(user: user)

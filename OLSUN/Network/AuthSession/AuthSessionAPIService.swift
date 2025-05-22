@@ -18,14 +18,14 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             method: .POST,
             header: ["Content-Type" : "application/json"],
             body: [
-                "username" : user.username,
-                "gender" : user.gender?.rawValue,
-                "coupleName" : user.coupleName,
-                "coupleGender" : user.coupleGender?.rawValue,
-                "email": user.email ?? "",
-                "password" : user.password ?? "",
-                "bday" : user.bday ?? "",
-                "auth" : user.auth?.rawValue ?? ""
+                "username" : (user.username ?? ""),
+                "gender" : (user.gender?.rawValue ?? nil),
+                "coupleName" : (user.coupleName ?? ""),
+                "coupleGender" : (user.coupleGender?.rawValue ?? nil),
+                "email": (user.email ?? ""),
+                "password" : (user.password ?? ""),
+                "bday" : (user.bday ?? nil),
+                "auth" : (user.auth?.rawValue ?? "")
             ]
         ) { [weak self] result in
             guard self != nil else { return }
@@ -73,6 +73,26 @@ final class AuthSessionAPIService: AuthSessionUseCase {
         }
     }
     
+    func guestUserLogin(completion: @escaping (GuestLoginDataModel?, String?) -> Void) {
+        apiService.request(
+            type: GuestLoginDataModel.self,
+            url: AuthSessionHelper.guestLogin.endpoint,
+            method: .POST,
+            header: ["Content-Type" : "application/json"],
+            body: [ : ]
+        ) { [weak self] result in
+            guard let _ = self else { return }
+            switch result {
+            case .success(let (data, statusCode)):
+                Logger.debug("Guest user logged in successfully. Status Code: \(statusCode)")
+                completion(data, nil)
+                
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
     func googleSignIn(idToken: String, user: RegisterDataModel, completion: @escaping (String?, String?) -> Void) {
         apiService.request(
             type: String.self,
@@ -82,11 +102,11 @@ final class AuthSessionAPIService: AuthSessionUseCase {
                      "Authorization": "Bearer \(idToken)"],
             body: [
                 "email": user.email ?? "",
-                "name" : user.username,
-                "gender" : user.gender!.rawValue,
-                "coupleName" : user.coupleName,
-                "coupleGender" : user.coupleGender!.rawValue,
-                "bday" : user.bday ?? ""
+                "name" : user.username ?? "",
+                "gender" : user.gender?.rawValue ?? nil,
+                "coupleName" : user.coupleName ?? "",
+                "coupleGender" : user.coupleGender?.rawValue ?? nil,
+                "bday" : user.bday ?? nil
             ]
         ) { [weak self] result in
             guard let _ = self else { return }
@@ -115,6 +135,33 @@ final class AuthSessionAPIService: AuthSessionUseCase {
             guard let _ = self else { return }
             switch result {
             case .success(let (data, statusCode)):
+                print(data)
+                Logger.debug("Status Code: \(statusCode)")
+                completion(data, nil)
+                
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func appleCheck(idToken: String, user: RegisterDataModel, completion: @escaping (EmailOrTokenDataModel?, String?) -> Void) {
+        apiService.request(
+            type: EmailOrTokenDataModel.self,
+            url: AuthSessionHelper.appleCheck.endpoint,
+            method: .POST,
+            header: ["Content-Type" : "application/json",
+                     "Authorization": "Bearer \(idToken)"],
+            body: [
+                "username" : user.username ?? nil,
+                "email": user.email ?? "",
+                "auth": "APPLE"
+            ]
+        ) { [weak self] result in
+            guard let _ = self else { return }
+            switch result {
+            case .success(let (data, statusCode)):
+                print(data)
                 Logger.debug("Status Code: \(statusCode)")
                 completion(data, nil)
                 

@@ -60,8 +60,8 @@ extension AuthCoordinator: AuthNavigation {
         showController(vc: vc)
     }
     
-    func showLaunch(auth: Auth, loginModel: LoginDataModel?, googleModel: GoogleUser?) {
-        let vc = LaunchViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService(), auth: auth, loginModel: loginModel ?? LoginDataModel(email: "", password: ""), googleUser: googleModel ?? GoogleUser(name: "", email: "", idToken: "")))
+    func showLaunch(auth: Auth, loginModel: LoginDataModel?, googleModel: SingInUser?) {
+        let vc = LaunchViewController(viewModel: .init(navigation: self, authSessionUse: AuthSessionAPIService(), auth: auth, loginModel: loginModel ?? LoginDataModel(email: "", password: ""), googleUser: googleModel ?? SingInUser(name: "", email: "", idToken: "", appleID: nil)))
         showController(vc: vc)
     }
     

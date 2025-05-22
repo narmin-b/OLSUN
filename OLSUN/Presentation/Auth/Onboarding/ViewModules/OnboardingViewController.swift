@@ -9,6 +9,16 @@ import UIKit
 import SkeletonView
 
 final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
+    private lazy var loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.color = .black
+        view.tintColor = .black
+        view.hidesWhenStopped = true
+        view.backgroundColor = .white.withAlphaComponent(0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
             title: OlsunStrings.nextButton.localized,
@@ -96,19 +106,25 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
         
+        UserDefaultsHelper.setString(key: .loginType, value: "")
         KeychainHelper.setString("", key: .userID)
     }
 
     override func configureView() {
         configureNavigationBar()
         view.backgroundColor = .white
-        view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
-
+        view.addSubViews(loadingView, scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
+        view.bringSubviewToFront(loadingView)
+        
         configurePages()
         pageControl.numberOfPages = pages.count
     }
@@ -132,6 +148,8 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func configureConstraint() {
+        loadingView.fillSuperviewSafeAreaLayoutGuide()
+        
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
 
         scrollView.anchor(
@@ -347,7 +365,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
 
     @objc private func guestLoginTapped() {
-        viewModel?.showHomeTabBar()
+        viewModel?.guestLogin()
     }
     
     @objc private func toggleLanguage() {
@@ -368,7 +386,10 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
                 switch state {
                 case .loading: break
                 case .loaded: break
-                case .success: break
+                case .success:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+                    UserDefaultsHelper.setString(key: .loginType, value: LoginType.guest.rawValue)
+                    self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

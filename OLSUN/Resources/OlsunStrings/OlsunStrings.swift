@@ -80,6 +80,9 @@ enum OlsunStrings: String {
     case logoutAcc_Message
     case accDeleteWarningButton
     case guestButtonText
+    case warningText
+    case guestAttemptLimit_Message
+    case guestLogoutMessage
 }
 
 extension OlsunStrings {

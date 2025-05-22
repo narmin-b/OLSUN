@@ -41,15 +41,16 @@ final class OnboardingViewModel {
     }
     
     func guestLogin() {
-        let user = RegisterDataModel(username: "", gender: nil, coupleName: "", coupleGender: nil, auth: .guest)
         requestCallback?(.loading)
-        authSessionUse.createUser(user: user) { [weak self] dto, error in
+        authSessionUse.guestUserLogin { [weak self] dto, error in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.requestCallback?(.loaded)
-                Logger.debug("dto: \(dto ?? "No resp")")
-                
-                if dto != nil {
+                Logger.debug("dto: \(dto!)")
+                print(dto)
+                if dto?.status == .success {
+                    print("success")
+                    KeychainHelper.setString(dto?.token ?? "", key: .userID)
                     self.requestCallback?(.success)
                 } else if let error = error {
                     self.requestCallback?(.error(message: error))

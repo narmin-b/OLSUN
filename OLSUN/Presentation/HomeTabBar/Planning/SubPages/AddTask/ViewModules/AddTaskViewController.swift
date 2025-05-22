@@ -332,8 +332,12 @@ final class AddTaskViewController: BaseViewController {
                 case .deleteSuccess:
                     self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.planDelete_Message.localized)
                 case .success:
-                    self.viewModel?.popControllerBack()
-                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.planAdded_Message.localized)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.planAdded_Message.localized
+                    ) {
+                        self.viewModel?.popControllerBack()
+                    }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

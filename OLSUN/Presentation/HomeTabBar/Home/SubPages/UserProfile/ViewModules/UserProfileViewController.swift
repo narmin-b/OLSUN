@@ -8,7 +8,7 @@
 import UIKit
 
 protocol UserProfileDelegate: AnyObject {
-    func didRequestLogout()
+    func didRequestLogout(type: LogoutType)
 }
 
 final class UserProfileViewController: BaseViewController {
@@ -82,6 +82,35 @@ final class UserProfileViewController: BaseViewController {
         return button
     }()
     
+    private lazy var guestLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: "Davam etmək üçün hesab yaradın",
+            labelColor: .primaryHighlight,
+            labelFont: .workSansBold,
+            labelSize: 28,
+            numOfLines: 0
+        )
+        label.accessibilityIdentifier = "guestTitleLabel"
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var createAccButton: UIButton = {
+        let button = ReusableButton(
+            title: "Hesab yarat",
+            onAction: { [weak self] in self?.createAccountTapped() },
+            titleSize: DeviceSizeClass.current == .large ? 20 : 16,
+            titleFont: .workSansMedium,
+        )
+        button.addShadow()
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    
     // MARK: Configurations
     private let viewModel: UserProfileViewModel?
     private var bottomBorder: UIView?
@@ -110,7 +139,12 @@ final class UserProfileViewController: BaseViewController {
             tabBarController.customTabBarView.isHidden = true
         }
         
-        viewModel?.getUserInfo()
+        if viewModel?.loginType == "user" {
+            showUserProfile()
+            viewModel?.getUserInfo()
+        } else {
+            showGuestScreen()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -137,22 +171,22 @@ final class UserProfileViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, editProfileButton, userInfoTableView, logoutButton, deleteAccountButton)
+        view.addSubViews(loadingView, /*editProfileButton,*/ userInfoTableView, logoutButton, deleteAccountButton, guestLabel, createAccButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperviewSafeAreaLayoutGuide()
         
-        editProfileButton.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 8, left: 0, bottom: 0, right: -16)
-        )
-        editProfileButton.anchorSize(.init(width: 32, height: 32))
+//        editProfileButton.anchor(
+//            top: view.safeAreaLayoutGuide.topAnchor,
+//            trailing: view.trailingAnchor,
+//            padding: .init(top: 8, left: 0, bottom: 0, right: -16)
+//        )
+//        editProfileButton.anchorSize(.init(width: 32, height: 32))
         
         userInfoTableView.anchor(
-            top: editProfileButton.bottomAnchor,
+            top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             bottom: logoutButton.topAnchor,
             trailing: view.trailingAnchor,
@@ -176,6 +210,23 @@ final class UserProfileViewController: BaseViewController {
             padding: .init(top: 0, left: 16, bottom: -16, right: -16)
         )
         deleteAccountButton.anchorSize(.init(width: 0, height: buttonHeight))
+        
+        guestLabel.centerXToSuperview()
+        guestLabel.centerYToSuperview()
+        guestLabel.anchor(
+                leading: view.leadingAnchor,
+                trailing: view.trailingAnchor,
+                padding: .init(top: 0, left: 12, bottom: 0, right: -12)
+            )
+            
+        
+        createAccButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 16, bottom: -16, right: -16)
+        )
+        createAccButton.anchorSize(.init(width: 0, height: buttonHeight))
     }
     
     fileprivate func configureNavigationBar() {
@@ -217,13 +268,17 @@ final class UserProfileViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .success:
                     self.refreshControl.endRefreshing()
-//                    self.userInfoTableView.reloadData()
                     if let user = self.viewModel?.user {
                         self.data = user.toDisplayItems()
                         self.userInfoTableView.reloadData()
                     }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .deleteSuccess:
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.accDelete_Success.localized)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.logoutDelegate?.didRequestLogout(type: .delete)
+                    }
                 }
             }
         }
@@ -271,7 +326,7 @@ final class UserProfileViewController: BaseViewController {
             cancelButtonTitle: OlsunStrings.cancelButton.localized
         )
         confirmation.onConfirm = {
-            self.logoutDelegate?.didRequestLogout()
+            self.logoutDelegate?.didRequestLogout(type: .logout)
             UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
         }
         confirmation.onCancel = {
@@ -297,6 +352,28 @@ final class UserProfileViewController: BaseViewController {
     
     @objc fileprivate func logoutButtonTapped() {
         showLogoutAlert()
+    }
+    
+    @objc fileprivate func createAccountTapped() {
+        viewModel?.showSignupScreen()
+    }
+    
+    fileprivate func showUserProfile() {
+        editProfileButton.isHidden = false
+        userInfoTableView.isHidden = false
+        logoutButton.isHidden = false
+        deleteAccountButton.isHidden = false
+        guestLabel.isHidden = true
+        createAccButton.isHidden = true
+    }
+    
+    fileprivate func showGuestScreen() {
+        editProfileButton.isHidden = true
+        userInfoTableView.isHidden = true
+        logoutButton.isHidden = true
+        deleteAccountButton.isHidden = true
+        guestLabel.isHidden = false
+        createAccButton.isHidden = false
     }
 }
 

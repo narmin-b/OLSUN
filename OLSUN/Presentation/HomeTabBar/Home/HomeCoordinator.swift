@@ -57,7 +57,7 @@ extension HomeCoordinator: HomeNavigation, UserProfileNavigation {
         parentCoordinator?.childDidFinish(self)
     }
     
-    func didRequestLogout() {
+    func didRequestLogout(type: LogoutType) {
         showAuth()
     }
 }

@@ -146,6 +146,13 @@ final class HomeViewController: BaseViewController {
             action: #selector(profileTabClicked)
         )
         
+        let logoutButton = UIBarButtonItem(
+            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
+            style: .plain,
+            target: self,
+            action: #selector(logOutClicked)
+        )
+        
         let toggleLangButton = UIBarButtonItem(
             title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
             style: .plain,
@@ -155,7 +162,11 @@ final class HomeViewController: BaseViewController {
         toggleLangButton.tintColor = .primaryHighlight
         profileButton.tintColor = .primaryHighlight
         
-        navigationItem.rightBarButtonItems = [profileButton, toggleLangButton]
+        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+            navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
+        } else {
+            navigationItem.rightBarButtonItems = [profileButton, toggleLangButton]
+        }
     }
     
     private func configureViewModel() {
@@ -170,9 +181,13 @@ final class HomeViewController: BaseViewController {
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 case .success:
-                    self.viewModel?.showLaunchScreen()
-                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.accDelete_Success.localized)
                     UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+                    self.showMessage(
+                        title: OlsunStrings.updateSuccessText.localized,
+                        message: OlsunStrings.accDelete_Success.localized
+                    ) {
+                        self.viewModel?.showLaunchScreen()
+                    }
                 }
             }
         }
@@ -181,6 +196,31 @@ final class HomeViewController: BaseViewController {
     // MARK: Functions
     @objc private func profileTabClicked() {
         viewModel?.showProfileScreen()
+    }
+    
+    @objc fileprivate func logOutClicked() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
+        confirmation.configure(
+            title: OlsunStrings.confirmationTitle.localized,
+            message: OlsunStrings.guestLogoutMessage.localized,
+            confirmButtonTitle: OlsunStrings.logoutConfirmButton.localized,
+            cancelButtonTitle: OlsunStrings.cancelButton.localized
+        )
+        confirmation.onConfirm = {
+            self.viewModel?.showLaunchScreen()
+            UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+        }
+        confirmation.onCancel = {
+        }
+        
+        window.addSubview(confirmation)
     }
     
     @objc private func toggleLanguage() {
@@ -232,8 +272,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: UserProfileDelegate {
-    func didRequestLogout() {
-        print(#function)
+    func didRequestLogout(type: LogoutType) {
         viewModel?.showLaunchScreen()
     }
+}
+
+enum LogoutType {
+    case logout
+    case delete
 }

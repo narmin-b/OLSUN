@@ -12,6 +12,8 @@ import SDWebImage
 import SVGKit
 import SkeletonView
 
+private var fullTextKey: UInt8 = 0
+
 func whatsapp() {
     let message = "Salam! Mən OLSUN tətbiqindən çıxdım."
     let phoneNumber = "994504577132" 

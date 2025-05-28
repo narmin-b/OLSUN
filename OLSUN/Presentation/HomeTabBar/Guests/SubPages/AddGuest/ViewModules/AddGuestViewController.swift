@@ -21,7 +21,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Qonağın adı:",
+            labelText: OlsunStrings.guestName_Text.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
@@ -45,7 +45,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Dəvət tarixi:",
+            labelText: OlsunStrings.guestsDate_Text.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -85,7 +85,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var statusLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Status:",
+            labelText: OlsunStrings.statusText.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -113,7 +113,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var cancelButton: UIButton = {
         let button = ReusableButton(
-            title: "İmtina et",
+            title: OlsunStrings.cancelButton.localized,
             onAction: { [weak self] in self?.cancelTapped() },
             bgColor: .accentMain,
             titleColor: .primaryHighlight,
@@ -127,7 +127,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var saveButton: UIButton = {
         let button = ReusableButton(
-            title: "Yadda saxla",
+            title: OlsunStrings.saveButton.localized,
             onAction: { [weak self] in self?.saveTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -139,7 +139,7 @@ final class AddGuestViewController: BaseViewController {
     
     private lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
-        let title = "Qonağı sil"
+        let title = OlsunStrings.deleteGuest_Text.localized
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
@@ -166,7 +166,7 @@ final class AddGuestViewController: BaseViewController {
     
     // MARK: Configurations
     private let viewModel: AddGuestViewModel?
-    let statusOptions = ["Qəbul edib", "Gözləmədə", "Uyğun deyil"]
+    let statusOptions = [OlsunStrings.guestsStat_Accepted.localized, OlsunStrings.guestsStat_Pending.localized, OlsunStrings.guestsStat_Declined.localized]
     var onGuestUpdate: ((ListCellProtocol) -> Void)?
     
     init(viewModel: AddGuestViewModel) {
@@ -212,7 +212,7 @@ final class AddGuestViewController: BaseViewController {
             let today = Date()
             dateTextField.text = formatter.string(from: today)
             datePicker.date = today
-            statusMenuButton.setTitle("Gözləmədə", for: .normal)
+            statusMenuButton.setTitle(OlsunStrings.guestsStat_Pending.localized, for: .normal)
         case .edit:
             deleteButton.isHidden = false
             setUpGuestInfo()
@@ -313,7 +313,7 @@ final class AddGuestViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
+        navigationItem.configureNavigationBar(text: OlsunStrings.guestText.localized)
     }
     
     private func configureViewModel() {
@@ -326,14 +326,23 @@ final class AddGuestViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .editSuccess(let guest):
-                    self.onGuestUpdate?(guest)
-                    self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq məlumatları uğurla dəyişdirildi.")
+                    self.showMessage(
+                        title: OlsunStrings.updateSuccessText.localized,
+                        message: OlsunStrings.guestUpdateSuccess_Message.localized
+                    ) {
+                        self.onGuestUpdate?(guest)
+                        self.viewModel?.popControllerBack()
+                    }
                 case .deleteSuccess:
-                    self.showMessage(title: "Uğurlu dəyişiklik!", message: "Qonaq silindi.")
+                    self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.guestDelete_Message.localized)
                 case .success:
-                    self.viewModel?.popControllerBack()
-                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Qonaq uğurla əlavə edildi.")
+                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.guestAdded_Message.localized)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.guestAdded_Message.localized
+                    ) {
+                        self.viewModel?.popControllerBack()
+                    }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -348,7 +357,7 @@ final class AddGuestViewController: BaseViewController {
     
     private func setupDatePicker() {
         datePicker.datePickerMode = .date
-        datePicker.maximumDate = Date()
+        datePicker.minimumDate = Date()
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }

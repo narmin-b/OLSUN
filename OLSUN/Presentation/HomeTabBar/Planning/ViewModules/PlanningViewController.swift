@@ -27,7 +27,7 @@ final class PlanningViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Planların siyahısı",
+            labelText: OlsunStrings.planningVC_Title.localized,
             labelColor: .primaryHighlight,
             labelFont: .montserratMedium,
             labelSize: 24,
@@ -86,7 +86,7 @@ final class PlanningViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewModel?.getAllTasks()
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
@@ -131,7 +131,36 @@ final class PlanningViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Planlama")
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
+        
+        let bottomBorder = UIView()
+        bottomBorder.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        bottomBorder.translatesAutoresizingMaskIntoConstraints = false
+        
+        navigationController?.navigationBar.addSubview(bottomBorder)
+        
+        bottomBorder.anchorSize(.init(width: 0, height: 4))
+        bottomBorder.anchor(
+            leading: navigationController!.navigationBar.leadingAnchor,
+            bottom: navigationController!.navigationBar.bottomAnchor,
+            trailing: navigationController!.navigationBar.trailingAnchor,
+            padding: .init(all: 0)
+        )
+        
+        let profileButton = UIBarButtonItem(
+            image: UIImage(named: "profile"),
+            style: .plain,
+            target: self,
+            action: #selector(profileTabClicked)
+        )
+        
+        profileButton.tintColor = .primaryHighlight
+        
+        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+            navigationItem.rightBarButtonItems = []
+        } else {
+            navigationItem.rightBarButtonItems = [profileButton]
+        }
     }
     
     private func configureViewModel() {
@@ -139,6 +168,11 @@ final class PlanningViewController: BaseViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch state {
+                case .refreshError(let message):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        self.refreshControl.endRefreshing()
+                        self.showMessage(title: "Error", message: message)
+                    }
                 case .loading:
                     self.loadingView.startAnimating()
                 case .loaded:
@@ -155,11 +189,32 @@ final class PlanningViewController: BaseViewController {
     
     // MARK: Functions
     @objc fileprivate func addTaskButtonTapped() {
-        viewModel?.showAddTaskVC()
+        if NetworkMonitor.shared.isConnected {
+            let loginType = UserDefaultsHelper.getString(key: .loginType)
+            if loginType == "guest" {
+                checkGuestAttempts()
+            } else {
+                viewModel?.showAddTaskVC()
+            }
+        } else {
+            self.showMessage(title: OlsunStrings.networkError.localized, message: OlsunStrings.networkError_Message.localized)
+        }
     }
     
     @objc fileprivate func reloadPage() {
         viewModel?.refreshAllTasks()
+    }
+    
+    @objc private func profileTabClicked() {
+        viewModel?.showProfileScreen()
+    }
+    
+    fileprivate func checkGuestAttempts() {
+        if viewModel?.taskList.count ?? 0 >= 2 {
+            showMessage(title: OlsunStrings.warningText.localized, message: OlsunStrings.guestAttemptLimit_Message.localized)
+        } else {
+            viewModel?.showAddTaskVC()
+        }
     }
 }
 

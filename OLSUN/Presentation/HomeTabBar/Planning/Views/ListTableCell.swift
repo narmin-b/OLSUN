@@ -84,7 +84,8 @@ final class ListTableCell: UITableViewCell {
         titleLabel.anchor(
             top: topAnchor,
             leading: leadingAnchor,
-            padding: .init(top: 16, left: 24, bottom: 0, right: 0)
+            trailing: iconImageView.leadingAnchor,
+            padding: .init(top: 16, left: 24, bottom: 0, right: -12)
         )
         deadlineLabel.anchor(
             top: titleLabel.bottomAnchor,
@@ -104,31 +105,31 @@ final class ListTableCell: UITableViewCell {
             switch item.statusString {
             case .accepted:
                 iconImageView.image = UIImage(systemName: "checkmark.square")
-                deadlineLabel.text = "Dəvət tarixi:"
+                deadlineLabel.text = OlsunStrings.guestsDate_Text.localized
             case .invited:
                 iconImageView.image = UIImage(systemName: "square")
-                deadlineLabel.text = "Dəvət tarixi:"
+                deadlineLabel.text = OlsunStrings.guestsDate_Text.localized
             case .declined:
                 iconImageView.image = UIImage(systemName: "multiply.square")
-                deadlineLabel.text = "Dəvət tarixi:"
+                deadlineLabel.text = OlsunStrings.guestsDate_Text.localized
             case .pending:
                 iconImageView.image = UIImage(systemName: "square")
-                deadlineLabel.text = "Dəvət tarixi:"
+                deadlineLabel.text = OlsunStrings.guestsDate_Text.localized
             }
         case .task:
             switch item.statusString {
             case .accepted:
                 iconImageView.image = UIImage(systemName: "checkmark.square")
-                deadlineLabel.text = "Deadline:"
+                deadlineLabel.text = OlsunStrings.planningDate_Text.localized
             case .invited:
                 iconImageView.image = UIImage(systemName: "square")
-                deadlineLabel.text = "Deadline:"
+                deadlineLabel.text = OlsunStrings.planningDate_Text.localized
             case .declined:
                 iconImageView.image = UIImage(systemName: "exclamationmark.square")
-                deadlineLabel.text = "Deadline:"
+                deadlineLabel.text = OlsunStrings.planningDate_Text.localized
             case .pending:
                 iconImageView.image = UIImage(systemName: "square")
-                deadlineLabel.text = "Deadline:"
+                deadlineLabel.text = OlsunStrings.planningDate_Text.localized
             }
         }
         

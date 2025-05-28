@@ -23,14 +23,14 @@ final class HomeViewController: BaseViewController {
     private lazy var homeImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.isSkeletonable = true
-        imageview.contentMode = .scaleAspectFill
+        imageview.contentMode = .scaleAspectFit
         imageview.translatesAutoresizingMaskIntoConstraints = false
         return imageview
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hazırlıqlar",
+            labelText: OlsunStrings.homeListText.localized,
             labelColor: .primaryHighlight,
             labelFont: .workSansBold,
             labelSize: 28,
@@ -58,8 +58,16 @@ final class HomeViewController: BaseViewController {
     private let viewModel: HomeViewModel?
     
     var menuItems: [MenuItem] = [
-        MenuItem(iconName: "planningIcon", title: "Planlama", description: "Daha çox məlumat"),
-        MenuItem(iconName: "guestsIcon", title: "Qonaqlar", description: "Daha çox məlumat")
+        MenuItem(
+            iconName: "planningIcon",
+            title: OlsunStrings.planningText.localized,
+            description: OlsunStrings.planningDesc.localized
+        ),
+        MenuItem(
+            iconName: "guestsIcon",
+            title: OlsunStrings.guestText.localized,
+            description: OlsunStrings.guestDesc.localized
+        )
     ]
     
     init(viewModel: HomeViewModel) {
@@ -78,8 +86,9 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        
+
         homeImageView.loadImage(named: "homeImage.png")
+        Logger.debug("\(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
     override func configureView() {
@@ -98,12 +107,12 @@ final class HomeViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(all: 0)
         )
-        homeImageView.anchorSize(.init(width: view.frame.width, height: DeviceSizeClass.current == .compact ? 160 : 200))
+        homeImageView.anchorSize(.init(width: view.frame.width, height: view.frame.width*0.506))
         
         titleLabel.anchor(
             top: homeImageView.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 24, left: 16, bottom: 0, right: 0)
+            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
         
         menuTableView.anchor(
@@ -125,23 +134,39 @@ final class HomeViewController: BaseViewController {
         let logo = UIImage(named: "olsunHomeLogo")
         let imageView = UIImageView(image: logo)
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 76),
-            imageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        imageView.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
         
         let logoItem = UIBarButtonItem(customView: imageView)
         navigationItem.leftBarButtonItem = logoItem
         
-        let editButton = UIBarButtonItem(
-            image: UIImage(systemName: "iphone.and.arrow.right.outward"),
+        let profileButton = UIBarButtonItem(
+            image: UIImage(named: "profile"),
             style: .plain,
             target: self,
-            action: #selector(logOutTapped)
+            action: #selector(profileTabClicked)
         )
-        editButton.tintColor = .primaryHighlight
-        navigationItem.rightBarButtonItem = editButton
+        
+        let logoutButton = UIBarButtonItem(
+            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
+            style: .plain,
+            target: self,
+            action: #selector(logOutClicked)
+        )
+        
+        let toggleLangButton = UIBarButtonItem(
+            title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
+            style: .plain,
+            target: self,
+            action: #selector(toggleLanguage)
+        )
+        toggleLangButton.tintColor = .primaryHighlight
+        profileButton.tintColor = .primaryHighlight
+        
+        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+            navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
+        } else {
+            navigationItem.rightBarButtonItems = [profileButton, toggleLangButton]
+        }
     }
     
     private func configureViewModel() {
@@ -155,15 +180,58 @@ final class HomeViewController: BaseViewController {
                     self.loadingView.stopAnimating()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .success:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+                    self.showMessage(
+                        title: OlsunStrings.updateSuccessText.localized,
+                        message: OlsunStrings.accDelete_Success.localized
+                    ) {
+                        self.viewModel?.showLaunchScreen()
+                    }
                 }
             }
         }
     }
     
     // MARK: Functions
-    @objc private func logOutTapped() {
-        viewModel?.showLaunchScreen()
-        UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+    @objc private func profileTabClicked() {
+        viewModel?.showProfileScreen()
+    }
+    
+    @objc fileprivate func logOutClicked() {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first(where: { $0.isKeyWindow }) else {
+            return
+        }
+        
+        let confirmation = ConfirmationView(frame: UIScreen.main.bounds)
+        confirmation.configure(
+            title: OlsunStrings.confirmationTitle.localized,
+            message: OlsunStrings.guestLogoutMessage.localized,
+            confirmButtonTitle: OlsunStrings.logoutConfirmButton.localized,
+            cancelButtonTitle: OlsunStrings.cancelButton.localized
+        )
+        confirmation.onConfirm = {
+            self.viewModel?.showLaunchScreen()
+            UserDefaultsHelper.setBool(key: .isLoggedIn, value: false)
+        }
+        confirmation.onCancel = {
+        }
+        
+        window.addSubview(confirmation)
+    }
+    
+    @objc private func toggleLanguage() {
+        let current = LocalizationManager.shared.currentLanguage
+        let newLang = (current == "az") ? "en" : "az"
+        
+        LocalizationManager.shared.setLanguage(newLang)
+        
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.reloadRootViewController()
+        }
     }
 }
 
@@ -199,6 +267,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.userSelectedMenuItem(at: 1 + indexPath.section)
+        viewModel?.userSelectedMenuItem(at: indexPath.section)
     }
+}
+
+extension HomeViewController: UserProfileDelegate {
+    func didRequestLogout(type: LogoutType) {
+        viewModel?.showLaunchScreen()
+    }
+}
+
+enum LogoutType {
+    case logout
+    case delete
 }

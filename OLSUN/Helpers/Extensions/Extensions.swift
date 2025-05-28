@@ -10,10 +10,7 @@ import UIKit
 import MapKit
 import SDWebImage
 import SVGKit
-import ObjectiveC
 import SkeletonView
-
-private var fullTextKey: UInt8 = 0
 
 func whatsapp() {
     let message = "Salam! Mən OLSUN tətbiqindən çıxdım."
@@ -170,14 +167,19 @@ extension UIViewController {
     func showMessage(
         title: String = "",
         message: String = "",
-        actionTitle: String = "OK"
+        actionTitle: String = "OK",
+        completion: (() -> Void)? = nil
     ) {
         let alert = UIAlertController(
             title: title,
             message: message,
-            preferredStyle: UIAlertController.Style.alert
+            preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertAction.Style.default, handler: nil))
+
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion?()
+        })
+
         self.present(alert, animated: true, completion: nil)
     }
 }
@@ -216,7 +218,7 @@ extension String {
     }
     
     func isValidName() -> Bool {
-        let nameRegex = "^[A-Za-zÀ-ÿ]+([\\s'-][A-Za-zÀ-ÿ]+)*$"
+        let nameRegex = "^[A-Za-zÀ-ÿƏəĞğİıŞşÇçÖöÜü]+([\\s'-][A-Za-zÀ-ÿƏəĞğİıŞşÇçÖöÜü]+)*$"
         let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         return namePredicate.evaluate(with: self)
     }
@@ -356,7 +358,7 @@ extension UIButton {
 }
 
 extension UILabel {
- func configureLabel(icon: String, text: String) {
+    func configureLabel(icon: String, text: String) {
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(systemName: icon)?.withTintColor(.primaryHighlight)
         imageAttachment.bounds = CGRect(x: 0, y: 0, width: 12, height: 12)
@@ -368,89 +370,12 @@ extension UILabel {
         
         self.attributedText = attributedText
     }
-    
-    var fullText: String? {
-        get { return objc_getAssociatedObject(self, &fullTextKey) as? String }
-        set { objc_setAssociatedObject(self, &fullTextKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-    }
-    
-    func setTextWithTrailing(trailingText: String, moreText: String, moreTextFont: UIFont, moreTextColor: UIColor) {
-        guard let originalText = self.text else { return }
-        self.fullText = self.fullText ?? originalText
-        
-        let readMoreText = trailingText + moreText
-        let visibleLength = self.visibleTextLength
-        let trimmedText = (originalText as NSString).substring(to: visibleLength)
-        
-        let spaceForTrailing = max(0, trimmedText.count - readMoreText.count)
-        let finalText = (trimmedText as NSString).substring(to: spaceForTrailing) + trailingText
-        
-        let baseAttr = NSMutableAttributedString(string: finalText, attributes: [.font: self.font as Any])
-        let trailingAttr = NSAttributedString(string: moreText, attributes: [.font: moreTextFont, .foregroundColor: moreTextColor])
-        baseAttr.append(trailingAttr)
-        
-        self.attributedText = baseAttr
-    }
-    
-    func removeTrailingText() {
-        self.text = self.fullText
-    }
-    
-    private var visibleTextLength: Int {
-        guard let text = self.text, let font = self.font else { return 0 }
-        
-        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
-        let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        
-        let fullTextRect = (text as NSString).boundingRect(
-            with: size,
-            options: [.usesLineFragmentOrigin],
-            attributes: attributes,
-            context: nil
-        )
-        
-        if fullTextRect.height <= self.bounds.height {
-            return text.count
-        }
-        
-        var index = 0
-        var prevIndex = 0
-        let charSet = CharacterSet.whitespacesAndNewlines
-        
-        repeat {
-            prevIndex = index
-            let range = NSRange(location: index + 1, length: text.count - index - 1)
-            if let nextIndex = (text as NSString).rangeOfCharacter(from: charSet, options: [], range: range).toOptional()?.location {
-                index = nextIndex
-            } else {
-                break
-            }
-            let substr = (text as NSString).substring(to: index)
-            let rect = (substr as NSString).boundingRect(
-                with: size,
-                options: [.usesLineFragmentOrigin],
-                attributes: attributes,
-                context: nil
-            )
-            if rect.height > self.bounds.height {
-                break
-            }
-        } while index < text.count
-        
-        return prevIndex
-    }
-}
-
-private extension NSRange {
-    func toOptional() -> NSRange? {
-        return self.location != NSNotFound ? self : nil
-    }
 }
 
 extension UINavigationItem {
     func configureNavigationBar(text: String) {
-        let navigationView = UIView()
-        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        let navgationView = UIView()
+        navgationView.translatesAutoresizingMaskIntoConstraints = false
         let label = UILabel()
         label.text = text
         label.sizeToFit()
@@ -459,11 +384,11 @@ extension UINavigationItem {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        navigationView.addSubview(label)
-        label.centerXToView(to: navigationView)
-        label.centerYToView(to: navigationView)
+        navgationView.addSubview(label)
+        label.centerXToView(to: navgationView)
+        label.centerYToView(to: navgationView)
         
-        self.titleView = navigationView
+        self.titleView = navgationView
         
         let backButton = UIBarButtonItem()
         backButton.title = ""
@@ -490,16 +415,18 @@ extension UIView {
         self.layer.masksToBounds = false
     }
     
-    var parentCollectionView: UICollectionView? {
-            var view = self.superview
-            while view != nil {
-                if let collectionView = view as? UICollectionView {
-                    return collectionView
-                }
-                view = view?.superview
-            }
-            return nil
-        }
+    func pinToEdges(of view: UIView) {
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: view.topAnchor),
+            bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
+    }
 }
 
 func printFonts() {

@@ -9,9 +9,19 @@ import UIKit
 import SkeletonView
 
 final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
+    private lazy var loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.color = .black
+        view.tintColor = .black
+        view.hidesWhenStopped = true
+        view.backgroundColor = .white.withAlphaComponent(0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
-            title: "Növbəti",
+            title: OlsunStrings.nextButton.localized,
             onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -24,7 +34,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Daxil ol",
+            title: OlsunStrings.loginButton.localized,
             onAction: { [weak self] in self?.loginTapped() },
             bgColor: .accentMain,
             titleColor: .primaryHighlight,
@@ -39,7 +49,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private lazy var registerButton: UIButton = {
         let button = ReusableButton(
-            title: "Hesab yarat",
+            title: OlsunStrings.signUpButton.localized,
             onAction: { [weak self] in self?.registerTapped() },
             titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
             titleFont: .workSansMedium
@@ -52,7 +62,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private lazy var guestButton: UIButton = {
         let button = UIButton(type: .system)
-        let title = "Qonaq kimi davam et"
+        let title = OlsunStrings.guestButtonText.localized
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
@@ -98,46 +108,55 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.isHidden = false
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
         
+        UserDefaultsHelper.setString(key: .loginType, value: "")
         KeychainHelper.setString("", key: .userID)
     }
 
     override func configureView() {
         configureNavigationBar()
         view.backgroundColor = .white
-        view.addSubViews(scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
-
+        view.addSubViews(loadingView, scrollView, pageControl, nextButton, loginButton, registerButton, guestButton)
+        view.bringSubviewToFront(loadingView)
+        
         configurePages()
         pageControl.numberOfPages = pages.count
     }
     
     fileprivate func configureNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
 
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
+
+        let toggleLangButton = UIBarButtonItem(
+            title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
+            style: .plain,
+            target: self,
+            action: #selector(toggleLanguage)
+        )
+        toggleLangButton.tintColor = .primaryHighlight
+
+        navigationItem.rightBarButtonItems = [toggleLangButton]
     }
     
     override func configureConstraint() {
+        loadingView.fillSuperviewSafeAreaLayoutGuide()
+        
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
 
         scrollView.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 24, left: 0, bottom: 0, right: 0)
+            padding: .init(top: 0, left: 0, bottom: 0, right: 0)
         )
         scrollView.anchorSize(.init(width: 0, height: view.frame.height * 0.65))
         
@@ -155,7 +174,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         nextButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         nextButton.centerXToSuperview()
         
-        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -24 : -80
+        let buttonDist: CGFloat = DeviceSizeClass.current == .compact ? -60 : -80
         loginButton.anchor(
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
@@ -294,13 +313,13 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
     private func configurePages() {
         let page1 = makeFirstPage(
-            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
-            subtitle: "Toyunuzu planlayın və istədiyiniz hər şeyi asanlıqla tapın – fotoqraf, məkan, musiqi və daha çoxu!"
+            title: OlsunStrings.onboardingtitle.localized,
+            subtitle:  OlsunStrings.onboardingMessage_First.localized
         )
 
         let page2 = makeSecondPage(
-            title: "Olsun ilə arzularınızı gerçəkləşdirin!",
-            subtitle: "Vizajist, gəlinlik, bəy kostyumu, dekor, tort – hamısı bir tətbiqdə!"
+            title: OlsunStrings.onboardingtitle.localized,
+            subtitle:  OlsunStrings.onboardingMessage_Second.localized
         )
 
         pages = [page1, page2]
@@ -326,6 +345,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         let isLastPage = pageIndex == (pages.count - 1)
         loginButton.isHidden = !isLastPage
         registerButton.isHidden = !isLastPage
+        guestButton.isHidden = !isLastPage
 
         nextButton.isHidden = isLastPage
     }
@@ -345,7 +365,18 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
     }
 
     @objc private func guestLoginTapped() {
-        viewModel?.showHomeTabBar()
+        viewModel?.guestLogin()
+    }
+    
+    @objc private func toggleLanguage() {
+        let current = LocalizationManager.shared.currentLanguage
+        let newLang = (current == "az") ? "en" : "az"
+        
+        LocalizationManager.shared.setLanguage(newLang)
+        
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.reloadRootViewController()
+        }
     }
 
     private func configureViewModel() {
@@ -355,7 +386,10 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
                 switch state {
                 case .loading: break
                 case .loaded: break
-                case .success: break
+                case .success:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+                    UserDefaultsHelper.setString(key: .loginType, value: LoginType.guest.rawValue)
+                    self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }

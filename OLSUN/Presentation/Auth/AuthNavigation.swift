@@ -9,7 +9,7 @@ import Foundation
 
 protocol AuthNavigation: AnyObject {
     func showLogin()
-    func showLaunch(auth: Auth, loginModel: LoginDataModel?, googleModel: GoogleUser?)
+    func showLaunch(auth: Auth, loginModel: LoginDataModel?, googleModel: SingInUser?)
     func showOnboarding()
     func showSignUp()
     func popbackScreen()

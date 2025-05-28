@@ -8,10 +8,23 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
+    func reloadRootViewController() {
+        guard let windowScene = window?.windowScene else { return }
+
+        let navController = UINavigationController()
+        let appCoordinator = AppCoordinator(window: window ?? UIWindow(windowScene: windowScene), navigationController: navController)
+        self.appCoordinator = appCoordinator
+        appCoordinator.start()
+
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
+    }
 
     var window: UIWindow?
     private var appCoordinator: AppCoordinator?
 
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 

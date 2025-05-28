@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum GoogleCheckStatus: String, Codable {
+enum SignInCheckStatus: String, Codable {
     case email = "EMAIL"
     case token = "TOKEN"
+    case appleId = "APPLE_ID"
 }
 
 struct EmailOrTokenDataModel: Codable {
-    var status: GoogleCheckStatus
+    var status: SignInCheckStatus
     var message: String
 }
-

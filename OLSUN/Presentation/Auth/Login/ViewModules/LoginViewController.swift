@@ -4,9 +4,17 @@
 //
 //  Created by Narmin Baghirova on 19.03.25.
 //
+//
+//struct AppleUser {
+//    let id: String
+//    let name: String
+//    let email: String
+//    let token: String
+//}
 
 import UIKit
 import GoogleSignIn
+import AuthenticationServices
 
 final class LoginViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -21,7 +29,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hesaba daxil ol və aramıza qayıt!",
+            labelText: OlsunStrings.loginVC_Message.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 32,
@@ -31,10 +39,10 @@ final class LoginViewController: BaseViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "E-mail",
+            labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -58,7 +66,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var passwordLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Şifrə",
+            labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -82,7 +90,7 @@ final class LoginViewController: BaseViewController {
         
         textfield.rightView = toggleButton
         textfield.rightViewMode = .always
-
+        
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
@@ -94,7 +102,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var loginButton: UIButton = {
         let button = ReusableButton(
-            title: "Davam et",
+            title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.loginTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -132,7 +140,7 @@ final class LoginViewController: BaseViewController {
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "və ya",
+            labelText: OlsunStrings.orText.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 20,
@@ -145,21 +153,21 @@ final class LoginViewController: BaseViewController {
     
     private lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
         config.imagePadding = 4
         config.imagePlacement = .leading
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
-
+        
         let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
             self?.googleLoginButtonTapped()
         })
-
+        
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 6
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         button.layer.masksToBounds = true
@@ -171,6 +179,19 @@ final class LoginViewController: BaseViewController {
         let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
         button.setImage(resizedImage, for: .normal)
         
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var appleLoginButton: ASAuthorizationAppleIDButton = {
+        let button = ASAuthorizationAppleIDButton(type: .continue, style: .white)
+        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
+        
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = true
+        button.addShadow()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -209,7 +230,7 @@ final class LoginViewController: BaseViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-   
+    
     fileprivate func configureNavigationBar() {
         let backItem = UIBarButtonItem()
         backItem.title = ""
@@ -221,7 +242,7 @@ final class LoginViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, seperatorStackView, googleLoginButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, seperatorStackView, googleLoginButton, appleLoginButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -233,16 +254,17 @@ final class LoginViewController: BaseViewController {
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: 24)
+            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
         )
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
         let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
         
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
         emailLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 60, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,
@@ -270,7 +292,7 @@ final class LoginViewController: BaseViewController {
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         loginButton.anchor(
             top: passwordTextField.bottomAnchor,
-
+            
             padding: .init(all: 44)
         )
         loginButton.centerXToSuperview()
@@ -293,7 +315,7 @@ final class LoginViewController: BaseViewController {
         NSLayoutConstraint.activate([
             line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
             line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-            ])
+        ])
         
         let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 40 : 44
         googleLoginButton.anchor(
@@ -304,6 +326,15 @@ final class LoginViewController: BaseViewController {
         )
         googleLoginButton.centerXToSuperview()
         googleLoginButton.anchorSize(.init(width: 0, height: 44))
+        
+        appleLoginButton.anchor(
+            top: googleLoginButton.bottomAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 12, left: 32, bottom: 0, right: -32)
+        )
+        appleLoginButton.centerXToSuperview()
+        appleLoginButton.anchorSize(.init(width: 0, height: 44))
     }
     
     private func configureViewModel() {
@@ -320,6 +351,14 @@ final class LoginViewController: BaseViewController {
                     self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .registerSuccess:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.registerSuccess_Message.localized
+                    ) {
+                        self.viewModel?.showHomeTabBar()
+                    }
                 }
             }
         }
@@ -347,10 +386,11 @@ final class LoginViewController: BaseViewController {
         GoogleAuthManager.shared.signIn(from: self) { result in
             switch result {
             case .success(let googleUser):
-                let loggedUser = GoogleUser(
+                let loggedUser = SingInUser(
                     name: googleUser.name,
                     email: googleUser.email,
-                    idToken: googleUser.idToken
+                    idToken: googleUser.idToken,
+                    appleID: nil
                 )
                 self.viewModel?.googleEmailCheck(user: loggedUser)
             case .failure(let error):
@@ -367,6 +407,17 @@ final class LoginViewController: BaseViewController {
         view.endEditing(true)
     }
     
+    @objc private func handleAppleLogin() {
+        AppleAuthManager.shared.signIn { result in
+            switch result {
+            case .success(let user):
+                self.viewModel?.appleEmailCheck(user: user)
+            case .failure(let error):
+                print("Apple Sign In failed: \(error)")
+            }
+        }
+    }
+    
     fileprivate func removeErrorBorder() {
         emailTextField.borderOff()
         passwordTextField.borderOff()
@@ -380,7 +431,7 @@ final class LoginViewController: BaseViewController {
         
         if email.isValidEmail() && password.isValidPassword() {
             let user = LoginDataModel(email: email, password: password)
-
+            
             viewModel?.logInUser(user: user)
         }
     }

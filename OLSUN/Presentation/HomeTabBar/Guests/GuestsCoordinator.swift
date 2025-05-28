@@ -8,7 +8,11 @@
 import Foundation
 import UIKit.UINavigationController
 
-final class GuestsCoordinator: Coordinator {
+final class GuestsCoordinator: Coordinator, HomeNavigation {
+    func showAuth() {
+        //
+    }
+    
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
@@ -31,7 +35,17 @@ final class GuestsCoordinator: Coordinator {
     }
 }
 
-extension GuestsCoordinator: GuestsNavigation {
+extension GuestsCoordinator: GuestsNavigation, UserProfileNavigation {
+    func showProfile() {
+        let vc = UserProfileViewController(
+            viewModel: .init(
+                navigation: self,
+                accountUseCase: AccountSessionAPIService()
+            )
+        )
+        showController(vc: vc)
+    }
+    
     func popController() {
         popControllerBack()
     }

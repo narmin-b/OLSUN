@@ -49,7 +49,7 @@ final class GuestAPIService: GuestUseCase {
         ) { [weak self] result in
             guard self != nil else { return }
             Logger.debug("result: \(result)")
-            
+            print(result)
             switch result {
             case .success(let (data, statusCode)):
                 Logger.debug("Status Code: \(statusCode)")

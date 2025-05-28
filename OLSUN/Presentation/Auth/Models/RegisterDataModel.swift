@@ -7,25 +7,27 @@
 
 import Foundation
 
-enum Gender: String {
+enum Gender: String, Codable {
     case male = "MALE"
     case female = "FEMALE"
     case other = "OTHER"
 }
 
-enum Auth: String {
+enum Auth: String, Codable {
     case local = "LOCAL"
     case google = "GOOGLE"
     case guest = "GUEST"
+    case apple = "APPLE"
 }
 
-struct RegisterDataModel {
-    var username: String
-    var gender: Gender
-    var coupleName: String
-    var coupleGender: Gender
+struct RegisterDataModel: Codable {
+    var username: String?
+    var gender: Gender?
+    var coupleName: String?
+    var coupleGender: Gender?
     var email: String?
     var password: String?
     var bday: String?
     var auth: Auth?
+    var appleId: String?
 }

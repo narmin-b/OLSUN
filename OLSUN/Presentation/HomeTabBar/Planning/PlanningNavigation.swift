@@ -13,4 +13,5 @@ protocol PlanningNavigation: AnyObject {
     func showAddTask()
     func popController()
     func popTwoControllersBack()
+    func showProfile()
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 final class SignUpViewController: BaseViewController {
     private lazy var loadingView: UIActivityIndicatorView = {
@@ -20,7 +21,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Hesab yarat və bizə qoşul!",
+            labelText: OlsunStrings.signUpVC_Message.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 32,
@@ -33,7 +34,7 @@ final class SignUpViewController: BaseViewController {
 
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "E-mail",
+            labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -57,7 +58,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passwordLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Şifrə",
+            labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -94,7 +95,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 8 simvoldan ibarət olmalıdır",
+            labelText: OlsunStrings.pwLengthText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -105,7 +106,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passUpcaseReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 1 böyük hərf olmalıdır",
+            labelText: OlsunStrings.pwUCText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -116,7 +117,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var passNumReqLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "• Ən az 1 rəqəm olmalıdır",
+            labelText: OlsunStrings.pwNumText.localized,
             labelColor: .black,
             labelFont: .workSansMedium,
             labelSize: 12
@@ -135,7 +136,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var signupButton: UIButton = {
         let button = ReusableButton(
-            title: "Davam et",
+            title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.signupTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -173,7 +174,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "və ya",
+            labelText: OlsunStrings.orText.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: 20,
@@ -186,7 +187,7 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var googleSignInButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: "Google ilə giriş et", attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
@@ -200,7 +201,7 @@ final class SignUpViewController: BaseViewController {
 
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 6
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         button.layer.masksToBounds = true
@@ -212,6 +213,19 @@ final class SignUpViewController: BaseViewController {
         let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
         button.setImage(resizedImage, for: .normal)
         
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
+        let button = ASAuthorizationAppleIDButton(type: .continue, style: .white)
+        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
+
+        button.layer.cornerRadius = 6
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = true
+        button.addShadow()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -261,7 +275,7 @@ final class SignUpViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton)
+        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton, appleSignInButton)
         view.bringSubviewToFront(loadingView)
     }
     
@@ -273,16 +287,17 @@ final class SignUpViewController: BaseViewController {
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: 24)
+            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
         )
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
         let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
         
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
         emailLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 60, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,
@@ -313,7 +328,35 @@ final class SignUpViewController: BaseViewController {
             padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
         
-        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 48
+//        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+//        loginButton.anchor(
+//            top: passwordTextField.bottomAnchor,
+//            
+//            padding: .init(all: 44)
+//        )
+//        loginButton.centerXToSuperview()
+//        loginButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
+//        
+//        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 68
+//        seperatorStackView.centerXToSuperview()
+//        seperatorStackView.anchorSize(.init(width: 0, height: 20))
+//        seperatorStackView.anchor(
+//            top: loginButton.bottomAnchor,
+//            leading: view.leadingAnchor,
+//            trailing: view.trailingAnchor,
+//            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
+//        )
+//        orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+//        orLabel.centerYToView(to: seperatorStackView)
+//        line1View.centerYToView(to: seperatorStackView)
+//        line2View.centerYToView(to: seperatorStackView)
+//        
+//        NSLayoutConstraint.activate([
+//            line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
+//            line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
+//        ])
+//        
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         signupButton.anchor(
             top: passwordRequirementsStack.bottomAnchor,
             padding: .init(all: 44)
@@ -321,7 +364,7 @@ final class SignUpViewController: BaseViewController {
         signupButton.centerXToSuperview()
         signupButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         
-        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 88
+        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 88
         seperatorStackView.centerXToSuperview()
         seperatorStackView.anchorSize(.init(width: 0, height: 20))
         seperatorStackView.anchor(
@@ -349,6 +392,15 @@ final class SignUpViewController: BaseViewController {
         )
         googleSignInButton.centerXToSuperview()
         googleSignInButton.anchorSize(.init(width: 0, height: 44))
+        
+        appleSignInButton.anchor(
+            top: googleSignInButton.bottomAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 12, left: 32, bottom: 0, right: -32)
+        )
+        appleSignInButton.centerXToSuperview()
+        appleSignInButton.anchorSize(.init(width: 0, height: 44))
     }
     
     private func configureViewModel() {
@@ -365,6 +417,14 @@ final class SignUpViewController: BaseViewController {
                     self.viewModel?.showHomeTabBar()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
+                case .registerSuccess:
+                    UserDefaultsHelper.setBool(key: .isLoggedIn, value: true)
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.registerSuccess_Message.localized
+                    ) {
+                        self.viewModel?.showHomeTabBar()
+                    }
                 }
             }
         }
@@ -391,10 +451,11 @@ final class SignUpViewController: BaseViewController {
         GoogleAuthManager.shared.signIn(from: self) { result in
             switch result {
             case .success(let googleUser):
-                let loggedUser = GoogleUser(
+                let loggedUser = SingInUser(
                     name: googleUser.name,
                     email: googleUser.email,
-                    idToken: googleUser.idToken
+                    idToken: googleUser.idToken,
+                    appleID: nil
                 )
                 self.viewModel?.googleEmailCheck(user: loggedUser)
             case .failure(let error):
@@ -409,6 +470,17 @@ final class SignUpViewController: BaseViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func handleAppleLogin() {
+        AppleAuthManager.shared.signIn { result in
+            switch result {
+            case .success(let user):
+                self.viewModel?.appleEmailCheck(user: user)
+            case .failure(let error):
+                print("Apple Sign In failed: \(error)")
+            }
+        }
     }
     
     fileprivate func removeErrorBorder() {

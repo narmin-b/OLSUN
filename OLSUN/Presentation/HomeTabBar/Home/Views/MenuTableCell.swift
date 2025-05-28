@@ -86,7 +86,8 @@ final class MenuTableCell: UITableViewCell {
         titleLabel.anchor(
             top: topAnchor,
             leading: leadingAnchor,
-            padding: .init(top: 16, left: 24, bottom: 0, right: 0)
+            trailing: trailingAnchor,
+            padding: .init(top: 16, left: 24, bottom: 0, right: -24)
         )
         descriptionLabel.anchor(
             top: titleLabel.bottomAnchor,

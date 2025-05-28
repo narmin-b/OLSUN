@@ -21,7 +21,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "İlk öncə daha yaxşı xidmət üçün bir neçə sualı cavablandır!",
+            labelText: OlsunStrings.launchMessage.localized,
             labelColor: .primaryHighlight,
             labelFont: .futuricaBold,
             labelSize: DeviceSizeClass.current == .compact ? 24 : 32,
@@ -52,7 +52,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var nameLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Adınız",
+            labelText: OlsunStrings.nameText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -87,7 +87,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var partnerNameLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Partnyorunuzun adı",
+            labelText: OlsunStrings.partnerNameText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -123,7 +123,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Doğum Gününüz",
+            labelText: OlsunStrings.bdayText.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -136,7 +136,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var dateTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: ""
+            placeholder: OlsunStrings.optionalText.localized
         )
         
         let rightIcon = UIImageView(image: UIImage(systemName: "calendar"))
@@ -174,7 +174,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var genderLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Cinsiniz",
+            labelText: OlsunStrings.gendertext.localized,
             labelColor: .black,
             labelFont: .workSansRegular,
             labelSize: DeviceSizeClass.current == .large ? 20 : 16,
@@ -187,7 +187,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var genderTextfield: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: ""
+            placeholder:  OlsunStrings.optionalText.localized
         )
         
         let rightIcon = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill"))
@@ -224,7 +224,7 @@ final class LaunchViewController: BaseViewController {
     
     private lazy var nextButton: UIButton = {
         let button = ReusableButton(
-            title: "Növbəti",
+            title: OlsunStrings.nextButton.localized,
             onAction: { [weak self] in self?.nextTapped() },
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
             titleFont: .workSansMedium,
@@ -242,11 +242,11 @@ final class LaunchViewController: BaseViewController {
     }()
 
     private lazy var contentView: UIStackView = {
-        let view = UIStackView(/*arrangedSubviews: [titleLabel, launchImage]*/)
+        let view = UIStackView()
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 20
+        view.spacing = DeviceSizeClass.current == .compact ? 12 : 20
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -265,7 +265,7 @@ final class LaunchViewController: BaseViewController {
     private let deviceClass = DeviceSizeClass.current
     private var activeTextField: UITextField?
     
-    let genders = ["Qadın", "Kişi"]
+    let genders = [OlsunStrings.femaleText.localized, OlsunStrings.maleText.localized]
     private let viewModel: LaunchViewModel?
     
     init(viewModel: LaunchViewModel) {
@@ -311,8 +311,12 @@ final class LaunchViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-                    self.viewModel?.backToOnboarding()
-                    self.showMessage(title: "Uğurlu qeydiyyat!", message: "Hesabınız uğurla yaradıldı!")
+                    self.showMessage(
+                        title: OlsunStrings.registerSuccessText.localized,
+                        message: OlsunStrings.registerSuccess_Message.localized
+                    ) {
+                        self.viewModel?.backToOnboarding()
+                    }
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
                 }
@@ -398,7 +402,8 @@ final class LaunchViewController: BaseViewController {
         launchImage.anchorSize(.init(width: 0, height: height))
         
         let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-
+        let betweenDist: CGFloat = DeviceSizeClass.current == .compact ? 6 : 8
+        
         let nameContainer = UIView()
         nameContainer.addSubViews(nameLabel, nameTextField)
         nameLabel.anchor(
@@ -411,7 +416,7 @@ final class LaunchViewController: BaseViewController {
             top: nameLabel.bottomAnchor,
             leading: nameContainer.leadingAnchor,
             bottom: nameContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         nameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(nameContainer)
@@ -428,7 +433,7 @@ final class LaunchViewController: BaseViewController {
             top: partnerNameLabel.bottomAnchor,
             leading: partnerNameContainer.leadingAnchor,
             bottom: partnerNameContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         partnerNameTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(partnerNameContainer)
@@ -445,7 +450,7 @@ final class LaunchViewController: BaseViewController {
             top: dateLabel.bottomAnchor,
             leading: dateContainer.leadingAnchor,
             bottom: dateContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         dateTextField.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(dateContainer)
@@ -462,7 +467,7 @@ final class LaunchViewController: BaseViewController {
             top: genderLabel.bottomAnchor,
             leading: genderContainer.leadingAnchor,
             bottom: genderContainer.bottomAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: betweenDist, left: 32, bottom: 0, right: 0)
         )
         genderTextfield.anchorSize(.init(width: view.frame.width - 64, height: textFieldHeight))
         contentView.addArrangedSubview(genderContainer)
@@ -529,8 +534,8 @@ final class LaunchViewController: BaseViewController {
         let dateString = dateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let genderString = genderTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
         
-        var gender: Gender = .female
-        var partnerGender: Gender = .male
+        var gender: Gender?
+        var partnerGender: Gender?
         if genderString == "qadın" {
             gender = .female
             partnerGender = .male
@@ -541,7 +546,7 @@ final class LaunchViewController: BaseViewController {
         
         checkErrorBorders(name: username, partnerName: partnerName, bday: dateString)
         
-        if username.isValidName() && partnerName.isValidName() && dateString.isValidAge() {
+        if username.isValidName() && partnerName.isValidName() {
             let userInput = RegisterDataModel(
                 username: username,
                 gender: gender,
@@ -549,6 +554,7 @@ final class LaunchViewController: BaseViewController {
                 coupleGender: partnerGender,
                 bday: dateString
             )
+            print(userInput)
             viewModel?.createUser(user: userInput)
         }
     }
@@ -563,16 +569,6 @@ final class LaunchViewController: BaseViewController {
             partnerNameTextField.errorBorderOn()
         } else {
             partnerNameTextField.borderOff()
-        }
-        if !bday.isValidAge() {
-            dateTextField.errorBorderOn()
-        } else {
-            dateTextField.borderOff()
-        }
-        if genderTextfield.text?.isEmpty == true {
-            genderTextfield.errorBorderOn()
-        } else {
-            genderTextfield.borderOff()
         }
     }
     

@@ -20,9 +20,9 @@ final class LaunchViewModel {
     private var authSessionUse: AuthSessionUseCase
     private var auth: Auth?
     private var loginModel: LoginDataModel?
-    private var googleUser: GoogleUser?
+    private var googleUser: SingInUser?
     
-    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase, auth: Auth, loginModel: LoginDataModel, googleUser: GoogleUser) {
+    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase, auth: Auth, loginModel: LoginDataModel, googleUser: SingInUser) {
         self.navigation = navigation
         self.authSessionUse = authSessionUse
         self.auth = auth
@@ -39,6 +39,8 @@ final class LaunchViewModel {
         case .guest:
             break
         case .none:
+            break
+        case .apple:
             break
         }
     }

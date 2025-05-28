@@ -7,10 +7,11 @@
 
 import GoogleSignIn
 
-struct GoogleUser {
-    let name: String
-    let email: String
-    let idToken: String
+struct SingInUser {
+    let name: String?
+    let email: String?
+    let idToken: String?
+    let appleID: String?
 }
 
 final class GoogleAuthManager {
@@ -18,7 +19,7 @@ final class GoogleAuthManager {
     static let shared = GoogleAuthManager()
     private init() {}
 
-    func signIn(from viewController: UIViewController, completion: @escaping (Result<GoogleUser, Error>) -> Void) {
+    func signIn(from viewController: UIViewController, completion: @escaping (Result<SingInUser, Error>) -> Void) {
         GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { result, error in
             if let error = error {
                 completion(.failure(error))
@@ -32,10 +33,11 @@ final class GoogleAuthManager {
                 return
             }
 
-            let googleUser = GoogleUser(
+            let googleUser = SingInUser(
                 name: user.profile?.name ?? "Unknown",
                 email: user.profile?.email ?? "No email",
-                idToken: idToken
+                idToken: idToken,
+                appleID: nil
             )
 
             completion(.success(googleUser))

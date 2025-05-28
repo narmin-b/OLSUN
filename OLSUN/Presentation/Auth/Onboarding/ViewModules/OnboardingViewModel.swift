@@ -17,9 +17,11 @@ final class OnboardingViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: AuthNavigation?
+    private var authSessionUse: AuthSessionUseCase
         
-    init(navigation: AuthNavigation) {
+    init(navigation: AuthNavigation, authSessionUse: AuthSessionUseCase) {
         self.navigation = navigation
+        self.authSessionUse = authSessionUse
     }
     
     func popControllerBack() {
@@ -36,5 +38,24 @@ final class OnboardingViewModel {
     
     func showHomeTabBar() {
         navigation?.didCompleteAuthentication()
+    }
+    
+    func guestLogin() {
+        requestCallback?(.loading)
+        authSessionUse.guestUserLogin { [weak self] dto, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.requestCallback?(.loaded)
+                Logger.debug("dto: \(dto!)")
+                print(dto)
+                if dto?.status == .success {
+                    print("success")
+                    KeychainHelper.setString(dto?.token ?? "", key: .userID)
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
     }
 }

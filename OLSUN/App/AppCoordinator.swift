@@ -54,7 +54,8 @@ final class AppCoordinator: Coordinator, AuthCoordinatorDelegate, HomeTabBarCoor
         homeCoordinator = nil
 
         navigationController.viewControllers = []
-
+        navigationController.setNavigationBarHidden(false, animated: false)
+        
         window.rootViewController = nil
 
         let newAuthCoordinator = AuthCoordinator(

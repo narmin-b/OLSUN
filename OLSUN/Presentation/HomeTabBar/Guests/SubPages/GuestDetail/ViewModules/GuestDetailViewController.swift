@@ -46,7 +46,7 @@ final class GuestDetailViewController: BaseViewController {
     
     private lazy var deadlineLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: "Dəvət tarixi:",
+            labelText: OlsunStrings.guestsDate_Text.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
@@ -72,7 +72,7 @@ final class GuestDetailViewController: BaseViewController {
     
     private lazy var statusMenuButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Status", for: .normal)
+        button.setTitle(OlsunStrings.statusText.localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: FontKeys.workSansMedium.rawValue, size: 16)
         button.backgroundColor = .secondaryHighlight
@@ -88,7 +88,7 @@ final class GuestDetailViewController: BaseViewController {
     
     // MARK: Configurations
     private let viewModel: GuestDetailViewModel?
-    let statusOptions = ["Qəbul edib", "Gözləmədə", "Uyğun deyil"]
+    let statusOptions = [OlsunStrings.guestsStat_Accepted.localized, OlsunStrings.guestsStat_Pending.localized, OlsunStrings.guestsStat_Declined.localized]
     
     init(viewModel: GuestDetailViewModel) {
         self.viewModel = viewModel
@@ -193,7 +193,7 @@ final class GuestDetailViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: "Qonaqlar")
+        navigationItem.configureNavigationBar(text: OlsunStrings.guestText.localized)
     }
     
     private func configureViewModel() {

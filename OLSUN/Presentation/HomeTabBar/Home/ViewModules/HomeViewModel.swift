@@ -11,6 +11,7 @@ final class HomeViewModel {
     enum ViewState {
         case loading
         case loaded
+        case success
         case error(message: String)
     }
     
@@ -30,5 +31,9 @@ final class HomeViewModel {
     
     func showLaunchScreen() {
         navigation?.showAuth()
+    }
+    
+    func showProfileScreen() {
+        navigation?.showProfile()
     }
 }

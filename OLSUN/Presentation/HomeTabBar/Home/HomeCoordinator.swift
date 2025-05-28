@@ -12,7 +12,7 @@ protocol HomeTabBarCoordinatorDelegate: AnyObject {
     func homeDidFinish()
 }
 
-final class HomeCoordinator: Coordinator {
+final class HomeCoordinator: Coordinator, UserProfileDelegate {
     var parentCoordinator: Coordinator?
     weak var delegate: HomeTabBarCoordinatorDelegate?
     var children: [Coordinator] = []
@@ -31,17 +31,33 @@ final class HomeCoordinator: Coordinator {
     func start() {
         let controller = HomeViewController(
             viewModel: .init(
-                navigation: self, tabBarDelegate: tabBarDelegate
+                navigation: self,
+                tabBarDelegate: tabBarDelegate,
             )
         )
         showController(vc: controller)
     }
 }
 
-extension HomeCoordinator: HomeNavigation {
+extension HomeCoordinator: HomeNavigation, UserProfileNavigation {
+    func showProfile() {
+        let vc = UserProfileViewController(
+            viewModel: .init(
+                navigation: self,
+                accountUseCase: AccountSessionAPIService()
+            )
+        )
+        vc.logoutDelegate = self
+        showController(vc: vc)
+    }
+    
     func showAuth() {
         delegate?.homeDidFinish()
         
         parentCoordinator?.childDidFinish(self)
+    }
+    
+    func didRequestLogout(type: LogoutType) {
+        showAuth()
     }
 }

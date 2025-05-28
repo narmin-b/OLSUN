@@ -75,8 +75,8 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         partnersNavigationController.tabBarItem = partnersItem
         
         let planningItem = UITabBarItem()
-        planningItem.image = UIImage(named: "DoneFill")
-        planningItem.selectedImage = UIImage(named: "Done")
+        planningItem.image = UIImage(named: "DoneFill")?.withTintColor(.black)
+        planningItem.selectedImage = UIImage(named: "Done")?.withTintColor(.black)
         planningNavigationController.tabBarItem = planningItem
 
         let guestsItem = UITabBarItem()

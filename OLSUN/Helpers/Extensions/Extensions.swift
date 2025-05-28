@@ -16,7 +16,7 @@ private var fullTextKey: UInt8 = 0
 
 func whatsapp() {
     let message = "Salam! Mən OLSUN tətbiqindən çıxdım."
-    let phoneNumber = "994504577132" 
+    let phoneNumber = "994504577132"
     
     if let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
        let url = URL(string: "whatsapp://send?phone=\(phoneNumber)&text=\(encodedMessage)"),
@@ -177,11 +177,11 @@ extension UIViewController {
             message: message,
             preferredStyle: .alert
         )
-
+        
         alert.addAction(UIAlertAction(title: actionTitle, style: .default) { _ in
             completion?()
         })
-
+        
         self.present(alert, animated: true, completion: nil)
     }
 }
@@ -294,10 +294,10 @@ extension UIImageView {
     func loadImage(named imageName: String) {
         let baseURL = "https://olsun.in/img/app/"
         guard let url = URL(string: baseURL + imageName) else { return }
-
+        
         isSkeletonable = true
         showAnimatedGradientSkeleton()
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             DispatchQueue.main.async {
                 self.hideSkeleton()
@@ -372,6 +372,77 @@ extension UILabel {
         
         self.attributedText = attributedText
     }
+    
+    var fullText: String? {
+        get { return objc_getAssociatedObject(self, &fullTextKey) as? String }
+        set { objc_setAssociatedObject(self, &fullTextKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    func setTextWithTrailing(trailingText: String, moreText: String, moreTextFont: UIFont, moreTextColor: UIColor) {
+        guard let originalText = self.text else { return }
+        self.fullText = self.fullText ?? originalText
+        
+        let readMoreText = trailingText + moreText
+        let visibleLength = self.visibleTextLength
+        let trimmedText = (originalText as NSString).substring(to: visibleLength)
+        
+        let spaceForTrailing = max(0, trimmedText.count - readMoreText.count)
+        let finalText = (trimmedText as NSString).substring(to: spaceForTrailing) + trailingText
+        
+        let baseAttr = NSMutableAttributedString(string: finalText, attributes: [.font: self.font as Any])
+        let trailingAttr = NSAttributedString(string: moreText, attributes: [.font: moreTextFont, .foregroundColor: moreTextColor])
+        baseAttr.append(trailingAttr)
+        
+        self.attributedText = baseAttr
+    }
+    
+    func removeTrailingText() {
+        self.text = self.fullText
+    }
+    
+    private var visibleTextLength: Int {
+        guard let text = self.text, let font = self.font else { return 0 }
+        
+        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
+        
+        let fullTextRect = (text as NSString).boundingRect(
+            with: size,
+            options: [.usesLineFragmentOrigin],
+            attributes: attributes,
+            context: nil
+        )
+        
+        if fullTextRect.height <= self.bounds.height {
+            return text.count
+        }
+        
+        var index = 0
+        var prevIndex = 0
+        let charSet = CharacterSet.whitespacesAndNewlines
+        
+        repeat {
+            prevIndex = index
+            let range = NSRange(location: index + 1, length: text.count - index - 1)
+            if let nextIndex = (text as NSString).rangeOfCharacter(from: charSet, options: [], range: range).toOptional()?.location {
+                index = nextIndex
+            } else {
+                break
+            }
+            let substr = (text as NSString).substring(to: index)
+            let rect = (substr as NSString).boundingRect(
+                with: size,
+                options: [.usesLineFragmentOrigin],
+                attributes: attributes,
+                context: nil
+            )
+            if rect.height > self.bounds.height {
+                break
+            }
+        } while index < text.count
+        
+        return prevIndex
+    }
 }
 
 extension UINavigationItem {
@@ -425,7 +496,7 @@ extension UIView {
             trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
+    
     func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }

@@ -76,12 +76,13 @@ final class MenuTableCell: UITableViewCell {
         iconImageView.anchor(
             top: topAnchor,
             trailing: trailingAnchor,
-            padding: .init(top: 4, left: 0, bottom: 0, right: -12)
+            padding: .init(top: 4, left: 0, bottom: 0, right: -24)
         )
         iconImageView.anchorSize(.init(
-            width: DeviceSizeClass.current == .compact ? 60 : 68,
-            height: DeviceSizeClass.current == .compact ? 60 : 68
+            width: DeviceSizeClass.current == .compact ? 32 : 40,
+            height: DeviceSizeClass.current == .compact ? 32 : 40
         ))
+        iconImageView.centerYToView(to: contentView)
         
         titleLabel.anchor(
             top: topAnchor,

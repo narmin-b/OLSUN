@@ -523,6 +523,7 @@
 				1147AF142DABF6AD006D28CD /* HomeTabBarNavigation.swift */,
 				1174DF932DAAC32200DC1CCC /* TabBarController.swift */,
 				1174DF952DAAC32E00DC1CCC /* Home */,
+				11884AA52DE7169C00EA53D2 /* Partners 2 */,
 				1174DFA92DAAD2B400DC1CCC /* Planning */,
 				1174DFAA2DAAD2D000DC1CCC /* Guests */,
 			);
@@ -705,12 +706,12 @@
 		11884AA52DE7169C00EA53D2 /* Partners 2 */ = {
 			isa = PBXGroup;
 			children = (
-				11884A8B2DE7169C00EA53D2 /* Models */,
-				11884A9C2DE7169C00EA53D2 /* SubPages */,
+				11884AA42DE7169C00EA53D2 /* PartnersNavigation.swift */,
+				11884AA32DE7169C00EA53D2 /* PartnersCoordinator.swift */,
 				11884A9F2DE7169C00EA53D2 /* ViewModules */,
 				11884AA22DE7169C00EA53D2 /* Views */,
-				11884AA32DE7169C00EA53D2 /* PartnersCoordinator.swift */,
-				11884AA42DE7169C00EA53D2 /* PartnersNavigation.swift */,
+				11884A8B2DE7169C00EA53D2 /* Models */,
+				11884A9C2DE7169C00EA53D2 /* SubPages */,
 			);
 			path = "Partners 2";
 			sourceTree = "<group>";
@@ -1112,7 +1113,6 @@
 		11E052532DD101BA001F686A /* SubPages */ = {
 			isa = PBXGroup;
 			children = (
-				11884AA52DE7169C00EA53D2 /* Partners 2 */,
 				11E052542DD10203001F686A /* UserProfile */,
 			);
 			path = SubPages;

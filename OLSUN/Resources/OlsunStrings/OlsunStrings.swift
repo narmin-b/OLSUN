@@ -83,6 +83,20 @@ enum OlsunStrings: String {
     case warningText
     case guestAttemptLimit_Message
     case guestLogoutMessage
+    case partnersText
+    case partnersDesc
+    case bakuText
+    case barberText
+    case decorationText
+    case khinaOrgText
+    case khoncaText
+    case partnersSubtitle
+    case photographerText
+    case serviceLocText
+    case serviceTypeText
+    case sweetsText
+    case tuxedoText
+    case weddingDressText
 }
 
 extension OlsunStrings {

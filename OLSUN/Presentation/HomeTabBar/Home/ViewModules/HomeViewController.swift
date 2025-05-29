@@ -59,6 +59,11 @@ final class HomeViewController: BaseViewController {
     
     var menuItems: [MenuItem] = [
         MenuItem(
+            iconName: "partnersIcon",
+            title: OlsunStrings.partnersText.localized,
+            description: OlsunStrings.partnersDesc.localized
+        ),
+        MenuItem(
             iconName: "planningIcon",
             title: OlsunStrings.planningText.localized,
             description: OlsunStrings.planningDesc.localized

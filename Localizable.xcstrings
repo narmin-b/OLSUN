@@ -52,6 +52,40 @@
         }
       }
     },
+    "bakuText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bakı"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baku"
+          }
+        }
+      }
+    },
+    "barberText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bəy Bərbəri"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groom’s Barber"
+          }
+        }
+      }
+    },
     "bdayText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -116,6 +150,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        }
+      }
+    },
+    "decorationText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dekorasiya"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decoration"
           }
         }
       }
@@ -545,6 +596,40 @@
         }
       }
     },
+    "khinaOrgText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xınayaxdı"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henna Party"
+          }
+        }
+      }
+    },
+    "khoncaText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xonça"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khoncha"
+          }
+        }
+      }
+    },
     "launchMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -834,6 +919,57 @@
         }
       }
     },
+    "partnersDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha çox məlumat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More information"
+          }
+        }
+      }
+    },
+    "partnersSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olsun-da hər istəyə uyğun xidmət üçün tərəfdaş tap!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find the perfect vendor for every need on Olsun!"
+          }
+        }
+      }
+    },
+    "partnersText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partnyorlar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partners"
+          }
+        }
+      }
+    },
     "passwordText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -847,6 +983,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Password"
+          }
+        }
+      }
+    },
+    "photographerText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fotoqraf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photographer"
           }
         }
       }
@@ -1174,6 +1327,40 @@
         }
       }
     },
+    "serviceLocText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Məkan"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
+    },
+    "serviceTypeText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xidmət növü"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Type"
+          }
+        }
+      }
+    },
     "signUpButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1225,6 +1412,40 @@
         }
       }
     },
+    "sweetsText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şirniyyatlar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sweets"
+          }
+        }
+      }
+    },
+    "tuxedoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bəylik Kostyumu"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groom Suits"
+          }
+        }
+      }
+    },
     "updateSuccessText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1255,6 +1476,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Warning!"
+          }
+        }
+      }
+    },
+    "weddingDressText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gəlinliklər"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wedding Dresses"
           }
         }
       }

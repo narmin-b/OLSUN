@@ -445,6 +445,12 @@ extension UILabel {
     }
 }
 
+private extension NSRange {
+    func toOptional() -> NSRange? {
+        return self.location != NSNotFound ? self : nil
+    }
+}
+
 extension UINavigationItem {
     func configureNavigationBar(text: String) {
         let navgationView = UIView()

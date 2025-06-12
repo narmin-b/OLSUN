@@ -86,7 +86,7 @@ enum OlsunStrings: String {
     case partnersText
     case partnersDesc
     case bakuText
-    case barberText
+    case beautySalonText
     case decorationText
     case khinaOrgText
     case khoncaText
@@ -97,6 +97,31 @@ enum OlsunStrings: String {
     case sweetsText
     case tuxedoText
     case weddingDressText
+    case galleryText
+    case contactText
+    case aylakhoncaText
+    case aylakhoncaDesc
+    case bakuwedDesc
+    case bakuwedText
+    case elatusDesc
+    case elatusText
+    case faridAghaDesc
+    case faridAghaText
+    case javahirDesDesc
+    case javahirDesText
+    case nurkhinaDesc
+    case nurkhinaText
+    case revaneTortDesc
+    case revaneTortText
+    case romanDecDesc
+    case romanDecText
+    case turqayDesc
+    case turqayText
+    case konulKhoncaDesc
+    case konulKhoncaText
+    case moreText
+    case wpNotAvaiTitle
+    case wpNotAvaiMessage
 }
 
 extension OlsunStrings {

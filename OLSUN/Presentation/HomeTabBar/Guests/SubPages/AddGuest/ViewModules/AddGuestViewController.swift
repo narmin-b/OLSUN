@@ -336,7 +336,6 @@ final class AddGuestViewController: BaseViewController {
                 case .deleteSuccess:
                     self.showMessage(title: OlsunStrings.updateSuccessText.localized, message: OlsunStrings.guestDelete_Message.localized)
                 case .success:
-                    self.showMessage(title: OlsunStrings.registerSuccessText.localized, message: OlsunStrings.guestAdded_Message.localized)
                     self.showMessage(
                         title: OlsunStrings.registerSuccessText.localized,
                         message: OlsunStrings.guestAdded_Message.localized

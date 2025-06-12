@@ -19,7 +19,7 @@ final class PartnerDetailLayout {
            
            let groupSize = NSCollectionLayoutSize(
                widthDimension: .fractionalWidth(1),
-               heightDimension: .estimated(560)
+               heightDimension: .estimated(580)
            )
            let group = NSCollectionLayoutGroup.vertical(
                layoutSize: groupSize,
@@ -41,18 +41,18 @@ final class PartnerDetailLayout {
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(120)
+            heightDimension: .estimated(UIScreen.main.bounds.width * 0.3 - 16)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(8)
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 16, trailing: 16)
         
         section.boundarySupplementaryItems = [
             .init(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44)),
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(52)),
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .topLeading
             )
@@ -63,15 +63,24 @@ final class PartnerDetailLayout {
 
     // MARK: - Section 2: Contact Icons
     func contactSection() -> NSCollectionLayoutSection {
+        let size: CGFloat = {
+            switch DeviceSizeClass.current {
+            case .iPad:
+                return 88
+            default:
+                return 68
+            }
+        }()
+        
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(44),
-            heightDimension: .absolute(44)
+            widthDimension: .absolute(size + 4),
+            heightDimension: .absolute(size + 4)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(100),
-            heightDimension: .absolute(88)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(size + 12)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(16)
@@ -82,7 +91,7 @@ final class PartnerDetailLayout {
         
         section.boundarySupplementaryItems = [
             .init(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44)),
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48)),
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .topLeading
             )

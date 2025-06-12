@@ -17,14 +17,30 @@ final class PartnerDetailViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: PartnersNavigation?
-    var partner: Partner?
+    private var vendorUseCase: VendorUseCase
+    var newPartner: newPartner?
     
-    init(navigation: PartnersNavigation, partner: Partner) {
+    init(navigation: PartnersNavigation, newPartner: newPartner, vendorUseCase: VendorUseCase) {
         self.navigation = navigation
-        self.partner = partner
+        self.newPartner = newPartner
+        self.vendorUseCase = vendorUseCase
     }
     
-    func showPartnerGallery(partner: Partner, index: Int) {
+    func showPartnerGallery(partner: newPartner, index: Int) {
         navigation?.showPartnerGallery(partner: partner, selectedIndex: index)
+    }
+    
+    func addIconClick(dto: clickDataModel) {
+        print(#function)
+        vendorUseCase.addClickCount(dto: dto) { [weak self] result, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let result = result {
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
     }
 }

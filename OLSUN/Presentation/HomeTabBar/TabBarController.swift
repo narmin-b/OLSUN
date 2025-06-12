@@ -33,11 +33,13 @@ final class TabBarController: UITabBarController {
     }
     
     private func setupCustomTabBarView() {
+        guard DeviceSizeClass.current != .iPad else { return }
+
         guard let window = UIApplication.shared.windows.first else { return }
-        
+
         let tabBarHeight = tabBar.frame.height + 10
         let bottomPadding = window.safeAreaInsets.bottom
-        
+
         customTabBarView.frame = CGRect(
             x: 20,
             y: view.frame.height - tabBarHeight - bottomPadding,
@@ -49,7 +51,7 @@ final class TabBarController: UITabBarController {
         customTabBarView.layer.shadowOpacity = 0.1
         customTabBarView.layer.shadowRadius = 8
         customTabBarView.layer.masksToBounds = false
-        
+
         view.addSubview(customTabBarView)
         view.bringSubviewToFront(tabBar)
     }

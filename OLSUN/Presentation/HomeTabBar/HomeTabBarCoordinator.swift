@@ -70,8 +70,8 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         homeNavigationController.navigationBar.shadowImage = UIImage()
 
         let partnersItem = UITabBarItem()
-        partnersItem.image = UIImage(systemName: "handbag")
-        partnersItem.selectedImage = UIImage(systemName: "handbag.fill")
+        partnersItem.image = UIImage(systemName: "handbag")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        partnersItem.selectedImage = UIImage(systemName: "handbag.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         partnersNavigationController.tabBarItem = partnersItem
         
         let planningItem = UITabBarItem()

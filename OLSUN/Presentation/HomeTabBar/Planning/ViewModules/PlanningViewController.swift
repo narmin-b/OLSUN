@@ -147,20 +147,20 @@ final class PlanningViewController: BaseViewController {
             padding: .init(all: 0)
         )
         
-        let profileButton = UIBarButtonItem(
-            image: UIImage(named: "profile"),
-            style: .plain,
-            target: self,
-            action: #selector(profileTabClicked)
-        )
-        
-        profileButton.tintColor = .primaryHighlight
-        
-        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
-            navigationItem.rightBarButtonItems = []
-        } else {
-            navigationItem.rightBarButtonItems = [profileButton]
-        }
+//        let profileButton = UIBarButtonItem(
+//            image: UIImage(named: "profile"),
+//            style: .plain,
+//            target: self,
+//            action: #selector(profileTabClicked)
+//        )
+//        
+//        profileButton.tintColor = .primaryHighlight
+//        
+//        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
+//            navigationItem.rightBarButtonItems = []
+//        } else {
+//            navigationItem.rightBarButtonItems = [profileButton]
+//        }
     }
     
     private func configureViewModel() {

@@ -19,11 +19,11 @@ final class PartnersViewController: BaseViewController {
         return view
     }()
     
-//    private lazy var refreshControl: UIRefreshControl = {
-//        let refreshControl = UIRefreshControl()
-//        refreshControl.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
-//        return refreshControl
-//    }()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
+        return refreshControl
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
@@ -69,21 +69,23 @@ final class PartnersViewController: BaseViewController {
         button.isUserInteractionEnabled = true
         button.addRightImage(image: UIImage(systemName: "chevron.down")!, offset: 12)
         button.addTarget(self, action: #selector(toggleDropdown(_:)), for: .touchUpInside)
+        
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var partnersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 16
+        layout.sectionInset = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white
+        collectionView.refreshControl = refreshControl
         collectionView.register(PartnerCell.self, forCellWithReuseIdentifier: PartnerCell.identifier)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,10 +101,7 @@ final class PartnersViewController: BaseViewController {
     private var activeDropdownButton: UIButton?
     private var selectedType: ServiceType?
     private var selectedLocation: ServiceLocation?
-    
-    private var partners: [Partner] = []
-    private var allPartners: [Partner] = []
-    
+     
     init(viewModel: PartnersViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -120,111 +119,8 @@ final class PartnersViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
+        viewModel?.getAllVendorList()
         Logger.debug("id: \(KeychainHelper.getString(key: .userID) ?? "")")
-        
-        partners = [
-            Partner(
-                name: "Javahir Design",
-                description: "\"Javahir Design\" incə zövqlə gəlinliklər hazırlayan bir atelyedir. Burada hər gəlin öz xəyalındakı libası tapır və xüsusi sifarişlə hazırlanan modellərlə fərqlənir. Keyfiyyət və estetik yanaşma atelyemizin əsas prioritetləridir.",
-                coverImage: UIImage(named: "javahirCover")!,
-                category: .weddingDresses,
-                gallery: [UIImage(named: "javahirCover")!, UIImage(named: "javahir1")!, UIImage(named: "javahir2")!],
-                logo: UIImage(named: "javahirLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Turqay Zeynallı",
-                description: "Toy və Tədbir Fotoqrafı. Hər anın təbii gözəlliyini və orijinallığını qoruyaraq, xatirələrinizi incə bir yanaşma ilə sənədləşdirir. Çəkilişlərində sadəlik, estetik baxış və duyğunun harmoniyası ön plandadır. Xüsusi günlərinizin ən saf və səmimi anlarını zamansız kadrlarla əbədiləşdirməyi hədəfləyir.",
-                coverImage: UIImage(named: "turqayCover")!,
-                category: .photographer,
-                gallery: [UIImage(named: "turqay1")!, UIImage(named: "turqay2")!, UIImage(named: "turqay3")!],
-                logo: UIImage(named: "turqayLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Elatus",
-                description: "Kişi, qadın və uşaq geyimlərinin onun ölçülərinə uyğun peşəkar hazırlanması. Geyimlərinin zövqünə və bədən formasına tam uyğunlaşdırılması üçün yüksək keyfiyyətli xidmət təklif olunur. Eləcə də, hazır paltarlarının premium təmiri və estetik yenilənməsi ilə sevimli geyimlərinə yenidən həyat verilir.",
-                coverImage: UIImage(named: "elatusCover")!,
-                category: .tuxedo,
-                gallery: [UIImage(named: "elatus1")!, UIImage(named: "elatus2")!],
-                logo: UIImage(named: "elatusLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Nur Xına Təşkili",
-                description: "Nur Xına Təşkili Zərifə Xanlarovanın rəhbərliyi ilə xına və nişan mərasimlərini zəriflik və ənənə ilə birləşdirərək unudulmaz anlara çevirir. Hər büdcəyə uyğun dekorlar, peşəkar rəqqasə və davulçular, milli rəqslər, mələklərlə gözqamaşdıran girişlər, zövqlə hazırlanmış xonçalar və nişan/həri süfrələri təqdim olunur. Toy və xına aparıcılığı xidmətləri ilə tədbirlər yüksək səviyyədə təşkil olunur – hər detal incəliklə düşünülərək həyata keçirilir.",
-                coverImage: UIImage(named: "nurxinaLogo")!,
-                category: .khinaOrg,
-                gallery: [UIImage(named: "nurxina1")!, UIImage(named: "nurxina2")!, UIImage(named: "nurxina3")!],
-                logo: UIImage(named: "nurxinaLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Ayla Xonça evi",
-                description: "Xonça Boutique, toy, nişan və xına mərasimləri üçün zövqlə hazırlanmış xonça və səbətləri ilə özəl günlərə fərqlilik qatır. Aksessuarlar, şokolad və stekan bəzəkləri ilə hər şey incəliklə tamamlanır. Eyni zamanda, müxtəlif dizaynlarda xonçaların kirayəsi də mövcuddur – hər zövqə və konseptə uyğun seçim imkanı təqdim edilir.",
-                coverImage: UIImage(named: "aylaxoncaLogo")!,
-                category: .khonca,
-                gallery: [UIImage(named: "aylaxonca1")!, UIImage(named: "aylaxonca2")!, UIImage(named: "aylaxonca3")!],
-                logo: UIImage(named: "aylaxoncaLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Rəvanənin tortları",
-                description: "Hər növ tort və şirniyyat sifarişləri zövqünüzə uyğun şəkildə qəbul olunur. Həm görünüşü ilə göz oxşayan, həm də dadı ilə yadda qalan şirniyyatlar xüsusi günlərinizi daha da şirin edəcək.",
-                coverImage: UIImage(named: "revanetortLogo")!,
-                category: .sweets,
-                gallery: [UIImage(named: "revanetort1")!, UIImage(named: "revanetort2")!, UIImage(named: "revanetort3")!],
-                logo: UIImage(named: "revanetortLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Romantic Decoration",
-                description: "Unudulmaz evlilik təklifləri və romantik anlar üçün zövqlü dekorasiyalarla xidmətinizdədir. Güllər, şamlar, işıqlar və sevgi dolu detallarla hazırlanmış konseptlər xüsusi anlarınızı nağıl kimi yaşadacaq.",
-                coverImage: UIImage(named: "romanticdecLogo")!,
-                category: .decoration,
-                gallery: [UIImage(named: "romanticdec1")!, UIImage(named: "romanticdec2")!, UIImage(named: "romanticdec3")!],
-                logo: UIImage(named: "romanticdecLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Baku Wedding",
-                description: "Zövqlü dizayn, peşəkar planlama və unudulmaz məkan dekorasiyaları ilə toy və xüsusi günlərinizi istədiyiniz kimi həyata keçirir. Hər detalda incəlik, hər tədbirdə fərqlilik – çünki sizin gününüz mükəmməl olmalıdır.",
-                coverImage: UIImage(named: "bakuwedLogo")!,
-                category: .decoration,
-                gallery: [UIImage(named: "bakuwed1")!, UIImage(named: "bakuwed2")!, UIImage(named: "bakuwed3")!],
-                logo: UIImage(named: "bakuwedLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Könül Xonça",
-                description: "Nişan və həri mərasimləriniz üçün zövqlə hazırlanmış xonçalar və 30 nəfərlik tam set kirayəsi ilə xüsusi gününüzü daha da yadda qalan edin.",
-                coverImage: UIImage(named: "konulxoncaLogo")!,
-                category: .khonca,
-                gallery: [UIImage(named: "konulxonca1")!, UIImage(named: "konulxonca2")!, UIImage(named: "konulxonca3")!],
-                logo: UIImage(named: "konulxoncaLogo")!,
-                contact: [Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            ),
-            Partner(
-                name: "Farid Aghayev",
-                description: "Kişi saç kəsimi, saqqal düzəltmə və baxım prosedurları, eləcə də xüsusi günlər üçün saç dizaynı xidmətləri təklif edir. Peşəkar yanaşma və zövqlü toxunuşla hər müştərinin stilini ön plana çıxarır.",
-                coverImage: UIImage(named: "faridAghayevLogo")!,
-                category: .barber,
-                gallery: [],
-                logo: UIImage(named: "faridAghayevLogo")!,
-                contact: [Contact(name: .instagram, link: ""), Contact(name: .whatsapp, link: ""), Contact(name: .tiktok, link: "")],
-                location: .baku
-            )
-        ]
-        allPartners = partners
     }
     
     override func configureView() {
@@ -280,11 +176,10 @@ final class PartnersViewController: BaseViewController {
      }
     
     private func filterPartners() {
-        partners = allPartners.filter { partner in
+        viewModel?.protocolList = viewModel?.allProtocolList.filter { partner in
             let typeMatches = selectedType == nil || partner.category == selectedType
-            let locationMatches = selectedLocation == nil || partner.location == selectedLocation
-            return typeMatches && locationMatches
-        }
+            return typeMatches
+        } ?? []
         partnersCollectionView.reloadData()
     }
     
@@ -355,7 +250,6 @@ final class PartnersViewController: BaseViewController {
         
         locationMenuButton.anchor(
             top: titleLabel.bottomAnchor,
-//            leading: view.centerXAnchor,
             trailing: view.trailingAnchor,
             padding: .init(top: 20, left: 0, bottom: 0, right: -20)
         )
@@ -391,20 +285,6 @@ final class PartnersViewController: BaseViewController {
             padding: .init(all: 0)
         )
         
-        let profileButton = UIBarButtonItem(
-            image: UIImage(named: "profile"),
-            style: .plain,
-            target: self,
-            action: #selector(profileTabClicked)
-        )
-        
-        profileButton.tintColor = .primaryHighlight
-        
-        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
-            navigationItem.rightBarButtonItems = []
-        } else {
-            navigationItem.rightBarButtonItems = [profileButton]
-        }
     }
     
     private func configureViewModel() {
@@ -417,7 +297,7 @@ final class PartnersViewController: BaseViewController {
                 case .loaded:
                     self.loadingView.stopAnimating()
                 case .success:
-//                    self.refreshControl.endRefreshing()
+                    self.refreshControl.endRefreshing()
                     self.partnersCollectionView.reloadData()
                 case .error(let error):
                     self.showMessage(title: "Error", message: error)
@@ -429,25 +309,40 @@ final class PartnersViewController: BaseViewController {
     @objc private func profileTabClicked() {
         viewModel?.showProfileScreen()
     }
+    
+    @objc private func reloadPage() {
+        viewModel?.refreshAllVendorList()
+    }
 }
 
 extension PartnersViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return partners.count
+        return viewModel?.protocolList.count ?? 0
         }
 
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PartnerCell.identifier, for: indexPath) as! PartnerCell
-            cell.configure(with: partners[indexPath.item])
+            if let partner = viewModel?.protocolList[safe: indexPath.item] {
+                cell.configureCell(with: partner)
+            }
+//            cell.configureCell(with: (viewModel?.protocolList[indexPath.item])!)
             return cell
         }
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let width = (collectionView.frame.width - 48) / 2
-            return CGSize(width: width, height: width)
+            return CGSize(width: width, height: width - 16)
         }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel?.showPartnerDetailVC(partner: partners[indexPath.item])
+        guard
+            ((viewModel?.allProtocolList.indices.contains(indexPath.item)) != nil),
+            let newPartner = viewModel?.allProtocolList[indexPath.item]
+        else {
+            print("Index out of range for partners or protocolList at item:", indexPath.item)
+            return
+        }
+
+        viewModel?.showPartnerDetailVC(newPartner: newPartner)
     }
 }

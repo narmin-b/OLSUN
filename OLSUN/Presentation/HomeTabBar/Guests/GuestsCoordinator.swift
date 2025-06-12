@@ -8,13 +8,14 @@
 import Foundation
 import UIKit.UINavigationController
 
-final class GuestsCoordinator: Coordinator, HomeNavigation {
-    func showAuth() {
+final class GuestsCoordinator: Coordinator, HomeNavigation, UserProfileDelegate {
+    func didRequestLogout(type: LogoutType) {
         //
     }
     
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
+    weak var delegate: HomeTabBarCoordinatorDelegate?
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -36,6 +37,12 @@ final class GuestsCoordinator: Coordinator, HomeNavigation {
 }
 
 extension GuestsCoordinator: GuestsNavigation, UserProfileNavigation {
+    func showAuth() {
+        delegate?.homeDidFinish()
+        
+        parentCoordinator?.childDidFinish(self)
+    }
+    
     func showProfile() {
         let vc = UserProfileViewController(
             viewModel: .init(
@@ -43,6 +50,7 @@ extension GuestsCoordinator: GuestsNavigation, UserProfileNavigation {
                 accountUseCase: AccountSessionAPIService()
             )
         )
+        vc.logoutDelegate = self
         showController(vc: vc)
     }
     

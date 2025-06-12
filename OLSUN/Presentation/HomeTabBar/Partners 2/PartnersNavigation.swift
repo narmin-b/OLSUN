@@ -6,8 +6,8 @@
 //
 
 protocol PartnersNavigation: AnyObject {
-    func showPartnerDetail(partner: Partner)
-    func showPartnerGallery(partner: Partner, selectedIndex: Int)
+    func showPartnerDetail( newPartner: newPartner)
+    func showPartnerGallery(partner: newPartner, selectedIndex: Int)
     func popController()
     func showProfile()
 }

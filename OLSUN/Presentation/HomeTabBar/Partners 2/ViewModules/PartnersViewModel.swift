@@ -17,20 +17,55 @@ final class PartnersViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: PartnersNavigation?
-//    private var taskUseCase: PlanningUseCase
-    var taskList: [ListCellProtocol] = []
+    private var vendorUseCase: VendorUseCase
+    var protocolList: [newPartner] = []
+    var allProtocolList: [newPartner] = []
     
-    init(navigation: PartnersNavigation/*, taskUseCase: PlanningUseCase*/) {
+    init(navigation: PartnersNavigation, vendorUseCase: VendorUseCase) {
         self.navigation = navigation
-//        self.taskUseCase = taskUseCase
+        self.vendorUseCase = vendorUseCase
     }
     
     // MARK: Navigations
-    func showPartnerDetailVC(partner: Partner) {
-        navigation?.showPartnerDetail(partner: partner)
+    func showPartnerDetailVC(newPartner: newPartner) {
+        navigation?.showPartnerDetail(newPartner: newPartner)
     }
     
     func showProfileScreen() {
         navigation?.showProfile()
+    }
+    
+    func getAllVendorList() {
+        requestCallback?(.loading)
+        vendorUseCase.getAllVendorList { [weak self] result, error in
+            guard let self = self else { return }
+            self.requestCallback?(.loaded)
+            DispatchQueue.main.async {
+                if let result = result {
+                    self.protocolList = (result.map({$0.mapToDomain()}))
+                    self.allProtocolList = self.protocolList
+                    print(self.protocolList)
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
+    }
+    
+    func refreshAllVendorList() {
+        vendorUseCase.getAllVendorList { [weak self] result, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let result = result {
+                    self.protocolList = (result.map({$0.mapToDomain()}))
+                    self.allProtocolList = self.protocolList
+                    print(self.protocolList)
+                    self.requestCallback?(.success)
+                } else if let error = error {
+                    self.requestCallback?(.error(message: error))
+                }
+            }
+        }
     }
 }

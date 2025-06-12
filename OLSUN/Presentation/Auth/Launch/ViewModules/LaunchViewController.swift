@@ -291,7 +291,7 @@ final class LaunchViewController: BaseViewController {
         super.viewDidLoad()
         configureViewModel()
         
-        launchImage.loadImage(named: "launchImage.png")
+        launchImage.loadImage(named: "/img/app/launchImage.png")
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false

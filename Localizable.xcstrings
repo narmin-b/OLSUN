@@ -52,6 +52,40 @@
         }
       }
     },
+    "aylakhoncaDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xonça Boutique, toy, nişan və xına mərasimləri üçün zövqlə hazırlanmış xonça və səbətləri ilə özəl günlərə fərqlilik qatır. Aksessuarlar, şokolad və stekan bəzəkləri ilə hər şey incəliklə tamamlanır. Eyni zamanda, müxtəlif dizaynlarda xonçaların kirayəsi də mövcuddur – hər zövqə və konseptə uyğun seçim imkanı təqdim edilir."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xonça Boutique adds a unique touch to special days with elegantly crafted khonchas and baskets for weddings, engagements, and henna nights. Everything is completed with fine details, including accessories, chocolates, and decorated glasses. Additionally, a variety of gift trays are available for rent in different designs – offering options to suit every taste and concept."
+          }
+        }
+      }
+    },
+    "aylakhoncaText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayla Xonça evi"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayla Khoncha house"
+          }
+        }
+      }
+    },
     "bakuText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -69,19 +103,36 @@
         }
       }
     },
-    "barberText" : {
+    "bakuwedDesc" : {
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bəy Bərbəri"
+            "value" : "Zövqlü dizayn, peşəkar planlama və unudulmaz məkan dekorasiyaları ilə toy və xüsusi günlərinizi istədiyiniz kimi həyata keçirir. Hər detalda incəlik, hər tədbirdə fərqlilik – çünki sizin gününüz mükəmməl olmalıdır."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Groom’s Barber"
+            "value" : "With tasteful design, professional planning, and unforgettable venue decorations, we bring your wedding and special days to life just the way you imagine. Elegance in every detail, uniqueness in every event – because your day deserves to be perfect."
+          }
+        }
+      }
+    },
+    "bakuwedText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baku Wedding"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baku Wedding"
           }
         }
       }
@@ -99,6 +150,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Birth date"
+          }
+        }
+      }
+    },
+    "beautySalonText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gözəllik Salonları"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beauty Salons"
           }
         }
       }
@@ -133,6 +201,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you sure?"
+          }
+        }
+      }
+    },
+    "contactText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Əlaqə"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact"
           }
         }
       }
@@ -239,6 +324,40 @@
         }
       }
     },
+    "elatusDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kişi, qadın və uşaq geyimlərinin onun ölçülərinə uyğun peşəkar hazırlanması. Geyimlərinin zövqünə və bədən formasına tam uyğunlaşdırılması üçün yüksək keyfiyyətli xidmət təklif olunur. Eləcə də, hazır paltarlarının premium təmiri və estetik yenilənməsi ilə sevimli geyimlərinə yenidən həyat verilir."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Professional tailoring of men’s, women’s, and children’s clothing to perfectly match individual measurements. We offer high-quality services to ensure each garment is tailored to your taste and body shape. Additionally, your favorite outfits are brought back to life through premium repairs and aesthetic updates of ready-made clothing."
+          }
+        }
+      }
+    },
+    "elatusText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elatus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elatus"
+          }
+        }
+      }
+    },
     "emailText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -256,6 +375,40 @@
         }
       }
     },
+    "faridAghaDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kişi saç kəsimi, saqqal düzəltmə və baxım prosedurları, eləcə də xüsusi günlər üçün saç dizaynı xidmətləri təklif edir. Peşəkar yanaşma və zövqlü toxunuşla hər müştərinin stilini ön plana çıxarır."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Offers men’s haircuts, beard grooming and care procedures, as well as hair styling services for special occasions. With a professional approach and a touch of style, each client’s look is brought to the forefront."
+          }
+        }
+      }
+    },
+    "faridAghaText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farid Aghayev"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Farid Aghayev"
+          }
+        }
+      }
+    },
     "femaleText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -269,6 +422,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Female"
+          }
+        }
+      }
+    },
+    "galleryText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qalereya"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gallery"
           }
         }
       }
@@ -579,6 +749,40 @@
         }
       }
     },
+    "javahirDesDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Javahir Design” incə zövqlə gəlinliklər hazırlayan bir atelyedir. Burada hər gəlin öz xəyalındakı libası tapır və xüsusi sifarişlə hazırlanan modellərlə fərqlənir. Keyfiyyət və estetik yanaşma atelyemizin əsas prioritetləridir."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Javahir Design\" is an atelier that creates bridal gowns with refined taste. Here, every bride finds the dress of her dreams and stands out with custom-made designs. Quality and aesthetic approach are the core priorities of our atelier."
+          }
+        }
+      }
+    },
+    "javahirDesText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Javahir Design"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Javahir Design"
+          }
+        }
+      }
+    },
     "jsonParsingError_Message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -608,7 +812,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Henna Party"
+            "value" : "Henna Night"
           }
         }
       }
@@ -626,6 +830,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Khoncha"
+          }
+        }
+      }
+    },
+    "konulKhoncaDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nişan və həri mərasimləriniz üçün zövqlə hazırlanmış xonçalar və 30 nəfərlik tam set kirayəsi ilə xüsusi gününüzü daha da yadda qalan edin."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make your special day even more memorable with beautifully crafted engagement and henna ceremony khonchas, along with a full 30-person set available for rent."
+          }
+        }
+      }
+    },
+    "konulKhoncaText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Könül Xonça"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konul Khoncha"
           }
         }
       }
@@ -749,6 +987,23 @@
         }
       }
     },
+    "moreText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha çox"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        }
+      }
+    },
     "nameText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -813,6 +1068,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        }
+      }
+    },
+    "nurkhinaDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Xına Təşkili Zərifə Xanlarovanın rəhbərliyi ilə xına və nişan mərasimlərini zəriflik və ənənə ilə birləşdirərək unudulmaz anlara çevirir. Hər büdcəyə uyğun dekorlar, peşəkar rəqqasə və davulçular, milli rəqslər, mələklərlə gözqamaşdıran girişlər, zövqlə hazırlanmış xonçalar və nişan/həri süfrələri təqdim olunur. Toy və xına aparıcılığı xidmətləri ilə tədbirlər yüksək səviyyədə təşkil olunur – hər detal incəliklə düşünülərək həyata keçirilir."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Henna Party, led by Zərifə Xanlarova, transforms henna and engagement ceremonies into unforgettable moments by blending elegance with tradition. We offer decor options to suit every budget, professional dancers and drummers, traditional dances, dazzling entrances with angels, tastefully prepared trays, and beautifully arranged engagement/henna tables.\nWith our wedding and henna hosting services, every event is organized to the highest standard – where every detail is thoughtfully planned and gracefully executed."
+          }
+        }
+      }
+    },
+    "nurkhinaText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Xına Təşkili"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Henna Party"
           }
         }
       }
@@ -1310,6 +1599,74 @@
         }
       }
     },
+    "revaneTortDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hər növ tort və şirniyyat sifarişləri zövqünüzə uyğun şəkildə qəbul olunur. Həm görünüşü ilə göz oxşayan, həm də dadı ilə yadda qalan şirniyyatlar xüsusi günlərinizi daha da şirin edəcək."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orders for all types of cakes and pastries are accepted and customized to your taste. Visually delightful and memorably delicious, our sweets will make your special days even sweeter."
+          }
+        }
+      }
+    },
+    "revaneTortText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rəvanənin tortları"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revane’s cakes"
+          }
+        }
+      }
+    },
+    "romanDecDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unudulmaz evlilik təklifləri və romantik anlar üçün zövqlü dekorasiyalarla xidmətinizdədir. Güllər, şamlar, işıqlar və sevgi dolu detallarla hazırlanmış konseptlər xüsusi anlarınızı nağıl kimi yaşadacaq."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We are at your service with tasteful decorations for unforgettable marriage proposals and romantic moments. Concepts crafted with flowers, candles, lights, and loving details will make your special moments feel like a fairy tale."
+          }
+        }
+      }
+    },
+    "romanDecText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romantic Decoration"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Romantic Decoration"
+          }
+        }
+      }
+    },
     "saveButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1429,6 +1786,40 @@
         }
       }
     },
+    "turqayDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toy və Tədbir Fotoqrafı. Hər anın təbii gözəlliyini və orijinallığını qoruyaraq, xatirələrinizi incə bir yanaşma ilə sənədləşdirir. Çəkilişlərində sadəlik, estetik baxış və duyğunun harmoniyası ön plandadır. Xüsusi günlərinizin ən saf və səmimi anlarını zamansız kadrlarla əbədiləşdirməyi hədəfləyir."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wedding and Event Photographer. Capturing the natural beauty and originality of every moment, documenting your memories with a delicate approach. Simplicity, aesthetic vision, and emotional harmony take center stage in every shoot.\nAiming to immortalize the purest and most sincere moments of your special days with timeless frames."
+          }
+        }
+      }
+    },
+    "turqayText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turqay Zeynallı"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turqay Zeynalli"
+          }
+        }
+      }
+    },
     "tuxedoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1493,6 +1884,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wedding Dresses"
+          }
+        }
+      }
+    },
+    "wpNotAvaiMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whatsapp mövcud deyil!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whatsapp not available!"
+          }
+        }
+      }
+    },
+    "wpNotAvaiTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xəta"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Error"
           }
         }
       }

@@ -91,14 +91,19 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        print("key: \(KeychainHelper.getString(key: .userID) ?? "")")
 
-        homeImageView.loadImage(named: "homeImage.png")
+
+            print("Language code: \(LocalizationManager.shared.currentLanguage)") // e.g., "en", "az", "tr"
+//        }
+        
+        homeImageView.loadImage(named: "/img/app/homeImage.png")
         Logger.debug("\(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
     override func configureView() {
         configureNavigationBar()
-        
+        print(KeychainHelper.getString(key: .userID) ?? "")
         view.backgroundColor = .white
         view.addSubViews(loadingView, homeImageView, titleLabel, menuTableView)
         view.bringSubviewToFront(loadingView)

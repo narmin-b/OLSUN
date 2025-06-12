@@ -8,8 +8,9 @@
 import Foundation
 import UIKit.UINavigationController
 
-final class PartnersCoordinator: Coordinator {
+final class PartnersCoordinator: Coordinator, UserProfileDelegate {
     var parentCoordinator: Coordinator?
+    weak var delegate: HomeTabBarCoordinatorDelegate?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -24,7 +25,8 @@ final class PartnersCoordinator: Coordinator {
     func start() {
         let controller = PartnersViewController(
             viewModel: .init(
-                navigation: self
+                navigation: self,
+                vendorUseCase: VendorAPIService()
             )
         )
         showController(vc: controller)
@@ -32,8 +34,14 @@ final class PartnersCoordinator: Coordinator {
 }
 
 extension PartnersCoordinator: PartnersNavigation, HomeNavigation {
-    func showAuth() {
+    func didRequestLogout(type: LogoutType) {
         //
+    }
+    
+    func showAuth() {
+        delegate?.homeDidFinish()
+        
+        parentCoordinator?.childDidFinish(self)
     }
     
     func showProfile() {
@@ -43,16 +51,17 @@ extension PartnersCoordinator: PartnersNavigation, HomeNavigation {
                 accountUseCase: AccountSessionAPIService()
             )
         )
+        vc.logoutDelegate = self
         showController(vc: vc)
     }
     
-    func showPartnerGallery(partner: Partner, selectedIndex: Int) {
+    func showPartnerGallery(partner: newPartner, selectedIndex: Int) {
         let vc = PartnerGalleryViewController(viewModel: .init(navigation: self, partner: partner, selectedIndex: selectedIndex))
         showController(vc: vc)
     }
     
-    func showPartnerDetail(partner: Partner) {
-        let vc = PartnerDetailViewController(viewModel: .init(navigation: self, partner: partner))
+    func showPartnerDetail(newPartner: newPartner) {
+        let vc = PartnerDetailViewController(viewModel: .init(navigation: self, newPartner: newPartner, vendorUseCase: VendorAPIService()))
         showController(vc: vc)
     }
     

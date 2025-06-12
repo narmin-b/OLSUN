@@ -11,8 +11,10 @@ import MapKit
 import SDWebImage
 import SVGKit
 import SkeletonView
+import AVFoundation
 
 private var fullTextKey: UInt8 = 0
+private var attributedFullTextKey: UInt8 = 0
 
 func whatsapp() {
     let message = "Salam! Mən OLSUN tətbiqindən çıxdım."
@@ -290,22 +292,133 @@ extension String {
     }
 }
 
+//extension UIImageView {
+//    func loadImage(named imageName: String, completion: ((UIImage?) -> Void)? = nil) {
+//        let baseURL = "https://olsun.in"
+//        guard let url = URL(string: baseURL + imageName) else {
+//            completion?(nil)
+//            return
+//        }
+//        
+//        isSkeletonable = true
+//        showAnimatedGradientSkeleton()
+//
+//        if url.pathExtension.lowercased().contains("mp4") || url.pathExtension.lowercased().contains("mov") {
+//            DispatchQueue.global().async {
+//                let asset = AVAsset(url: url)
+//                let imageGenerator = AVAssetImageGenerator(asset: asset)
+//                imageGenerator.appliesPreferredTrackTransform = true
+//                
+//                let time = CMTime(seconds: 1, preferredTimescale: 600)
+//                var actualTime = CMTime.zero
+//                
+//                do {
+//                    let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: &actualTime)
+//                    let thumbnail = UIImage(cgImage: cgImage)
+//                    
+//                    DispatchQueue.main.async {
+//                        self.hideSkeleton()
+//                        self.image = thumbnail
+//                        completion?(thumbnail)
+//                    }
+//                } catch {
+//                    DispatchQueue.main.async {
+//                        self.hideSkeleton()
+//                        completion?(nil)
+//                    }
+//                }
+//            }
+//        } else {
+//            URLSession.shared.dataTask(with: url) { data, _, error in
+//                DispatchQueue.main.async {
+//                    self.hideSkeleton()
+//                    guard let data = data, error == nil,
+//                          let image = UIImage(data: data) else {
+//                        completion?(nil)
+//                        return
+//                    }
+//                    self.image = image
+//                    completion?(image)
+//                }
+//            }.resume()
+//        }
+//    }
+//}
+
 extension UIImageView {
-    func loadImage(named imageName: String) {
-        let baseURL = "https://olsun.in/img/app/"
-        guard let url = URL(string: baseURL + imageName) else { return }
-        
+    func loadImage(named imageName: String, completion: ((UIImage?) -> Void)? = nil) {
+        let baseURL = "https://olsun.in"
+        guard let url = URL(string: baseURL + imageName) else {
+            self.hideSkeleton()
+            completion?(nil)
+            return
+        }
+
         isSkeletonable = true
         showAnimatedGradientSkeleton()
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            DispatchQueue.main.async {
-                self.hideSkeleton()
-                guard let data = data, error == nil,
-                      let image = UIImage(data: data) else { return }
-                self.image = image
+
+        // Handle video thumbnails
+        if url.pathExtension.lowercased() == "mp4" || url.pathExtension.lowercased() == "mov" {
+            let asset = AVAsset(url: url)
+            let generator = AVAssetImageGenerator(asset: asset)
+            generator.appliesPreferredTrackTransform = true
+            let time = CMTime(seconds: 1, preferredTimescale: 600)
+
+            generator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { [weak self] _, cgImage, _, result, error in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+
+                    if let cgImage = cgImage, result == .succeeded {
+                        let image = UIImage(cgImage: cgImage)
+                        UIView.transition(with: self, duration: 0.25, options: .transitionCrossDissolve) {
+                            self.image = image
+                        }
+                        self.hideSkeleton()
+                        completion?(image)
+                    } else {
+                        print("Failed to generate video thumbnail: \(error?.localizedDescription ?? "Unknown error")")
+
+                        // Optional fallback image for videos
+                        self.image = UIImage(named: "video-placeholder") // Add a default placeholder in Assets
+                        self.hideSkeleton()
+                        completion?(nil)
+                    }
+                }
             }
-        }.resume()
+        } else {
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                DispatchQueue.main.async {
+                    guard let data = data, error == nil, let image = UIImage(data: data) else {
+                        self.hideSkeleton()
+                        completion?(nil)
+                        return
+                    }
+
+                    UIView.transition(with: self, duration: 0.25, options: .transitionCrossDissolve) {
+                        self.image = image
+                    }
+                    self.hideSkeleton()
+                    completion?(image)
+                }
+            }.resume()
+        }
+    }
+}
+
+extension UIImage {
+    static func thumbnailForVideo(at url: URL) -> UIImage? {
+        let asset = AVAsset(url: url)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+
+        let time = CMTime(seconds: 1, preferredTimescale: 60)
+        do {
+            let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            return UIImage(cgImage: cgImage)
+        } catch {
+            print("Failed to generate thumbnail: \(error)")
+            return nil
+        }
     }
 }
 
@@ -372,28 +485,72 @@ extension UILabel {
         
         self.attributedText = attributedText
     }
-    
+}
+
+extension UILabel {
     var fullText: String? {
         get { return objc_getAssociatedObject(self, &fullTextKey) as? String }
         set { objc_setAssociatedObject(self, &fullTextKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
+
+    var attributedFullText: NSAttributedString? {
+        get { return objc_getAssociatedObject(self, &attributedFullTextKey) as? NSAttributedString }
+        set { objc_setAssociatedObject(self, &attributedFullTextKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+
     
-    func setTextWithTrailing(trailingText: String, moreText: String, moreTextFont: UIFont, moreTextColor: UIColor) {
-        guard let originalText = self.text else { return }
-        self.fullText = self.fullText ?? originalText
-        
-        let readMoreText = trailingText + moreText
-        let visibleLength = self.visibleTextLength
-        let trimmedText = (originalText as NSString).substring(to: visibleLength)
-        
-        let spaceForTrailing = max(0, trimmedText.count - readMoreText.count)
-        let finalText = (trimmedText as NSString).substring(to: spaceForTrailing) + trailingText
-        
-        let baseAttr = NSMutableAttributedString(string: finalText, attributes: [.font: self.font as Any])
-        let trailingAttr = NSAttributedString(string: moreText, attributes: [.font: moreTextFont, .foregroundColor: moreTextColor])
-        baseAttr.append(trailingAttr)
-        
-        self.attributedText = baseAttr
+    func setTextWithTrailing(
+        trailingText: String,
+        moreText: String,
+        moreTextFont: UIFont,
+        moreTextColor: UIColor
+    ) {
+        guard let fullAttributedText = self.attributedFullText else { return }
+        guard let labelFont = self.font else { return }
+
+        let fullText = fullAttributedText.string
+        let labelWidth = self.frame.width
+        let maxLines = self.numberOfLines
+        let lineHeight = labelFont.lineHeight
+        let maxHeight = CGFloat(maxLines) * lineHeight
+        let constraintSize = CGSize(width: labelWidth, height: .greatestFiniteMagnitude)
+
+        // Compose trailing attributed string
+        let trailingAttr = NSMutableAttributedString(string: trailingText, attributes: [.font: labelFont])
+        trailingAttr.append(NSAttributedString(string: moreText, attributes: [
+            .font: moreTextFont,
+            .foregroundColor: moreTextColor
+        ]))
+
+        // Binary search to find optimal cut-off point
+        var low = 0
+        var high = fullText.count
+        var bestFit = ""
+
+        while low < high {
+            let mid = (low + high) / 2
+            let testStr = String(fullText.prefix(mid))
+            let testAttr = NSMutableAttributedString(string: testStr, attributes: [.font: labelFont])
+            testAttr.append(trailingAttr)
+
+            let rect = testAttr.boundingRect(
+                with: constraintSize,
+                options: [.usesLineFragmentOrigin, .usesFontLeading],
+                context: nil
+            )
+
+            if rect.height <= maxHeight {
+                bestFit = testStr
+                low = mid + 1
+            } else {
+                high = mid
+            }
+        }
+
+        // Apply final text
+        let finalAttrText = NSMutableAttributedString(string: bestFit, attributes: [.font: labelFont])
+        finalAttrText.append(trailingAttr)
+        self.attributedText = finalAttrText
     }
     
     func removeTrailingText() {
@@ -401,47 +558,22 @@ extension UILabel {
     }
     
     private var visibleTextLength: Int {
-        guard let text = self.text, let font = self.font else { return 0 }
-        
-        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
-        let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        
-        let fullTextRect = (text as NSString).boundingRect(
-            with: size,
-            options: [.usesLineFragmentOrigin],
-            attributes: attributes,
-            context: nil
-        )
-        
-        if fullTextRect.height <= self.bounds.height {
-            return text.count
-        }
-        
-        var index = 0
-        var prevIndex = 0
-        let charSet = CharacterSet.whitespacesAndNewlines
-        
-        repeat {
-            prevIndex = index
-            let range = NSRange(location: index + 1, length: text.count - index - 1)
-            if let nextIndex = (text as NSString).rangeOfCharacter(from: charSet, options: [], range: range).toOptional()?.location {
-                index = nextIndex
-            } else {
-                break
-            }
-            let substr = (text as NSString).substring(to: index)
-            let rect = (substr as NSString).boundingRect(
-                with: size,
-                options: [.usesLineFragmentOrigin],
-                attributes: attributes,
-                context: nil
-            )
-            if rect.height > self.bounds.height {
-                break
-            }
-        } while index < text.count
-        
-        return prevIndex
+        guard let attributedText = self.attributedFullText else { return 0 }
+
+        let textStorage = NSTextStorage(attributedString: attributedText)
+        let textContainer = NSTextContainer(size: CGSize(width: self.bounds.width, height: .greatestFiniteMagnitude))
+        textContainer.lineBreakMode = self.lineBreakMode
+        textContainer.maximumNumberOfLines = self.numberOfLines
+        textContainer.lineFragmentPadding = 0
+
+        let layoutManager = NSLayoutManager()
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+
+        layoutManager.glyphRange(for: textContainer) // force layout
+        let range = layoutManager.characterRange(forGlyphRange: layoutManager.glyphRange(for: textContainer), actualGlyphRange: nil)
+
+        return range.length
     }
 }
 
@@ -522,5 +654,24 @@ extension UIButton {
         self.imageView?.translatesAutoresizingMaskIntoConstraints = false
         self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0.0).isActive = true
         self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -offset).isActive = true
+    }
+}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var responder: UIResponder? = self
+        while let r = responder {
+            if let vc = r as? UIViewController {
+                return vc
+            }
+            responder = r.next
+        }
+        return nil
+    }
+}
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }

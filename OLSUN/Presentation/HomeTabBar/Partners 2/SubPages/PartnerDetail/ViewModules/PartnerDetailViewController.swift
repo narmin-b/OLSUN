@@ -95,7 +95,7 @@ final class PartnerDetailViewController: BaseViewController {
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: viewModel?.partner?.name ?? "Partner")
+        navigationItem.configureNavigationBar(text: viewModel?.newPartner?.name ?? "Partner")
         
         let bottomBorder = UIView()
         bottomBorder.backgroundColor = .lightGray.withAlphaComponent(0.5)
@@ -124,7 +124,8 @@ final class PartnerDetailViewController: BaseViewController {
                 case .success:
                     print(#function)
                 case .error(let error):
-                    self.showMessage(title: "Error", message: error)
+                    print(#function)
+//                    self.showMessage(title: "Error", message: error)
                 }
             }
         }
@@ -154,9 +155,9 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
         case 0:
             return 1
         case 1:
-            return viewModel?.partner?.gallery.count ?? 0
+            return min(viewModel?.newPartner?.gallery.count ?? 0, 3)
         case 2:
-            return viewModel?.partner?.contact.count ?? 0
+            return viewModel?.newPartner?.contact.count ?? 0
         default:
             return 0
         }
@@ -171,19 +172,38 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
             cell.delegate = self
-            cell.configureCell(with: (viewModel?.partner)!)
+            cell.configureCell(with: (viewModel?.newPartner)!)
             return cell
             
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as! GalleryCell
-            let imageName = viewModel?.partner?.gallery[indexPath.item]
-            cell.configureCell(withImageNamed: imageName!)
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as? GalleryCell else {
+                return UICollectionViewCell()
+            }
+            guard let gallery = viewModel?.newPartner?.gallery, indexPath.item < 3 else {
+                return UICollectionViewCell()
+            }
+
+            let imageName = gallery[indexPath.item]
+            cell.configureCell(withURl: imageName)
+
             return cell
             
         case 2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContactCell", for: indexPath) as! ContactCell
-            let icon = viewModel?.partner?.contact[indexPath.item]
-            cell.configureCell(with: icon!)
+            guard let contact = viewModel?.newPartner?.contact[indexPath.item],
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContactCell", for: indexPath) as? ContactCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.onIconTap = { [weak self] icon in
+                let dto = clickDataModel(
+                    vendorId: self?.viewModel?.newPartner?.id ?? 0,
+                    platformId: icon.platformName
+                )
+                self?.viewModel?.addIconClick(dto: dto)
+                
+            }
+            
+            cell.configureCell(with: contact)
             return cell
             
         default:
@@ -200,9 +220,9 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
         
         switch indexPath.section {
         case 1:
-            header.configure(with: "Qalereya")
+            header.configure(with: OlsunStrings.galleryText.localized)
         case 2:
-            header.configure(with: "Əlaqə")
+            header.configure(with: OlsunStrings.contactText.localized)
         default:
             return header
         }
@@ -214,7 +234,7 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
         if indexPath.section == 1 {
             print(indexPath.row)
             viewModel?.showPartnerGallery(
-                partner: (viewModel?.partner)!,
+                partner: (viewModel?.newPartner)!,
                 index: indexPath.row
             )
         }

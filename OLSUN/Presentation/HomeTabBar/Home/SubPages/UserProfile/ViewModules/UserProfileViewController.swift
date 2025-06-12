@@ -177,14 +177,7 @@ final class UserProfileViewController: BaseViewController {
     
     override func configureConstraint() {
         loadingView.fillSuperviewSafeAreaLayoutGuide()
-        
-//        editProfileButton.anchor(
-//            top: view.safeAreaLayoutGuide.topAnchor,
-//            trailing: view.trailingAnchor,
-//            padding: .init(top: 8, left: 0, bottom: 0, right: -16)
-//        )
-//        editProfileButton.anchorSize(.init(width: 32, height: 32))
-        
+      
         userInfoTableView.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,

@@ -23,14 +23,14 @@ enum ServiceLocation: String, CaseIterable {
 }
 
 enum ServiceType: String, CaseIterable {
-    case weddingDresses
-    case tuxedo
-    case photographer
-    case khonca
-    case khinaOrg
-    case decoration
-    case sweets
-    case barber
+    case weddingDresses = "GELINLIKLAR"
+    case tuxedo = "BAYLIK_KOSTYUMLARI"
+    case photographer = "FOTOQRAF"
+    case khonca = "XONCA"
+    case khinaOrg = "XINAYAXDI"
+    case decoration = "DEKORASIYA"
+    case sweets = "SIRNIYYATLAR"
+    case barber = "GOZELLIK_SALONLARI"
     
     var localizedName: String {
         switch self {
@@ -49,7 +49,7 @@ enum ServiceType: String, CaseIterable {
         case .sweets:
             return OlsunStrings.sweetsText.localized
         case .barber:
-            return OlsunStrings.barberText.localized
+            return OlsunStrings.beautySalonText.localized
         }
     }
     

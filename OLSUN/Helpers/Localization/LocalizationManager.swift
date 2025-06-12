@@ -17,7 +17,7 @@ class LocalizationManager {
     }
 
     var currentLanguage: String {
-        UserDefaultsHelper.getString(key: .appLanguage) ?? Locale.preferredLanguages.first ?? "az"
+        UserDefaultsHelper.getString(key: .appLanguage) ?? "az"
     }
 
     func setLanguage(_ language: String) {

@@ -205,7 +205,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
         let imageView = UIImageView()
         imageView.isSkeletonable = true
-        imageView.loadImage(named: "onboardingImageFirst.png")
+        imageView.loadImage(named: "/img/app/onboardingImageFirst.png")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -261,7 +261,7 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
 
         let imageView = UIImageView()
         imageView.isSkeletonable = true
-        imageView.loadImage(named: "onboardingImageSecond.png")
+        imageView.loadImage(named: "/img/app/onboardingImageSecond.png")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 

@@ -27,7 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        LocalizationManager.shared.setLanguage("az")
+        if UserDefaultsHelper.getString(key: .appLanguage) == nil {
+            LocalizationManager.shared.setLanguage("az")
+        } else {
+            _ = LocalizationManager.shared // triggers init and loads saved language
+        }
 
         // Override point for customization after application launch.
         return true

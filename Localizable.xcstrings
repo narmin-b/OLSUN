@@ -619,13 +619,13 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dəvət tarixi:"
+            "value" : "Dəvətnamə göndərilmə tarixi:"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitation date:"
+            "value" : "Invitation sent date:"
           }
         }
       }
@@ -745,6 +745,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preparations"
+          }
+        }
+      }
+    },
+    "homeTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ana Səhifə"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Homepage"
           }
         }
       }
@@ -1112,13 +1129,13 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toyunuzu planlayın və istədiyiniz hər şeyi asanlıqla tapın – fotoqraf, məkan, musiqi və daha çoxu!"
+            "value" : "Toy Sektorunda bütün biznesləri və frilanserləri rahatlıqla bir neçə kliklə tapın!"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Plan your wedding and easily find everything you want – photographer, venue, music and more!"
+            "value" : "Easily find all businesses and freelancers in the wedding sector with just a few clicks!"
           }
         }
       }
@@ -1129,13 +1146,13 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vizajist, gəlinlik, bəy kostyumu, dekor, tort – hamısı bir tətbiqdə!"
+            "value" : "Görəcəyiniz işləri və Dəvət edəcəyiniz qonaqları bizimlə planlayın!"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Makeup artist, wedding dress, groom's suit, decor, cake - all in one app!"
+            "value" : "Plan your tasks and the guests you’ll invite with us!"
           }
         }
       }
@@ -1146,13 +1163,13 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Olsun ilə arzularınızı gerçəkləşdirin!"
+            "value" : "OLSUN Rəqəmsal Toy Şəbəkəsinə xoş gəlmisiniz!"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Make your dreams come true with Olsun!"
+            "value" : "Welcome to OLSUN Digital Wedding Platform!"
           }
         }
       }
@@ -1527,6 +1544,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• Must have at least 1 number"
+          }
+        }
+      }
+    },
+    "pwSymbolText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Yalnız rəqəm və hərflərdən ibarət olmalıdır"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Only numbers and letters allowed"
           }
         }
       }
@@ -1916,7 +1950,7 @@
         },
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Error"
           }
         }

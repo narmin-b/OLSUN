@@ -37,13 +37,13 @@ final class TabBarController: UITabBarController {
 
         guard let window = UIApplication.shared.windows.first else { return }
 
-        let tabBarHeight = tabBar.frame.height + 10
+        let tabBarHeight = tabBar.frame.height + 15
         let bottomPadding = window.safeAreaInsets.bottom
 
         customTabBarView.frame = CGRect(
-            x: 20,
-            y: view.frame.height - tabBarHeight - bottomPadding,
-            width: view.frame.width - 40,
+            x: 10,
+            y: view.frame.height - tabBarHeight - bottomPadding + 10,
+            width: view.frame.width - 20,
             height: tabBarHeight
         )
         customTabBarView.layer.shadowColor = UIColor.black.cgColor

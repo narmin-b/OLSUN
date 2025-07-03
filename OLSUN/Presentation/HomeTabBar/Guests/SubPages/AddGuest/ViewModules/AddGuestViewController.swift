@@ -49,9 +49,9 @@ final class AddGuestViewController: BaseViewController {
             labelColor: .black,
             labelFont: .montserratMedium,
             labelSize: 16,
-            numOfLines: 1
+            numOfLines: 2
         )
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -91,7 +91,7 @@ final class AddGuestViewController: BaseViewController {
             labelSize: 16,
             numOfLines: 3
         )
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -258,10 +258,11 @@ final class AddGuestViewController: BaseViewController {
         nameTextField.anchorSize(.init(width: 0, height: 36))
         
         dateLabel.anchor(
-            top: nameTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 36, left: 16, bottom: 0, right: 0)
+            trailing: dateTextField.leadingAnchor,
+            padding: .init(top: 0, left: 16, bottom: 0, right: -4)
         )
+        dateLabel.centerYToView(to: dateTextField)
         
         dateTextField.anchor(
             top: nameTextField.bottomAnchor,
@@ -272,10 +273,10 @@ final class AddGuestViewController: BaseViewController {
         dateTextField.anchorSize(.init(width: 0, height: 36))
         
         statusLabel.anchor(
-            top: dateTextField.bottomAnchor,
             leading: view.leadingAnchor,
             padding: .init(top: 20, left: 16, bottom: 0, right: 0)
         )
+        statusLabel.centerYToView(to: statusMenuButton)
         
         statusMenuButton.anchor(
             top: dateTextField.bottomAnchor,
@@ -356,7 +357,7 @@ final class AddGuestViewController: BaseViewController {
     
     private func setupDatePicker() {
         datePicker.datePickerMode = .date
-        datePicker.minimumDate = Date()
+//        datePicker.minimumDate = Date()
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }

@@ -30,10 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaultsHelper.getString(key: .appLanguage) == nil {
             LocalizationManager.shared.setLanguage("az")
         } else {
-            _ = LocalizationManager.shared // triggers init and loads saved language
+            _ = LocalizationManager.shared
         }
 
-        // Override point for customization after application launch.
         return true
     }
 

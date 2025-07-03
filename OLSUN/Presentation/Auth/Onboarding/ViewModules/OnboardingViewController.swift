@@ -209,7 +209,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        let titleSize: CGFloat = DeviceSizeClass.current == .compact ? 28 : 32
+        var size = 0
+        if DeviceSizeClass.current == .compact { size = 24 }
+        else if DeviceSizeClass.current == .iPad { size = 48 }
+        else { size = 26 }
+        
+        let titleSize: CGFloat = CGFloat(size)
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = UIFont(name: FontKeys.futuricaBold.rawValue, size: titleSize)
@@ -218,7 +223,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         titleLabel.textColor = .primaryHighlight
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let subTitleSize: CGFloat = DeviceSizeClass.current == .compact ? 16 : 20
+        var subSize = 0
+        if DeviceSizeClass.current == .compact { subSize = 16 }
+        else if DeviceSizeClass.current == .iPad { subSize = 36 }
+        else { subSize = 18 }
+        
+        let subTitleSize: CGFloat = CGFloat(subSize)
         let subtitleLabel = UILabel()
         subtitleLabel.text = subtitle
         subtitleLabel.font = UIFont(name: FontKeys.workSansRegular.rawValue, size: subTitleSize)
@@ -241,13 +251,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
             top: imageView.bottomAnchor,
             leading: container.leadingAnchor,
             trailing: container.trailingAnchor,
-            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+            padding: .init(top: 40, left: 24, bottom: 0, right: -24)
         )
         
         subtitleLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: container.leadingAnchor,
-            bottom: container.bottomAnchor,
             trailing: container.trailingAnchor,
             padding: .init(top: 20, left: 24, bottom: 0, right: -24)
         )
@@ -265,7 +274,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        let titleSize: CGFloat = DeviceSizeClass.current == .compact ? 28 : 32
+        var size = 0
+        if DeviceSizeClass.current == .compact { size = 24 }
+        else if DeviceSizeClass.current == .iPad { size = 48}
+        else { size = 26 }
+        
+        let titleSize: CGFloat = CGFloat(size)
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = UIFont(name: FontKeys.futuricaBold.rawValue, size: titleSize)
@@ -274,7 +288,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
         titleLabel.textColor = .primaryHighlight
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let subTitleSize: CGFloat = DeviceSizeClass.current == .compact ? 16 : 20
+        var subSize = 0
+        if DeviceSizeClass.current == .compact { subSize = 16 }
+        else if DeviceSizeClass.current == .iPad { subSize = 36 }
+        else { subSize = 18 }
+        
+        let subTitleSize: CGFloat = CGFloat(subSize)
         let subtitleLabel = UILabel()
         subtitleLabel.text = subtitle
         subtitleLabel.font = UIFont(name: FontKeys.workSansRegular.rawValue, size: subTitleSize)
@@ -297,13 +316,12 @@ final class OnboardingViewController: BaseViewController, UIScrollViewDelegate {
             top: imageView.bottomAnchor,
             leading: container.leadingAnchor,
             trailing: container.trailingAnchor,
-            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+            padding: .init(top: 40, left: 24, bottom: 0, right: -24)
         )
         
         subtitleLabel.anchor(
             top: titleLabel.bottomAnchor,
             leading: container.leadingAnchor,
-            bottom: container.bottomAnchor,
             trailing: container.trailingAnchor,
             padding: .init(top: 20, left: 24, bottom: 0, right: -24)
         )

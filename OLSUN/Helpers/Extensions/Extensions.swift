@@ -217,7 +217,7 @@ extension String {
     }
     
     func isValidPassword() -> Bool {
-        let pattern = "^[a-zA-Z0-9@#_-]{8,16}$"
+        let pattern = "^[a-zA-Z0-9]{8,16}$"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: self)
     }
     

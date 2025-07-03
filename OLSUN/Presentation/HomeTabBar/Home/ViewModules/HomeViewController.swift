@@ -94,8 +94,9 @@ final class HomeViewController: BaseViewController {
         print("key: \(KeychainHelper.getString(key: .userID) ?? "")")
 
 
-            print("Language code: \(LocalizationManager.shared.currentLanguage)") // e.g., "en", "az", "tr"
-//        }
+        print("Language code: \(LocalizationManager.shared.currentLanguage)")
+        print("Language code in UD: \(UserDefaultsHelper.getString(key: .appLanguage))")
+
         
         homeImageView.loadImage(named: "/img/app/homeImage.png")
         Logger.debug("\(KeychainHelper.getString(key: .userID) ?? "")")

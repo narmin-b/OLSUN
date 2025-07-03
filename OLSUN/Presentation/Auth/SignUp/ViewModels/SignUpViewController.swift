@@ -126,8 +126,19 @@ final class SignUpViewController: BaseViewController {
         return label
     }()
     
+    private lazy var passSymbolReqLabel: UILabel = {
+        let label = ReusableLabel(
+            labelText: OlsunStrings.pwSymbolText.localized,
+            labelColor: .black,
+            labelFont: .workSansMedium,
+            labelSize: 12
+        )
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var passwordRequirementsStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [passReqLabel, passUpcaseReqLabel, passNumReqLabel])
+        let stackView = UIStackView(arrangedSubviews: [passReqLabel, passUpcaseReqLabel, passNumReqLabel, passSymbolReqLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -327,35 +338,7 @@ final class SignUpViewController: BaseViewController {
             leading: view.leadingAnchor,
             padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
-        
-//        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
-//        loginButton.anchor(
-//            top: passwordTextField.bottomAnchor,
-//            
-//            padding: .init(all: 44)
-//        )
-//        loginButton.centerXToSuperview()
-//        loginButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
-//        
-//        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 68
-//        seperatorStackView.centerXToSuperview()
-//        seperatorStackView.anchorSize(.init(width: 0, height: 20))
-//        seperatorStackView.anchor(
-//            top: loginButton.bottomAnchor,
-//            leading: view.leadingAnchor,
-//            trailing: view.trailingAnchor,
-//            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
-//        )
-//        orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-//        orLabel.centerYToView(to: seperatorStackView)
-//        line1View.centerYToView(to: seperatorStackView)
-//        line2View.centerYToView(to: seperatorStackView)
-//        
-//        NSLayoutConstraint.activate([
-//            line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-//            line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-//        ])
-//        
+  
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         signupButton.anchor(
             top: passwordRequirementsStack.bottomAnchor,
@@ -506,7 +489,7 @@ final class SignUpViewController: BaseViewController {
             emailTextField.borderOff()
         }
         if !password.isValidPassword() {
-            if password.isValidPassword() {
+            if password.isValidPasswordMask() {
                 passReqLabel.textColor = .black
             } else {
                 passReqLabel.textColor = .red
@@ -521,6 +504,11 @@ final class SignUpViewController: BaseViewController {
             } else {
                 passUpcaseReqLabel.textColor = .red
             }
+            if password.isValidPassword() {
+                passSymbolReqLabel.textColor = .black
+            } else {
+                passSymbolReqLabel.textColor = .red
+            }
             passwordTextField.errorBorderOn()
         } else {
             passwordTextField.borderOff()
@@ -529,15 +517,27 @@ final class SignUpViewController: BaseViewController {
     
     fileprivate func checkPassWordRequirements() {
         let passwordText = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if passwordText.isValidPassword() {
-            passReqLabel.textColor = .reqGreen
-        }
-        if passwordText.doesContainDigit() {
-            passNumReqLabel.textColor = .reqGreen
-        }
-        if passwordText.doesContainUppercase() {
-            passUpcaseReqLabel.textColor = .reqGreen
-        }
+            if passwordText.isValidPasswordMask() {
+                passReqLabel.textColor = .reqGreen
+            } else {
+                passReqLabel.textColor = .red
+            }
+            if passwordText.doesContainDigit() {
+                passNumReqLabel.textColor = .reqGreen
+            } else {
+                passNumReqLabel.textColor = .red
+            }
+            if passwordText.doesContainUppercase() {
+                passUpcaseReqLabel.textColor = .reqGreen
+            } else {
+                passUpcaseReqLabel.textColor = .red
+            }
+            if passwordText.isValidPassword() {
+                passSymbolReqLabel.textColor = .reqGreen
+            } else {
+                passSymbolReqLabel.textColor = .red
+            }
+        
     }
     
     fileprivate func textfieldCleaning() {

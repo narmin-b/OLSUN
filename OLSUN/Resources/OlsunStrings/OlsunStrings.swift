@@ -122,6 +122,8 @@ enum OlsunStrings: String {
     case moreText
     case wpNotAvaiTitle
     case wpNotAvaiMessage
+    case homeTitle
+    case pwSymbolText
 }
 
 extension OlsunStrings {

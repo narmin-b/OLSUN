@@ -65,21 +65,25 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         let homeItem = UITabBarItem()
         homeItem.image = UIImage(named: "Home")
         homeItem.selectedImage = UIImage(named: "HomeFill")
+        homeItem.title = OlsunStrings.homeTitle.localized
         homeNavigationController.tabBarItem = homeItem
         homeNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         homeNavigationController.navigationBar.shadowImage = UIImage()
 
         let partnersItem = UITabBarItem()
+        partnersItem.title = OlsunStrings.partnersText.localized
         partnersItem.image = UIImage(systemName: "handbag")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         partnersItem.selectedImage = UIImage(systemName: "handbag.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         partnersNavigationController.tabBarItem = partnersItem
         
         let planningItem = UITabBarItem()
+        planningItem.title = OlsunStrings.planningText.localized
         planningItem.image = UIImage(named: "DoneFill")?.withTintColor(.black)
         planningItem.selectedImage = UIImage(named: "Done")?.withTintColor(.black)
         planningNavigationController.tabBarItem = planningItem
 
         let guestsItem = UITabBarItem()
+        guestsItem.title = OlsunStrings.guestText.localized
         guestsItem.image = UIImage(named: "3People")
         guestsItem.selectedImage = UIImage(named: "3PeopleFill")
         guestsNavigationController.tabBarItem = guestsItem

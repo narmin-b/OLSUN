@@ -17,11 +17,13 @@ final class HomeViewModel {
     
     var requestCallback : ((ViewState) -> Void?)?
     private weak var navigation: HomeNavigation?
+    private var vendorUseCase: VendorUseCase
     weak var tabBarDelegate: HomeTabBarNavigation?
     
-    init(navigation: HomeNavigation, tabBarDelegate: HomeTabBarNavigation?) {
+    init(navigation: HomeNavigation, tabBarDelegate: HomeTabBarNavigation?, vendorUseCase: VendorUseCase) {
         self.navigation = navigation
         self.tabBarDelegate = tabBarDelegate
+        self.vendorUseCase = vendorUseCase
     }
     
     // MARK: Navigations
@@ -35,5 +37,18 @@ final class HomeViewModel {
     
     func showProfileScreen() {
         navigation?.showProfile()
+    }
+    
+    func setHomeClick() {
+        vendorUseCase.setHomeScreenClick { [weak self] result, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let result = result {
+                   print("count success")
+                } else if let error = error {
+                    print("count error")
+                }
+            }
+        }
     }
 }

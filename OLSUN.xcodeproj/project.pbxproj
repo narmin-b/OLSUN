@@ -87,6 +87,10 @@
 		118AFB8F2DAD9DC000FAC4F0 /* GuestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB8A2DAD9DC000FAC4F0 /* GuestDetailViewController.swift */; };
 		118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */; };
 		118AFB9C2DAD9F0C00FAC4F0 /* AddGuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AFB982DAD9F0C00FAC4F0 /* AddGuestViewController.swift */; };
+		1195986C2E26E87B00A22506 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195986B2E26E87500A22506 /* FeedbackViewController.swift */; };
+		119598702E26EB0200A22506 /* FeedbackPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195986F2E26EB0200A22506 /* FeedbackPopupView.swift */; };
+		119598732E26EDEC00A22506 /* FeedbackAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119598712E26EDEC00A22506 /* FeedbackAPIService.swift */; };
+		119598752E26EE1C00A22506 /* FeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119598742E26EE1C00A22506 /* FeedbackViewModel.swift */; };
 		11A7E35F2D8B361500D82AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E3592D8B361500D82AF2 /* AppDelegate.swift */; };
 		11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A7E35C2D8B361500D82AF2 /* SceneDelegate.swift */; };
 		11A7E3622D8B361500D82AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A7E35A2D8B361500D82AF2 /* Assets.xcassets */; };
@@ -257,6 +261,10 @@
 		118AFB8B2DAD9DC000FAC4F0 /* GuestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewModel.swift; sourceTree = "<group>"; };
 		118AFB982DAD9F0C00FAC4F0 /* AddGuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuestViewController.swift; sourceTree = "<group>"; };
 		118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuestViewModel.swift; sourceTree = "<group>"; };
+		1195986B2E26E87500A22506 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		1195986F2E26EB0200A22506 /* FeedbackPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPopupView.swift; sourceTree = "<group>"; };
+		119598712E26EDEC00A22506 /* FeedbackAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAPIService.swift; sourceTree = "<group>"; };
+		119598742E26EE1C00A22506 /* FeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
 		11A7E3252D8B35BF00D82AF2 /* OLSUN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLSUN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E33B2D8B35C200D82AF2 /* OLSUNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A7E3452D8B35C200D82AF2 /* OLSUNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLSUNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -485,6 +493,7 @@
 				11E0524A2DCFED8E001F686A /* AccountSession */,
 				11529D792D95E49700AAD720 /* AuthSession */,
 				11529D702D95E02100AAD720 /* Core */,
+				119598722E26EDEC00A22506 /* Feedback */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -575,6 +584,7 @@
 		1174DFA82DAAD26700DC1CCC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1195986F2E26EB0200A22506 /* FeedbackPopupView.swift */,
 				1147AF122DABE9FE006D28CD /* MenuTableCell.swift */,
 			);
 			path = Views;
@@ -780,6 +790,23 @@
 				118AFB992DAD9F0C00FAC4F0 /* AddGuestViewModel.swift */,
 			);
 			path = ViewModules;
+			sourceTree = "<group>";
+		};
+		1195986A2E26E86F00A22506 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				1195986B2E26E87500A22506 /* FeedbackViewController.swift */,
+				119598742E26EE1C00A22506 /* FeedbackViewModel.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		119598722E26EDEC00A22506 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				119598712E26EDEC00A22506 /* FeedbackAPIService.swift */,
+			);
+			path = Feedback;
 			sourceTree = "<group>";
 		};
 		11A7E31C2D8B35BF00D82AF2 = {
@@ -1136,6 +1163,7 @@
 		11E052532DD101BA001F686A /* SubPages */ = {
 			isa = PBXGroup;
 			children = (
+				1195986A2E26E86F00A22506 /* Feedback */,
 				11E052542DD10203001F686A /* UserProfile */,
 			);
 			path = SubPages;
@@ -1421,7 +1449,9 @@
 				11E0524C2DCFEDA9001F686A /* AccountSessionHelper.swift in Sources */,
 				1147AF482DAC3ED2006D28CD /* TaskViewModel.swift in Sources */,
 				11A7E3912D8B38EA00D82AF2 /* FontsKeys.swift in Sources */,
+				119598752E26EE1C00A22506 /* FeedbackViewModel.swift in Sources */,
 				118AFB9B2DAD9F0C00FAC4F0 /* AddGuestViewModel.swift in Sources */,
+				1195986C2E26E87B00A22506 /* FeedbackViewController.swift in Sources */,
 				118AFB9C2DAD9F0C00FAC4F0 /* AddGuestViewController.swift in Sources */,
 				11273A462DAE898200E2FB47 /* ListCellProtocol.swift in Sources */,
 				11E0525D2DD1027F001F686A /* UserProfileViewController.swift in Sources */,
@@ -1445,6 +1475,7 @@
 				11884AB52DE7169C00EA53D2 /* PartnerDetailLayout.swift in Sources */,
 				11884AB62DE7169C00EA53D2 /* PartnerSectionHeader.swift in Sources */,
 				1147AF462DAC3ECA006D28CD /* TaskViewController.swift in Sources */,
+				119598732E26EDEC00A22506 /* FeedbackAPIService.swift in Sources */,
 				11B413CC2DCBF733006FF14F /* OlsunStrings.swift in Sources */,
 				11273A3F2DAE832C00E2FB47 /* GuestAPIService.swift in Sources */,
 				11A7E3602D8B361500D82AF2 /* SceneDelegate.swift in Sources */,
@@ -1465,6 +1496,7 @@
 				11A7E37D2D8B376000D82AF2 /* Extensions.swift in Sources */,
 				11192DB02DEEBDB8009216A2 /* VendorUseCase.swift in Sources */,
 				11AE561D2DD6456300843BCF /* GuestLoginDataModel.swift in Sources */,
+				119598702E26EB0200A22506 /* FeedbackPopupView.swift in Sources */,
 				11529D722D95E03700AAD720 /* CoreAPIHelper.swift in Sources */,
 				1174DF942DAAC32200DC1CCC /* TabBarController.swift in Sources */,
 				11A7E37F2D8B376E00D82AF2 /* LayoutExtensions.swift in Sources */,
@@ -1536,7 +1568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.personal.OLSUN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1571,7 +1603,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.personal.OLSUN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -30,7 +30,7 @@ final class PartnersViewController: BaseViewController {
             labelText: OlsunStrings.partnersSubtitle.localized,
             labelColor: .black,
             labelFont: .montserratMedium,
-            labelSize: 18,
+            labelSize: DeviceSizeClass.current == .compact ? 16 : 18,
             numOfLines: 2
         )
         label.accessibilityIdentifier = "partnersTitleLabel"
@@ -342,6 +342,7 @@ extension PartnersViewController: UICollectionViewDataSource, UICollectionViewDe
             print("Index out of range for partners or protocolList at item:", indexPath.item)
             return
         }
+        viewModel?.addViewCount(partner: newPartner)
 
         viewModel?.showPartnerDetailVC(newPartner: newPartner)
     }

@@ -88,12 +88,16 @@ final class HomeViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel?.setHomeClick()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
         print("key: \(KeychainHelper.getString(key: .userID) ?? "")")
-
-
         print("Language code: \(LocalizationManager.shared.currentLanguage)")
         print("Language code in UD: \(UserDefaultsHelper.getString(key: .appLanguage))")
 

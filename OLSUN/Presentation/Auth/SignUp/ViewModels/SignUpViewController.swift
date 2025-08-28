@@ -339,15 +339,16 @@ final class SignUpViewController: BaseViewController {
             padding: .init(top: 8, left: 32, bottom: 0, right: 0)
         )
   
+        let signupDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 44
         let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
         signupButton.anchor(
             top: passwordRequirementsStack.bottomAnchor,
-            padding: .init(all: 44)
+            padding: .init(all: signupDist)
         )
         signupButton.centerXToSuperview()
         signupButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
         
-        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 88
+        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 28 : 88
         seperatorStackView.centerXToSuperview()
         seperatorStackView.anchorSize(.init(width: 0, height: 20))
         seperatorStackView.anchor(
@@ -366,7 +367,7 @@ final class SignUpViewController: BaseViewController {
             line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
             ])
         
-        let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 40 : 44
+        let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 44
         googleSignInButton.anchor(
             top: seperatorStackView.bottomAnchor,
             leading: view.leadingAnchor,

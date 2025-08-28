@@ -7,6 +7,8 @@
 
 import Foundation
 
+struct EmptyResponseModel: Decodable {}
+
 struct CoreErrorModel: LocalizedError, Decodable {
     let code: Int?
     let message: String?

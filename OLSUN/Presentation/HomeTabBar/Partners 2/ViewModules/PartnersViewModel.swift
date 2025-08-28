@@ -42,6 +42,7 @@ final class PartnersViewModel {
             self.requestCallback?(.loaded)
             DispatchQueue.main.async {
                 if let result = result {
+                    print(result)
                     self.protocolList = (result.map({$0.mapToDomain()}))
                     self.allProtocolList = self.protocolList
                     print(self.protocolList)
@@ -66,6 +67,20 @@ final class PartnersViewModel {
                     self.requestCallback?(.error(message: error))
                 }
             }
+        }
+    }
+    
+    func addViewCount(partner: newPartner) {
+        vendorUseCase.addViewCount(id: String(partner.id ?? 0)) { [weak self] result, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let result = result {
+                    print("count success")
+                } else if let error = error {
+                    print("count error")
+                }
+            }
+            print(partner.id)
         }
     }
 }

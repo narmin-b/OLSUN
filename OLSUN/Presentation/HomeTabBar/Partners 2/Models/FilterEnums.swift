@@ -30,7 +30,9 @@ enum ServiceType: String, CaseIterable {
     case khinaOrg = "XINAYAXDI"
     case decoration = "DEKORASIYA"
     case sweets = "SIRNIYYATLAR"
-    case barber = "GOZELLIK_SALONLARI"
+    case barber = "BERBER_SALONU"
+    case beautysalon = "GOZELLIK_SALONLARI"
+    case videographer = "VIDEOGRAF"
     
     var localizedName: String {
         switch self {
@@ -49,7 +51,11 @@ enum ServiceType: String, CaseIterable {
         case .sweets:
             return OlsunStrings.sweetsText.localized
         case .barber:
+            return OlsunStrings.barbershopText.localized
+        case .beautysalon:
             return OlsunStrings.beautySalonText.localized
+        case .videographer:
+            return OlsunStrings.videographText.localized
         }
     }
     

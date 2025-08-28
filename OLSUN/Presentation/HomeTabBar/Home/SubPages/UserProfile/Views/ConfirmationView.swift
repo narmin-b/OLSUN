@@ -205,7 +205,7 @@ final class ConfirmationView: UIView {
         return label
     }()
 
-    private let cancelButton: UIButton = {
+    public let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.black, for: .normal)
         button.layer.borderWidth = 1
@@ -217,7 +217,7 @@ final class ConfirmationView: UIView {
         return button
     }()
 
-    private let confirmButton: UIButton = {
+    public let confirmButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .warningRed

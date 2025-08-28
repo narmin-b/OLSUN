@@ -10,4 +10,6 @@ import Foundation
 protocol VendorUseCase {
     func getAllVendorList(completion: @escaping([VendorDataModel]?, String?) -> Void)
     func addClickCount(dto: clickDataModel, completion: @escaping(String?, String?) -> Void)
+    func setHomeScreenClick(completion: @escaping(EmptyResponseModel?, String?) -> Void)
+    func addViewCount(id: String, completion: @escaping(EmptyResponseModel?, String?) -> Void)
 }

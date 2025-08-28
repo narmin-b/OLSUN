@@ -33,6 +33,7 @@ final class HomeCoordinator: Coordinator, UserProfileDelegate {
             viewModel: .init(
                 navigation: self,
                 tabBarDelegate: tabBarDelegate,
+                vendorUseCase: VendorAPIService()
             )
         )
         showController(vc: controller)

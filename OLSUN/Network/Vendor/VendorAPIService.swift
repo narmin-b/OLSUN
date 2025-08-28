@@ -21,7 +21,8 @@ final class VendorAPIService: VendorUseCase {
         ) { [weak self] result in
             guard self != nil else { return }
             Logger.debug("result: \(result)")
-            
+            print(result)
+
             switch result {
             case .success(let (data, statusCode)):
                 Logger.debug("Status Code: \(statusCode)")
@@ -52,6 +53,48 @@ final class VendorAPIService: VendorUseCase {
                 Logger.debug("Status Code: \(statusCode)")
                 print("Status Code: \(statusCode) DATAAAA: \(data)")
                 completion(data, nil)
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func setHomeScreenClick(completion: @escaping (EmptyResponseModel?, String?) -> Void) {
+        apiService.request(
+            type: EmptyResponseModel.self,
+            url: VendorHelper.homeScreenClick.endpoint,
+            method: .GET,
+            header: ["Content-Type" : "application/json"],
+            body: [ : ]
+        ) { [weak self] result in
+            guard self != nil else { return }
+           
+            switch result {
+            case .success(let (_, statusCode)):
+                Logger.debug("Status Code: \(statusCode)")
+                print("Status Code: \(statusCode)")
+                completion(EmptyResponseModel(), nil)
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func addViewCount(id: String, completion: @escaping (EmptyResponseModel?, String?) -> Void) {
+        apiService.request(
+            type: EmptyResponseModel.self,
+            url: VendorHelper.plusView(id).endpoint,
+            method: .POST,
+            header: ["Content-Type" : "application/json"],
+            body: [ : ]
+        ) { [weak self] result in
+            guard self != nil else { return }
+
+
+            print(result)
+            switch result {
+            case .success(let (statusCode)):
+                completion(nil, nil)
             case .failure(let error):
                 completion(nil, error.localizedDescription)
             }

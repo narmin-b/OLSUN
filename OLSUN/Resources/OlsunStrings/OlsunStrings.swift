@@ -124,6 +124,14 @@ enum OlsunStrings: String {
     case wpNotAvaiMessage
     case homeTitle
     case pwSymbolText
+    case barbershopText
+    case videographText
+    case submitText
+    case feedbackPlaceholderText
+    case feedbackPopupSubtitle
+    case feedbackPopupTitle
+    case feedbackSendButton
+    case feedbackVCTitle
 }
 
 extension OlsunStrings {

@@ -137,6 +137,23 @@
         }
       }
     },
+    "barbershopText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bərbər Salonları"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barbershops"
+          }
+        }
+      }
+    },
     "bdayText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -405,6 +422,91 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Farid Aghayev"
+          }
+        }
+      }
+    },
+    "feedbackPlaceholderText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rəyinizi buraya yazın..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write your feedback here…"
+          }
+        }
+      }
+    },
+    "feedbackPopupSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Təcrübənizi yaxşılaşdırmaq üçün rəyinizi bizimlə bölüşün."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share your feedback with us to improve your experience."
+          }
+        }
+      }
+    },
+    "feedbackPopupTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fikrinizi bizimlə bölüşün!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share your opinion with us!"
+          }
+        }
+      }
+    },
+    "feedbackSendButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rəy bildir"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send feedback"
+          }
+        }
+      }
+    },
+    "feedbackVCTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rəyinizi yazın"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share your feedback"
           }
         }
       }
@@ -1248,13 +1350,13 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Olsun-da hər istəyə uyğun xidmət üçün tərəfdaş tap!"
+            "value" : "OLSUN Şəbəkəsinin Partnyorları ilə öz ehtiyaclarınıza uyğun xidmətləri tapın!"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Find the perfect vendor for every need on Olsun!"
+            "value" : "Find the services that match your needs with the Partners of the OLSUN!"
           }
         }
       }
@@ -1803,6 +1905,23 @@
         }
       }
     },
+    "submitText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Göndər"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        }
+      }
+    },
     "sweetsText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1884,6 +2003,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Successful update!"
+          }
+        }
+      }
+    },
+    "videographText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videoqraf"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videographer"
           }
         }
       }

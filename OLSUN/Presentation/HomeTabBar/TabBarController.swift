@@ -23,6 +23,52 @@ final class TabBarController: UITabBarController {
         
         setupTabBar()
         setupCustomTabBarView()
+        
+        // Listen for app foreground events
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appWillEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showFeedbackPopupIfNeeded()
+    }
+
+    @objc private func appWillEnterForeground() {
+        showFeedbackPopupIfNeeded()
+    }
+    
+    private func showFeedbackPopupIfNeeded() {
+        // Prevent multiple popups if already shown
+//        if view.subviews.contains(where: { $0 is FeedbackPopupView }) { return }
+        
+        let feedbackPopup = FeedbackPopupView(frame: UIScreen.main.bounds)
+        feedbackPopup.configure(
+            title: OlsunStrings.feedbackPopupTitle.localized,
+            message: OlsunStrings.feedbackPopupSubtitle.localized
+        )
+        feedbackPopup.onSubmit = { [weak self, weak feedbackPopup] in
+            feedbackPopup?.removeFromSuperview()
+            self?.showFeedbackController()
+        }
+        feedbackPopup.onCancel = { [weak feedbackPopup] in
+            feedbackPopup?.removeFromSuperview()
+        }
+        view.addSubview(feedbackPopup)
+    }
+    
+    private func showFeedbackController() {
+        let feedbackVC = FeedbackViewController()
+        feedbackVC.modalPresentationStyle = .formSheet
+        self.present(feedbackVC, animated: true, completion: nil)
     }
     
     private func setupTabBar() {

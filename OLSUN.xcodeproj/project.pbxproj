@@ -13,6 +13,13 @@
 		11192DAE2DEEBDAF009216A2 /* VendorAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11192DAD2DEEBDA9009216A2 /* VendorAPIService.swift */; };
 		11192DB02DEEBDB8009216A2 /* VendorUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11192DAF2DEEBDB4009216A2 /* VendorUseCase.swift */; };
 		11192DB22DEEBDBE009216A2 /* VendorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11192DB12DEEBDBA009216A2 /* VendorHelper.swift */; };
+		111DA8A02E61A0AA0069C244 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 111DA89F2E61A0AA0069C244 /* SnapKit */; };
+		111DA8A82E61A73C0069C244 /* RobotoSerif-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A72E61A73C0069C244 /* RobotoSerif-SemiBold.ttf */; };
+		111DA8A92E61A73C0069C244 /* RobotoSerif-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A32E61A73C0069C244 /* RobotoSerif-ExtraLight.ttf */; };
+		111DA8AA2E61A73C0069C244 /* RobotoSerif-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A52E61A73C0069C244 /* RobotoSerif-Medium.ttf */; };
+		111DA8AB2E61A73C0069C244 /* RobotoSerif-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A42E61A73C0069C244 /* RobotoSerif-Light.ttf */; };
+		111DA8AC2E61A73C0069C244 /* RobotoSerif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A62E61A73C0069C244 /* RobotoSerif-Regular.ttf */; };
+		111DA8AD2E61A73C0069C244 /* RobotoSerif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 111DA8A22E61A73C0069C244 /* RobotoSerif-Bold.ttf */; };
 		11273A3D2DAE832300E2FB47 /* GuestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A3C2DAE831E00E2FB47 /* GuestHelper.swift */; };
 		11273A3F2DAE832C00E2FB47 /* GuestAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A3E2DAE832600E2FB47 /* GuestAPIService.swift */; };
 		11273A412DAE833300E2FB47 /* GuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11273A402DAE832F00E2FB47 /* GuestUseCase.swift */; };
@@ -194,6 +201,12 @@
 		11192DAD2DEEBDA9009216A2 /* VendorAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorAPIService.swift; sourceTree = "<group>"; };
 		11192DAF2DEEBDB4009216A2 /* VendorUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorUseCase.swift; sourceTree = "<group>"; };
 		11192DB12DEEBDBA009216A2 /* VendorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorHelper.swift; sourceTree = "<group>"; };
+		111DA8A22E61A73C0069C244 /* RobotoSerif-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-Bold.ttf"; sourceTree = "<group>"; };
+		111DA8A32E61A73C0069C244 /* RobotoSerif-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-ExtraLight.ttf"; sourceTree = "<group>"; };
+		111DA8A42E61A73C0069C244 /* RobotoSerif-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-Light.ttf"; sourceTree = "<group>"; };
+		111DA8A52E61A73C0069C244 /* RobotoSerif-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-Medium.ttf"; sourceTree = "<group>"; };
+		111DA8A62E61A73C0069C244 /* RobotoSerif-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-Regular.ttf"; sourceTree = "<group>"; };
+		111DA8A72E61A73C0069C244 /* RobotoSerif-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSerif-SemiBold.ttf"; sourceTree = "<group>"; };
 		11273A3C2DAE831E00E2FB47 /* GuestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestHelper.swift; sourceTree = "<group>"; };
 		11273A3E2DAE832600E2FB47 /* GuestAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestAPIService.swift; sourceTree = "<group>"; };
 		11273A402DAE832F00E2FB47 /* GuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestUseCase.swift; sourceTree = "<group>"; };
@@ -359,6 +372,7 @@
 				11630E9E2DB019D700C277AE /* SVGKitSwift in Frameworks */,
 				11B413C12DCBA126006FF14F /* SkeletonView in Frameworks */,
 				11630E9C2DB019D700C277AE /* SVGKit in Frameworks */,
+				111DA8A02E61A0AA0069C244 /* SnapKit in Frameworks */,
 				1174DF9A2DAAC45B00DC1CCC /* GoogleSignInSwift in Frameworks */,
 				11630EA12DB0242D00C277AE /* SwiftSVG in Frameworks */,
 			);
@@ -399,6 +413,19 @@
 				11192DAD2DEEBDA9009216A2 /* VendorAPIService.swift */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		111DA8A12E61A6FA0069C244 /* RobotoSerif */ = {
+			isa = PBXGroup;
+			children = (
+				111DA8A22E61A73C0069C244 /* RobotoSerif-Bold.ttf */,
+				111DA8A32E61A73C0069C244 /* RobotoSerif-ExtraLight.ttf */,
+				111DA8A42E61A73C0069C244 /* RobotoSerif-Light.ttf */,
+				111DA8A52E61A73C0069C244 /* RobotoSerif-Medium.ttf */,
+				111DA8A62E61A73C0069C244 /* RobotoSerif-Regular.ttf */,
+				111DA8A72E61A73C0069C244 /* RobotoSerif-SemiBold.ttf */,
+			);
+			path = RobotoSerif;
 			sourceTree = "<group>";
 		};
 		11273A422DAE83F100E2FB47 /* Models */ = {
@@ -910,6 +937,7 @@
 		11A7E3702D8B36A100D82AF2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				111DA8A12E61A6FA0069C244 /* RobotoSerif */,
 				1147AF2B2DAC2F66006D28CD /* Montserrat */,
 				110D9C242DA306E800492B46 /* Futurica */,
 				11BB9E332D8C8F4E00008DD7 /* WorkSans */,
@@ -1234,6 +1262,7 @@
 				11630EA02DB0242D00C277AE /* SwiftSVG */,
 				11630EA32DB02FBD00C277AE /* Macaw */,
 				11B413C02DCBA126006FF14F /* SkeletonView */,
+				111DA89F2E61A0AA0069C244 /* SnapKit */,
 			);
 			productName = OLSUN;
 			productReference = 11A7E3252D8B35BF00D82AF2 /* OLSUN.app */;
@@ -1318,6 +1347,7 @@
 				11630E9F2DB0242D00C277AE /* XCRemoteSwiftPackageReference "SwiftSVG" */,
 				11630EA22DB02FBD00C277AE /* XCRemoteSwiftPackageReference "Macaw" */,
 				11B413BF2DCBA126006FF14F /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				111DA89E2E61A0AA0069C244 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11A7E3262D8B35BF00D82AF2 /* Products */;
@@ -1345,6 +1375,12 @@
 				11B413C92DCBED0F006FF14F /* Localizable.xcstrings in Resources */,
 				11F41BAF2DA564FF00C16224 /* FuturicaB.ttf in Resources */,
 				11BB9E422D8C8F4E00008DD7 /* WorkSans-SemiBold.ttf in Resources */,
+				111DA8A82E61A73C0069C244 /* RobotoSerif-SemiBold.ttf in Resources */,
+				111DA8A92E61A73C0069C244 /* RobotoSerif-ExtraLight.ttf in Resources */,
+				111DA8AA2E61A73C0069C244 /* RobotoSerif-Medium.ttf in Resources */,
+				111DA8AB2E61A73C0069C244 /* RobotoSerif-Light.ttf in Resources */,
+				111DA8AC2E61A73C0069C244 /* RobotoSerif-Regular.ttf in Resources */,
+				111DA8AD2E61A73C0069C244 /* RobotoSerif-Bold.ttf in Resources */,
 				11BB9E432D8C8F4E00008DD7 /* WorkSans-Regular.ttf in Resources */,
 				11BB9EF82D8C8F7D00008DD7 /* Inter_18pt-Regular.ttf in Resources */,
 				11BB9F002D8C8F7D00008DD7 /* Inter_18pt-SemiBold.ttf in Resources */,
@@ -1853,6 +1889,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		111DA89E2E61A0AA0069C244 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 		11630E972DB0179200C277AE /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -1904,6 +1948,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		111DA89F2E61A0AA0069C244 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 111DA89E2E61A0AA0069C244 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		11630E982DB0179200C277AE /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11630E972DB0179200C277AE /* XCRemoteSwiftPackageReference "SDWebImage" */;

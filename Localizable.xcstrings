@@ -52,6 +52,23 @@
         }
       }
     },
+    "appleLoginText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ilə giriş et"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Apple"
+          }
+        }
+      }
+    },
     "aylakhoncaDesc" : {
       "extractionState" : "manual",
       "localizations" : {

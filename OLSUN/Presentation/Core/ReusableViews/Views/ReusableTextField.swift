@@ -51,7 +51,7 @@ class ReusableTextField: UITextField {
          placeholderSize: CGFloat = 16,
          placeholderFont: FontKeys = .robotoRegular,
          placeholderColor: UIColor = .gray,
-         cornerRadius: CGFloat = 12,
+         cornerRadius: CGFloat = 8,
          backgroundColor: UIColor = .white,
          borderColor: UIColor = .clear,
          borderWidth: CGFloat = 1) {
@@ -102,10 +102,10 @@ class ReusableTextField: UITextField {
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 8, dy: 0)
+        return bounds.insetBy(dx: 12, dy: 0)
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 8, dy: 0)
+        return bounds.insetBy(dx: 12, dy: 0)
     }
 }

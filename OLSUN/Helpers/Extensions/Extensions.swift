@@ -591,7 +591,7 @@ extension UINavigationItem {
         label.text = text
         label.sizeToFit()
         label.textAlignment = .center
-        label.font = UIFont(name: "Montserrat-Bold", size: 28)
+        label.font = UIFont(name: "RobotoSerif-Bold", size: 20)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         

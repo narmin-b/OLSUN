@@ -19,6 +19,12 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>RobotoSerif-Medium.ttf</string>
+		<string>RobotoSerif-Bold.ttf</string>
+		<string>RobotoSerif-ExtraLight.ttf</string>
+		<string>RobotoSerif-SemiBold.ttf</string>
+		<string>RobotoSerif-Light.ttf</string>
+		<string>RobotoSerif-Regular.ttf</string>
 		<string>Montserrat-Bold.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
 		<string>Montserrat-Medium.ttf</string>

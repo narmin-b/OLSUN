@@ -325,7 +325,6 @@ extension PartnersViewController: UICollectionViewDataSource, UICollectionViewDe
             if let partner = viewModel?.protocolList[safe: indexPath.item] {
                 cell.configureCell(with: partner)
             }
-//            cell.configureCell(with: (viewModel?.protocolList[indexPath.item])!)
             return cell
         }
 

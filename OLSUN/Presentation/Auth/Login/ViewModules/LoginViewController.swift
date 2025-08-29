@@ -4,13 +4,6 @@
 //
 //  Created by Narmin Baghirova on 19.03.25.
 //
-//
-//struct AppleUser {
-//    let id: String
-//    let name: String
-//    let email: String
-//    let token: String
-//}
 
 import UIKit
 import GoogleSignIn
@@ -27,25 +20,12 @@ final class LoginViewController: BaseViewController {
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.loginVC_Message.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .futuricaBold,
-            labelSize: 32,
-            numOfLines: 2
-        )
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
-            labelFont: .workSansRegular,
-            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            labelFont: .robotoSerifMedium,
+            labelSize: 13,
             numOfLines: 1
         )
         label.textAlignment = .left
@@ -55,10 +35,17 @@ final class LoginViewController: BaseViewController {
     
     private lazy var emailTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "")
+            placeholder: "Emailinizi daxil edin",
+            placeholderSize: 15,
+            placeholderFont: .robotoSerifMedium,
+            placeholderColor: .neutral400,
+            borderColor: .neutraln200,
+            borderWidth: 1
+        )
         textfield.textColor = .black
+        textfield.font = UIFont(name: "RobotoSerif-Medium", size: 15)
+        textfield.delegate = self
         textfield.tintColor = .clear
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -68,8 +55,8 @@ final class LoginViewController: BaseViewController {
         let label = ReusableLabel(
             labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
-            labelFont: .workSansRegular,
-            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            labelFont: .robotoSerifMedium,
+            labelSize: 13,
             numOfLines: 1
         )
         label.textAlignment = .left
@@ -78,7 +65,14 @@ final class LoginViewController: BaseViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-        let textfield = ReusableTextField(placeholder: "")
+        let textfield = ReusableTextField(
+            placeholder: "Şifrənizi daxil edin",
+            placeholderSize: 15,
+            placeholderFont: .robotoSerifMedium,
+            placeholderColor: .neutral400,
+            borderColor: .neutraln200,
+            borderWidth: 1
+        )
         
         let toggleButton = UIButton(type: .system)
         toggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
@@ -91,10 +85,12 @@ final class LoginViewController: BaseViewController {
         textfield.rightView = toggleButton
         textfield.rightViewMode = .always
         
+        textfield.textColor = .black
+        textfield.font = UIFont(name: "RobotoSerif-Medium", size: 15)
+        textfield.delegate = self
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -104,46 +100,22 @@ final class LoginViewController: BaseViewController {
         let button = ReusableButton(
             title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.loginTapped() },
+            cornerRad: 16,
+            bgColor: .violet300,
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
-            titleFont: .workSansMedium,
+            titleFont: .robotoSerifSemiBold,
         )
-        button.addShadow()
-        button.isHidden = false
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    private lazy var seperatorStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [line1View, orLabel, line2View])
-        view.axis = .horizontal
-        view.distribution = .fill
-        view.alignment = .center
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var line1View: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.anchorSize(.init(width: 0, height: 1))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var line2View: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.anchorSize(.init(width: 0, height: 1))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+   
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.orText.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .futuricaBold,
-            labelSize: 20,
+            labelColor: .neutraln500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 15,
             numOfLines: 1
         )
         label.textAlignment = .center
@@ -153,13 +125,13 @@ final class LoginViewController: BaseViewController {
     
     private lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.robotoSerifSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
-        config.imagePadding = 4
+        config.imagePadding = 12
         config.imagePlacement = .leading
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 16)
         
         let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
             self?.googleLoginButtonTapped()
@@ -167,31 +139,48 @@ final class LoginViewController: BaseViewController {
         
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.layer.cornerRadius = 6
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 24
+        button.layer.borderColor = UIColor.neutraln200.cgColor
+        button.layer.borderWidth = 2
         button.layer.masksToBounds = true
         button.tintColor = .black
-        button.addShadow()
         button.contentHorizontalAlignment = .center
         
         let image = UIImage(named: "googleLogo")
-        let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
+        let resizedImage = image?.resizeImage(to: CGSize(width: 44, height: 44))
         button.setImage(resizedImage, for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var appleLoginButton: ASAuthorizationAppleIDButton = {
-        let button = ASAuthorizationAppleIDButton(type: .continue, style: .white)
-        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
+    private lazy var appleLoginButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.appleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.robotoSerifSemiBold.rawValue, size: 16)!]))
+        config.baseForegroundColor = .black
+        config.background.backgroundColor = .clear
+        config.background.strokeWidth = 1
+        config.imagePadding = 12
+        config.imagePlacement = .leading
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 24)
         
-        button.layer.cornerRadius = 6
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+        let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
+            self?.handleAppleLogin()
+        })
+        
+        button.clipsToBounds = true
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 24
+        button.layer.borderColor = UIColor.neutraln200.cgColor
+        button.layer.borderWidth = 2
         button.layer.masksToBounds = true
-        button.addShadow()
+        button.tintColor = .black
+        button.contentHorizontalAlignment = .center
+        
+        let image = UIImage(named: "appleLogo")
+        let resizedImage = image?.resizeImage(to: CGSize(width: 22, height: 26))
+        button.setImage(resizedImage, for: .normal)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -232,109 +221,105 @@ final class LoginViewController: BaseViewController {
     }
     
     fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
+        let backItem = UIBarButtonItem(
+            image: UIImage(named: "backButton")?.withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapBack)
+        )
+        navigationItem.configureNavigationBar(text: "Giriş")
+        navigationItem.leftBarButtonItem = backItem
+    }
+    
+    fileprivate func updateLoginButton() {
+        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
+        let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+
+        if isEmailEmpty || isPasswordEmpty {
+            loginButton.backgroundColor = .violet300
+            loginButton.isUserInteractionEnabled = false
+        } else {
+            loginButton.backgroundColor = .violet700
+            loginButton.isUserInteractionEnabled = true
+        }
+    }
+
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, seperatorStackView, googleLoginButton, appleLoginButton)
+        view.addSubViews(loadingView, emailLabel, emailTextField, passwordLabel, passwordTextField, loginButton, orLabel, googleLoginButton, appleLoginButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperview()
         
-        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 16
-        titleLabel.anchor(
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 48 : 102
+        emailLabel.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
-        )
-        
-        let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
-        
-        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
-        emailLabel.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 16, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 6, left: 16, bottom: 0, right: -16)
         )
         emailTextField.centerXToSuperview()
-        emailTextField.anchorSize(.init(width: 0, height: textFieldHeight))
+        emailTextField.anchorSize(.init(width: 0, height: 44))
         
         passwordLabel.anchor(
             top: emailTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
         passwordTextField.anchor(
             top: passwordLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 6, left: 16, bottom: 0, right: -16)
         )
         passwordTextField.centerXToSuperview()
-        passwordTextField.anchorSize(.init(width: 0, height: textFieldHeight))
+        passwordTextField.anchorSize(.init(width: 0, height: 44))
         
-        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 56
         loginButton.anchor(
             top: passwordTextField.bottomAnchor,
-            
-            padding: .init(all: 44)
-        )
-        loginButton.centerXToSuperview()
-        loginButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
-        
-        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 72 : 68
-        seperatorStackView.centerXToSuperview()
-        seperatorStackView.anchorSize(.init(width: 0, height: 20))
-        seperatorStackView.anchor(
-            top: loginButton.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 80, left: 20, bottom: 0, right: -20)
         )
-        orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        orLabel.centerYToView(to: seperatorStackView)
-        line1View.centerYToView(to: seperatorStackView)
-        line2View.centerYToView(to: seperatorStackView)
-        
-        NSLayoutConstraint.activate([
-            line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-            line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-        ])
-        
-        let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 40 : 44
-        googleLoginButton.anchor(
-            top: seperatorStackView.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: googleDist, left: 32, bottom: 0, right: -32)
-        )
-        googleLoginButton.centerXToSuperview()
-        googleLoginButton.anchorSize(.init(width: 0, height: 44))
+        loginButton.anchorSize(.init(width: 0, height: buttonHeight))
         
         appleLoginButton.anchor(
-            top: googleLoginButton.bottomAnchor,
             leading: view.leadingAnchor,
+            bottom: view.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 12, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 0, left: 32, bottom: -75, right: -32)
         )
         appleLoginButton.centerXToSuperview()
-        appleLoginButton.anchorSize(.init(width: 0, height: 44))
+        appleLoginButton.anchorSize(.init(width: 0, height: 54))
+        
+        googleLoginButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: appleLoginButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: -8, right: -32)
+        )
+        googleLoginButton.centerXToSuperview()
+        googleLoginButton.anchorSize(.init(width: 0, height: 54))
+        
+        orLabel.anchor(
+            bottom: googleLoginButton.topAnchor,
+            padding: .init(all: 16)
+        )
+        orLabel.centerXToSuperview()
     }
     
     private func configureViewModel() {
@@ -452,5 +437,11 @@ final class LoginViewController: BaseViewController {
     fileprivate func textfieldCleaning() {
         emailTextField.text = ""
         passwordTextField.text = ""
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateLoginButton()
     }
 }

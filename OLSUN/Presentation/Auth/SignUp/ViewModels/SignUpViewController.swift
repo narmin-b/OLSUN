@@ -18,26 +18,13 @@ final class SignUpViewController: BaseViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.signUpVC_Message.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .futuricaBold,
-            labelSize: 32,
-            numOfLines: 2
-        )
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
+   
     private lazy var emailLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.emailText.localized,
             labelColor: .black,
-            labelFont: .workSansRegular,
-            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            labelFont: .robotoSerifMedium,
+            labelSize: 13,
             numOfLines: 1
         )
         label.textAlignment = .left
@@ -47,12 +34,22 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var emailTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "")
+            placeholder: "Emailinizi daxil edin",
+            placeholderSize: 15,
+            placeholderFont: .robotoSerifMedium,
+            placeholderColor: .neutral400,
+            borderColor: .neutraln200,
+            borderWidth: 1
+        )
         textfield.textColor = .black
+        textfield.font = UIFont(name: "RobotoSerif-Medium", size: 15)
+        textfield.delegate = self
         textfield.tintColor = .clear
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        
+        textfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
         return textfield
     }()
     
@@ -60,8 +57,8 @@ final class SignUpViewController: BaseViewController {
         let label = ReusableLabel(
             labelText: OlsunStrings.passwordText.localized,
             labelColor: .black,
-            labelFont: .workSansRegular,
-            labelSize: DeviceSizeClass.current == .large ? 20 : 16,
+            labelFont: .robotoSerifMedium,
+            labelSize: 13,
             numOfLines: 1
         )
         label.textAlignment = .left
@@ -70,7 +67,14 @@ final class SignUpViewController: BaseViewController {
     }()
     
     private lazy var passwordTextField: UITextField = {
-        let textfield = ReusableTextField(placeholder: "")
+        let textfield = ReusableTextField(
+            placeholder: "Şifrənizi daxil edin",
+            placeholderSize: 15,
+            placeholderFont: .robotoSerifMedium,
+            placeholderColor: .neutral400,
+            borderColor: .neutraln200,
+            borderWidth: 1
+        )
         
         let toggleButton = UIButton(type: .system)
         toggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
@@ -82,12 +86,14 @@ final class SignUpViewController: BaseViewController {
         
         textfield.rightView = toggleButton
         textfield.rightViewMode = .always
-
+        
+        textfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textfield.textColor = .black
+        textfield.font = UIFont(name: "RobotoSerif-Medium", size: 15)
         textfield.delegate = self
         textfield.isSecureTextEntry = true
         textfield.textColor = .black
         textfield.tintColor = .clear
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
@@ -96,9 +102,9 @@ final class SignUpViewController: BaseViewController {
     private lazy var passReqLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.pwLengthText.localized,
-            labelColor: .black,
-            labelFont: .workSansMedium,
-            labelSize: 12
+            labelColor: .neutral500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 11
         )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -107,9 +113,9 @@ final class SignUpViewController: BaseViewController {
     private lazy var passUpcaseReqLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.pwUCText.localized,
-            labelColor: .black,
-            labelFont: .workSansMedium,
-            labelSize: 12
+            labelColor: .neutral500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 11
         )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -118,9 +124,9 @@ final class SignUpViewController: BaseViewController {
     private lazy var passNumReqLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.pwNumText.localized,
-            labelColor: .black,
-            labelFont: .workSansMedium,
-            labelSize: 12
+            labelColor: .neutral500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 11
         )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -129,9 +135,9 @@ final class SignUpViewController: BaseViewController {
     private lazy var passSymbolReqLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.pwSymbolText.localized,
-            labelColor: .black,
-            labelFont: .workSansMedium,
-            labelSize: 12
+            labelColor: .neutral500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 11
         )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -149,46 +155,22 @@ final class SignUpViewController: BaseViewController {
         let button = ReusableButton(
             title: OlsunStrings.continueButton.localized,
             onAction: { [weak self] in self?.signupTapped() },
+            cornerRad: 16,
+            bgColor: .violet300,
             titleSize: DeviceSizeClass.current == .large ? 20 : 16,
-            titleFont: .workSansMedium,
+            titleFont: .robotoSerifSemiBold,
         )
-        button.addShadow()
-        button.isHidden = false
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
-    
-    private lazy var seperatorStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [line1View, orLabel, line2View])
-        view.axis = .horizontal
-        view.distribution = .fill
-        view.alignment = .center
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var line1View: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.anchorSize(.init(width: 0, height: 1))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var line2View: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.anchorSize(.init(width: 0, height: 1))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     private lazy var orLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.orText.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .futuricaBold,
-            labelSize: 20,
+            labelColor: .neutraln500,
+            labelFont: .robotoSerifRegular,
+            labelSize: 15,
             numOfLines: 1
         )
         label.textAlignment = .center
@@ -198,45 +180,62 @@ final class SignUpViewController: BaseViewController {
     
     private lazy var googleSignInButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.workSansSemiBold.rawValue, size: 16)!]))
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.googleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.robotoSerifSemiBold.rawValue, size: 16)!]))
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
         config.imagePadding = 4
         config.imagePlacement = .leading
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12)
-
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 10)
+        
         let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
             self?.googleSignInButtonTapped()
         })
-
+        
         button.clipsToBounds = true
         button.backgroundColor = .white
-        button.layer.cornerRadius = 6
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 24
+        button.layer.borderColor = UIColor.neutraln200.cgColor
+        button.layer.borderWidth = 2
         button.layer.masksToBounds = true
         button.tintColor = .black
-        button.addShadow()
         button.contentHorizontalAlignment = .center
         
         let image = UIImage(named: "googleLogo")
-        let resizedImage = image?.resizeImage(to: CGSize(width: 26, height: 26))
+        let resizedImage = image?.resizeImage(to: CGSize(width: 44, height: 44))
         button.setImage(resizedImage, for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
-        let button = ASAuthorizationAppleIDButton(type: .continue, style: .white)
-        button.addTarget(self, action: #selector(handleAppleLogin), for: .touchUpInside)
-
-        button.layer.cornerRadius = 6
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+    private lazy var appleSignInButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.attributedTitle = AttributedString(NSAttributedString(string: OlsunStrings.appleLoginText.localized, attributes: [.font: UIFont(name: FontKeys.robotoSerifSemiBold.rawValue, size: 16)!]))
+        config.baseForegroundColor = .black
+        config.background.backgroundColor = .clear
+        config.background.strokeWidth = 1
+        config.imagePadding = 12
+        config.imagePlacement = .leading
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 24)
+        
+        let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
+            self?.handleAppleLogin()
+        })
+        
+        button.clipsToBounds = true
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 24
+        button.layer.borderColor = UIColor.neutraln200.cgColor
+        button.layer.borderWidth = 2
         button.layer.masksToBounds = true
-        button.addShadow()
+        button.tintColor = .black
+        button.contentHorizontalAlignment = .center
+        
+        let image = UIImage(named: "appleLogo")
+        let resizedImage = image?.resizeImage(to: CGSize(width: 22, height: 26))
+        button.setImage(resizedImage, for: .normal)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -268,123 +267,108 @@ final class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
-        removeErrorBorder()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
+    
+    fileprivate func removeErrorBorders() {
+        emailTextField.layer.borderColor = UIColor.neutraln200.cgColor
+        emailTextField.layer.borderWidth = 1
+        passwordTextField.layer.borderColor = UIColor.neutraln200.cgColor
+        passwordTextField.layer.borderWidth = 1
+    }
    
     fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
+        let backItem = UIBarButtonItem(
+            image: UIImage(named: "backButton")?.withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapBack)
+        )
+        navigationItem.configureNavigationBar(text: "Qeydiyyat")
+        navigationItem.leftBarButtonItem = backItem
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, seperatorStackView, googleSignInButton, appleSignInButton)
+        view.addSubViews(loadingView, emailLabel, emailTextField, passwordLabel, passwordTextField, passwordRequirementsStack, signupButton, orLabel, googleSignInButton, appleSignInButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperview()
-        
-        let topConst: CGFloat = DeviceSizeClass.current == .compact ? 0 : 16
-        titleLabel.anchor(
+                
+        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 48 : 102
+        emailLabel.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: topConst, left: 24, bottom: 0, right: -24)
-        )
-        
-        let textFieldHeight: CGFloat = DeviceSizeClass.current == .compact ? 32 : 36
-        let textFieldDist: CGFloat = DeviceSizeClass.current == .compact ? 12 : 16
-        
-        let topDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 60
-        emailLabel.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: topDist, left: 32, bottom: 0, right: 0)
+            padding: .init(top: topDist, left: 16, bottom: 0, right: 0)
         )
         emailTextField.anchor(
             top: emailLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 6, left: 16, bottom: 0, right: -16)
         )
         emailTextField.centerXToSuperview()
-        emailTextField.anchorSize(.init(width: 0, height: textFieldHeight))
+        emailTextField.anchorSize(.init(width: 0, height: 44))
         
         passwordLabel.anchor(
             top: emailTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: textFieldDist, left: 32, bottom: 0, right: 0)
+            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
         passwordTextField.anchor(
             top: passwordLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 4, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 6, left: 16, bottom: 0, right: -16)
         )
         passwordTextField.centerXToSuperview()
-        passwordTextField.anchorSize(.init(width: 0, height: textFieldHeight))
+        passwordTextField.anchorSize(.init(width: 0, height: 44))
         
         passwordRequirementsStack.anchor(
             top: passwordTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 8, left: 32, bottom: 0, right: 0)
+            padding: .init(top: 6, left: 32, bottom: 0, right: 0)
         )
   
-        let signupDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 44
-        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 52
+        let buttonHeight: CGFloat = DeviceSizeClass.current == .compact ? 48 : 56
         signupButton.anchor(
             top: passwordRequirementsStack.bottomAnchor,
-            padding: .init(all: signupDist)
-        )
-        signupButton.centerXToSuperview()
-        signupButton.anchorSize(.init(width: view.frame.width/3 + 12, height: buttonHeight))
-        
-        let seperatorDist: CGFloat = DeviceSizeClass.current == .compact ? 28 : 88
-        seperatorStackView.centerXToSuperview()
-        seperatorStackView.anchorSize(.init(width: 0, height: 20))
-        seperatorStackView.anchor(
-            top: signupButton.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: seperatorDist, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 80, left: 20, bottom: 0, right: -20)
         )
-        orLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        orLabel.centerYToView(to: seperatorStackView)
-        line1View.centerYToView(to: seperatorStackView)
-        line2View.centerYToView(to: seperatorStackView)
-        
-        NSLayoutConstraint.activate([
-            line1View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-            line2View.widthAnchor.constraint(equalTo: seperatorStackView.widthAnchor, multiplier: 0.4),
-            ])
-        
-        let googleDist: CGFloat = DeviceSizeClass.current == .compact ? 36 : 44
-        googleSignInButton.anchor(
-            top: seperatorStackView.bottomAnchor,
-            leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: googleDist, left: 32, bottom: 0, right: -32)
-        )
-        googleSignInButton.centerXToSuperview()
-        googleSignInButton.anchorSize(.init(width: 0, height: 44))
+        signupButton.anchorSize(.init(width: 0, height: buttonHeight))
         
         appleSignInButton.anchor(
-            top: googleSignInButton.bottomAnchor,
             leading: view.leadingAnchor,
+            bottom: view.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 12, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 0, left: 32, bottom: -75, right: -32)
         )
         appleSignInButton.centerXToSuperview()
-        appleSignInButton.anchorSize(.init(width: 0, height: 44))
+        appleSignInButton.anchorSize(.init(width: 0, height: 54))
+        
+        googleSignInButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: appleSignInButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 32, bottom: -8, right: -32)
+        )
+        googleSignInButton.centerXToSuperview()
+        googleSignInButton.anchorSize(.init(width: 0, height: 54))
+        
+        orLabel.anchor(
+            bottom: googleSignInButton.topAnchor,
+            padding: .init(all: 16)
+        )
+        orLabel.centerXToSuperview()
     }
     
     private func configureViewModel() {
@@ -452,6 +436,10 @@ final class SignUpViewController: BaseViewController {
         checkInputRequirements()
     }
     
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        updateSignupButton()
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -467,9 +455,8 @@ final class SignUpViewController: BaseViewController {
         }
     }
     
-    fileprivate func removeErrorBorder() {
-        emailTextField.borderOff()
-        passwordTextField.borderOff()
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
     }
     
     fileprivate func checkInputRequirements() {
@@ -487,7 +474,8 @@ final class SignUpViewController: BaseViewController {
         if !email.isValidEmail() {
             emailTextField.errorBorderOn()
         } else {
-            emailTextField.borderOff()
+            emailTextField.layer.borderColor = UIColor.neutraln200.cgColor
+            emailTextField.layer.borderWidth = 1
         }
         if !password.isValidPassword() {
             if password.isValidPasswordMask() {
@@ -512,7 +500,8 @@ final class SignUpViewController: BaseViewController {
             }
             passwordTextField.errorBorderOn()
         } else {
-            passwordTextField.borderOff()
+            passwordTextField.layer.borderColor = UIColor.neutraln200.cgColor
+            passwordTextField.layer.borderWidth = 1
         }
     }
     
@@ -545,10 +534,24 @@ final class SignUpViewController: BaseViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
     }
+    
+    fileprivate func updateSignupButton() {
+        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
+        let isPasswordEmpty = passwordTextField.text?.isEmpty ?? true
+
+        if isEmailEmpty || isPasswordEmpty {
+            signupButton.backgroundColor = .violet300
+            signupButton.isUserInteractionEnabled = false
+        } else {
+            signupButton.backgroundColor = .violet700
+            signupButton.isUserInteractionEnabled = true
+        }
+    }
 }
 
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        updateSignupButton()
         if textField == passwordTextField {
             checkPassWordRequirements()
         }

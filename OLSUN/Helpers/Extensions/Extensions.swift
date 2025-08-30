@@ -675,3 +675,22 @@ extension Array {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+extension String {
+    func toBackendDate() -> String? {
+        let frontendFormatter = DateFormatter()
+        frontendFormatter.dateFormat = "dd/MM/yyyy"
+        frontendFormatter.locale = Locale(identifier: "en_US_POSIX")
+        frontendFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let backendFormatter = DateFormatter()
+        backendFormatter.dateFormat = "yyyy-MM-dd"
+        backendFormatter.locale = Locale(identifier: "en_US_POSIX")
+        backendFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        if let date = frontendFormatter.date(from: self) {
+            return backendFormatter.string(from: date)
+        }
+        return nil
+    }
+}

@@ -48,6 +48,9 @@ final class LoginViewController: BaseViewController {
         textfield.tintColor = .clear
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        
+        textfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
         return textfield
     }()
     
@@ -85,6 +88,7 @@ final class LoginViewController: BaseViewController {
         textfield.rightView = toggleButton
         textfield.rightViewMode = .always
         
+        textfield.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         textfield.textColor = .black
         textfield.font = UIFont(name: "RobotoSerif-Medium", size: 15)
         textfield.delegate = self
@@ -129,9 +133,9 @@ final class LoginViewController: BaseViewController {
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         config.background.strokeWidth = 1
-        config.imagePadding = 12
+        config.imagePadding = 4
         config.imagePlacement = .leading
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 16)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 10)
         
         let button = UIButton(configuration: config, primaryAction: UIAction { [weak self] _ in
             self?.googleLoginButtonTapped()
@@ -246,6 +250,10 @@ final class LoginViewController: BaseViewController {
 
     @objc private func didTapBack() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        updateLoginButton()
     }
     
     override func configureView() {
@@ -404,8 +412,10 @@ final class LoginViewController: BaseViewController {
     }
     
     fileprivate func removeErrorBorder() {
-        emailTextField.borderOff()
-        passwordTextField.borderOff()
+        emailTextField.layer.borderColor = UIColor.neutraln200.cgColor
+        emailTextField.layer.borderWidth = 1
+        passwordTextField.layer.borderColor = UIColor.neutraln200.cgColor
+        passwordTextField.layer.borderWidth = 1
     }
     
     fileprivate func checkInputRequirements() {
@@ -425,12 +435,14 @@ final class LoginViewController: BaseViewController {
         if !email.isValidEmail() {
             emailTextField.errorBorderOn()
         } else {
-            emailTextField.borderOff()
+            emailTextField.layer.borderColor = UIColor.neutraln200.cgColor
+            emailTextField.layer.borderWidth = 1
         }
         if !password.isValidPassword() {
             passwordTextField.errorBorderOn()
         } else {
-            passwordTextField.borderOff()
+            passwordTextField.layer.borderColor = UIColor.neutraln200.cgColor
+            passwordTextField.layer.borderWidth = 1
         }
     }
     

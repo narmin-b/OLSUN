@@ -1639,12 +1639,12 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "• Ən az 8 simvoldan ibarət olmalıdır"
+            "value" : "ən az 8 simvol"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "• Must have at least 8 characters"
           }
         }
@@ -1656,12 +1656,12 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "• Ən az 1 rəqəm olmalıdır"
+            "value" : "ən az 1 rəqəm"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "• Must have at least 1 number"
           }
         }
@@ -1673,12 +1673,12 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "• Yalnız rəqəm və hərflərdən ibarət olmalıdır"
+            "value" : "yalnız rəqəm və hərflər"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "• Only numbers and letters allowed"
           }
         }
@@ -1690,12 +1690,12 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "• Ən az 1 böyük hərf olmalıdır"
+            "value" : "ən az 1 böyük hərf"
           }
         },
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "• Must have at least 1 upper case"
           }
         }

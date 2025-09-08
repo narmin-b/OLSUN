@@ -73,7 +73,7 @@ final class LaunchViewController: BaseViewController, SelectionViewDelegate {
     
     private lazy var partnerNameLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: OlsunStrings.partnerNameText.localized,
+            labelText: "Soyadınız",
             labelColor: .black,
             labelFont: .robotoSerifMedium,
             labelSize: 13,
@@ -86,7 +86,7 @@ final class LaunchViewController: BaseViewController, SelectionViewDelegate {
     
     private lazy var partnerNameTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "Partnyorunuzun adını daxil edin",
+            placeholder: "Soyadınızı daxil edin",
             placeholderSize: 15,
             placeholderFont: .robotoSerifMedium,
             placeholderColor: .neutral400,

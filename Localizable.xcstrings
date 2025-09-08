@@ -9,12 +9,6 @@
             "state" : "translated",
             "value" : "Hesabınızı silmək istədiyinizə əminsiniz? Bu əməliyyatı geri qaytarmaq mümkün deyil."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Do you really want to delete your account? This action cannot be undone."
-          }
         }
       }
     },
@@ -25,12 +19,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabınız silindi!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your account has been deleted!"
           }
         }
       }
@@ -43,12 +31,6 @@
             "state" : "translated",
             "value" : "Hesabı sil"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete account"
-          }
         }
       }
     },
@@ -59,46 +41,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apple ilə giriş et"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue with Apple"
-          }
-        }
-      }
-    },
-    "aylakhoncaDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Xonça Boutique, toy, nişan və xına mərasimləri üçün zövqlə hazırlanmış xonça və səbətləri ilə özəl günlərə fərqlilik qatır. Aksessuarlar, şokolad və stekan bəzəkləri ilə hər şey incəliklə tamamlanır. Eyni zamanda, müxtəlif dizaynlarda xonçaların kirayəsi də mövcuddur – hər zövqə və konseptə uyğun seçim imkanı təqdim edilir."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Xonça Boutique adds a unique touch to special days with elegantly crafted khonchas and baskets for weddings, engagements, and henna nights. Everything is completed with fine details, including accessories, chocolates, and decorated glasses. Additionally, a variety of gift trays are available for rent in different designs – offering options to suit every taste and concept."
-          }
-        }
-      }
-    },
-    "aylakhoncaText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ayla Xonça evi"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ayla Khoncha house"
           }
         }
       }
@@ -111,46 +53,6 @@
             "state" : "translated",
             "value" : "Bakı"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Baku"
-          }
-        }
-      }
-    },
-    "bakuwedDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zövqlü dizayn, peşəkar planlama və unudulmaz məkan dekorasiyaları ilə toy və xüsusi günlərinizi istədiyiniz kimi həyata keçirir. Hər detalda incəlik, hər tədbirdə fərqlilik – çünki sizin gününüz mükəmməl olmalıdır."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "With tasteful design, professional planning, and unforgettable venue decorations, we bring your wedding and special days to life just the way you imagine. Elegance in every detail, uniqueness in every event – because your day deserves to be perfect."
-          }
-        }
-      }
-    },
-    "bakuwedText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Baku Wedding"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Baku Wedding"
-          }
         }
       }
     },
@@ -161,12 +63,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bərbər Salonları"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Barbershops"
           }
         }
       }
@@ -179,12 +75,6 @@
             "state" : "translated",
             "value" : "Doğum gününüz"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Birth date"
-          }
         }
       }
     },
@@ -195,12 +85,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gözəllik Salonları"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Beauty Salons"
           }
         }
       }
@@ -213,12 +97,6 @@
             "state" : "translated",
             "value" : "İmtina et"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
         }
       }
     },
@@ -229,12 +107,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Əminsiniz?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure?"
           }
         }
       }
@@ -247,12 +119,6 @@
             "state" : "translated",
             "value" : "Əlaqə"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Contact"
-          }
         }
       }
     },
@@ -263,12 +129,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Davam et"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue"
           }
         }
       }
@@ -281,12 +141,6 @@
             "state" : "translated",
             "value" : "Dekorasiya"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Decoration"
-          }
         }
       }
     },
@@ -297,12 +151,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabı SİLMƏK!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete ACCOUNT!"
           }
         }
       }
@@ -315,12 +163,6 @@
             "state" : "translated",
             "value" : "Sil"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete"
-          }
         }
       }
     },
@@ -331,12 +173,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qonağı sil"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete guest"
           }
         }
       }
@@ -349,46 +185,6 @@
             "state" : "translated",
             "value" : "Planı sil"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete plan"
-          }
-        }
-      }
-    },
-    "elatusDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kişi, qadın və uşaq geyimlərinin onun ölçülərinə uyğun peşəkar hazırlanması. Geyimlərinin zövqünə və bədən formasına tam uyğunlaşdırılması üçün yüksək keyfiyyətli xidmət təklif olunur. Eləcə də, hazır paltarlarının premium təmiri və estetik yenilənməsi ilə sevimli geyimlərinə yenidən həyat verilir."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Professional tailoring of men’s, women’s, and children’s clothing to perfectly match individual measurements. We offer high-quality services to ensure each garment is tailored to your taste and body shape. Additionally, your favorite outfits are brought back to life through premium repairs and aesthetic updates of ready-made clothing."
-          }
-        }
-      }
-    },
-    "elatusText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elatus"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elatus"
-          }
         }
       }
     },
@@ -399,46 +195,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "E-mail"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-mail"
-          }
-        }
-      }
-    },
-    "faridAghaDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kişi saç kəsimi, saqqal düzəltmə və baxım prosedurları, eləcə də xüsusi günlər üçün saç dizaynı xidmətləri təklif edir. Peşəkar yanaşma və zövqlü toxunuşla hər müştərinin stilini ön plana çıxarır."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Offers men’s haircuts, beard grooming and care procedures, as well as hair styling services for special occasions. With a professional approach and a touch of style, each client’s look is brought to the forefront."
-          }
-        }
-      }
-    },
-    "faridAghaText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Farid Aghayev"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Farid Aghayev"
           }
         }
       }
@@ -451,12 +207,6 @@
             "state" : "translated",
             "value" : "Rəyinizi buraya yazın..."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Write your feedback here…"
-          }
         }
       }
     },
@@ -467,12 +217,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Təcrübənizi yaxşılaşdırmaq üçün rəyinizi bizimlə bölüşün."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share your feedback with us to improve your experience."
           }
         }
       }
@@ -485,12 +229,6 @@
             "state" : "translated",
             "value" : "Fikrinizi bizimlə bölüşün!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share your opinion with us!"
-          }
         }
       }
     },
@@ -501,12 +239,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rəy bildir"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Send feedback"
           }
         }
       }
@@ -519,12 +251,6 @@
             "state" : "translated",
             "value" : "Rəyinizi yazın"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share your feedback"
-          }
         }
       }
     },
@@ -535,12 +261,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qadın"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Female"
           }
         }
       }
@@ -553,12 +273,6 @@
             "state" : "translated",
             "value" : "Qalereya"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gallery"
-          }
         }
       }
     },
@@ -569,12 +283,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cinsiniz"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gender"
           }
         }
       }
@@ -587,12 +295,6 @@
             "state" : "translated",
             "value" : "Xəta baş verdi."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error has accured."
-          }
         }
       }
     },
@@ -603,12 +305,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Google ilə giriş et"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue with Google"
           }
         }
       }
@@ -621,12 +317,6 @@
             "state" : "translated",
             "value" : "Qonaq uğurla əlavə edildi."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guest added successfully."
-          }
         }
       }
     },
@@ -637,12 +327,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Davam etmək üçün hesab yaratmalısınız!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "To continue, you need to create an account!"
           }
         }
       }
@@ -655,12 +339,6 @@
             "state" : "translated",
             "value" : "Qonaq kimi davam et"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue as a Guest"
-          }
         }
       }
     },
@@ -671,12 +349,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qonaq silindi."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guest deleted."
           }
         }
       }
@@ -689,12 +361,6 @@
             "state" : "translated",
             "value" : "Daha çox məlumat"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More information"
-          }
         }
       }
     },
@@ -705,12 +371,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saxlanılan məlumatlarınız silinəcək."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All your saved data will be deleted."
           }
         }
       }
@@ -723,12 +383,6 @@
             "state" : "translated",
             "value" : "Qonağın adı:"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guest name:"
-          }
         }
       }
     },
@@ -739,12 +393,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dəvətnamə göndərilmə tarixi:"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Invitation sent date:"
           }
         }
       }
@@ -757,12 +405,6 @@
             "state" : "translated",
             "value" : "Qəbul edib"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accepted"
-          }
         }
       }
     },
@@ -773,12 +415,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uyğun deyil"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Declined"
           }
         }
       }
@@ -791,12 +427,6 @@
             "state" : "translated",
             "value" : "Gözləmədə"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pending"
-          }
         }
       }
     },
@@ -807,12 +437,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qonaqların siyahısı"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "List of guests"
           }
         }
       }
@@ -825,12 +449,6 @@
             "state" : "translated",
             "value" : "Qonaqlar"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guests"
-          }
         }
       }
     },
@@ -841,12 +459,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Qonaq məlumatları uğurla dəyişdirildi."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guest info changed successfully."
           }
         }
       }
@@ -859,12 +471,6 @@
             "state" : "translated",
             "value" : "Hazırlıqlar"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preparations"
-          }
         }
       }
     },
@@ -875,46 +481,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ana Səhifə"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Homepage"
-          }
-        }
-      }
-    },
-    "javahirDesDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"Javahir Design” incə zövqlə gəlinliklər hazırlayan bir atelyedir. Burada hər gəlin öz xəyalındakı libası tapır və xüsusi sifarişlə hazırlanan modellərlə fərqlənir. Keyfiyyət və estetik yanaşma atelyemizin əsas prioritetləridir."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\"Javahir Design\" is an atelier that creates bridal gowns with refined taste. Here, every bride finds the dress of her dreams and stands out with custom-made designs. Quality and aesthetic approach are the core priorities of our atelier."
-          }
-        }
-      }
-    },
-    "javahirDesText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Javahir Design"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Javahir Design"
           }
         }
       }
@@ -927,12 +493,6 @@
             "state" : "translated",
             "value" : "JSON parse edilə bilmədi."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "JSON couldn’t be parsed."
-          }
         }
       }
     },
@@ -943,12 +503,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Xınayaxdı"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Henna Night"
           }
         }
       }
@@ -961,63 +515,6 @@
             "state" : "translated",
             "value" : "Xonça"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Khoncha"
-          }
-        }
-      }
-    },
-    "konulKhoncaDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nişan və həri mərasimləriniz üçün zövqlə hazırlanmış xonçalar və 30 nəfərlik tam set kirayəsi ilə xüsusi gününüzü daha da yadda qalan edin."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Make your special day even more memorable with beautifully crafted engagement and henna ceremony khonchas, along with a full 30-person set available for rent."
-          }
-        }
-      }
-    },
-    "konulKhoncaText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Könül Xonça"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konul Khoncha"
-          }
-        }
-      }
-    },
-    "launchMessage" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "İlk öncə daha yaxşı xidmət üçün bir neçə sualı cavablandır!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "First, answer a few questions for better service!"
-          }
         }
       }
     },
@@ -1028,12 +525,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daxil ol"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log in"
           }
         }
       }
@@ -1046,12 +537,6 @@
             "state" : "translated",
             "value" : "Hesaba daxil ol və aramıza qayıt!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log in and join us again!"
-          }
         }
       }
     },
@@ -1062,12 +547,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabdan çıxış etmək istədiyinizə əminsiniz?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Do you really want to log out?"
           }
         }
       }
@@ -1080,12 +559,6 @@
             "state" : "translated",
             "value" : "Hesabdan çıxış"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log out"
-          }
         }
       }
     },
@@ -1096,12 +569,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabdan çıx"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log out"
           }
         }
       }
@@ -1114,12 +581,6 @@
             "state" : "translated",
             "value" : "Kişi"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Male"
-          }
         }
       }
     },
@@ -1130,12 +591,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daha çox"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More"
           }
         }
       }
@@ -1148,12 +603,6 @@
             "state" : "translated",
             "value" : "Adınız"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your name"
-          }
         }
       }
     },
@@ -1164,12 +613,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bağlantı xətası"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Network error"
           }
         }
       }
@@ -1182,12 +625,6 @@
             "state" : "translated",
             "value" : "Zəhmət olmasa internet bağlantınızı yoxlayın."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please check your network connection."
-          }
         }
       }
     },
@@ -1198,63 +635,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Növbəti"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next"
-          }
-        }
-      }
-    },
-    "nurkhinaDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nur Xına Təşkili Zərifə Xanlarovanın rəhbərliyi ilə xına və nişan mərasimlərini zəriflik və ənənə ilə birləşdirərək unudulmaz anlara çevirir. Hər büdcəyə uyğun dekorlar, peşəkar rəqqasə və davulçular, milli rəqslər, mələklərlə gözqamaşdıran girişlər, zövqlə hazırlanmış xonçalar və nişan/həri süfrələri təqdim olunur. Toy və xına aparıcılığı xidmətləri ilə tədbirlər yüksək səviyyədə təşkil olunur – hər detal incəliklə düşünülərək həyata keçirilir."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nur Henna Party, led by Zərifə Xanlarova, transforms henna and engagement ceremonies into unforgettable moments by blending elegance with tradition. We offer decor options to suit every budget, professional dancers and drummers, traditional dances, dazzling entrances with angels, tastefully prepared trays, and beautifully arranged engagement/henna tables.\nWith our wedding and henna hosting services, every event is organized to the highest standard – where every detail is thoughtfully planned and gracefully executed."
-          }
-        }
-      }
-    },
-    "nurkhinaText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nur Xına Təşkili"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nur Henna Party"
-          }
-        }
-      }
-    },
-    "onboardingMessage_First" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toy Sektorunda bütün biznesləri və frilanserləri rahatlıqla bir neçə kliklə tapın!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Easily find all businesses and freelancers in the wedding sector with just a few clicks!"
           }
         }
       }
@@ -1267,29 +647,6 @@
             "state" : "translated",
             "value" : "Görəcəyiniz işləri və Dəvət edəcəyiniz qonaqları bizimlə planlayın!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan your tasks and the guests you’ll invite with us!"
-          }
-        }
-      }
-    },
-    "onboardingtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OLSUN Rəqəmsal Toy Şəbəkəsinə xoş gəlmisiniz!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to OLSUN Digital Wedding Platform!"
-          }
         }
       }
     },
@@ -1300,12 +657,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Məcburi olmayan"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Optional"
           }
         }
       }
@@ -1318,12 +669,6 @@
             "state" : "translated",
             "value" : "və ya"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "or"
-          }
         }
       }
     },
@@ -1333,13 +678,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Partnyorunuzun adı"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partner name"
+            "value" : "Soyadınız"
           }
         }
       }
@@ -1352,12 +691,6 @@
             "state" : "translated",
             "value" : "Daha çox məlumat"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More information"
-          }
         }
       }
     },
@@ -1368,12 +701,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OLSUN Şəbəkəsinin Partnyorları ilə öz ehtiyaclarınıza uyğun xidmətləri tapın!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Find the services that match your needs with the Partners of the OLSUN!"
           }
         }
       }
@@ -1386,12 +713,6 @@
             "state" : "translated",
             "value" : "Partnyorlar"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partners"
-          }
         }
       }
     },
@@ -1402,12 +723,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şifrə"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
           }
         }
       }
@@ -1420,12 +735,6 @@
             "state" : "translated",
             "value" : "Fotoqraf"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Photographer"
-          }
         }
       }
     },
@@ -1436,12 +745,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plan uğurla əlavə edildi."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan added successfully."
           }
         }
       }
@@ -1454,12 +757,6 @@
             "state" : "translated",
             "value" : "Plan silindi."
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan added."
-          }
         }
       }
     },
@@ -1470,12 +767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Planın adı:"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan name:"
           }
         }
       }
@@ -1488,12 +779,6 @@
             "state" : "translated",
             "value" : "Bitmə tarixi:"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deadline:"
-          }
         }
       }
     },
@@ -1504,12 +789,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daha çox məlumat"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "More information"
           }
         }
       }
@@ -1522,12 +801,6 @@
             "state" : "translated",
             "value" : "Bitib"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
         }
       }
     },
@@ -1538,12 +811,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gecikir"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Late"
           }
         }
       }
@@ -1556,12 +823,6 @@
             "state" : "translated",
             "value" : "Gözləmədə"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Waiting"
-          }
         }
       }
     },
@@ -1572,12 +833,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Planlama"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Planning"
           }
         }
       }
@@ -1590,12 +845,6 @@
             "state" : "translated",
             "value" : "Planların siyahısı"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "List of plans"
-          }
         }
       }
     },
@@ -1606,12 +855,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plan məlumatları uğurla dəyişdirildi."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan info changed successfully."
           }
         }
       }
@@ -1624,12 +867,6 @@
             "state" : "translated",
             "value" : "Profil"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profile"
-          }
         }
       }
     },
@@ -1640,12 +877,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ən az 8 simvol"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "• Must have at least 8 characters"
           }
         }
       }
@@ -1658,12 +889,6 @@
             "state" : "translated",
             "value" : "ən az 1 rəqəm"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "• Must have at least 1 number"
-          }
         }
       }
     },
@@ -1674,12 +899,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "yalnız rəqəm və hərflər"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "• Only numbers and letters allowed"
           }
         }
       }
@@ -1692,12 +911,6 @@
             "state" : "translated",
             "value" : "ən az 1 böyük hərf"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "• Must have at least 1 upper case"
-          }
         }
       }
     },
@@ -1708,12 +921,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabınız uğurla yaradıldı!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Account created successfully."
           }
         }
       }
@@ -1726,12 +933,6 @@
             "state" : "translated",
             "value" : "Uğurlu qeydiyyat!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Success!"
-          }
         }
       }
     },
@@ -1742,80 +943,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zəhmət olmasa yenidən giriş edin."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please log back into your account!"
-          }
-        }
-      }
-    },
-    "revaneTortDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hər növ tort və şirniyyat sifarişləri zövqünüzə uyğun şəkildə qəbul olunur. Həm görünüşü ilə göz oxşayan, həm də dadı ilə yadda qalan şirniyyatlar xüsusi günlərinizi daha da şirin edəcək."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Orders for all types of cakes and pastries are accepted and customized to your taste. Visually delightful and memorably delicious, our sweets will make your special days even sweeter."
-          }
-        }
-      }
-    },
-    "revaneTortText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rəvanənin tortları"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Revane’s cakes"
-          }
-        }
-      }
-    },
-    "romanDecDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unudulmaz evlilik təklifləri və romantik anlar üçün zövqlü dekorasiyalarla xidmətinizdədir. Güllər, şamlar, işıqlar və sevgi dolu detallarla hazırlanmış konseptlər xüsusi anlarınızı nağıl kimi yaşadacaq."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "We are at your service with tasteful decorations for unforgettable marriage proposals and romantic moments. Concepts crafted with flowers, candles, lights, and loving details will make your special moments feel like a fairy tale."
-          }
-        }
-      }
-    },
-    "romanDecText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Romantic Decoration"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Romantic Decoration"
           }
         }
       }
@@ -1828,12 +955,6 @@
             "state" : "translated",
             "value" : "Yadda saxla"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save"
-          }
         }
       }
     },
@@ -1844,12 +965,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Məkan"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Location"
           }
         }
       }
@@ -1862,12 +977,6 @@
             "state" : "translated",
             "value" : "Xidmət növü"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Service Type"
-          }
         }
       }
     },
@@ -1878,12 +987,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesab yarat"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create account"
           }
         }
       }
@@ -1896,12 +999,6 @@
             "state" : "translated",
             "value" : "Hesab yarat və bizə qoşul!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create an account and join us!"
-          }
         }
       }
     },
@@ -1909,12 +1006,6 @@
       "extractionState" : "manual",
       "localizations" : {
         "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Status:"
-          }
-        },
-        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Status:"
@@ -1930,12 +1021,6 @@
             "state" : "translated",
             "value" : "Göndər"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Send"
-          }
         }
       }
     },
@@ -1946,46 +1031,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Şirniyyatlar"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sweets"
-          }
-        }
-      }
-    },
-    "turqayDesc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toy və Tədbir Fotoqrafı. Hər anın təbii gözəlliyini və orijinallığını qoruyaraq, xatirələrinizi incə bir yanaşma ilə sənədləşdirir. Çəkilişlərində sadəlik, estetik baxış və duyğunun harmoniyası ön plandadır. Xüsusi günlərinizin ən saf və səmimi anlarını zamansız kadrlarla əbədiləşdirməyi hədəfləyir."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wedding and Event Photographer. Capturing the natural beauty and originality of every moment, documenting your memories with a delicate approach. Simplicity, aesthetic vision, and emotional harmony take center stage in every shoot.\nAiming to immortalize the purest and most sincere moments of your special days with timeless frames."
-          }
-        }
-      }
-    },
-    "turqayText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turqay Zeynallı"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turqay Zeynalli"
           }
         }
       }
@@ -1998,12 +1043,6 @@
             "state" : "translated",
             "value" : "Bəylik Kostyumu"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Groom Suits"
-          }
         }
       }
     },
@@ -2014,12 +1053,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uğurlu dəyişiklik!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Successful update!"
           }
         }
       }
@@ -2032,12 +1065,6 @@
             "state" : "translated",
             "value" : "Videoqraf"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Videographer"
-          }
         }
       }
     },
@@ -2048,12 +1075,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Diqqət!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning!"
           }
         }
       }
@@ -2066,12 +1087,6 @@
             "state" : "translated",
             "value" : "Gəlinliklər"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wedding Dresses"
-          }
         }
       }
     },
@@ -2083,12 +1098,6 @@
             "state" : "translated",
             "value" : "Whatsapp mövcud deyil!"
           }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Whatsapp not available!"
-          }
         }
       }
     },
@@ -2099,12 +1108,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Xəta"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
           }
         }
       }

@@ -1338,7 +1338,6 @@
 			developmentRegion = az;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				az,
 			);
 			mainGroup = 11A7E31C2D8B35BF00D82AF2;

@@ -20,14 +20,6 @@ final class HomeViewController: BaseViewController {
         return view
     }()
     
-    private lazy var homeImageView: UIImageView = {
-        let imageview = UIImageView()
-        imageview.isSkeletonable = true
-        imageview.contentMode = .scaleAspectFit
-        imageview.translatesAutoresizingMaskIntoConstraints = false
-        return imageview
-    }()
-    
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.homeListText.localized,
@@ -102,7 +94,6 @@ final class HomeViewController: BaseViewController {
         print("Language code in UD: \(UserDefaultsHelper.getString(key: .appLanguage))")
 
         
-        homeImageView.loadImage(named: "/img/app/homeImage.png")
         Logger.debug("\(KeychainHelper.getString(key: .userID) ?? "")")
     }
     
@@ -110,22 +101,15 @@ final class HomeViewController: BaseViewController {
         configureNavigationBar()
         print(KeychainHelper.getString(key: .userID) ?? "")
         view.backgroundColor = .white
-        view.addSubViews(loadingView, homeImageView, titleLabel, menuTableView)
+        view.addSubViews(loadingView, titleLabel, menuTableView)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperview()
         
-        homeImageView.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(all: 0)
-        )
-        homeImageView.anchorSize(.init(width: view.frame.width, height: view.frame.width*0.506))
-        
         titleLabel.anchor(
-            top: homeImageView.bottomAnchor,
+            top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             padding: .init(top: 12, left: 16, bottom: 0, right: 0)
         )
@@ -145,43 +129,6 @@ final class HomeViewController: BaseViewController {
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
         navigationController?.navigationBar.backgroundColor = .white
-        
-        let logo = UIImage(named: "olsunHomeLogo")
-        let imageView = UIImageView(image: logo)
-        imageView.contentMode = .scaleAspectFit
-        imageView.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
-        
-        let logoItem = UIBarButtonItem(customView: imageView)
-        navigationItem.leftBarButtonItem = logoItem
-        
-        let profileButton = UIBarButtonItem(
-            image: UIImage(named: "profile"),
-            style: .plain,
-            target: self,
-            action: #selector(profileTabClicked)
-        )
-        
-        let logoutButton = UIBarButtonItem(
-            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
-            style: .plain,
-            target: self,
-            action: #selector(logOutClicked)
-        )
-        
-        let toggleLangButton = UIBarButtonItem(
-            title: LocalizationManager.shared.currentLanguage == "en" ? "EN" : "AZ",
-            style: .plain,
-            target: self,
-            action: #selector(toggleLanguage)
-        )
-        toggleLangButton.tintColor = .primaryHighlight
-        profileButton.tintColor = .primaryHighlight
-        
-        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
-            navigationItem.rightBarButtonItems = [logoutButton, toggleLangButton]
-        } else {
-            navigationItem.rightBarButtonItems = [profileButton, toggleLangButton]
-        }
     }
     
     private func configureViewModel() {

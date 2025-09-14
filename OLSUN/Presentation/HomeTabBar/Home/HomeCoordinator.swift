@@ -41,6 +41,22 @@ final class HomeCoordinator: Coordinator, UserProfileDelegate {
 }
 
 extension HomeCoordinator: HomeNavigation, UserProfileNavigation {
+    func showPlanning() {
+        let planningCoordinator = PlanningCoordinator(navigationController: navigationController)
+        planningCoordinator.parentCoordinator = self
+        planningCoordinator.delegate = delegate
+        children.append(planningCoordinator)
+        planningCoordinator.start()
+    }
+    
+    func showGuests() {
+        let guestsCoordinator = GuestsCoordinator(navigationController: navigationController)
+        guestsCoordinator.parentCoordinator = self
+        guestsCoordinator.delegate = delegate
+        children.append(guestsCoordinator)
+        guestsCoordinator.start()
+    }
+    
     func showProfile() {
         let vc = UserProfileViewController(
             viewModel: .init(

@@ -9,6 +9,7 @@ import Foundation
 import UIKit.UINavigationController
 
 final class PlanningCoordinator: Coordinator, HomeNavigation, UserProfileDelegate {
+    
     func didRequestLogout(type: LogoutType) {
         //
     }
@@ -80,5 +81,13 @@ extension PlanningCoordinator: PlanningNavigation, UserProfileNavigation {
     func showTask(taskItem: ListCellProtocol) {
         let vc = TaskViewController(viewModel: .init(navigation: self, taskUseCase: PlanningAPIService(), taskItem: taskItem))
         showController(vc: vc)
+    }
+    
+    func showPlanning() {
+        //
+    }
+    
+    func showGuests() {
+        //
     }
 }

@@ -9,6 +9,14 @@ import Foundation
 import UIKit.UINavigationController
 
 final class UserProfileCoordinator: Coordinator, HomeNavigation {
+    func showPlanning() {
+        //
+    }
+    
+    func showGuests() {
+        //
+    }
+    
     func showAuth() {
         //
     }

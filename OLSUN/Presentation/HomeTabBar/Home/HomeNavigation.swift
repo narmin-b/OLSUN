@@ -10,4 +10,6 @@ import Foundation
 protocol HomeNavigation: AnyObject {
     func showAuth()
     func showProfile()
+    func showPlanning()
+    func showGuests()
 }

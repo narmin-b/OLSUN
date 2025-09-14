@@ -39,11 +39,11 @@ final class TabBarController: UITabBarController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showFeedbackPopupIfNeeded()
+//        showFeedbackPopupIfNeeded()
     }
 
     @objc private func appWillEnterForeground() {
-        showFeedbackPopupIfNeeded()
+//
     }
     
     private func showFeedbackPopupIfNeeded() {

@@ -34,6 +34,14 @@ final class PartnersCoordinator: Coordinator, UserProfileDelegate {
 }
 
 extension PartnersCoordinator: PartnersNavigation, HomeNavigation {
+    func showPlanning() {
+        //
+    }
+    
+    func showGuests() {
+        //
+    }
+    
     func didRequestLogout(type: LogoutType) {
         //
     }

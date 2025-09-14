@@ -9,6 +9,14 @@ import Foundation
 import UIKit.UINavigationController
 
 final class GuestsCoordinator: Coordinator, HomeNavigation, UserProfileDelegate {
+    func showPlanning() {
+        //
+    }
+    
+    func showGuests() {
+        //
+    }
+    
     func didRequestLogout(type: LogoutType) {
         //
     }

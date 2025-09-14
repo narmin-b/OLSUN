@@ -21,8 +21,7 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
     private let tabBarController = TabBarController()
     private var homeCoordinator: HomeCoordinator?
     private var partnersCoordinator: PartnersCoordinator?
-    private var planningCoordinator: PlanningCoordinator?
-    private var guestsCoordinator: GuestsCoordinator?
+    private var profileCoordinator: UserProfileCoordinator?
 
     init(window: UIWindow, navigationController: UINavigationController) {
         self.window = window
@@ -52,15 +51,10 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         partnersCoordinator?.parentCoordinator = self
         children.append(partnersCoordinator!)
         
-        let planningNavigationController = UINavigationController()
-        planningCoordinator = PlanningCoordinator(navigationController: planningNavigationController)
-        planningCoordinator?.parentCoordinator = self
-        children.append(planningCoordinator!)
-
-        let guestsNavigationController = UINavigationController()
-        guestsCoordinator = GuestsCoordinator(navigationController: guestsNavigationController)
-        guestsCoordinator?.parentCoordinator = self
-        children.append(guestsCoordinator!)
+        let profileNavigationController = UINavigationController()
+        profileCoordinator = UserProfileCoordinator(navigationController: profileNavigationController)
+        profileCoordinator?.parentCoordinator = self
+        children.append(profileCoordinator!)
 
         let homeItem = UITabBarItem()
         homeItem.image = UIImage(named: "Home")
@@ -76,29 +70,21 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         partnersItem.selectedImage = UIImage(systemName: "handbag.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         partnersNavigationController.tabBarItem = partnersItem
         
-        let planningItem = UITabBarItem()
-        planningItem.title = OlsunStrings.planningText.localized
-        planningItem.image = UIImage(named: "DoneFill")?.withTintColor(.black)
-        planningItem.selectedImage = UIImage(named: "Done")?.withTintColor(.black)
-        planningNavigationController.tabBarItem = planningItem
-
-        let guestsItem = UITabBarItem()
-        guestsItem.title = OlsunStrings.guestText.localized
-        guestsItem.image = UIImage(named: "3People")
-        guestsItem.selectedImage = UIImage(named: "3PeopleFill")
-        guestsNavigationController.tabBarItem = guestsItem
+        let profileItem = UITabBarItem()
+        profileItem.title = "Profil"
+        profileItem.image = UIImage(named: "DoneFill")?.withTintColor(.black)
+        profileItem.selectedImage = UIImage(named: "Done")?.withTintColor(.black)
+        profileNavigationController.tabBarItem = profileItem
 
         tabBarController.viewControllers = [
             homeNavigationController,
             partnersNavigationController,
-            planningNavigationController,
-            guestsNavigationController
+            profileNavigationController
         ]
         
         homeCoordinator?.start()
         partnersCoordinator?.start()
-        planningCoordinator?.start()
-        guestsCoordinator?.start()
+        profileCoordinator?.start()
     }
     
     func cleanupChildren() {
@@ -109,8 +95,7 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         
         homeCoordinator = nil
         partnersCoordinator = nil
-        planningCoordinator = nil
-        guestsCoordinator = nil
+        profileCoordinator = nil
     }
 }
 

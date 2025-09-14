@@ -28,11 +28,28 @@ final class HomeViewModel {
     
     // MARK: Navigations
     func userSelectedMenuItem(at index: Int) {
-        tabBarDelegate?.switchToTab(index: index + 1)
+        switch index {
+        case 0:
+            tabBarDelegate?.switchToTab(index: 1)
+        case 1:
+            showPlanningScreen()
+        case 2:
+            showGuestsScreen()
+        default:
+            return
+        }
     }
     
     func showLaunchScreen() {
         navigation?.showAuth()
+    }
+    
+    func showPlanningScreen() {
+        navigation?.showPlanning()
+    }
+    
+    func showGuestsScreen() {
+        navigation?.showGuests()
     }
     
     func showProfileScreen() {

@@ -24,14 +24,7 @@ final class MenuTableCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
+  
     let titleLabel: UILabel = {
         let label = ReusableLabel(
             labelText: "Test",
@@ -44,22 +37,10 @@ final class MenuTableCell: UITableViewCell {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: "Test",
-            labelColor: .gray,
-            labelFont: .workSansRegular,
-            labelSize: 12,
-            numOfLines: 1
-        )
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubViews(iconImageView, titleLabel, descriptionLabel)
+        addSubViews(titleLabel)
         backgroundColor = .secondaryHighlight
         layer.cornerRadius = 16
         contentView.clipsToBounds = true
@@ -73,35 +54,17 @@ final class MenuTableCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        iconImageView.anchor(
-            top: topAnchor,
-            trailing: trailingAnchor,
-            padding: .init(top: 4, left: 0, bottom: 0, right: -24)
-        )
-        iconImageView.anchorSize(.init(
-            width: DeviceSizeClass.current == .compact ? 32 : 40,
-            height: DeviceSizeClass.current == .compact ? 32 : 40
-        ))
-        iconImageView.centerYToView(to: contentView)
-        
         titleLabel.anchor(
             top: topAnchor,
             leading: leadingAnchor,
             trailing: trailingAnchor,
             padding: .init(top: 16, left: 24, bottom: 0, right: -24)
         )
-        descriptionLabel.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: leadingAnchor,
-            padding: .init(top: 2, left: 24, bottom: 0, right: 0)
-        )
     }
     
     func configure(with item: MenuItem) {
         titleLabel.text = item.title
         accessibilityIdentifier = "menuCell_\(item.title)"
-        descriptionLabel.text = item.description
-        iconImageView.image = UIImage(named: item.iconName)
     }
 
     private func loadSVG(urlString: String) {

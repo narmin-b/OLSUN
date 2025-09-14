@@ -133,12 +133,7 @@ final class UserProfileViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let tabBarController = self.tabBarController as? TabBarController {
-            tabBarController.tabBar.isHidden = true
-            tabBarController.customTabBarView.isHidden = true
-        }
-        
+       
         if viewModel?.loginType == "user" {
             showUserProfile()
             viewModel?.getUserInfo()

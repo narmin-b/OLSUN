@@ -83,7 +83,6 @@ final class PartnerGalleryViewController: BaseViewController, UIScrollViewDelega
         super.viewWillAppear(animated)
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = true
-            tabBarController.customTabBarView.isHidden = true
         }
         navigationController?.navigationBar.isHidden = true
     }
@@ -92,7 +91,6 @@ final class PartnerGalleryViewController: BaseViewController, UIScrollViewDelega
         super.viewWillDisappear(animated)
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = false
-            tabBarController.customTabBarView.isHidden = false
         }
         navigationController?.navigationBar.isHidden = false
     }

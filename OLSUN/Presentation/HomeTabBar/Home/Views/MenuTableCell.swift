@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Macaw
 
 struct MenuItem {
     var iconName: String
@@ -15,22 +14,28 @@ struct MenuItem {
 }
 
 final class MenuTableCell: UITableViewCell {
-    private var svgNode: Node?
-
-    let iconView: MacawView = {
-        let view = MacawView()
+    let iconView: UIImageView = {
+        let view = UIImageView()
         view.backgroundColor = .clear
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    let bgView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let gradient = CAGradientLayer()
   
     let titleLabel: UILabel = {
         let label = ReusableLabel(
             labelText: "Test",
-            labelColor: .primaryHighlight,
-            labelFont: .workSansBold,
-            labelSize: 20,
+            labelColor: .neutral800,
+            labelFont: .robotoSerifMedium,
+            labelSize: 24,
             numOfLines: 1
         )
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,13 +45,25 @@ final class MenuTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubViews(titleLabel)
-        backgroundColor = .secondaryHighlight
-        layer.cornerRadius = 16
+        contentView.addSubview(bgView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(iconView)
+        
+        gradient.colors = [UIColor.lg1.cgColor, UIColor.lg2.cgColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        gradient.endPoint   = CGPoint(x: 1, y: 0.5)
+        bgView.layer.insertSublayer(gradient, at: 0)
+
+        contentView.layer.cornerRadius = 8
         contentView.clipsToBounds = true
         selectionStyle = .none
         
         setupConstraints()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradient.frame = bgView.bounds
     }
     
     required init?(coder: NSCoder) {
@@ -54,51 +71,26 @@ final class MenuTableCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        titleLabel.anchor(
-            top: topAnchor,
-            leading: leadingAnchor,
-            trailing: trailingAnchor,
-            padding: .init(top: 16, left: 24, bottom: 0, right: -24)
-        )
+        NSLayoutConstraint.activate([
+            bgView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            bgView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bgView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12).isActive = true
+        
+        iconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        iconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        iconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        iconView.widthAnchor.constraint(equalToConstant: 135).isActive = true
+        iconView.heightAnchor.constraint(equalToConstant: 135).isActive = true
     }
     
     func configure(with item: MenuItem) {
         titleLabel.text = item.title
+        iconView.image = UIImage(named: item.iconName)
         accessibilityIdentifier = "menuCell_\(item.title)"
-    }
-
-    private func loadSVG(urlString: String) {
-        guard let url = URL(string: urlString) else {
-            Logger.debug("❌ Invalid URL: \(urlString)")
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let self = self else { return }
-
-            if let error = error {
-                Logger.debug("❌ SVG download error: \(error)")
-                return
-            }
-
-            guard let data = data,
-                  let svgText = String(data: data, encoding: .utf8) else {
-                Logger.debug("❌ Could not decode SVG data")
-                return
-            }
-
-            Logger.debug("✅ SVG Loaded from URL")
-            Logger.debug("\(svgText.prefix(100))")
-
-            do {
-                let node = try SVGParser.parse(text: svgText)
-                DispatchQueue.main.async {
-                    self.svgNode = node
-                    self.iconView.node = node
-                }
-            } catch {
-                Logger.debug("❌ SVG Parsing failed: \(error)")
-            }
-        }.resume()
     }
 }

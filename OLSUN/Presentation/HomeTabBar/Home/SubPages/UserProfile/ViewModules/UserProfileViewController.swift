@@ -147,7 +147,6 @@ final class UserProfileViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = false
-            tabBarController.customTabBarView.isHidden = false
         }
         
         bottomBorder?.removeFromSuperview()
@@ -223,21 +222,7 @@ final class UserProfileViewController: BaseViewController {
         navigationItem.backBarButtonItem = backItem
         navigationController?.navigationBar.tintColor = .primaryHighlight
         navigationItem.configureNavigationBar(text: OlsunStrings.profileText.localized)
-        
-        let border = UIView()
-        border.backgroundColor = .lightGray.withAlphaComponent(0.5)
-        border.translatesAutoresizingMaskIntoConstraints = false
-        navigationController?.navigationBar.addSubview(border)
-        
-        border.anchorSize(.init(width: 0, height: 4))
-        border.anchor(
-            leading: navigationController!.navigationBar.leadingAnchor,
-            bottom: navigationController!.navigationBar.bottomAnchor,
-            trailing: navigationController!.navigationBar.trailingAnchor,
-            padding: .init(all: 0)
-        )
-        
-        self.bottomBorder = border
+     
     }
     
     private func configureViewModel() {

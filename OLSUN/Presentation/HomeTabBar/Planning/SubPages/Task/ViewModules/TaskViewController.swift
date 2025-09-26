@@ -108,7 +108,6 @@ final class TaskViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = true
-            tabBarController.customTabBarView.isHidden = true
         }
     }
     
@@ -117,7 +116,6 @@ final class TaskViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = false
-            tabBarController.customTabBarView.isHidden = false
         }
     }
     

@@ -28,7 +28,7 @@ final class GuestsViewModel {
     
     // MARK: Navigations
     func guestSelected(guestItem: ListCellProtocol) {
-        navigation?.showGuest(guestItem: guestItem)
+        navigation?.showDirectEditGuest(guestItem: guestItem)
     }
     
     func showAddGuestVC() {

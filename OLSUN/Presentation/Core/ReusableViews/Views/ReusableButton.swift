@@ -21,7 +21,7 @@ class ReusableButton: UIButton {
     init(
         title: String!,
         onAction: (@escaping () -> Void),
-        cornerRad: CGFloat = 12,
+        cornerRad: CGFloat = 16,
         bgColor: UIColor = .primaryHighlight,
         titleColor: UIColor = .backgroundMain,
         titleSize: CGFloat = 16,

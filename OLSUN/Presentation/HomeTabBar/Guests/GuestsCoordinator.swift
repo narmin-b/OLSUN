@@ -88,4 +88,16 @@ extension GuestsCoordinator: GuestsNavigation, UserProfileNavigation {
         let vc = GuestDetailViewController(viewModel: .init(navigation: self, guestUseCase: GuestAPIService(), taskItem: guestItem))
         showController(vc: vc)
     }
+    
+    func showDirectEditGuest(guestItem: ListCellProtocol) {
+        let vc = AddGuestViewController(
+            viewModel: AddGuestViewModel(
+                navigation: self,
+                guestUseCase: GuestAPIService(),
+                guestMode: .edit,
+                guestItem: guestItem
+            )
+        )
+        showController(vc: vc)
+    }
 }

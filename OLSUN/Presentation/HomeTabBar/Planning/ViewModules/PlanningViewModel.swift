@@ -28,7 +28,7 @@ final class PlanningViewModel {
     
     // MARK: Navigations
     func taskSelected(taskItem: ListCellProtocol) {
-        navigation?.showTask(taskItem: taskItem)
+        navigation?.showDirectEditTask(taskItem: taskItem)
     }
     
     func showAddTaskVC() {

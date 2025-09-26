@@ -15,4 +15,5 @@ protocol GuestsNavigation: AnyObject {
     func popController()
     func popTwoControllersBack()
     func showProfile()
+    func showDirectEditGuest(guestItem: ListCellProtocol)
 }

@@ -469,7 +469,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hazırlıqlar"
+            "value" : "Əsas səhifə"
           }
         }
       }
@@ -480,7 +480,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ana Səhifə"
+            "value" : "Əsas səhifə"
           }
         }
       }
@@ -832,7 +832,7 @@
         "az" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Planlama"
+            "value" : "Planlar"
           }
         }
       }

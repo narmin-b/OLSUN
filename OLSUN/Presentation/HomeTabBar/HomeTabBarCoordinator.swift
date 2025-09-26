@@ -57,23 +57,21 @@ final class HomeTabBarCoordinator: Coordinator, HomeTabBarCoordinatorDelegate {
         children.append(profileCoordinator!)
 
         let homeItem = UITabBarItem()
-        homeItem.image = UIImage(named: "Home")
-        homeItem.selectedImage = UIImage(named: "HomeFill")
+        homeItem.image = .homePage
         homeItem.title = OlsunStrings.homeTitle.localized
+        homeItem.setTitleTextAttributes([.font : UIFont(name: FontKeys.robotoSerifRegular.rawValue, size: 12)], for: .normal)
         homeNavigationController.tabBarItem = homeItem
-        homeNavigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        homeNavigationController.navigationBar.shadowImage = UIImage()
 
         let partnersItem = UITabBarItem()
         partnersItem.title = OlsunStrings.partnersText.localized
-        partnersItem.image = UIImage(systemName: "handbag")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        partnersItem.selectedImage = UIImage(systemName: "handbag.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        partnersItem.setTitleTextAttributes([.font : UIFont(name: FontKeys.robotoSerifRegular.rawValue, size: 12)], for: .normal)
+        partnersItem.image = .partnersPage
         partnersNavigationController.tabBarItem = partnersItem
         
         let profileItem = UITabBarItem()
         profileItem.title = "Profil"
-        profileItem.image = UIImage(named: "DoneFill")?.withTintColor(.black)
-        profileItem.selectedImage = UIImage(named: "Done")?.withTintColor(.black)
+        profileItem.setTitleTextAttributes([.font : UIFont(name: FontKeys.robotoSerifRegular.rawValue, size: 12)], for: .normal)
+        profileItem.image = .profilePage
         profileNavigationController.tabBarItem = profileItem
 
         tabBarController.viewControllers = [

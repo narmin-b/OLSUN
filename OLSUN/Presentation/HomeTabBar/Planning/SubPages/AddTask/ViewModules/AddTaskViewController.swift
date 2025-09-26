@@ -22,9 +22,9 @@ final class AddTaskViewController: BaseViewController {
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.planName_Text.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .montserratMedium,
-            labelSize: 24,
+            labelColor: .black,
+            labelFont: .robotoSerifMedium,
+            labelSize: 15,
             numOfLines: 1
         )
         label.textAlignment = .center
@@ -34,105 +34,73 @@ final class AddTaskViewController: BaseViewController {
     
     private lazy var nameTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: "")
+            placeholder: "Planın adını daxil edin",
+            placeholderFont: .robotoSerifMedium,
+            placeholderColor: .gray,
+            cornerRadius: 8,
+            borderColor: .neutraln200,
+            borderWidth: 1
+        )
+        textfield.font = UIFont(name: FontKeys.robotoSerifMedium.rawValue, size: 15)
         textfield.textColor = .black
         textfield.tintColor = .black
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
-    
-    private lazy var dateLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.planningDate_Text.localized,
-            labelColor: .black,
-            labelFont: .montserratMedium,
-            labelSize: 16,
-            numOfLines: 1
-        )
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+   
     private lazy var dateTextField: UITextField = {
         let textfield = ReusableTextField(
-            placeholder: ""
+            placeholder: "Tarix seçin",
+            placeholderColor: .black
         )
-        
-        let rightIcon = UIImageView(image: UIImage(systemName: "calendar"))
-        rightIcon.tintColor = .black
-        rightIcon.isUserInteractionEnabled = true
-        
-        let rightPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: rightIcon.frame.height))
-        rightIcon.frame = CGRect(x: -8, y: 0, width: rightIcon.frame.width, height: rightIcon.frame.height)
-        rightPaddingView.addSubview(rightIcon)
-        
-        textfield.rightView = rightPaddingView
-        textfield.rightViewMode = .always
-        
+        textfield.backgroundColor = .clear
+        textfield.font = UIFont(name: FontKeys.robotoSerifMedium.rawValue, size: 13)
+        textfield.textAlignment = .right
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openDatePicker))
-        rightIcon.addGestureRecognizer(tapGestureRecognizer)
+        textfield.addGestureRecognizer(tapGestureRecognizer)
         
         textfield.textColor = .black
         textfield.tintColor = .clear
-        textfield.addShadow()
         textfield.inputAccessoryView = doneToolBar
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
-    }()
-    
-    private lazy var statusLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.statusText.localized,
-            labelColor: .black,
-            labelFont: .montserratMedium,
-            labelSize: 16,
-            numOfLines: 3
-        )
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
     
     private lazy var statusMenuButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("", for: .normal)
-        button.backgroundColor = .white
+        button.setTitle("Status ", for: .normal)
+        button.titleLabel?.font = UIFont(name: FontKeys.robotoSerifMedium.rawValue, size: 13)
+        button.titleLabel?.textAlignment = .left
+        button.backgroundColor = .clear
         button.layer.cornerRadius = 12
         button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 12, left: -12, bottom: 12, right: 0)
         button.tintColor = .black
         button.showsMenuAsPrimaryAction = true
-        button.addShadow()
-        button.addRightImage(image: UIImage(systemName: "chevron.down")!, offset: 12)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var cancelButton: UIButton = {
-        let button = ReusableButton(
-            title: OlsunStrings.cancelButton.localized,
-            onAction: { [weak self] in self?.cancelTapped() },
-            bgColor: .accentMain,
-            titleColor: .primaryHighlight,
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
-        )
-        button.addShadow()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var dateContainer: UIView = {
+        return makeInputContainer(icon: UIImage(systemName: "calendar")!,
+                                  content: dateTextField,
+                                  storeIn: &dateIconView)
+    }()
+
+    private lazy var statusContainer: UIView = {
+        return makeInputContainer(icon: UIImage(systemName: "clock.badge")!,
+                                  content: statusMenuButton,
+                                  storeIn: &statusIconView)
     }()
     
     private lazy var saveButton: UIButton = {
         let button = ReusableButton(
             title: OlsunStrings.saveButton.localized,
             onAction: { [weak self] in self?.saveTapped() },
-            titleSize: DeviceSizeClass.current == .compact ? 16 : 20,
-            titleFont: .workSansMedium
+            titleSize: 17,
+            titleFont: .robotoSerifSemiBold
         )
-        button.addShadow()
+        button.backgroundColor = .violet700
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -141,10 +109,12 @@ final class AddTaskViewController: BaseViewController {
         let button = UIButton(type: .system)
         let title = OlsunStrings.deletePlan_Text.localized
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: FontKeys.workSansRegular.rawValue, size: 16)!,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .foregroundColor: UIColor.red
+            .font: UIFont(name: FontKeys.robotoSerifSemiBold.rawValue, size: 17)!,
+            .foregroundColor: UIColor.red700
         ]
+        button.layer.cornerRadius = 16
+        button.layer.borderColor = UIColor.red700.cgColor
+        button.layer.borderWidth = 1
         button.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
         button.addTarget(self, action: #selector(deleteTask), for: .touchUpInside)
         button.isHidden = true
@@ -163,6 +133,9 @@ final class AddTaskViewController: BaseViewController {
     
     private let datePicker = UIDatePicker()
     private let toolbar = UIToolbar()
+    private var saveButtonBottomConstraint: NSLayoutConstraint!
+    private var dateIconView: UIImageView?
+    private var statusIconView: UIImageView?
     
     // MARK: Configurations
     private let viewModel: AddTaskViewModel?
@@ -187,7 +160,6 @@ final class AddTaskViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = true
-            tabBarController.customTabBarView.isHidden = true
         }
     }
     
@@ -196,48 +168,52 @@ final class AddTaskViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController as? TabBarController {
             tabBarController.tabBar.isHidden = false
-            tabBarController.customTabBarView.isHidden = false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
+        configureEditMode()
         
-        switch viewModel?.taskMode {
-        case .add:
-            deleteButton.isHidden = true
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
-            let today = Date()
-            dateTextField.text = formatter.string(from: today)
-            datePicker.date = today
-            statusMenuButton.setTitle(OlsunStrings.planningStat_Pending.localized, for: .normal)
-        case .edit:
-            deleteButton.isHidden = false
-            setUpGuestInfo()
-        case .none:
-            return
-        }
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     override func configureView() {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, nameTextField, dateLabel, dateTextField, statusLabel, statusMenuButton, deleteButton, cancelButton, saveButton)
+        view.addSubViews(loadingView, titleLabel, nameTextField, dateContainer, statusContainer, deleteButton, saveButton)
         view.bringSubviewToFront(loadingView)
         
         setupDatePicker()
         
         let menuItems = statusOptions.map { option in
             UIAction(title: option) { [weak self] _ in
-                self?.statusMenuButton.setTitle(option, for: .normal)
+                guard let self = self else { return }
+                self.statusMenuButton.setTitle(option, for: .normal)
+
+                // 🔹 Update container + hide icon
+                self.statusContainer.backgroundColor = .violet50
+                self.statusIconView?.isHidden = true
+
                 Logger.debug("✅ Selected: \(option)")
             }
         }
-        
-        statusMenuButton.menu = UIMenu(title: "", options: .displayInline, children: menuItems)
+        statusMenuButton.menu = UIMenu(children: menuItems)
+        statusMenuButton.showsMenuAsPrimaryAction = true
     }
     
     override func configureConstraint() {
@@ -253,59 +229,44 @@ final class AddTaskViewController: BaseViewController {
             top: titleLabel.bottomAnchor,
             leading: view.leadingAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 32, bottom: 0, right: -32)
+            padding: .init(top: 12, left: 16, bottom: 0, right: -16)
         )
-        nameTextField.anchorSize(.init(width: 0, height: 36))
+        nameTextField.anchorSize(.init(width: 0, height: 64))
         
-        dateLabel.anchor(
+        dateContainer.anchor(
             top: nameTextField.bottomAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 36, left: 16, bottom: 0, right: 0)
+            trailing: view.centerXAnchor,
+            padding: .init(top: 24, left: 16, bottom: 0, right: -8)
         )
-        
-        dateTextField.anchor(
+        dateContainer.anchorSize(.init(width: 0, height: 54))
+
+        statusContainer.anchor(
             top: nameTextField.bottomAnchor,
             leading: view.centerXAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 36, left: 0, bottom: 0, right: -16)
+            padding: .init(top: 24, left: 8, bottom: 0, right: -16)
         )
-        dateTextField.anchorSize(.init(width: 0, height: 36))
-        
-        statusLabel.anchor(
-            top: dateTextField.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 20, left: 16, bottom: 0, right: 0)
-        )
-        
-        statusMenuButton.anchor(
-            top: dateTextField.bottomAnchor,
-            leading: view.centerXAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 0, bottom: 0, right: -16)
-        )
-        statusMenuButton.anchorSize(.init(width: 0, height: 36))
+        statusContainer.anchorSize(.init(width: 0, height: 54))
         
         deleteButton.anchor(
-            bottom: view.bottomAnchor,
-            padding: .init(all: 100)
+            leading: view.leadingAnchor,
+            bottom: saveButton.topAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 16, bottom: -8 , right: -16)
         )
+        deleteButton.anchorSize(.init(width: 0, height: 56))
         deleteButton.centerXToSuperview()
         
-        cancelButton.anchor(
+        saveButton.anchor(
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
-            trailing: view.centerXAnchor,
-            padding: .init(top: 0, left: 32, bottom: -32 , right: -8)
-        )
-        cancelButton.anchorSize(.init(width: 0, height: 48))
-        
-        saveButton.anchor(
-            leading: view.centerXAnchor,
-            bottom: view.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 0, left: 8, bottom: -32 , right: -32)
+            padding: .init(top: 0, left: 16, bottom: -32 , right: -16)
         )
-        saveButton.anchorSize(.init(width: 0, height: 48))
+        saveButton.anchorSize(.init(width: 0, height: 56))
+        saveButtonBottomConstraint = saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32)
+        saveButtonBottomConstraint.isActive = true
     }
     
     fileprivate func configureNavigationBar() {
@@ -369,6 +330,54 @@ final class AddTaskViewController: BaseViewController {
         dateTextField.inputAccessoryView = toolbar
     }
     
+    private func makeInputContainer(icon: UIImage, content: UIView, storeIn storage: inout UIImageView?) -> UIView {
+        let iconView = UIImageView(image: icon)
+        iconView.tintColor = .black
+        iconView.contentMode = .scaleAspectFit
+        iconView.setContentHuggingPriority(.required, for: .horizontal)
+        storage = iconView // save reference
+
+        let stack = UIStackView(arrangedSubviews: [content, iconView])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        let container = UIView()
+        container.backgroundColor = .newGray
+        container.layer.cornerRadius = 16
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(stack)
+
+        NSLayoutConstraint.activate([
+            stack.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            stack.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+        ])
+
+        return container
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+
+            saveButtonBottomConstraint.constant = -keyboardFrame.height - 16
+            UIView.animate(withDuration: duration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        if let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+            saveButtonBottomConstraint.constant = -32
+            UIView.animate(withDuration: duration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
     @objc func openDatePicker() {
         dateTextField.becomeFirstResponder()
     }
@@ -378,6 +387,10 @@ final class AddTaskViewController: BaseViewController {
         uiFormatter.dateFormat = "dd.MM.yyyy"
         dateTextField.text = uiFormatter.string(from: datePicker.date)
         dateTextField.resignFirstResponder()
+
+        // Update UI
+        dateContainer.backgroundColor = .violet50
+        dateIconView?.isHidden = true
     }
     
     @objc private func datePickerCancelPressed() {
@@ -435,6 +448,38 @@ final class AddTaskViewController: BaseViewController {
             Logger.debug("\(taskInput)")
             viewModel?.performEdit(task: taskInput)
         }
+    }
+    
+    private func configureEditMode() {
+        guard viewModel?.taskMode == .edit else { return }
+        var statusString: String?
+        let task = viewModel?.taskItem
+        if task?.statusString.rawValue == "ACCEPTED" {
+            statusString = "Bitmiş"
+        } else if task?.statusString.rawValue == "INVITED" {
+            statusString = "Qəbul edib"
+        } else if task?.statusString.rawValue == "PENDING" {
+            statusString = "Gözləmədə"
+        } else if task?.statusString.rawValue == "DECLINED" {
+            statusString = "Gecikir"
+        } else {
+            statusString = ""
+        }
+        
+        nameTextField.text = task?.titleString
+        
+        dateTextField.text = task?.dateString
+        statusMenuButton.setTitle(statusString, for: .normal)
+        
+        if !(task?.dateString.isEmpty ?? true) {
+            dateContainer.backgroundColor = .violet50
+            dateIconView?.isHidden = true
+        }
+        if !(statusString?.isEmpty ?? true) {
+            statusContainer.backgroundColor = .violet50
+            statusIconView?.isHidden = true
+        }
+        deleteButton.isHidden.toggle()
     }
     
     fileprivate func checkErrorBorders(name: String) {

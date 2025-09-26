@@ -23,9 +23,9 @@ final class HomeViewController: BaseViewController {
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
             labelText: OlsunStrings.homeListText.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .workSansBold,
-            labelSize: 28,
+            labelColor: .black,
+            labelFont: .robotoSerifMedium,
+            labelSize: 24,
             numOfLines: 1
         )
         label.accessibilityIdentifier = "homeTitleLabel"
@@ -57,7 +57,7 @@ final class HomeViewController: BaseViewController {
         ),
         MenuItem(
             iconName: "planningIcon",
-            title: OlsunStrings.planningText.localized,
+            title: "Planlama",
             description: OlsunStrings.planningDesc.localized
         ),
         MenuItem(
@@ -111,7 +111,7 @@ final class HomeViewController: BaseViewController {
         titleLabel.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
+            padding: .init(top: 0, left: 16, bottom: 0, right: 0)
         )
         
         menuTableView.anchor(
@@ -215,7 +215,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 135
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

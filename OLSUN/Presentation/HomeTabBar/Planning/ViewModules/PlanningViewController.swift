@@ -25,28 +25,18 @@ final class PlanningViewController: BaseViewController {
         return refreshControl
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = ReusableLabel(
-            labelText: OlsunStrings.planningVC_Title.localized,
-            labelColor: .primaryHighlight,
-            labelFont: .montserratMedium,
-            labelSize: 24,
-            numOfLines: 1
-        )
-        label.accessibilityIdentifier = "planningTitleLabel"
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private lazy var addTaskButton: UIButton = {
         let button = ReusableButton(
-            title: "",
+            title: "  Planlama yarat",
             onAction: { [weak self] in self?.addTaskButtonTapped() },
-            bgColor: .clear,
+            cornerRad: 12,
+            bgColor: .violet700,
+            titleColor: .white,
+            titleSize: 17,
+            titleFont: .robotoSerifSemiBold,
         )
         button.accessibilityIdentifier = "addTaskButton"
-        let image = UIImage(systemName: "plus")
+        let image = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate).withTintColor(.white)
         let resizedImage = image?.resizeImage(to: CGSize(width: 24, height: 24))
         button.setImage(resizedImage, for: .normal)
         button.tintColor = .primaryHighlight
@@ -98,69 +88,40 @@ final class PlanningViewController: BaseViewController {
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, addTaskButton, tasksTableView)
+        view.addSubViews(loadingView, tasksTableView, addTaskButton)
         view.bringSubviewToFront(loadingView)
     }
     
     override func configureConstraint() {
         loadingView.fillSuperviewSafeAreaLayoutGuide()
         
-        titleLabel.anchor(
-            top: view.safeAreaLayoutGuide.topAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 12, left: 16, bottom: 0, right: 0)
-        )
-        addTaskButton.anchor(
-            trailing: view.trailingAnchor,
-            padding: .init(all: 16)
-        )
-        addTaskButton.anchorSize(.init(width: 32, height: 32))
-        addTaskButton.centerYToView(to: titleLabel)
-        
         tasksTableView.anchor(
-            top: titleLabel.bottomAnchor,
+            top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
             bottom: view.safeAreaLayoutGuide.bottomAnchor,
             trailing: view.trailingAnchor,
-            padding: .init(top: 16, left: 16, bottom: -12, right: -16)
+            padding: .init(top: 0, left: 16, bottom: 0, right: -16)
         )
+        
+        addTaskButton.anchor(
+            leading: view.leadingAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 0, left: 24, bottom: -12, right: -24)
+        )
+        addTaskButton.centerXToSuperview()
+        addTaskButton.anchorSize(.init(width: 0, height: 48))
     }
     
     fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
-        
-        let bottomBorder = UIView()
-        bottomBorder.backgroundColor = .lightGray.withAlphaComponent(0.5)
-        bottomBorder.translatesAutoresizingMaskIntoConstraints = false
-        
-        navigationController?.navigationBar.addSubview(bottomBorder)
-        
-        bottomBorder.anchorSize(.init(width: 0, height: 4))
-        bottomBorder.anchor(
-            leading: navigationController!.navigationBar.leadingAnchor,
-            bottom: navigationController!.navigationBar.bottomAnchor,
-            trailing: navigationController!.navigationBar.trailingAnchor,
-            padding: .init(all: 0)
+        let backItem = UIBarButtonItem(
+            image: UIImage(named: "backButton")?.withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapBack)
         )
-        
-//        let profileButton = UIBarButtonItem(
-//            image: UIImage(named: "profile"),
-//            style: .plain,
-//            target: self,
-//            action: #selector(profileTabClicked)
-//        )
-//        
-//        profileButton.tintColor = .primaryHighlight
-//        
-//        if UserDefaultsHelper.getString(key: .loginType) == "guest" {
-//            navigationItem.rightBarButtonItems = []
-//        } else {
-//            navigationItem.rightBarButtonItems = [profileButton]
-//        }
+        navigationItem.leftBarButtonItem = backItem
+        navigationItem.configureNavigationBar(text: OlsunStrings.planningText.localized)
     }
     
     private func configureViewModel() {
@@ -209,6 +170,10 @@ final class PlanningViewController: BaseViewController {
         viewModel?.showProfileScreen()
     }
     
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     fileprivate func checkGuestAttempts() {
         if viewModel?.taskList.count ?? 0 >= 2 {
             showMessage(title: OlsunStrings.warningText.localized, message: OlsunStrings.guestAttemptLimit_Message.localized)
@@ -236,7 +201,7 @@ extension PlanningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 120
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

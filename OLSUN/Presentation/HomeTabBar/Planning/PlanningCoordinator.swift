@@ -83,6 +83,18 @@ extension PlanningCoordinator: PlanningNavigation, UserProfileNavigation {
         showController(vc: vc)
     }
     
+    func showDirectEditTask(taskItem: ListCellProtocol) {
+        let vc = AddTaskViewController(
+            viewModel: AddTaskViewModel(
+                navigation: self,
+                taskUseCase: PlanningAPIService(),
+                taskMode: .edit,
+                taskItem: taskItem
+            )
+        )
+        showController(vc: vc)
+    }
+    
     func showPlanning() {
         //
     }

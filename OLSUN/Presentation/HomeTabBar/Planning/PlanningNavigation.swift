@@ -14,4 +14,5 @@ protocol PlanningNavigation: AnyObject {
     func popController()
     func popTwoControllersBack()
     func showProfile()
+    func showDirectEditTask(taskItem: ListCellProtocol)
 }

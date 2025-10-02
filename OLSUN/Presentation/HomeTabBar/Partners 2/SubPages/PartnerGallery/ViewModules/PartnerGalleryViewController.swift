@@ -170,6 +170,12 @@ final class PartnerGalleryViewController: BaseViewController, UIScrollViewDelega
 
     private func loadImage(animated: Bool = false, direction: UISwipeGestureRecognizer.Direction? = nil) {
         guard let viewModel = viewModel else { return }
+        guard viewModel.selectedIndex >= 0,
+              viewModel.selectedIndex < viewModel.limitedGallery.count else {
+            print("⚠️ selectedIndex is out of bounds")
+            return
+        }
+
         let media = viewModel.limitedGallery[viewModel.selectedIndex]
         countLabel.text = "\(viewModel.selectedIndex + 1)/\(viewModel.limitedGallery.count)"
 

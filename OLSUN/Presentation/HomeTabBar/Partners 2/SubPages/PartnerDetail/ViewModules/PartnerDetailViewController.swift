@@ -89,10 +89,13 @@ final class PartnerDetailViewController: BaseViewController {
     }
     
     fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
+        let backItem = UIBarButtonItem(
+            image: UIImage(named: "backButton")?.withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapBack)
+        )
+        navigationItem.leftBarButtonItem = backItem
         navigationItem.configureNavigationBar(text: viewModel?.newPartner?.name ?? "Partner")
     }
     
@@ -117,81 +120,73 @@ final class PartnerDetailViewController: BaseViewController {
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, _ in
+            let layout = PartnerDetailLayout()
             switch sectionIndex {
-            case 0:
-                return PartnerDetailLayout().headerSection()
-            case 1:
-                return PartnerDetailLayout().gallerySection()
-            case 2:
-                return PartnerDetailLayout().contactSection()
-            default:
-                return nil
+            case 0: return layout.galleryHeaderSection()
+            case 1: return layout.aboutSection()
+            case 2: return layout.contactSection()
+            default: return nil
             }
         }
+    }
+    
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension PartnerDetailViewController: UICollectionViewDelegate,
                                        UICollectionViewDataSource,
                                        UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return (viewModel?.newPartner?.gallery.count ?? 0)
         case 1:
-            return min(viewModel?.newPartner?.gallery.count ?? 0, 3)
+            return 1
         case 2:
             return viewModel?.newPartner?.contact.count ?? 0
         default:
             return 0
         }
     }
-    
-    func numberOfSections(
-        in collectionView: UICollectionView
-    ) -> Int { 3 }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
+            let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: GalleryCell.identifier,
+                    for: indexPath
+                ) as! GalleryCell
+
+                guard let gallery = viewModel?.newPartner?.gallery else { return cell }
+                let isFirst = indexPath.item == 0
+                let isLast = indexPath.item == gallery.count - 1
+
+                cell.configureCell(withURl: gallery[indexPath.item])
+                cell.configureArrows(showPrev: !isFirst, showNext: !isLast)
+                cell.delegate = self
+
+                return cell
+        case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
             cell.delegate = self
-            cell.configureCell(with: (viewModel?.newPartner)!)
-            return cell
-            
-        case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as? GalleryCell else {
-                return UICollectionViewCell()
+            if let partner = viewModel?.newPartner {
+                cell.configureCell(with: partner)
             }
-            guard let gallery = viewModel?.newPartner?.gallery, indexPath.item < 3 else {
-                return UICollectionViewCell()
-            }
-
-            let imageName = gallery[indexPath.item]
-            cell.configureCell(withURl: imageName)
-
             return cell
-            
+
         case 2:
-            guard let contact = viewModel?.newPartner?.contact[indexPath.item],
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContactCell", for: indexPath) as? ContactCell else {
-                return UICollectionViewCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContactCell", for: indexPath) as! ContactCell
+            if let contact = viewModel?.newPartner?.contact[indexPath.item] {
+                cell.configureCell(with: contact)
             }
-            
-            cell.onIconTap = { [weak self] icon in
-                let dto = clickDataModel(
-                    vendorId: self?.viewModel?.newPartner?.id ?? 0,
-                    platformId: icon.platformName
-                )
-                self?.viewModel?.addIconClick(dto: dto)
-                
-            }
-            
-            cell.configureCell(with: contact)
             return cell
-            
+
         default:
-            fatalError("Unknown section")
+            return UICollectionViewCell()
         }
     }
     
@@ -204,9 +199,9 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
         
         switch indexPath.section {
         case 1:
-            header.configure(with: OlsunStrings.galleryText.localized)
+            header.configure(with: "Haqqında", icon: "exclamationmark.circle")
         case 2:
-            header.configure(with: OlsunStrings.contactText.localized)
+            header.configure(with: OlsunStrings.contactText.localized, icon: "headset")
         default:
             return header
         }
@@ -215,8 +210,7 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            print(indexPath.row)
+        if indexPath.section == 0 {
             viewModel?.showPartnerGallery(
                 partner: (viewModel?.newPartner)!,
                 index: indexPath.row
@@ -225,13 +219,28 @@ extension PartnerDetailViewController: UICollectionViewDelegate,
     }
 }
 
-extension PartnerDetailViewController: HeaderCellDelegate {
+extension PartnerDetailViewController: HeaderCellDelegate, GalleryCellDelegate {
+    func didTapPrevious(in cell: GalleryCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let prevIndex = max(indexPath.item - 1, 0)
+        let target = IndexPath(item: prevIndex, section: indexPath.section)
+        collectionView.scrollToItem(at: target, at: .centeredHorizontally, animated: true)
+    }
+    
+    func didTapNext(in cell: GalleryCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let itemCount = collectionView.numberOfItems(inSection: indexPath.section)
+        let nextIndex = min(indexPath.item + 1, itemCount - 1)
+        let target = IndexPath(item: nextIndex, section: indexPath.section)
+        collectionView.scrollToItem(at: target, at: .centeredHorizontally, animated: true)
+    }
+    
     func didTapReadMore(in cell: HeaderCell) {
-            guard let indexPath = collectionView.indexPath(for: cell) else { return }
-
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
-                cell.toggleDescription()
-                self.collectionView.performBatchUpdates(nil)
-            }, completion: nil)
-        }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
+            cell.toggleDescription()
+            self.collectionView.performBatchUpdates(nil)
+        }, completion: nil)
+    }
 }

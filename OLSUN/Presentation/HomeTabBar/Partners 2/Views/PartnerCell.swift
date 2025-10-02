@@ -38,31 +38,40 @@ class PartnerCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 16
+        iv.layer.cornerRadius = 5
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
     
-    private lazy var nameLabel: UILabel = {
-        let size: CGFloat = {
-            switch DeviceSizeClass.current {
-            case .iPad:
-                return 32
-            case .compact:
-                return 12
-            default:
-                return 16
-            }
-        }()
+    private lazy var darkOverlay: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.clipsToBounds = true
+//        
+//        let dimView = UIView()
+//        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.05)
+//        dimView.translatesAutoresizingMaskIntoConstraints = false
+//        blurView.contentView.addSubview(dimView)
         
+//        NSLayoutConstraint.activate([
+//            dimView.topAnchor.constraint(equalTo: blurView.contentView.topAnchor),
+//            dimView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
+//            dimView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
+//            dimView.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor)
+//        ])
+//        
+        return blurView
+    }()
+    
+    private lazy var nameLabel: UILabel = {
         let label = ReusableLabel(
             labelText: "",
-            labelColor: .black,
-            labelFont: .montserratMedium,
-            labelSize: size,
-            numOfLines: 1,
+            labelColor: .white,
+            labelFont: .robotoSerifMedium,
+            labelSize: 13,
+            numOfLines: 1
         )
-        label.accessibilityIdentifier = "partnersCellTitleLabel"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -71,26 +80,14 @@ class PartnerCell: UICollectionViewCell {
     private lazy var tagLabel: UILabel = {
         let label = ReusableLabel(
             labelText: "",
-            labelColor: .black,
-            labelFont: .montserratMedium,
-            labelSize: DeviceSizeClass.current == .iPad ? 20 : 12,
-            numOfLines: 1,
-            bgColor: .secondaryHighlight,
+            labelColor: .neutral400,
+            labelFont: .robotoSerifRegular,
+            labelSize: 11,
+            numOfLines: 1
         )
-        label.accessibilityIdentifier = "partnerDescCellTitleLabel"
         label.textAlignment = .left
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    private lazy var darkOverlay: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.gray.withAlphaComponent(0.3)
-        view.layer.cornerRadius = 16
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     override init(frame: CGRect) {
@@ -98,51 +95,41 @@ class PartnerCell: UICollectionViewCell {
         setupViews()
         layoutViews()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupViews() {
-        contentView.layer.cornerRadius = 12
+        contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
-
-        contentView.addSubview(darkOverlay)
-        darkOverlay.addSubview(imageView)
-        imageView.addSubview(tagLabel)
-        contentView.addSubviews(nameLabel)
+        
+        contentView.addSubview(imageView)
+        imageView.addSubview(darkOverlay)
+        darkOverlay.contentView.addSubviews(nameLabel, tagLabel)
     }
-
+    
     private func layoutViews() {
-        darkOverlay.anchor(
-            top: contentView.topAnchor,
-            leading: contentView.leadingAnchor,
-            trailing: contentView.trailingAnchor,
-            padding: .init(all: 4)
-        )
-        darkOverlay.anchorSize(.init(width: darkOverlay.frame.width, height: contentView.frame.height * 0.75))
-        
-        imageView.anchor(
-            top: darkOverlay.topAnchor,
-            leading: darkOverlay.leadingAnchor,
-            bottom: darkOverlay.bottomAnchor,
-            trailing: darkOverlay.trailingAnchor,
-            padding: .init(all: 2)
-        )
-        
-        tagLabel.anchor(
-            top: imageView.topAnchor,
-            leading: imageView.leadingAnchor,
-            padding: .init(all: 8)
-        )
-        tagLabel.anchorSize(.init(width: 0, height: DeviceSizeClass.current == .iPad ? 28 : 20))
-       
-        nameLabel.anchor(
-            top: darkOverlay.bottomAnchor,
-            leading: contentView.leadingAnchor,
-            trailing: contentView.trailingAnchor,
-            padding: .init(all: 8)
-        )
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            darkOverlay.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            darkOverlay.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            darkOverlay.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            darkOverlay.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),
+            
+            nameLabel.topAnchor.constraint(equalTo: darkOverlay.topAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: darkOverlay.leadingAnchor, constant: 8),
+            nameLabel.trailingAnchor.constraint(equalTo: darkOverlay.trailingAnchor, constant: -8),
+            
+            tagLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            tagLabel.leadingAnchor.constraint(equalTo: darkOverlay.leadingAnchor, constant: 8),
+            tagLabel.trailingAnchor.constraint(equalTo: darkOverlay.trailingAnchor, constant: -8),
+            tagLabel.bottomAnchor.constraint(lessThanOrEqualTo: darkOverlay.bottomAnchor, constant: -8)
+        ])
     }
     
     func configureCell(with partner: newPartner) {

@@ -349,7 +349,7 @@ final class AddGuestViewController: BaseViewController {
               let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
 
         let keyboardHeight = keyboardFrame.height
-        saveButtonBottomConstraint.constant = -keyboardHeight - 16 // 16pt padding above keyboard
+        saveButtonBottomConstraint.constant = -keyboardHeight - 16
         
         UIView.animate(withDuration: duration,
                        delay: 0,

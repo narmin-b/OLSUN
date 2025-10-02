@@ -27,14 +27,14 @@ final class PartnersViewController: BaseViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = ReusableLabel(
-            labelText: OlsunStrings.partnersSubtitle.localized,
+            labelText: "Partnyorlar",
             labelColor: .black,
-            labelFont: .montserratMedium,
-            labelSize: DeviceSizeClass.current == .compact ? 16 : 18,
-            numOfLines: 2
+            labelFont: .robotoSerifMedium,
+            labelSize: 24,
+            numOfLines: 1
         )
-        label.accessibilityIdentifier = "partnersTitleLabel"
-        label.textAlignment = .left
+        label.accessibilityIdentifier = "homeTitleLabel"
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -78,8 +78,8 @@ final class PartnersViewController: BaseViewController {
     private lazy var partnersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 12
+        layout.minimumInteritemSpacing = 12
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -87,9 +87,32 @@ final class PartnersViewController: BaseViewController {
         collectionView.backgroundColor = .white
         collectionView.refreshControl = refreshControl
         collectionView.register(PartnerCell.self, forCellWithReuseIdentifier: PartnerCell.identifier)
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
+    }()
+    
+    private lazy var filterCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: FilterCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private var filterOptions: [FilterOption] = {
+        var options = [FilterOption(title: "Hamısı", isSelected: true)] // Default selected
+        options.append(contentsOf: ServiceType.allCases.map {
+            FilterOption(title: $0.localizedName, isSelected: false)
+        })
+        return options
     }()
     
     // MARK: Configurations
@@ -101,7 +124,7 @@ final class PartnersViewController: BaseViewController {
     private var activeDropdownButton: UIButton?
     private var selectedType: ServiceType?
     private var selectedLocation: ServiceLocation?
-     
+    
     init(viewModel: PartnersViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -114,7 +137,7 @@ final class PartnersViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewModel()
@@ -124,62 +147,25 @@ final class PartnersViewController: BaseViewController {
     }
     
     override func configureView() {
-
+        
         configureNavigationBar()
         
         view.backgroundColor = .white
-        view.addSubViews(loadingView, titleLabel, typeMenuButton, locationMenuButton, partnersCollectionView)
+        view.addSubViews(loadingView, titleLabel, partnersCollectionView, filterCollectionView)
         view.bringSubviewToFront(loadingView)
-        
-        typeDropdown.options = ServiceType.allCases.map { $0.localizedName }
-        typeDropdown.onSelect = { [weak self] selected in
-            let title = selected ?? OlsunStrings.serviceTypeText.localized
-            self?.typeMenuButton.setTitle(title, for: .normal)
-
-            self?.selectedType = ServiceType.fromLocalizedName(selected ?? "")
-            self?.filterPartners()
-            self?.hideDropdown(self?.typeMenuButton ?? UIButton())
-        }
-
-        
-        typeDropdown.translatesAutoresizingMaskIntoConstraints = false
-        typeDropdown.isHidden = true
-        view.addSubview(typeDropdown)
-        
-        typeDropdown.anchorSize(.init(width: 0, height: ServiceType.allCases.count * 44))
-        NSLayoutConstraint.activate([
-            typeDropdown.topAnchor.constraint(equalTo: typeMenuButton.bottomAnchor, constant: 4),
-            typeDropdown.leadingAnchor.constraint(equalTo: typeMenuButton.leadingAnchor),
-            typeDropdown.widthAnchor.constraint(equalTo: typeMenuButton.widthAnchor, constant: 60),
-        ])
-        
-        
-        locationDropdown.options = ServiceLocation.allCases.map { $0.localizedName }
-        locationDropdown.onSelect = { [weak self] selected in
-            let title = selected ?? OlsunStrings.serviceLocText.localized
-            self?.locationMenuButton.setTitle(title, for: .normal)
-
-            self?.selectedLocation = ServiceLocation.fromLocalizedName(selected ?? "")
-            self?.filterPartners()
-            self?.hideDropdown(self?.locationMenuButton ?? UIButton())
-        }
-        locationDropdown.translatesAutoresizingMaskIntoConstraints = false
-        locationDropdown.isHidden = true
-        view.addSubview(locationDropdown)
-        
-        locationDropdown.anchorSize(.init(width: 0, height: ServiceLocation.allCases.count * 44))
-        NSLayoutConstraint.activate([
-            locationDropdown.topAnchor.constraint(equalTo: locationMenuButton.bottomAnchor, constant: 4),
-            locationDropdown.trailingAnchor.constraint(equalTo:  view.trailingAnchor, constant: -20),
-            locationDropdown.widthAnchor.constraint(equalTo: locationMenuButton.widthAnchor, constant: 60),
-        ])
-     }
+    }
     
     private func filterPartners() {
-        viewModel?.protocolList = viewModel?.allProtocolList.filter { partner in
-            let typeMatches = selectedType == nil || partner.category == selectedType
-            return typeMatches
-        } ?? []
+        if filterOptions.first?.isSelected == true {
+            viewModel?.protocolList = viewModel?.allProtocolList ?? []
+        } else {
+            let selectedTitles = filterOptions.filter { $0.isSelected && $0.title != "All" }.map { $0.title }
+            let selectedTypes = selectedTitles.compactMap { ServiceType.fromLocalizedName($0) }
+            
+            viewModel?.protocolList = viewModel?.allProtocolList.filter { partner in
+                selectedTypes.contains(partner.category ?? .decoration)
+            } ?? []
+        }
         partnersCollectionView.reloadData()
     }
     
@@ -190,17 +176,17 @@ final class PartnersViewController: BaseViewController {
             showDropdown(button)
         }
     }
-
+    
     private func showDropdown(_ button: UIButton) {
         activeDropdownButton = button
-
+        
         dropdownOverlay.frame = view.bounds
         dropdownOverlay.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         dropdownOverlay.isUserInteractionEnabled = true
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDropdownOverlay))
         dropdownOverlay.addGestureRecognizer(tapGesture)
-
+        
         view.addSubview(dropdownOverlay)
         
         if button == typeMenuButton {
@@ -212,7 +198,7 @@ final class PartnersViewController: BaseViewController {
             view.bringSubviewToFront(locationDropdown)
             locationDropdown.isHidden = false
         }
-
+        
         isDropdownVisible = true
     }
     
@@ -220,7 +206,7 @@ final class PartnersViewController: BaseViewController {
         guard let button = activeDropdownButton else { return }
         hideDropdown(button)
     }
-
+    
     @objc private func hideDropdown(_ button: UIButton) {
         dropdownOverlay.removeFromSuperview()
         if button == typeMenuButton {
@@ -237,39 +223,27 @@ final class PartnersViewController: BaseViewController {
         titleLabel.anchor(
             top: view.safeAreaLayoutGuide.topAnchor,
             leading: view.leadingAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 24, bottom: 0, right: -24)
+            padding: .init(top: 0, left: 16, bottom: 0, right: 0)
         )
-        
-        typeMenuButton.anchor(
-            top: titleLabel.bottomAnchor,
-            leading: view.leadingAnchor,
-            padding: .init(top: 20, left: 20, bottom: 0, right: 0)
-        )
-        typeMenuButton.anchorSize(.init(width: view.frame.width/2 - 24, height: DeviceSizeClass.current == .compact ? 36 : 44))
-        
-        locationMenuButton.anchor(
-            top: titleLabel.bottomAnchor,
-            trailing: view.trailingAnchor,
-            padding: .init(top: 20, left: 0, bottom: 0, right: -20)
-        )
-        locationMenuButton.anchorSize(.init(width: view.frame.width/2 - (DeviceSizeClass.current == .compact ? 66 : 88), height: DeviceSizeClass.current == .compact ? 36 : 44))
-        
+       
         partnersCollectionView.anchor(
-            top: typeMenuButton.bottomAnchor,
+            top: filterCollectionView.bottomAnchor,
             leading: view.leadingAnchor,
             bottom: view.safeAreaLayoutGuide.bottomAnchor,
             trailing: view.trailingAnchor,
             padding: .init(top: 8, left: 0, bottom: 0, right: 0)
         )
+        
+        filterCollectionView.anchor(
+            top: titleLabel.bottomAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: .init(top: 20, left: 20, bottom: 0, right: -20)
+        )
+        filterCollectionView.anchorSize(.init(width: 0, height: 36))
     }
     
     fileprivate func configureNavigationBar() {
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        navigationController?.navigationBar.tintColor = .primaryHighlight
-        navigationItem.configureNavigationBar(text: OlsunStrings.partnersText.localized)
     }
     
     private func configureViewModel() {
@@ -298,36 +272,81 @@ final class PartnersViewController: BaseViewController {
     @objc private func reloadPage() {
         viewModel?.refreshAllVendorList()
     }
+    
+    @objc private func clearFilters() {
+        filterOptions = filterOptions.map { FilterOption(title: $0.title, isSelected: false) }
+        filterCollectionView.reloadData()
+        filterPartners()
+    }
+    
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension PartnersViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.protocolList.count ?? 0
+        if collectionView == partnersCollectionView {
+            return viewModel?.protocolList.count ?? 0
+        } else {
+            return filterOptions.count
         }
-
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == partnersCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PartnerCell.identifier, for: indexPath) as! PartnerCell
             if let partner = viewModel?.protocolList[safe: indexPath.item] {
                 cell.configureCell(with: partner)
             }
             return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCell.identifier, for: indexPath) as! FilterCell
+            cell.configure(with: filterOptions[indexPath.item])
+            return cell
         }
-
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == partnersCollectionView {
             let width = (collectionView.frame.width - 48) / 2
             return CGSize(width: width, height: width - 16)
+        } else {
+            let title = filterOptions[indexPath.item].title
+            let width = (title as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 14)]).width + 24
+            return CGSize(width: width, height: 32)
         }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard
-            ((viewModel?.allProtocolList.indices.contains(indexPath.item)) != nil),
-            let newPartner = viewModel?.allProtocolList[indexPath.item]
-        else {
-            print("Index out of range for partners or protocolList at item:", indexPath.item)
-            return
+        if collectionView == partnersCollectionView {
+            
+            guard
+                ((viewModel?.allProtocolList.indices.contains(indexPath.item)) != nil),
+                let newPartner = viewModel?.allProtocolList[indexPath.item]
+            else {
+                print("Index out of range for partners or protocolList at item:", indexPath.item)
+                return
+            }
+            viewModel?.addViewCount(partner: newPartner)
+            
+            viewModel?.showPartnerDetailVC(newPartner: newPartner)
+        } else {
+            if indexPath.item == 0 {
+                for i in 0..<filterOptions.count {
+                    filterOptions[i].isSelected = (i == 0)
+                }
+            } else {
+                filterOptions[0].isSelected = false
+                filterOptions[indexPath.item].isSelected.toggle()
+                
+                if !filterOptions.contains(where: { $0.isSelected }) {
+                    filterOptions[0].isSelected = true
+                }
+            }
+            
+            collectionView.reloadData()
+            filterPartners()
         }
-        viewModel?.addViewCount(partner: newPartner)
-
-        viewModel?.showPartnerDetailVC(newPartner: newPartner)
     }
 }
